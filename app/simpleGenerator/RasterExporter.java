@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.sampler;
+package org.fleen.forsythia.app.simpleGenerator;
 
 import java.awt.image.BufferedImage;
 import java.io.File;

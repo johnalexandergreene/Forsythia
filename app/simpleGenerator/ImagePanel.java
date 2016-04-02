@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.sampler;
+package org.fleen.forsythia.app.simpleGenerator;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -15,7 +15,7 @@ public class ImagePanel extends JPanel{
    * ################################
    */
   
-  ImagePanel(Sampler sampler){
+  ImagePanel(SimpleGenerator sampler){
     this.sampler=sampler;}
   
   /*
@@ -24,7 +24,7 @@ public class ImagePanel extends JPanel{
    * ################################
    */
   
-  Sampler sampler;
+  SimpleGenerator sampler;
   
   /*
    * ################################

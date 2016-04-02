@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.sampler;
+package org.fleen.forsythia.app.simpleGenerator;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -16,7 +16,7 @@ import org.fleen.forsythia.grammar.ForsythiaGrammar;
 import org.fleen.forsythia.util.simpleComposer.ForsythiaSimpleComposer;
 import org.fleen.forsythia.util.simpleRenderer.ForsythiaSimpleRenderer;
 
-public class Sampler{
+public class SimpleGenerator{
   
   /*
    * ################################
@@ -24,7 +24,7 @@ public class Sampler{
    * ################################
    */
   
-  public Sampler(){
+  public SimpleGenerator(){
     initUI();}
   
   /*
@@ -33,18 +33,18 @@ public class Sampler{
    * ################################
    */
   
-  private static final String TITLE="Fleen Sampler 0.2";
+  private static final String TITLE="Fleen Simple Generator 0.3";
   
   private static final int ERRORMESSAGEFONTSIZE=24;
   private static final Font ERRORMESSAGEFONT=new Font("Sans",Font.PLAIN,ERRORMESSAGEFONTSIZE);
   
-  public SamplerUI ui;
+  public UI ui;
   
   private void initUI(){
     EventQueue.invokeLater(new Runnable(){
       public void run(){
         try{
-          ui=new SamplerUI(Sampler.this);
+          ui=new UI(SimpleGenerator.this);
           ui.setDefaultWindowBounds();
           ui.setVisible(true);
           ui.setTitle(TITLE);
@@ -399,6 +399,6 @@ public class Sampler{
    */
   
   public static final void main(String[] a){
-    new Sampler();}
+    new SimpleGenerator();}
   
 }

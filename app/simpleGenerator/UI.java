@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.sampler;
+package org.fleen.forsythia.app.simpleGenerator;
 
 import java.awt.Color;
 import java.awt.Cursor;
@@ -27,11 +27,11 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
-public class SamplerUI extends JFrame {
+public class UI extends JFrame {
 
 	private static final long serialVersionUID = -2749846443106819716L;
 	
-	public Sampler sampler;
+	public SimpleGenerator sampler;
 	
 	JPanel contentPane;
 	JPanel pancontrol;
@@ -51,7 +51,7 @@ public class SamplerUI extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SamplerUI frame = new SamplerUI(null);
+					UI frame = new UI(null);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -64,7 +64,7 @@ public class SamplerUI extends JFrame {
 	 * Create the frame.
 	 */
 	
-	public SamplerUI(Sampler s){
+	public UI(SimpleGenerator s){
 	  sampler=s;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 900);
