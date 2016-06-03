@@ -164,6 +164,7 @@ public class FPolygon extends ForsythiaTreeNode implements Tagged{
   public DPolygon getDPolygon(){
     if(dpolygon==null)
       initDPolygon();
+    dpolygon.object=this;//because it is very handy
     return dpolygon;}
   
   private void initDPolygon(){

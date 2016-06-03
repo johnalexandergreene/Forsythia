@@ -93,8 +93,10 @@ public abstract class ForsythiaSimpleRenderer_Abstract implements ForsythiaSimpl
    * ################################
    */
   
+  BufferedImage image;
+  
   public BufferedImage getImage(int width,int height,ForsythiaComposition composition){
-    BufferedImage image=getInitImage(width,height);
+    image=getInitImage(width,height);
     AffineTransform transform=getTransform(width,height,composition);
     Graphics2D graphics=(Graphics2D)image.getGraphics();
     graphics.setTransform(transform);

@@ -26,7 +26,7 @@ public class ForsythiaComposition implements Forsythia{
    * ################################
    */
   
-  private ForsythiaGrammar grammar=null;
+  protected ForsythiaGrammar grammar=null;
   
   public void setGrammar(ForsythiaGrammar grammar){
     this.grammar=grammar;}
