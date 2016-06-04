@@ -237,9 +237,9 @@ public class Editor_CreateJigGeometry extends Editor{
     
     //TODO debug
     
-    System.out.println("---------------------------");
-    System.out.println(rawgraph.getDisconnectedGraph());
-    System.out.println("---------------------------");
+//    System.out.println("---------------------------");
+//    System.out.println(rawgraph.getDisconnectedGraph());
+//    System.out.println("---------------------------");
     rawgraph.invalidateDisconnectedGraph();
     
   }

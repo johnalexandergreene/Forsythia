@@ -38,7 +38,7 @@ public class GrammarImportExport{
     }catch(Exception x){
       x.printStackTrace();}
     GE.focusgrammar=new ProjectGrammar(fg);
-    System.out.println("imported : "+fg);
+//    System.out.println("imported : "+fg);
     initFocusElementsForNewGrammar();}
   
   private static final void initFocusElementsForNewGrammar(){
