@@ -1,5 +1,6 @@
 package org.fleen.forsythia.app.grammarEditor.generator;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -10,7 +11,7 @@ import org.fleen.forsythia.app.grammarEditor.compositionExporter.CompositionExpo
 import org.fleen.forsythia.composition.ForsythiaComposition;
 import org.fleen.forsythia.util.simpleComposer.FSC_Basic;
 import org.fleen.forsythia.util.simpleComposer.ForsythiaSimpleComposer;
-import org.fleen.forsythia.util.simpleRenderer.FSR_SymmetricRandomColorWithBlackStrokes;
+import org.fleen.forsythia.util.simpleRenderer.FSR_EggLevelSplitPaletteWithStrokes;
 import org.fleen.forsythia.util.simpleRenderer.ForsythiaSimpleRenderer;
 
 
@@ -108,7 +109,7 @@ public class Generator{
     CompositionExportConfig ec=GE.config.getCompositionExportConfig();
     
     ec.setCompositionExportDir(new File("/home/john/Desktop/quasarcompositionexport"));
-    ec.setRasterImagePreferredDimensions(833,500);
+    ec.setRasterImagePreferredDimensions(2500,1000);
     
     //generator
     GeneratorConfig gc=GE.config.getGeneratorConfig();
@@ -116,9 +117,33 @@ public class Generator{
     gc.setComposer(new FSC_Basic());
 //    gc.setComposer(new FC_ChorusedVaryingDetailAreas());
     
-//    gc.setRenderer(new FR_EggLevelWithStrokes());
-//    gc.setRenderer(new FR_JustStrokes());
-    gc.setRenderer(new FSR_SymmetricRandomColorWithBlackStrokes());
+    
+    
+//    Color[] 
+//      color0={new Color(89,200,223),new Color(43,148,100)},
+//      color1={new Color(245,223,101),new Color(209,77,40)};
+    
+//    //most of mystery machine
+//  Color[] 
+//      color0={new Color(247,120,37),new Color(211,206,61)},
+//      color1={new Color(241,239,165),new Color(96,185,154)};
+    
+    //strong rainbow
+    Color[] 
+      color0={new Color(255,128,0),new Color(255,255,0)},
+      color1={new Color(255,0,0),new Color(255,0,255)};
+    
+    Color strokecolor=Color.black;
+    float strokewidth=0.008f;
+    
+    gc.setRenderer(new FSR_EggLevelSplitPaletteWithStrokes(color0,color1,strokecolor,strokewidth));
+    
+    
+    
+    
+    
+//    gc.setRenderer(new FSR_JustStrokes());
+//    gc.setRenderer(new FSR_SymmetricRandomColorWithBlackStrokes());
     
     
     
@@ -172,8 +197,8 @@ public class Generator{
     
     //TODO
   //for hexagon
-  ec.rasterimagepreferredwidth=2000;
-  ec.rasterimagepreferredheight=2300;
+//  ec.rasterimagepreferredwidth=2500;
+//  ec.rasterimagepreferredheight=2000;
   
   //for 12x36 poster
   //3600x10800

@@ -39,7 +39,7 @@ public class FSC_Basic extends ForsythiaSimpleComposer_Abstract{
    * ################################
    */
   
-  public static final double DETAILSIZEFLOOR_DEFAULT=0.05;
+  public static final double DETAILSIZEFLOOR_DEFAULT=0.07;
   private double detailsizefloor;
   
   /*
