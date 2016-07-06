@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.simpleGenerator;
+package org.fleen.forsythia.app.bread;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -16,7 +16,7 @@ import org.fleen.forsythia.grammar.ForsythiaGrammar;
 import org.fleen.forsythia.util.simpleComposer.ForsythiaSimpleComposer;
 import org.fleen.forsythia.util.simpleRenderer.ForsythiaSimpleRenderer;
 
-public class SimpleGenerator{
+public class BreadGenerator{
   
   /*
    * ################################
@@ -24,7 +24,7 @@ public class SimpleGenerator{
    * ################################
    */
   
-  public SimpleGenerator(){
+  public BreadGenerator(){
     initUI();}
   
   /*
@@ -44,7 +44,7 @@ public class SimpleGenerator{
     EventQueue.invokeLater(new Runnable(){
       public void run(){
         try{
-          ui=new UI(SimpleGenerator.this);
+          ui=new UI(BreadGenerator.this);
           ui.setDefaultWindowBounds();
           ui.setVisible(true);
           ui.setTitle(TITLE);
@@ -413,6 +413,6 @@ public class SimpleGenerator{
    */
   
   public static final void main(String[] a){
-    new SimpleGenerator();}
+    new BreadGenerator();}
   
 }

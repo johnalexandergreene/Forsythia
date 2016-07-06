@@ -109,7 +109,7 @@ public class Generator{
     CompositionExportConfig ec=GE.config.getCompositionExportConfig();
     
     ec.setCompositionExportDir(new File("/home/john/Desktop/quasarcompositionexport"));
-    ec.setRasterImagePreferredDimensions(2500,1000);
+    ec.setRasterImagePreferredDimensions(860,980);
     
     //generator
     GeneratorConfig gc=GE.config.getGeneratorConfig();
