@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import org.fleen.forsythia.composition.ForsythiaComposition;
 import org.fleen.forsythia.grammar.ForsythiaGrammar;
 import org.fleen.forsythia.util.simpleComposer.ForsythiaSimpleComposer;
+import org.fleen.forsythia.util.simpleRenderer.FSR_EggLevelSplitPaletteWithStrokes_RasterMapped;
 import org.fleen.forsythia.util.simpleRenderer.ForsythiaSimpleRenderer;
 
 public class BreadGenerator{
@@ -33,7 +34,7 @@ public class BreadGenerator{
    * ################################
    */
   
-  private static final String TITLE="Fleen Simple Generator 0.3";
+  private static final String TITLE="Fleen Bread Generator 0.1";
   
   private static final int ERRORMESSAGEFONTSIZE=24;
   private static final Font ERRORMESSAGEFONT=new Font("Sans",Font.PLAIN,ERRORMESSAGEFONTSIZE);
@@ -49,126 +50,69 @@ public class BreadGenerator{
           ui.setVisible(true);
           ui.setTitle(TITLE);
           ui.txtinterval.setText(String.valueOf(CREATION_INTERVAL_DEFAULT));
-          ui.txtgrammar.setText(GRAMMAR_FILE_PATH_DEFAULT);
-          ui.txtcomposer.setText(COMPOSER_FILE_PATH_DEFAULT);
-          ui.txtrenderer.setText(RENDERER_FILE_PATH_DEFAULT);
-          ui.txtexportdir.setText(EXPORT_DIR_PATH_DEFAULT);
          }catch(Exception e){
            e.printStackTrace();}}});}
 
   /*
    * ################################
-   * GRAMMAR
+   * GRAMMAR, COMPOSER, RENDERER (?) AND EXPORT DIR
    * ################################
    */
   
-  private static final String GRAMMAR_FILE_PATH_DEFAULT=
-    "/home/john/projects/code/Forsythia/src/org/fleen/forsythia/samples/grammars/2016_06_05/g000_hexroot_kindasimple";
+  ForsythiaGrammar grammar=importGrammar();
+  ForsythiaSimpleComposer composer=new Composer000();
+  //we're gonna use painters instead. One painter for each polygon. some random params, 60 cycles
+  //we paint to a raster map
+  //then we create a bitmap image from that
+  //but for now we're just gonna render the usual way till we get it somewhat working
   
-  private ForsythiaGrammar getGrammar(){
-    ForsythiaGrammar grammar=null;
-    try{
-      File f=new File(ui.txtgrammar.getText());
-      grammar=importGrammarFromFile(f);
-    }catch(Exception x){}
-    if(grammar==null)
-      printGrammarImportFailed();
-    return grammar;}
+  static final Color[] 
+      COLOR0={new Color(255,141,0),new Color(208,255,138)},
+      COLOR1={new Color(255,13,219),new Color(232,197,12)};
+    static final Color COLOR_STROKE=new Color(64,64,64);
   
-  private ForsythiaGrammar importGrammarFromFile(File file){
-    FileInputStream fis;
-    ObjectInputStream ois;
-    ForsythiaGrammar g=null;
-    try{
-      fis=new FileInputStream(file);
-      ois=new ObjectInputStream(fis);
-      g=(ForsythiaGrammar)ois.readObject();
-      ois.close();
-    }catch(Exception x){}
-    return g;}
-  
-  private void printGrammarImportFailed(){
-    Graphics2D g=initImageForError();
-    g.setPaint(Color.white);
-    g.setFont(ERRORMESSAGEFONT);
-    g.drawString("GRAMMAR IMPORT FAILED!",20,60);
-    ui.panimage.repaint();}
+  ForsythiaSimpleRenderer renderer=new Renderer000(COLOR0,COLOR1,Color.black,0.005f);
+  String exportdirpath="/home/john/Desktop/breadexport";
   
   /*
    * ################################
-   * COMPOSER
+   * GRAMMAR IMPORT
    * ################################
    */
   
-  private static final String COMPOSER_FILE_PATH_DEFAULT="/home/john/projects/code/Forsythia/src/org/fleen/forsythia/samples/composers/FSC_Basic";
+  private static final String GRAMMAR_FILE_PATH=
+      "/home/john/projects/code/Forsythia/src/org/fleen/forsythia/samples/grammars/2016_06_05/g000_hexroot_kindasimple";
+    
+    private ForsythiaGrammar importGrammar(){
+      ForsythiaGrammar grammar=null;
+      try{
+        File f=new File(GRAMMAR_FILE_PATH);
+        grammar=importGrammarFromFile(f);
+      }catch(Exception x){}
+      if(grammar==null)
+        printGrammarImportFailed();
+      return grammar;}
+    
+    private ForsythiaGrammar importGrammarFromFile(File file){
+      FileInputStream fis;
+      ObjectInputStream ois;
+      ForsythiaGrammar g=null;
+      try{
+        fis=new FileInputStream(file);
+        ois=new ObjectInputStream(fis);
+        g=(ForsythiaGrammar)ois.readObject();
+        ois.close();
+      }catch(Exception x){}
+      return g;}
+    
+    private void printGrammarImportFailed(){
+      Graphics2D g=initImageForError();
+      g.setPaint(Color.white);
+      g.setFont(ERRORMESSAGEFONT);
+      g.drawString("GRAMMAR IMPORT FAILED!",20,60);
+      ui.panimage.repaint();}
   
-  private ForsythiaSimpleComposer getComposer(){
-    ForsythiaSimpleComposer composer=null;
-    try{
-      File f=new File(ui.txtcomposer.getText());
-      composer=importComposerFromFile(f);
-    }catch(Exception x){}
-    if(composer==null)
-      printComposerImportFailed();
-    return composer;}
-  
-  private ForsythiaSimpleComposer importComposerFromFile(File file){
-    FileInputStream fis;
-    ObjectInputStream ois;
-    ForsythiaSimpleComposer c=null;
-    try{
-      fis=new FileInputStream(file);
-      ois=new ObjectInputStream(fis);
-      c=(ForsythiaSimpleComposer)ois.readObject();
-      ois.close();
-    }catch(Exception x){}
-    return c;}
-  
-  private void printComposerImportFailed(){
-    Graphics2D g=initImageForError();
-    g.setPaint(Color.white);
-    g.setFont(ERRORMESSAGEFONT);
-    g.drawString("COMPOSER IMPORT FAILED!",20,60);
-    ui.panimage.repaint();}
-  
-  /*
-   * ################################
-   * RENDERER
-   * ################################
-   */
-  
-  private static final String RENDERER_FILE_PATH_DEFAULT=
-    "/home/john/projects/code/Forsythia/src/org/fleen/forsythia/samples/renderers/FSR_EggLevelSplitPaletteWithStrokes";
-  
-  //returns null on fail
-  private ForsythiaSimpleRenderer getRenderer(){
-    ForsythiaSimpleRenderer renderer=null;
-    try{
-      File f=new File(ui.txtrenderer.getText());
-      renderer=importRendererFromFile(f);
-    }catch(Exception x){}
-    if(renderer==null)
-      printRendererImportFailed();
-    return renderer;}
-  
-  private ForsythiaSimpleRenderer importRendererFromFile(File file){
-    FileInputStream fis;
-    ObjectInputStream ois;
-    ForsythiaSimpleRenderer r=null;
-    try{
-      fis=new FileInputStream(file);
-      ois=new ObjectInputStream(fis);
-      r=(ForsythiaSimpleRenderer)ois.readObject();
-      ois.close();
-    }catch(Exception x){}
-    return r;}
-  
-  private void printRendererImportFailed(){
-    Graphics2D g=initImageForError();
-    g.setPaint(Color.white);
-    g.setFont(ERRORMESSAGEFONT);
-    g.drawString("RENDERER IMPORT FAILED!",20,60);
-    ui.panimage.repaint();}
+
   
   /*
    * ################################
@@ -233,16 +177,10 @@ public class BreadGenerator{
   
   /*
    * ################################
-   * CREATION PROCESS
+   * COMPOSITION CONTROL
    * ################################
    */
   
-  //keep this stuff class-level because it's useful
-  ForsythiaGrammar grammar;
-  ForsythiaSimpleComposer composer;
-  //TODO renderer needs to persist the colors
-  //we should deal with the strokewidth in a nonabsolute way too, so it isn't skinny for big images
-  ForsythiaSimpleRenderer renderer;
   ForsythiaComposition composition;
   
   
@@ -253,12 +191,6 @@ public class BreadGenerator{
    */
   
   private void doIntermittantCreation(){
-    grammar=getGrammar();
-    if(grammar==null)return;
-    ForsythiaSimpleComposer composer=getComposer();
-    if(composer==null)return;
-    renderer=getRenderer();
-    if(renderer==null)return;
     composition=composer.compose(grammar);
     image=renderer.getImage(ui.panimage.getWidth(),ui.panimage.getHeight(),composition);
     ui.panimage.repaint();
@@ -275,13 +207,6 @@ public class BreadGenerator{
   private boolean stopcontinuouscreation;
   
   private void startContinuousCreation(){
-    grammar=getGrammar();
-    if(grammar==null)return;
-    composer=getComposer();
-    if(composer==null)return;
-    renderer=getRenderer();
-    if(renderer==null)return;
-    //
     stopcontinuouscreation=false;
     new Thread(){
       public void run(){
@@ -335,8 +260,6 @@ public class BreadGenerator{
    * use the image size specified in the ui
    * ################################
    */
-  
-  private static final String EXPORT_DIR_PATH_DEFAULT="/home/john/Desktop/sgexport";
   
   private static final int 
     EXPORTMODE_MANUAL=0,
@@ -394,7 +317,7 @@ public class BreadGenerator{
   private File getExportDir(){
     File exportdir=null;
     try{
-      exportdir=new File(ui.txtexportdir.getText());
+      exportdir=new File(exportdirpath);
     }catch(Exception x){}
     return exportdir;}
   

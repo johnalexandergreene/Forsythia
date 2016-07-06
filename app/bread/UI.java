@@ -37,8 +37,7 @@ public class UI extends JFrame {
 	JPanel pancontrol;
   ImagePanel panimage;
 	JTextField 
-	  txtinterval,txtgrammar,txtcomposer,
-	  txtrenderer,txtexportsize,txtexportdir;
+	  txtinterval,txtexportsize;
 	JButton lblmode,lblstartstop;
 	JCheckBox chkautoexport;
 	
@@ -67,7 +66,7 @@ public class UI extends JFrame {
 	public UI(BreadGenerator s){
 	  sampler=s;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 900);
+		setBounds(100, 100, 800, 709);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -75,21 +74,6 @@ public class UI extends JFrame {
 		
 		pancontrol = new JPanel();
 		pancontrol.setBorder(new LineBorder(new Color(0, 0, 0)));
-		
-		txtgrammar = new JTextField("grammarfile");
-		txtgrammar.setToolTipText("Path to Grammar File");
-		txtgrammar.setFont(new Font("DejaVu Sans Mono", Font.BOLD, 16));
-		txtgrammar.setBackground(new Color(255, 192, 203));
-		
-		txtcomposer = new JTextField("composerfile");
-		txtcomposer.setToolTipText("Path to Composer File");
-		txtcomposer.setBackground(new Color(255, 192, 203));
-		txtcomposer.setFont(new Font("DejaVu Sans Mono", Font.BOLD, 16));
-		
-		txtrenderer = new JTextField("rendererfile");
-		txtrenderer.setToolTipText("Path to Renderer File");
-		txtrenderer.setBackground(new Color(255, 192, 203));
-		txtrenderer.setFont(new Font("DejaVu Sans Mono", Font.BOLD, 16));
 		
 		JPanel pangenerate = new JPanel();
 		pangenerate.setBackground(new Color(250, 250, 210));
@@ -107,29 +91,16 @@ public class UI extends JFrame {
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(204, 255, 204));
 		
-		txtexportdir = new JTextField();
-		txtexportdir.setToolTipText("Path to Export Dir");
-		txtexportdir.setBackground(new Color(255, 192, 203));
-		txtexportdir.setFont(new Font("DejaVu Sans Mono", Font.BOLD, 16));
-		txtexportdir.setText("exportdir");
-		txtexportdir.setColumns(10);
-		
 		GroupLayout gl_pancontrol = new GroupLayout(pancontrol);
 		gl_pancontrol.setHorizontalGroup(
 		  gl_pancontrol.createParallelGroup(Alignment.LEADING)
 		    .addGroup(gl_pancontrol.createSequentialGroup()
 		      .addContainerGap()
-		      .addGroup(gl_pancontrol.createParallelGroup(Alignment.LEADING)
-		        .addComponent(txtgrammar, GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
-		        .addGroup(gl_pancontrol.createSequentialGroup()
-		          .addComponent(pangenerate, GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
-		          .addPreferredGap(ComponentPlacement.RELATED)
-		          .addComponent(panel, GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
-		          .addPreferredGap(ComponentPlacement.RELATED)
-		          .addComponent(btnfullscreen, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE))
-		        .addComponent(txtcomposer, GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
-		        .addComponent(txtrenderer, GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE)
-		        .addComponent(txtexportdir, GroupLayout.DEFAULT_SIZE, 625, Short.MAX_VALUE))
+		      .addComponent(pangenerate, GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+		      .addPreferredGap(ComponentPlacement.RELATED)
+		      .addComponent(panel, GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
+		      .addPreferredGap(ComponentPlacement.RELATED)
+		      .addComponent(btnfullscreen, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
 		      .addContainerGap())
 		);
 		gl_pancontrol.setVerticalGroup(
@@ -140,15 +111,7 @@ public class UI extends JFrame {
 		        .addComponent(panel, GroupLayout.PREFERRED_SIZE, 57, Short.MAX_VALUE)
 		        .addComponent(btnfullscreen, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
 		        .addComponent(pangenerate, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
-		      .addPreferredGap(ComponentPlacement.UNRELATED)
-		      .addComponent(txtgrammar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-		      .addPreferredGap(ComponentPlacement.RELATED)
-		      .addComponent(txtcomposer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-		      .addPreferredGap(ComponentPlacement.RELATED)
-		      .addComponent(txtrenderer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-		      .addPreferredGap(ComponentPlacement.RELATED)
-		      .addComponent(txtexportdir, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-		      .addContainerGap())
+		      .addGap(134))
 		);
 		
 		txtexportsize = new JTextField();
@@ -260,17 +223,17 @@ public class UI extends JFrame {
 		gl_contentPane.setHorizontalGroup(
 		  gl_contentPane.createParallelGroup(Alignment.TRAILING)
 		    .addGroup(gl_contentPane.createSequentialGroup()
-		      .addContainerGap()
+		      .addGap(12)
 		      .addComponent(pancontrol, GroupLayout.DEFAULT_SIZE, 772, Short.MAX_VALUE)
-		      .addContainerGap())
+		      .addGap(12))
 		    .addComponent(panimage, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 796, Short.MAX_VALUE)
 		);
 		gl_contentPane.setVerticalGroup(
 		  gl_contentPane.createParallelGroup(Alignment.TRAILING)
 		    .addGroup(gl_contentPane.createSequentialGroup()
-		      .addComponent(panimage, GroupLayout.DEFAULT_SIZE, 654, Short.MAX_VALUE)
+		      .addComponent(panimage, GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
 		      .addPreferredGap(ComponentPlacement.UNRELATED)
-		      .addComponent(pancontrol, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+		      .addComponent(pancontrol, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
 		      .addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);
