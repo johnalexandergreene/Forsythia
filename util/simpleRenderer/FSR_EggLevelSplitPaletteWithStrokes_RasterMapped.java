@@ -11,9 +11,9 @@ import org.fleen.forsythia.composition.FPolygon;
 import org.fleen.forsythia.composition.FPolygonSignature;
 import org.fleen.forsythia.composition.ForsythiaComposition;
 import org.fleen.geom_2D.DPolygon;
-import org.fleen.geom_2D.polygonRasterMap.Cell;
-import org.fleen.geom_2D.polygonRasterMap.PolygonRasterMap;
-import org.fleen.geom_2D.polygonRasterMap.Presence;
+import org.fleen.geom_2D.rasterMap.Cell;
+import org.fleen.geom_2D.rasterMap.Presence;
+import org.fleen.geom_2D.rasterMap.RasterMap;
 
 public class FSR_EggLevelSplitPaletteWithStrokes_RasterMapped extends ForsythiaSimpleRenderer_Abstract{
   
@@ -76,7 +76,7 @@ public class FSR_EggLevelSplitPaletteWithStrokes_RasterMapped extends ForsythiaS
   
   protected void render(ForsythiaComposition forsythia,Graphics2D graphics,AffineTransform transform){
     int w=image.getWidth(),h=image.getHeight();
-    PolygonRasterMap rastermap=new PolygonRasterMap(w,h,transform,GLOWSPAN);
+    RasterMap rastermap=new RasterMap(w,h,transform,GLOWSPAN);
     DPolygon dpolygon;
     for(FPolygon fpolygon:forsythia.getLeafPolygons()){
       dpolygon=fpolygon.getDPolygon();

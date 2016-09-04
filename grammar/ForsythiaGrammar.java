@@ -47,7 +47,7 @@ public class ForsythiaGrammar implements Forsythia,Serializable{
   
   /*
    * ++++++++++++++++++++++++++++++++
-   * METAGONS
+   * METAGONS (OPERANDS IN THE ABSTRACT)
    * ++++++++++++++++++++++++++++++++
    */
 
@@ -63,7 +63,10 @@ public class ForsythiaGrammar implements Forsythia,Serializable{
   
   /*
    * ++++++++++++++++++++++++++++++++
-   * JIGS
+   * OPERATORS
+   * TODO rename jig to operator for all of forsythia
+   * reserve jig for maximilian, it has broader meaning. Forsythia is just "splitters". Just operators.
+   * Forsythia is a pure parameterless shape grammar, unlike maximilian
    * ++++++++++++++++++++++++++++++++
    */
   

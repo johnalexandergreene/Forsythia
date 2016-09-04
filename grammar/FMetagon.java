@@ -54,6 +54,9 @@ public class FMetagon extends KMetagon implements Serializable,Tagged,Forsythia{
   public boolean hasTag(String tag){
     return tagmanager.hasTag(tag);}
   
+  public boolean hasTags(String... tags){
+    return tagmanager.hasTags(tags);}
+  
   /*
    * ################################
    * GENERAL PURPOSE OBJECT

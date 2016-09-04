@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fleen.forsythia.grammar.FMetagon;
+import org.fleen.geom_2D.DCircle;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;
 import org.fleen.geom_2D.GD;
@@ -198,6 +199,7 @@ public class FPolygon extends ForsythiaTreeNode implements Tagged{
    * ++++++++++++++++++++++++++++++++
    * DETAIL SIZE
    * The diameter of the incircle
+   * TODO this chould be in DPolygon
    * ++++++++++++++++++++++++++++++++
    */
   
@@ -210,7 +212,8 @@ public class FPolygon extends ForsythiaTreeNode implements Tagged{
   
   /*
    * ++++++++++++++++++++++++++++++++
-   * MISC
+   * PERIMETER AND AREA
+   * TODO this chould be in DPolygon
    * ++++++++++++++++++++++++++++++++
    */
   
@@ -218,15 +221,15 @@ public class FPolygon extends ForsythiaTreeNode implements Tagged{
   
   public double getPerimeter2D(){
     if(perimeter2d==-1)
-      initMiscGeom();
+      initPerimeterAndArea();
     return perimeter2d;}
   
   public double getArea2D(){
     if(area2d==-1)
-      initMiscGeom();
+      initPerimeterAndArea();
     return area2d;}
   
-  private void initMiscGeom(){
+  private void initPerimeterAndArea(){
     double[][] a=getDPolygonAsDoubleArray();
     perimeter2d=GD.getPerimeter(a);
     area2d=GD.getAbsArea2D(a);}

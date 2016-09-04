@@ -26,6 +26,7 @@ public class JigSection implements Serializable,Forsythia{
   
   public JigSection(FMetagon productmetagon,KAnchor productanchor,int productchorusindex,String[] producttags){
     this.productmetagon=productmetagon;
+//    this.productanchor=new KAnchor(productanchor);//isolate it
     this.productanchor=productanchor;
     this.productchorusindex=productchorusindex;
     this.tags=new TagManager(producttags);}
