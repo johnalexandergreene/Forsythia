@@ -97,7 +97,7 @@ public abstract class ForsythiaSimpleComposer_Abstract implements ForsythiaSimpl
       throw new IllegalArgumentException("this grammar has no metagons");
     List<FMetagon> rootmetagons=new ArrayList<FMetagon>();
     for(FMetagon m:metagons)
-      if(m.hasTag("root"))
+      if(m.hasTags("root"))
         rootmetagons.add(m);
     FMetagon m;
     if(!rootmetagons.isEmpty())

@@ -209,7 +209,7 @@ public abstract class ForsythiaSimpleRenderer_Abstract implements ForsythiaSimpl
     while(n!=null){
       if(n instanceof FPolygon){
         p=(FPolygon)n;
-        if(p.hasTag(tag))
+        if(p.hasTags(tag))
           c++;}
       n=n.getParent();}
     return c;}

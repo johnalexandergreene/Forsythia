@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fleen.forsythia.grammar.FMetagon;
-import org.fleen.geom_2D.DCircle;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;
 import org.fleen.geom_2D.GD;
@@ -38,13 +37,13 @@ public class FPolygon extends ForsythiaTreeNode implements Tagged{
    * ################################
    */
   
-  public FPolygon(FMetagon metagon,KAnchor anchor,int chorusindex,String[] tags){
+  public FPolygon(FMetagon metagon,KAnchor anchor,int chorusindex,List<String> tags){
     this.metagon=metagon;
     this.anchor=anchor;
     this.chorusindex=chorusindex;
     
     //get tags from metagon and jig section
-    initTags(metagon.getTags());
+    setTags(metagon.getTags());
     tagmanager.addTags(tags);
     
     initVertices();}
@@ -271,24 +270,37 @@ public class FPolygon extends ForsythiaTreeNode implements Tagged{
   /*
    * ################################
    * TAGS
-   * We get tags 3 ways
-   * 
-   * there is a productiontags, gotten from the section of the jig that makes this polygon
-   * tags from this polygon's metagon
-   * tags from analysis
    * ################################
    */
   
   private TagManager tagmanager=new TagManager();
   
-  public String[] getTags(){
-    return tagmanager.getTags();}
-  
-  public void initTags(String[] tags){
+  public void setTags(String... tags){
     tagmanager.setTags(tags);}
   
-  public boolean hasTag(String tag){
-    return tagmanager.hasTag(tag);}
+  public void setTags(List<String> tags){
+    tagmanager.setTags(tags);}
+  
+  public List<String> getTags(){
+    return tagmanager.getTags();}
+  
+  public boolean hasTags(String... tags){
+    return tagmanager.hasTags(tags);}
+  
+  public boolean hasTags(List<String> tags){
+    return tagmanager.hasTags(tags);}
+  
+  public void addTags(String... tags){
+    tagmanager.addTags(tags);}
+  
+  public void addTags(List<String> tags){
+    tagmanager.addTags(tags);}
+  
+  public void removeTags(String... tags){
+    tagmanager.removeTags(tags);}
+  
+  public void removeTags(List<String> tags){
+    tagmanager.removeTags(tags);}
   
   /*
    * ################################

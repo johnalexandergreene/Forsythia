@@ -80,8 +80,8 @@ public class ProjectMetagon implements Serializable,ElementMenuItem{
   
   public String tags="";
   
-  private void setTagsForImport(String[] tags){
-    if(tags.length==0){
+  private void setTagsForImport(List<String> tags){
+    if(tags.isEmpty()){
       this.tags="";
       return;}
     StringBuffer a=new StringBuffer();
