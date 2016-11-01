@@ -64,7 +64,7 @@ public class FSR_SymmetricRandomColorWithBlackStrokes extends ForsythiaSimpleRen
    * ################################
    */
   
-  private static final float STROKEWIDTH_DEFAULT=0.01f;
+  private static final float STROKEWIDTH_DEFAULT=0.005f;
   private float strokewidth=STROKEWIDTH_DEFAULT;
   
   private Stroke createStroke(){

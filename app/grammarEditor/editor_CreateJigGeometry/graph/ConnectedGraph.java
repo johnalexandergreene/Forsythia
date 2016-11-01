@@ -299,6 +299,9 @@ public class ConnectedGraph implements TreeNode{
   public boolean hasChildren(){
     return treenodeservices.hasChildren();}
   
+  public void removeChild(TreeNode child){
+    treenodeservices.removeChild(child);}
+  
   public void clearChildren(){
     treenodeservices.clearChildren();}
   

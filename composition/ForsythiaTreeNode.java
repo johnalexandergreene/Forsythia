@@ -62,6 +62,9 @@ public abstract class ForsythiaTreeNode implements TreeNode,Serializable,Forsyth
   public void clearChildren(){
     treenodeservices.clearChildren();}
   
+  public void removeChild(TreeNode child){
+    treenodeservices.removeChild(child);}
+  
   public void removeChildren(Collection<? extends TreeNode> children){
     treenodeservices.removeChildren(children);}
   

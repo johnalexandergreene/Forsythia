@@ -212,6 +212,10 @@ public class Generator{
 //    ec.rasterimagepreferredwidth=4000;
 //    ec.rasterimagepreferredheight=4600;
     
+  //for sticker
+  ec.rasterimagepreferredwidth=2000;
+  ec.rasterimagepreferredheight=3000;
+    
     
     BufferedImage image=gc.getRenderer().getImage(ec.rasterimagepreferredwidth,ec.rasterimagepreferredheight,composition);
     stop=true;
