@@ -11,7 +11,7 @@ import java.io.Serializable;
 import javax.swing.JFileChooser;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.grammar.ForsythiaGrammar;
+import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 
 /*
  * converts the project grammar into a serialized forsythia grammar and saves it somewhere.

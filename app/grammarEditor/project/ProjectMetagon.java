@@ -10,7 +10,7 @@ import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.util.ElementMenuItem;
 import org.fleen.forsythia.app.grammarEditor.util.UI;
-import org.fleen.forsythia.grammar.FMetagon;
+import org.fleen.forsythia.core.grammar.FMetagon;
 import org.fleen.geom_2D.DPolygon;
 import org.fleen.geom_Kisrhombille.KMetagon;
 import org.fleen.geom_Kisrhombille.KPolygon;

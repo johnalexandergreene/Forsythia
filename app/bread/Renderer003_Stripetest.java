@@ -10,10 +10,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import org.fleen.forsythia.composition.FPolygon;
-import org.fleen.forsythia.composition.FPolygonSignature;
-import org.fleen.forsythia.composition.ForsythiaComposition;
-import org.fleen.forsythia.util.simpleRenderer.ForsythiaSimpleRenderer_Abstract;
+import org.fleen.forsythia.core.composition.FPolygon;
+import org.fleen.forsythia.core.composition.FPolygonSignature;
+import org.fleen.forsythia.core.composition.ForsythiaComposition;
+import org.fleen.forsythia.junk.simpleRenderer.ForsythiaSimpleRenderer_Abstract;
 
 public class Renderer003_Stripetest extends ForsythiaSimpleRenderer_Abstract{
   

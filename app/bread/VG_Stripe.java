@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import org.fleen.forsythia.composition.FGrid;
-import org.fleen.forsythia.composition.FPolygon;
+import org.fleen.forsythia.core.composition.FGrid;
+import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.geom_2D.DCircle;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;

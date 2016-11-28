@@ -7,7 +7,7 @@ import java.awt.Stroke;
 import java.awt.geom.Path2D;
 import java.util.List;
 
-import org.fleen.forsythia.composition.FPolygon;
+import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.geom_2D.DPoint;
 
 public class VG_FatStroke implements Voice_Graphics2D{

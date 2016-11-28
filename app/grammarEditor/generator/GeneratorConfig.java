@@ -2,10 +2,10 @@ package org.fleen.forsythia.app.grammarEditor.generator;
 
 import java.io.Serializable;
 
-import org.fleen.forsythia.util.simpleComposer.FSC_Basic;
-import org.fleen.forsythia.util.simpleComposer.ForsythiaSimpleComposer;
-import org.fleen.forsythia.util.simpleRenderer.FSR_SymmetricRandomColorWithBlackStrokes;
-import org.fleen.forsythia.util.simpleRenderer.ForsythiaSimpleRenderer;
+import org.fleen.forsythia.junk.simpleComposer.FSC_Basic;
+import org.fleen.forsythia.junk.simpleComposer.ForsythiaSimpleComposer;
+import org.fleen.forsythia.junk.simpleRenderer.FSR_SymmetricRandomColorWithBlackStrokes;
+import org.fleen.forsythia.junk.simpleRenderer.ForsythiaSimpleRenderer;
 
 public class GeneratorConfig implements Serializable{
   

@@ -13,11 +13,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import org.fleen.forsythia.composition.FPolygon;
-import org.fleen.forsythia.composition.FPolygonSignature;
-import org.fleen.forsythia.composition.ForsythiaComposition;
-import org.fleen.forsythia.grammar.ForsythiaGrammar;
-import org.fleen.forsythia.grammar.Jig;
+import org.fleen.forsythia.core.composition.FPolygon;
+import org.fleen.forsythia.core.composition.FPolygonSignature;
+import org.fleen.forsythia.core.composition.ForsythiaComposition;
+import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
+import org.fleen.forsythia.core.grammar.Jig;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;
 import org.fleen.geom_2D.GD;

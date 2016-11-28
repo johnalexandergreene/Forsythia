@@ -2,7 +2,7 @@ package org.fleen.forsythia.app.bread;
 
 import java.awt.Graphics2D;
 
-import org.fleen.forsythia.composition.FPolygon;
+import org.fleen.forsythia.core.composition.FPolygon;
 
 public class VG_Null implements Voice_Graphics2D{
 

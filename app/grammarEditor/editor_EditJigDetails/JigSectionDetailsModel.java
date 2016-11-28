@@ -5,10 +5,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.fleen.forsythia.Forsythia;
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectJigSection_Polygon;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectMetagon;
+import org.fleen.forsythia.core.Forsythia;
 import org.fleen.geom_2D.DCircle;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;

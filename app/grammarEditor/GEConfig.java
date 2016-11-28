@@ -12,7 +12,7 @@ import java.io.Serializable;
 import org.fleen.forsythia.app.grammarEditor.compositionExporter.CompositionExportConfig;
 import org.fleen.forsythia.app.grammarEditor.generator.GeneratorConfig;
 import org.fleen.forsythia.app.grammarEditor.project.GrammarImportExport;
-import org.fleen.forsythia.grammar.ForsythiaGrammar;
+import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 
 /*
  * Quasar configuration object

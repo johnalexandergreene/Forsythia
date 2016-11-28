@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.util.ElementMenuItem;
-import org.fleen.forsythia.grammar.Jig;
-import org.fleen.forsythia.grammar.JigSection;
+import org.fleen.forsythia.core.grammar.Jig;
+import org.fleen.forsythia.core.grammar.JigSection;
 import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KYard;
 

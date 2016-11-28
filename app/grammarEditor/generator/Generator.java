@@ -8,11 +8,11 @@ import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.compositionExporter.CompositionExportConfig;
-import org.fleen.forsythia.composition.ForsythiaComposition;
-import org.fleen.forsythia.util.simpleComposer.FSC_Basic;
-import org.fleen.forsythia.util.simpleComposer.ForsythiaSimpleComposer;
-import org.fleen.forsythia.util.simpleRenderer.FSR_EggLevelSplitPaletteWithStrokesAndGeneratedColors;
-import org.fleen.forsythia.util.simpleRenderer.ForsythiaSimpleRenderer;
+import org.fleen.forsythia.core.composition.ForsythiaComposition;
+import org.fleen.forsythia.junk.simpleComposer.FSC_Basic;
+import org.fleen.forsythia.junk.simpleComposer.ForsythiaSimpleComposer;
+import org.fleen.forsythia.junk.simpleRenderer.FSR_EggLevelSplitPaletteWithStrokesAndGeneratedColors;
+import org.fleen.forsythia.junk.simpleRenderer.ForsythiaSimpleRenderer;
 
 
 /*

@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Hashtable;
 import java.util.List;
 
-import org.fleen.forsythia.composition.FPolygon;
+import org.fleen.forsythia.core.composition.FPolygon;
 
 /*
  * 1..n lists of polygons

@@ -13,10 +13,10 @@ import java.util.Map;
 import java.util.Set;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.grammar.ForsythiaGrammar;
-import org.fleen.forsythia.grammar.FMetagon;
-import org.fleen.forsythia.grammar.Jig;
-import org.fleen.forsythia.grammar.JigSection;
+import org.fleen.forsythia.core.grammar.FMetagon;
+import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
+import org.fleen.forsythia.core.grammar.Jig;
+import org.fleen.forsythia.core.grammar.JigSection;
 import org.fleen.geom_Kisrhombille.KAnchor;
 import org.fleen.geom_Kisrhombille.KMetagon;
 

@@ -11,10 +11,10 @@ import java.io.ObjectInputStream;
 
 import javax.swing.JTextField;
 
-import org.fleen.forsythia.composition.ForsythiaComposition;
-import org.fleen.forsythia.grammar.ForsythiaGrammar;
-import org.fleen.forsythia.util.simpleComposer.ForsythiaSimpleComposer;
-import org.fleen.forsythia.util.simpleRenderer.ForsythiaSimpleRenderer;
+import org.fleen.forsythia.core.composition.ForsythiaComposition;
+import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
+import org.fleen.forsythia.junk.simpleComposer.ForsythiaSimpleComposer;
+import org.fleen.forsythia.junk.simpleRenderer.ForsythiaSimpleRenderer;
 
 /*
  * bread is a generator of forsythia compositions

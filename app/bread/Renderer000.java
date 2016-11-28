@@ -11,10 +11,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import org.fleen.forsythia.composition.FPolygon;
-import org.fleen.forsythia.composition.FPolygonSignature;
-import org.fleen.forsythia.composition.ForsythiaComposition;
-import org.fleen.forsythia.util.simpleRenderer.ForsythiaSimpleRenderer_Abstract;
+import org.fleen.forsythia.core.composition.FPolygon;
+import org.fleen.forsythia.core.composition.FPolygonSignature;
+import org.fleen.forsythia.core.composition.ForsythiaComposition;
+import org.fleen.forsythia.junk.simpleRenderer.ForsythiaSimpleRenderer_Abstract;
 import org.fleen.geom_2D.DPoint;
 
 public class Renderer000 extends ForsythiaSimpleRenderer_Abstract{
