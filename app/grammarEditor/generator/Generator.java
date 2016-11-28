@@ -11,7 +11,7 @@ import org.fleen.forsythia.app.grammarEditor.compositionExporter.CompositionExpo
 import org.fleen.forsythia.composition.ForsythiaComposition;
 import org.fleen.forsythia.util.simpleComposer.FSC_Basic;
 import org.fleen.forsythia.util.simpleComposer.ForsythiaSimpleComposer;
-import org.fleen.forsythia.util.simpleRenderer.FSR_EggLevelSplitPaletteWithStrokes;
+import org.fleen.forsythia.util.simpleRenderer.FSR_EggLevelSplitPaletteWithStrokesAndGeneratedColors;
 import org.fleen.forsythia.util.simpleRenderer.ForsythiaSimpleRenderer;
 
 
@@ -136,7 +136,7 @@ public class Generator{
     Color strokecolor=Color.black;
     float strokewidth=0.008f;
     
-    gc.setRenderer(new FSR_EggLevelSplitPaletteWithStrokes(color0,color1,strokecolor,strokewidth));
+    gc.setRenderer(new FSR_EggLevelSplitPaletteWithStrokesAndGeneratedColors(strokewidth));
     
     
     
@@ -149,6 +149,8 @@ public class Generator{
     
     gc.setContinuousCycleMinInterval(3000);
   }
+  
+  
   
   /*
    * ################################
