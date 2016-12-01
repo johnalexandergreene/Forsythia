@@ -9,6 +9,8 @@ import org.fleen.geom_Kisrhombille.KVertex;
 
 @SuppressWarnings("serial")
 public class CJG_Grid extends Grid{
+  public CJG_Grid() {
+  }
   
   GridOverlayPainter overlaypainter=new GridOverlayPainter();
 
