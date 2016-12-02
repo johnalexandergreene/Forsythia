@@ -48,7 +48,7 @@ public class Editor_Generator extends Editor implements HasViewer{
    */
 
   public void configureForOpen(){
-    refreshAll();}
+    refreshUI();}
   
   public void configureForClose(){
     generator.stop();}
@@ -60,7 +60,7 @@ public class Editor_Generator extends Editor implements HasViewer{
    */
   
   //update center and fit params
-  public void refreshAll(){
+  public void refreshUI(){
     refreshViewer();
     refreshGeneratorModeButtonImage();
     refreshGeneratorStartStopButtonImage();
@@ -153,7 +153,7 @@ public class Editor_Generator extends Editor implements HasViewer{
 //    generator.startContinuous();
     
     
-    refreshAll();
+    refreshUI();
     System.out.println("start for Q init");}
   
 }

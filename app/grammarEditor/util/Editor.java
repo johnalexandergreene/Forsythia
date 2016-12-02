@@ -2,6 +2,8 @@ package org.fleen.forsythia.app.grammarEditor.util;
 
 import java.awt.event.HierarchyBoundsListener;
 import java.awt.event.HierarchyEvent;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -59,7 +61,10 @@ public abstract class Editor{
   
   protected abstract void configureForClose();
   
-  public abstract void refreshAll();
+  /*
+   * refresh all ui components
+   */
+  public abstract void refreshUI();
   
   /*
    * ################################
@@ -68,8 +73,10 @@ public abstract class Editor{
    */
   
   private static final long RESIZE_REFRESH_DELAY=300; 
+  private static final ScheduledExecutorService SCHEDULEDEXECUTOR=Executors.newSingleThreadScheduledExecutor();
   @SuppressWarnings("rawtypes")
   ScheduledFuture scheduledresizerefresh=null;
+  
   
   /*
    * on resize event
@@ -84,12 +91,12 @@ public abstract class Editor{
       if(isOpen()){
         if(scheduledresizerefresh!=null)
           scheduledresizerefresh.cancel(false);
-        scheduledresizerefresh=TaskSequencer.SCHEDULEDEXECUTOR.schedule(
+        scheduledresizerefresh=SCHEDULEDEXECUTOR.schedule(
           new ScheduleResizeRefresh(),RESIZE_REFRESH_DELAY,TimeUnit.MILLISECONDS);}}};
     
   private class ScheduleResizeRefresh extends Thread{
     public void run(){
-      refreshAll();
+      refreshUI();
       scheduledresizerefresh=null;}}
     
 }

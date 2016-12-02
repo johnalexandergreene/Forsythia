@@ -71,7 +71,7 @@ public class Editor_CreateMetagon extends Editor{
    * ################################
    */
   
-  public void refreshAll(){
+  public void refreshUI(){
     refreshGrid();
     refreshButtons();
     getUI().repaint();}

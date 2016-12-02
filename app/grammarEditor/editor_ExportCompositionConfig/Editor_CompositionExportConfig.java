@@ -61,7 +61,7 @@ public class Editor_CompositionExportConfig extends Editor{
    * ################################
    */
   
-  public void refreshAll(){}
+  public void refreshUI(){}
   
   void saveChanges(){
     CompositionExportConfig c=GE.config.getCompositionExportConfig();

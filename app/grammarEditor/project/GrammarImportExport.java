@@ -45,7 +45,7 @@ public class GrammarImportExport{
     if(GE.focusgrammar.hasMetagons()){
       GE.focusmetagon=GE.focusgrammar.getMetagon(0);
       if(GE.focusmetagon!=null)
-        GE.focusjig=GE.focusmetagon.getProtoJig(0);
+        GE.focusjig=GE.focusmetagon.getJig(0);
     }else{
       GE.focusmetagon=null;
       GE.focusjig=null;}}

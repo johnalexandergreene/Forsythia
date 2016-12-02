@@ -31,7 +31,7 @@ public class Editor_GeneratorConfig extends Editor{
   }
 
   @Override
-  public void refreshAll(){
+  public void refreshUI(){
     // TODO Auto-generated method stub
     
   }

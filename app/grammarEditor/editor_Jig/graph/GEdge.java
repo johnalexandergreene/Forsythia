@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_CreateJigGeometry.graph;
+package org.fleen.forsythia.app.grammarEditor.editor_Jig.graph;
 
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.GD;

@@ -14,15 +14,8 @@ import org.fleen.geom_Kisrhombille.KYard;
  * This is a project jig
  * it contains a jig definition in terms amenable to our project
  * we can construct one of these in 2 ways
- *   via the jig creating editors
+ *   via jig editor
  *   via import
- * 
- * ProjectJig creation goes like this
- *   hit the createjig button. This takes us to the projectjig geometry creating editor 
- *     Specify geometry by drawing stuff. 
- *     When we are satisfied with the geometry, save it. This takes us to the projectjig details editor 
- *       Now we have a projectjig with all the details set to default values.
- *       edit details : tags, anchor options, chorus indices, section types
  *       
  */
 public class ProjectJig implements ElementMenuItem{
@@ -39,11 +32,10 @@ public class ProjectJig implements ElementMenuItem{
   public ProjectJig(
     ProjectMetagon targetmetagon,
     int griddensity,
-    List<KPolygon> sectionpolygons,
-    List<KYard> sectionyards){
+    List<KPolygon> sectionpolygons){
     this.targetmetagon=targetmetagon;
     this.griddensity=griddensity;
-    initSectionsForCreate(sectionpolygons,sectionyards);
+    initSectionsForCreate(sectionpolygons);
 //    initTypes();
     initSectionProductChorusIndices();}
   
@@ -53,36 +45,6 @@ public class ProjectJig implements ElementMenuItem{
     this.griddensity=jig.griddensity;
     setTagsForImport(jig.getTags());
     initSectionsForImport(jig);}
-  
-//  /*
-//   * ################################
-//   * TYPE
-//   * Access jig type here
-//   * We init types for this jig and all sections via geometric analysis.
-//   * Jig type is immutable but in some cases (when section roles are ambiguous) section types can be changed.
-//   * ################################
-//   */
-//  
-//  private int type;
-//  
-//  public int getJigType(){
-//    return type;}
-//  
-//  private void initTypes(){
-//    KPolygon targetpolygon=targetmetagon.kmetagon.getPolygon(getGridDensity(),true);
-//    //get section polygons, map to sections
-//    List<KPolygon> sectionpolygons=new ArrayList<KPolygon>(sections_polygon.size());
-//    KPolygon p;
-//    Map<ProjectJigSection_Polygon,KPolygon> polygonbysection=new Hashtable<ProjectJigSection_Polygon,KPolygon>();
-//    for(ProjectJigSection_Polygon s:sections_polygon){
-//      p=s.productmetagon.kmetagon.getPolygon(s.getProductAnchor());
-//      polygonbysection.put(s,p);
-//      sectionpolygons.add(p);}
-//    //get types from analysis
-//    JigSystemAnalysis a=F.getJigSystemAnalysis(targetpolygon,sectionpolygons);
-//    type=a.jigtype;
-//    for(ProjectJigSection_Polygon s:sections_polygon)
-//      s.setProductType(a.sectiontypes.get(polygonbysection.get(s)));}
   
   /*
    * ################################
@@ -116,11 +78,11 @@ public class ProjectJig implements ElementMenuItem{
    * ################################
    */
   
-  public List<ProjectJigSection_Polygon> sections_polygon=new ArrayList<ProjectJigSection_Polygon>();
+  public List<ProjectJigSection> sections=new ArrayList<ProjectJigSection>();
 
   //returns true of any of our sections uses the specified metagon for its polygonal product
   public boolean usesForProduct(ProjectMetagon m){
-    for(ProjectJigSection_Polygon ppjs:sections_polygon)
+    for(ProjectJigSection ppjs:sections)
       if(ppjs.productmetagon==m)
         return true;
     return false;}
@@ -131,23 +93,23 @@ public class ProjectJig implements ElementMenuItem{
    * if it isn't then we have an exception 
    */
   public void initSectionsForImport(Jig jig){
-    ProjectJigSection_Polygon pjspolygon;
+    ProjectJigSection pjspolygon;
     for(JigSection js:jig.sections){
       if(js instanceof JigSection){
-         pjspolygon=new ProjectJigSection_Polygon(this,(JigSection)js);
-         sections_polygon.add(pjspolygon);}}
-    ((ArrayList<ProjectJigSection_Polygon>)sections_polygon).trimToSize();}
+         pjspolygon=new ProjectJigSection(this,(JigSection)js);
+         sections.add(pjspolygon);}}
+    ((ArrayList<ProjectJigSection>)sections).trimToSize();}
   
-  private void initSectionsForCreate(List<KPolygon> sectionpolygons,List<KYard> sectionyards){
+  private void initSectionsForCreate(List<KPolygon> sectionpolygons){
     for(KPolygon p:sectionpolygons)
-      sections_polygon.add(new ProjectJigSection_Polygon(this,p));}
+      sections.add(new ProjectJigSection(this,p));}
   
   /*
    * init to all different. no chorussing
    */
   private void initSectionProductChorusIndices(){
     int i=0;
-    for(ProjectJigSection_Polygon s:sections_polygon){
+    for(ProjectJigSection s:sections){
       s.setProductChorusIndex(i);
       i++;}}
   
@@ -177,7 +139,7 @@ public class ProjectJig implements ElementMenuItem{
   /*
    * ################################
    * IMAGE
-   * projectprotojig gets graphically rendered in one place: Overview bottom element menu. As a big icon.
+   * projectjig gets graphically rendered in one place: Overview bottom element menu. As a big icon.
    * It shares rendering components with the jigeditor.
    * imagepaths is cached and immutable.
    * overviewiconimage is cached. Invalidated on ui resize.

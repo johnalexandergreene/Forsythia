@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_CreateJigGeometry;
+package org.fleen.forsythia.app.grammarEditor.editor_Jig;
 
 import java.util.Hashtable;
 import java.util.List;
@@ -7,8 +7,8 @@ import java.util.Map;
 import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.app.grammarEditor.editor_CreateJigGeometry.graph.GEdge;
-import org.fleen.forsythia.app.grammarEditor.editor_CreateJigGeometry.graph.RawGraph;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GEdge;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.RawGraph;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectJig;
 import org.fleen.forsythia.app.grammarEditor.util.Editor;
 import org.fleen.geom_Kisrhombille.KPolygon;
@@ -23,7 +23,7 @@ import org.fleen.geom_Kisrhombille.KYard;
  * If no match is found then we create a new metagon.
  * 
  */
-public class Editor_CreateJigGeometry extends Editor{
+public class Editor_Jig_OLD extends Editor{
   
   private static final String NAME="Create Jig Geometry";
   
@@ -33,7 +33,7 @@ public class Editor_CreateJigGeometry extends Editor{
    * ################################
    */
   
-  public Editor_CreateJigGeometry(){
+  public Editor_Jig_OLD(){
     super(NAME);}
   
   /*
@@ -43,7 +43,7 @@ public class Editor_CreateJigGeometry extends Editor{
    */
   
   protected JPanel createUI(){
-    return new CJG_UI();}
+    return new EJ_UI();}
 
   /*
    * ################################
@@ -53,18 +53,16 @@ public class Editor_CreateJigGeometry extends Editor{
 
   public void configureForOpen(){
     initEditingObjects();
-    CJG_UI ui=(CJG_UI)getUI();
+    EJ_UI ui=(EJ_UI)getUI();
     ui.pangrid.centerAndFit();
-    refreshAll();}
+    refreshUI();}
   
   public void configureForClose(){
     discardEditingObjects();}
   
   /*
    * ################################
-   * JIG MODEL
-   * These are the things getting edited. 
-   * When we're done we either convert them to a protojig (and whatever) or we discard them
+   * JIG EDITING MODEL
    * ################################
    */
   
@@ -178,20 +176,20 @@ public class Editor_CreateJigGeometry extends Editor{
   
   private static final int 
     MOUSEMODE_TOUCHVERTEX=0,
-    MOUSEMODE_TOUCHNOTHING=1;
+    MOUSEMODE_TOUCHSECTION=1;
   
   int mousemode;
   
-  public void initMouseMode_VERTEXNEAR(){
+  public void initMouseMode_TouchVertex(){
     if(mousemode==MOUSEMODE_TOUCHVERTEX)return;
     mousemode=MOUSEMODE_TOUCHVERTEX;
-    CJG_UI ui=(CJG_UI)getUI();
+    EJ_UI ui=(EJ_UI)getUI();
     ui.pangrid.setCursorCircle();}
   
-  public void initMouseMode_VERTEXFAR(){
-    if(mousemode==MOUSEMODE_TOUCHNOTHING)return;
-    mousemode=MOUSEMODE_TOUCHNOTHING;
-    CJG_UI ui=(CJG_UI)getUI();
+  public void initMouseMode_TouchSection(){
+    if(mousemode==MOUSEMODE_TOUCHSECTION)return;
+    mousemode=MOUSEMODE_TOUCHSECTION;
+    EJ_UI ui=(EJ_UI)getUI();
     ui.pangrid.setCursorSquare();}
 
   /*
@@ -200,24 +198,24 @@ public class Editor_CreateJigGeometry extends Editor{
    * ################################
    */
   
-  public void refreshAll(){
+  public void refreshUI(){
     refreshGrid();
     refreshControls();}
   
   public void refreshGrid(){
-    CJG_UI ui=(CJG_UI)getUI();
+    EJ_UI ui=(EJ_UI)getUI();
     ui.pangrid.gridrenderer.invalidateTileImage();
     ui.pangrid.repaint();}
   
   void refreshControls(){
-    CJG_UI ui=(CJG_UI)getUI();
+    EJ_UI ui=(EJ_UI)getUI();
     //grid density
     ui.lblgriddensity.setText(String.format("%03d",griddensity));
     //
     refreshFocusElementInfo();}
   
   void refreshFocusElementInfo(){
-    CJG_UI ui=(CJG_UI)getUI();
+    EJ_UI ui=(EJ_UI)getUI();
     ui.lblinfo.setText(getFocusElementInfo());}
   
   /*
@@ -233,7 +231,7 @@ public class Editor_CreateJigGeometry extends Editor{
   public void touchGrid(final double[] p,final KVertex v){
     if(mousemode==MOUSEMODE_TOUCHVERTEX)touchVertex(v);
     refreshFocusElementInfo();
-    ((CJG_UI)getUI()).pangrid.repaint();
+    ((EJ_UI)getUI()).pangrid.repaint();
     
     //TODO debug
     
@@ -257,11 +255,11 @@ public class Editor_CreateJigGeometry extends Editor{
     System.out.println("increment");
     griddensity++;
     rawgraph=new RawGraph(getHostPolygon());
-    CJG_UI ui=(CJG_UI)getUI();
+    EJ_UI ui=(EJ_UI)getUI();
     ui.pangrid.gridrenderer.invalidateTileImage();
     ui.pangrid.centerAndFit();
     ui.pangrid.repaint();
-    refreshAll();}
+    refreshUI();}
   
   public void decrementGridDensity(){
     connectedhead=null;
@@ -271,11 +269,11 @@ public class Editor_CreateJigGeometry extends Editor{
       System.out.println("decrement");
       griddensity--;
       rawgraph=new RawGraph(getHostPolygon());
-      CJG_UI ui=(CJG_UI)getUI();
+      EJ_UI ui=(EJ_UI)getUI();
       ui.pangrid.gridrenderer.invalidateTileImage();
       ui.pangrid.centerAndFit();
       ui.pangrid.repaint();
-      refreshAll();}}
+      refreshUI();}}
   
   public void saveJig(){
     //get the polygons and yards for the jig

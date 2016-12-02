@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_CreateJigGeometry;
+package org.fleen.forsythia.app.grammarEditor.editor_Jig;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -11,8 +11,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.app.grammarEditor.editor_CreateJigGeometry.graph.GEdge;
-import org.fleen.forsythia.app.grammarEditor.editor_CreateJigGeometry.graph.GVertex;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GEdge;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GVertex;
 import org.fleen.forsythia.app.grammarEditor.util.UI;
 import org.fleen.geom_Kisrhombille.KYard;
 
@@ -20,7 +20,7 @@ public class GridOverlayPainter{
   
   void paint(Graphics2D graphics,int w,int h,double scale,double centerx,double centery){
     graphics.setRenderingHints(UI.RENDERING_HINTS);
-    GE.editor_createjig.viewgeometrycache.update(w,h,scale,centerx,centery);
+    GE.editor_jig.viewgeometrycache.update(w,h,scale,centerx,centery);
     renderHostMetagonPolygonAndFocusPolygon(graphics);
     renderYards(graphics);
     renderEdges(graphics);
@@ -33,9 +33,9 @@ public class GridOverlayPainter{
    */
   
   private void renderHostMetagonPolygonAndFocusPolygon(Graphics2D graphics){
-    Path2D hmppath=GE.editor_createjig.viewgeometrycache.getPath(GE.editor_createjig.getHostPolygon());
-    if(GE.editor_createjig.focuselement!=null){
-      Path2D fppath=GE.editor_createjig.viewgeometrycache.getPath(GE.editor_createjig.focuselement);  
+    Path2D hmppath=GE.editor_jig.viewgeometrycache.getPath(GE.editor_jig.getHostPolygon());
+    if(GE.editor_jig.focuselement!=null){
+      Path2D fppath=GE.editor_jig.viewgeometrycache.getPath(GE.editor_jig.focuselement);  
       Area a0=new Area(hmppath);
       Area a1=new Area(fppath);
       a0.subtract(a1);  
@@ -56,14 +56,14 @@ public class GridOverlayPainter{
   private void renderYards(Graphics2D graphics){
     graphics.setPaint(new Color(128,128,255,128));
     Path2D path;
-    List<KYard> yards=GE.editor_createjig.rawgraph.getDisconnectedGraph().getYards();
+    List<KYard> yards=GE.editor_jig.model.rawgraph.getDisconnectedGraph().getYards();
     System.out.println("### YARDCOUNT @ PAINTER : "+yards.size());
     int rindex=0;
     for(KYard y:yards){
       System.out.println("rendering yard ::: "+rindex);
       rindex++;
       try{
-        path=GE.editor_createjig.viewgeometrycache.getPath(y);
+        path=GE.editor_jig.viewgeometrycache.getPath(y);
         graphics.fill(path);
       }catch(Exception x){
         System.out.println("EXCEPTION IN RENDER YARDS");
@@ -86,15 +86,15 @@ public class GridOverlayPainter{
 //    graphics.setPaint(new Color(192,64,64));
     
     
-    Iterator<GEdge> i=GE.editor_createjig.rawgraph.edges.iterator();
+    Iterator<GEdge> i=GE.editor_jig.model.rawgraph.edges.iterator();
     GEdge e;
     double[] p0,p1;
     Path2D path=new Path2D.Double();
     //System.out.println("edge count:"+Q.editor_createjig.graph.getEdgeCount());
     while(i.hasNext()){
       e=i.next();
-      p0=GE.editor_createjig.viewgeometrycache.getPoint(e.v0.kvertex);
-      p1=GE.editor_createjig.viewgeometrycache.getPoint(e.v1.kvertex);
+      p0=GE.editor_jig.viewgeometrycache.getPoint(e.v0.kvertex);
+      p1=GE.editor_jig.viewgeometrycache.getPoint(e.v1.kvertex);
       path.reset();
       path.moveTo(p0[0],p0[1]);
       path.lineTo(p1[0],p1[1]);
@@ -124,8 +124,8 @@ public class GridOverlayPainter{
     
     double[] p;
     Ellipse2D dot=new Ellipse2D.Double();
-    for(GVertex v:GE.editor_createjig.rawgraph.vertices){
-      p=GE.editor_createjig.viewgeometrycache.getPoint(v.kvertex);
+    for(GVertex v:GE.editor_jig.model.rawgraph.vertices){
+      p=GE.editor_jig.viewgeometrycache.getPoint(v.kvertex);
       dot.setFrame(p[0]-span/2,p[1]-span/2,span,span);
       graphics.fill(dot);}}
   
@@ -133,12 +133,12 @@ public class GridOverlayPainter{
     graphics.setStroke(UI.EDITORCREATEPROTOJIG_HEADVERTEXDECORATIONSTROKE);
     int span=UI.EDITORCREATEPROTOJIG_HEADVERTEXDECORATIONSPAN;
     double[] p;
-    if(GE.editor_createjig.connectedhead!=null){
-      p=GE.editor_createjig.viewgeometrycache.getPoint(GE.editor_createjig.connectedhead);
+    if(GE.editor_jig.connectedhead!=null){
+      p=GE.editor_jig.viewgeometrycache.getPoint(GE.editor_jig.connectedhead);
       graphics.setPaint(UI.EDITORCREATEPROTOJIG_CONNECTEDHEADVERTEXDECORATIONCOLOR);
       graphics.drawOval(((int)p[0])-span/2,((int)p[1])-span/2,span,span);
-    }else if(GE.editor_createjig.unconnectedhead!=null){
-      p=GE.editor_createjig.viewgeometrycache.getPoint(GE.editor_createjig.unconnectedhead);
+    }else if(GE.editor_jig.unconnectedhead!=null){
+      p=GE.editor_jig.viewgeometrycache.getPoint(GE.editor_jig.unconnectedhead);
       graphics.setPaint(UI.EDITORCREATEPROTOJIG_UNCONNECTEDHEADVERTEXDECORATIONCOLOR);
       graphics.drawOval(((int)p[0])-span/2,((int)p[1])-span/2,span,span);}}
   

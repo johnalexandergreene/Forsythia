@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_CreateJigGeometry;
+package org.fleen.forsythia.app.grammarEditor.editor_Jig;
 
 import java.awt.Color;
 import java.awt.Graphics;

@@ -4,7 +4,6 @@ import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.util.Editor;
-import org.fleen.forsythia.app.grammarEditor.util.Task;
 
 /*
  * View metagon and edit tags
@@ -53,7 +52,7 @@ public class Editor_EditMetagonDetails extends Editor{
    * ################################
    */
   
-  public void refreshAll(){
+  public void refreshUI(){
     refreshGrid();
     getUI().repaint();}
   
@@ -75,8 +74,6 @@ public class Editor_EditMetagonDetails extends Editor{
     GE.setEditor(GE.editor_grammar);}
   
   public void discardModificationsAndReturnToGrammarEditor(){
-    GE.tasksequencer.add(new Task(){
-      public void doTask(){
-        GE.setEditor(GE.editor_grammar);}});}
+    GE.setEditor(GE.editor_grammar);}
   
 }

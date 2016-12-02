@@ -115,7 +115,7 @@ public class ProjectMetagon implements Serializable,ElementMenuItem{
   public List<ProjectJig> getProtoJigs(){
     return jigs;}
       
-  public ProjectJig getProtoJig(int i){
+  public ProjectJig getJig(int i){
     if(jigs.isEmpty())return null;
     return jigs.get(i);}
   

@@ -5,20 +5,16 @@ import java.awt.EventQueue;
 import java.io.File;
 import java.net.URLDecoder;
 
-import org.fleen.forsythia.app.grammarEditor.editor_CreateJigGeometry.Editor_CreateJigGeometry;
 import org.fleen.forsythia.app.grammarEditor.editor_CreateMetagon.Editor_CreateMetagon;
 import org.fleen.forsythia.app.grammarEditor.editor_EditGrammar.Editor_Grammar;
 import org.fleen.forsythia.app.grammarEditor.editor_EditJigDetails.Editor_EditJigDetails;
-import org.fleen.forsythia.app.grammarEditor.editor_ExportCompositionConfig.Editor_CompositionExportConfig;
 import org.fleen.forsythia.app.grammarEditor.editor_Generator.Editor_Generator;
-import org.fleen.forsythia.app.grammarEditor.editor_GeneratorConfig.Editor_GeneratorConfig;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.Editor_Jig;
 import org.fleen.forsythia.app.grammarEditor.editor_ViewMetagonEditTags.Editor_EditMetagonDetails;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectGrammar;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectJig;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectMetagon;
 import org.fleen.forsythia.app.grammarEditor.util.Editor;
-import org.fleen.forsythia.app.grammarEditor.util.Task;
-import org.fleen.forsythia.app.grammarEditor.util.TaskSequencer;
 
 /*
  * FLEEN QUASAR
@@ -31,7 +27,7 @@ import org.fleen.forsythia.app.grammarEditor.util.TaskSequencer;
  */
 public class GE{
   
-  public static final String APPNAME="Fleen Forsythia Grammar Editor 0.1 Alpha";
+  public static final String APPNAME="Fleen Forsythia Grammar Editor 0.2A";
   
   /*
    * ################################
@@ -41,9 +37,7 @@ public class GE{
   
   //this flag is true after init, false just before terminate
   public static boolean runmain=false;
-  //for orderly task management
-  public static TaskSequencer tasksequencer;
-  //main config object
+  //config object for this app 
   public static GEConfig config;
   //main ui. A frame. Holds editor uis
   public static UIMain uimain;
@@ -56,17 +50,13 @@ public class GE{
   public static Editor_Grammar editor_grammar;
   public static Editor_CreateMetagon editor_createmetagon;
   public static Editor_EditMetagonDetails editor_editmetagondetails;
-  public static Editor_CreateJigGeometry editor_createjig;
+  public static Editor_Jig editor_jig;
   public static Editor_EditJigDetails editor_editjigdetails;
-  public static Editor_CompositionExportConfig editor_compositionexportconfig;
-  public static Editor_GeneratorConfig editor_generatorconfig;
-  //public static CompositionStreamConfigEditor compositionstreamconfigeditor;
   //FOCUS GRAMMAR ELEMENTS
   //these are the grammar elements that we are focussing upon at any particular moment
   public static ProjectGrammar focusgrammar=null;
   public static ProjectMetagon focusmetagon=null;
   public static ProjectJig focusjig=null;
-//  public static ProjectJigSection focusjigsection=null;
   
   /*
    * ################################
@@ -92,7 +82,7 @@ public class GE{
      }catch(Exception x){
        x.printStackTrace();}}
     //init everything else
-    tasksequencer=new TaskSequencer();
+//    tasksequencer=new TaskSequencer();
     GEConfig.load();
     //open an editor
     setEditor(editor_generator);
@@ -113,7 +103,7 @@ public class GE{
          x.printStackTrace();}}
     //TODO get rid of the task sequencer. it's only used by the resize thingy
     runmain=false;
-    tasksequencer.term();
+//    tasksequencer.term();
     GEConfig.save();
     System.out.println("#### Q TERM ####");
     System.exit(0);}
@@ -142,34 +132,27 @@ public class GE{
     editor_grammar=new Editor_Grammar();
     editor_createmetagon=new Editor_CreateMetagon();
     editor_editmetagondetails=new Editor_EditMetagonDetails();
-    editor_createjig=new Editor_CreateJigGeometry();
+    editor_jig=new Editor_Jig();
     editor_editjigdetails=new Editor_EditJigDetails();
-//    editor_compositionexportconfig=new Editor_CompositionExportConfig();
-//    editor_generatorconfig=new Editor_CompositionStreamConfig ();
     editors=new Editor[]{
       editor_generator,
       editor_grammar,
       editor_createmetagon,
       editor_editmetagondetails,
-      editor_createjig,
-      editor_editjigdetails,
-//      editor_compositionexportconfig,
-//      editor_generatorconfig
-      };
+      editor_jig,
+      editor_editjigdetails};
     //init dialog associated uis
     for(Editor a:editors)
       uimain.paneditor.add(a.getUI(),a.getName());}
   
   public static final void setEditor(final Editor editor){
-    GE.tasksequencer.add(new Task(){
-      public void doTask(){
-        if(presenteditor!=null)presenteditor.close();
-        presenteditor=editor;
-        CardLayout a=(CardLayout)uimain.paneditor.getLayout();
-        String n=editor.getName();
-        a.show(uimain.paneditor,n);
-        GE.uimain.setTitle(GE.APPNAME+" :: "+n);
-        presenteditor.open();}});}
+    if(presenteditor!=null)presenteditor.close();
+      presenteditor=editor;
+      CardLayout a=(CardLayout)uimain.paneditor.getLayout();
+      String n=editor.getName();
+      a.show(uimain.paneditor,n);
+      GE.uimain.setTitle(GE.APPNAME+" :: "+n);
+      presenteditor.open();}
   
   /*
    * ################################
@@ -187,9 +170,5 @@ public class GE{
     File f=new File(decodedpath);
     if(!f.isDirectory())f=f.getParentFile();
     return f;}
-  
-  public static final void enqueueTask(Task task){
-    if(tasksequencer!=null)
-      tasksequencer.add(task);}
   
 }

@@ -231,11 +231,11 @@ public class Generator{
   
   private void reportContinuousGenerationCycleFinished(){
     System.out.println("continuous generation cycle finished");
-    GE.editor_generator.refreshAll();}
+    GE.editor_generator.refreshUI();}
   
   private void reportIntermittantGenerationCycleFinished(){
     System.out.println("intermittant generation cycle finished");
-    GE.editor_generator.refreshAll();}
+    GE.editor_generator.refreshUI();}
   
   public void reportProgress(GProgress p){
     System.out.println("progress");
@@ -243,11 +243,11 @@ public class Generator{
   
   public void reportStarted(){
     System.out.println("started");
-    GE.editor_generator.refreshAll();}
+    GE.editor_generator.refreshUI();}
   
   public void reportStopped(){
     System.out.println("stopped");
-    GE.editor_generator.refreshAll();}
+    GE.editor_generator.refreshUI();}
   
   /*
    * ################################

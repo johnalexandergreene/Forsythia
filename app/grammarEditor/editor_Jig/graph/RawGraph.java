@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_CreateJigGeometry.graph;
+package org.fleen.forsythia.app.grammarEditor.editor_Jig.graph;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -50,7 +50,7 @@ public class RawGraph{
    */
   public RawGraph(KPolygon p){
     hostkpolygon=p;
-//    addHostKPolygon();
+    addHostKPolygon();
     }
   
   /*
@@ -148,18 +148,18 @@ public class RawGraph{
         return e;
     return null;}
   
-//  private void addHostKPolygon(){
-//    int s,i0,i1;
-//    KVertex v0,v1;
-//    s=hostkpolygon.size();
-//    for(KVertex v:hostkpolygon)
-//      addVertex(v);
-//    for(i0=0;i0<s;i0++){
-//      i1=i0+1;
-//      if(i1==s)i1=0;
-//      v0=hostkpolygon.get(i0);
-//      v1=hostkpolygon.get(i1);
-//      connect(v0,v1);}}
+  private void addHostKPolygon(){
+    int s,i0,i1;
+    KVertex v0,v1;
+    s=hostkpolygon.size();
+    for(KVertex v:hostkpolygon)
+      addVertex(v);
+    for(i0=0;i0<s;i0++){
+      i1=i0+1;
+      if(i1==s)i1=0;
+      v0=hostkpolygon.get(i0);
+      v1=hostkpolygon.get(i1);
+      connect(v0,v1);}}
   
   /*
    * ################################

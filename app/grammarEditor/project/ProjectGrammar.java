@@ -280,7 +280,7 @@ public class ProjectGrammar{
     int jsproductchorusindex;
     KAnchor jsproductanchor;
     String[] jstags;
-    for(ProjectJigSection_Polygon projectjigsection:projectjig.sections_polygon){
+    for(ProjectJigSection projectjigsection:projectjig.sections){
       jsproductchorusindex=projectjigsection.getProductChorusIndex();
       jsproductmetagon=fmetagonbykmetagon.get(projectjigsection.productmetagon.kmetagon);
       jsproductanchor=projectjigsection.getProductAnchor();

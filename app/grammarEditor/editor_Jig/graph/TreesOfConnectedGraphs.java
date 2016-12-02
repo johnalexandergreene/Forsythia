@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_CreateJigGeometry.graph;
+package org.fleen.forsythia.app.grammarEditor.editor_Jig.graph;
 
 import java.util.ArrayList;
 import java.util.Hashtable;

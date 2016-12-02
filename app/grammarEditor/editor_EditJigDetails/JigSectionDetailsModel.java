@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.app.grammarEditor.project.ProjectJigSection_Polygon;
+import org.fleen.forsythia.app.grammarEditor.project.ProjectJigSection;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectMetagon;
 import org.fleen.forsythia.core.Forsythia;
 import org.fleen.geom_2D.DCircle;
@@ -19,7 +19,7 @@ import org.fleen.geom_Kisrhombille.KVertex;
 
 class JigSectionDetailsModel implements FocusableModelElement{
   
-  JigSectionDetailsModel(ProjectJigSection_Polygon jigsection,int sectionindex,JigDetailsModel jigmodel){
+  JigSectionDetailsModel(ProjectJigSection jigsection,int sectionindex,JigDetailsModel jigmodel){
     productanchoroptions=jigsection.getProductAnchorOptions();
     producttags=jigsection.tags;
     productmetagon=jigsection.productmetagon;

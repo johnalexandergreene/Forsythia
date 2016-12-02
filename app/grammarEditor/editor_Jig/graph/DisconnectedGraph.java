@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_CreateJigGeometry.graph;
+package org.fleen.forsythia.app.grammarEditor.editor_Jig.graph;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +11,7 @@ import org.fleen.util.tree.TreeNodeIterator;
 /*
  * Analysis of a graph
  * Contains 1..n ConnectedGraphAnalysis objects
+ * TODO stick this in util?
  */
 public class DisconnectedGraph{
   

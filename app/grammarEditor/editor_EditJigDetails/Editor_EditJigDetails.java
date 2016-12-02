@@ -45,7 +45,7 @@ public class Editor_EditJigDetails extends Editor{
     model=new JigDetailsModel(GE.focusjig);
     EJD_UI ui=(EJD_UI)getUI();
     ui.pangrid.centerAndFit();
-    refreshAll();}
+    refreshUI();}
   
   public void configureForClose(){
     model=null;
@@ -57,7 +57,7 @@ public class Editor_EditJigDetails extends Editor{
    * ################################
    */
   
-  public void refreshAll(){
+  public void refreshUI(){
     refreshText();
     refreshGrid();} 
   

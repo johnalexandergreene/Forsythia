@@ -8,7 +8,7 @@ import java.util.Map;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectJig;
-import org.fleen.forsythia.app.grammarEditor.project.ProjectJigSection_Polygon;
+import org.fleen.forsythia.app.grammarEditor.project.ProjectJigSection;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_Kisrhombille.KPolygon;
 
@@ -27,7 +27,7 @@ class JigDetailsModel implements FocusableModelElement{
     //convert sections
     JigSectionDetailsModel m;
     int i=0;
-    for(ProjectJigSection_Polygon s:projectjig.sections_polygon){
+    for(ProjectJigSection s:projectjig.sections){
       m=new JigSectionDetailsModel(s,i,this);
       modelbysection.put(s,m);
       i++;}}
@@ -39,8 +39,8 @@ class JigDetailsModel implements FocusableModelElement{
    */
   
   //section models keyed by section
-  Map<ProjectJigSection_Polygon,JigSectionDetailsModel> modelbysection=
-    new Hashtable<ProjectJigSection_Polygon,JigSectionDetailsModel>();
+  Map<ProjectJigSection,JigSectionDetailsModel> modelbysection=
+    new Hashtable<ProjectJigSection,JigSectionDetailsModel>();
   
   Collection<JigSectionDetailsModel> getSectionModels(){
     return modelbysection.values();}
@@ -138,7 +138,7 @@ class JigDetailsModel implements FocusableModelElement{
   void export(ProjectJig jig){
     jig.tags=jigtags;
     JigSectionDetailsModel m;
-    for(ProjectJigSection_Polygon s:jig.sections_polygon){
+    for(ProjectJigSection s:jig.sections){
       m=modelbysection.get(s);
       s.setProductAnchorIndex(m.productanchorindex);
       s.setProductChorusIndex(m.productchorusindex);

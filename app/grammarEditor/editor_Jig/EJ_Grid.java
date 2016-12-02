@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_CreateJigGeometry;
+package org.fleen.forsythia.app.grammarEditor.editor_Jig;
 
 import java.awt.Graphics2D;
 
@@ -8,8 +8,8 @@ import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KVertex;
 
 @SuppressWarnings("serial")
-public class CJG_Grid extends Grid{
-  public CJG_Grid() {
+public class EJ_Grid extends Grid{
+  public EJ_Grid() {
   }
   
   GridOverlayPainter overlaypainter=new GridOverlayPainter();
@@ -26,15 +26,15 @@ public class CJG_Grid extends Grid{
      }catch(Exception x){}}
 
   protected KPolygon getHostPolygon(){
-    return GE.editor_createjig.getHostPolygon();}
+    return GE.editor_jig.getHostPolygon();}
 
   protected void mouseTouched(double[] p,KVertex v){
-    GE.editor_createjig.touchGrid(p,v);}
+    GE.editor_jig.touchGrid(p,v);}
 
   protected void mouseMovedCloseToVertex(KVertex v){//TODO highlight vertex
-    GE.editor_createjig.initMouseMode_VERTEXNEAR();}
+    GE.editor_jig.initMouseMode_TouchVertex();}
 
   protected void mouseMovedFarFromVertex(double[] p){
-    GE.editor_createjig.initMouseMode_VERTEXFAR();}
+    GE.editor_jig.initMouseMode_TouchSection();}
   
 }

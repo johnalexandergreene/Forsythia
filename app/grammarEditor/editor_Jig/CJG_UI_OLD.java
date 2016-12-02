@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_CreateJigGeometry;
+package org.fleen.forsythia.app.grammarEditor.editor_Jig;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,7 +18,7 @@ import org.fleen.forsythia.app.grammarEditor.GE;
 public class CJG_UI_OLD extends JPanel{
   
   public JLabel lblgriddensity;
-  public CJG_Grid pangrid;
+  public EJ_Grid pangrid;
   public JLabel lblinfo;
 
   public CJG_UI_OLD(){
@@ -44,7 +44,7 @@ public class CJG_UI_OLD extends JPanel{
     btnincrement.setBackground(new Color(255, 153, 0));
     btnincrement.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.editor_createjig.incrementGridDensity();}});
+        GE.editor_jig.incrementGridDensity();}});
     btnincrement.setFont(new Font("DejaVu Sans Mono", Font.BOLD, 18));
     hboxtop.add(btnincrement);
     
@@ -55,7 +55,7 @@ public class CJG_UI_OLD extends JPanel{
     btndecrement.setBackground(new Color(255, 0, 153));
     btndecrement.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.editor_createjig.decrementGridDensity();}});
+        GE.editor_jig.decrementGridDensity();}});
     btndecrement.setFont(new Font("DejaVu Sans Mono", Font.BOLD, 18));
     hboxtop.add(btndecrement);
     
@@ -64,7 +64,7 @@ public class CJG_UI_OLD extends JPanel{
     btnsave.setFont(new Font("DejaVu Sans Mono", Font.BOLD, 18));
     btnsave.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.editor_createjig.saveJig();}});
+        GE.editor_jig.saveJig();}});
     
     Component horizontalGlue = Box.createHorizontalGlue();
     hboxtop.add(horizontalGlue);
@@ -78,13 +78,13 @@ public class CJG_UI_OLD extends JPanel{
     btndiscard.setFont(new Font("DejaVu Sans Mono", Font.BOLD, 18));
     btndiscard.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.editor_createjig.discardJig();}});
+        GE.editor_jig.discardJig();}});
     hboxtop.add(btndiscard);
     
     Component horizontalStrut_6 = Box.createHorizontalStrut(20);
     hboxtop.add(horizontalStrut_6);
     
-    pangrid = new CJG_Grid();
+    pangrid = new EJ_Grid();
     add(pangrid, BorderLayout.CENTER);
     
     lblinfo = new JLabel("<no info>");

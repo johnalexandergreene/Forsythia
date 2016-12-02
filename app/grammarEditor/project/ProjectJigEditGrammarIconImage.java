@@ -72,7 +72,7 @@ class ProjectJigEditGrammarIconImage extends BufferedImage{
     //polygon jig sections
     KPolygon p;
     DPolygon points;
-    for(ProjectJigSection_Polygon section:pj.sections_polygon){
+    for(ProjectJigSection section:pj.sections){
       p=section.productmetagon.kmetagon.getPolygon(section.getProductAnchor());
       points=p.getDefaultPolygon2D();
       renderSectionPolygon(g,points);}}
