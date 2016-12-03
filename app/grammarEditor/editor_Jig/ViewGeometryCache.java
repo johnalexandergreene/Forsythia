@@ -60,7 +60,8 @@ public class ViewGeometryCache{
     System.out.println("invalidate display geometry cache");
     p2dbykvertex.clear();
     path2dbykpolygon.clear();
-    path2dbykyard.clear();}
+//    path2dbykyard.clear();
+    }
   
   /*
    * ################################
@@ -121,35 +122,35 @@ public class ViewGeometryCache{
     path.closePath();
     return path;}  
   
-  /*
-   * ################################
-   * YARD PATH
-   * ################################
-   */
-  
-  private Map<KYard,Path2D> path2dbykyard=new Hashtable<KYard,Path2D>();
-  
-  public Path2D getPath(KYard y){
-    Path2D path=path2dbykyard.get(y);
-    if(path==null){
-      path=createPath(y);
-      path2dbykyard.put(y,path);}
-    return path;}
-  
-  private Path2D createPath(KYard y){
-    Path2D 
-      path=new Path2D.Double(),
-      ppath;
-    //THIS IS IMPORTANT
-    //if we don't set the winding rule to even odd then the default, nonzero, makes the 
-    //holes not render right. It fills them in.
-    path.setWindingRule(Path2D.WIND_EVEN_ODD);
-    //
-    for(KPolygon p:y){
-      ppath=createPath(p);
-      path.append(ppath,false);}
-//    new TestFrame0(path);
-    return path;} 
+//  /*
+//   * ################################
+//   * YARD PATH
+//   * ################################
+//   */
+//  
+//  private Map<KYard,Path2D> path2dbykyard=new Hashtable<KYard,Path2D>();
+//  
+//  public Path2D getPath(KYard y){
+//    Path2D path=path2dbykyard.get(y);
+//    if(path==null){
+//      path=createPath(y);
+//      path2dbykyard.put(y,path);}
+//    return path;}
+//  
+//  private Path2D createPath(KYard y){
+//    Path2D 
+//      path=new Path2D.Double(),
+//      ppath;
+//    //THIS IS IMPORTANT
+//    //if we don't set the winding rule to even odd then the default, nonzero, makes the 
+//    //holes not render right. It fills them in.
+//    path.setWindingRule(Path2D.WIND_EVEN_ODD);
+//    //
+//    for(KPolygon p:y){
+//      ppath=createPath(p);
+//      path.append(ppath,false);}
+////    new TestFrame0(path);
+//    return path;} 
   
   /*
    * ################################

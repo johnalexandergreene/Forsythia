@@ -9,8 +9,6 @@ import org.fleen.geom_Kisrhombille.KVertex;
 
 @SuppressWarnings("serial")
 public class EJ_Grid extends Grid{
-  public EJ_Grid() {
-  }
   
   GridOverlayPainter overlaypainter=new GridOverlayPainter();
 
@@ -27,14 +25,34 @@ public class EJ_Grid extends Grid{
 
   protected KPolygon getHostPolygon(){
     return GE.editor_jig.getHostPolygon();}
+  
+  /*
+   * ################################
+   * MOUSE
+   * We monitor the distance of the mouse from any vertices
+   * when we're close we're in touch vertices mode
+   * when we're far we're in touch sections mode
+   * ################################
+   */
+
+  private static final int 
+    MOUSEMODE_TOUCHVERTEX=0,
+    MOUSEMODE_TOUCHSECTION=1;
+  
+  private int mousemode;
 
   protected void mouseTouched(double[] p,KVertex v){
-    GE.editor_jig.touchGrid(p,v);}
+    if(mousemode==MOUSEMODE_TOUCHVERTEX)
+      GE.editor_jig.touchVertex(v);
+    else
+      GE.editor_jig.touchSection(p);}
 
-  protected void mouseMovedCloseToVertex(KVertex v){//TODO highlight vertex
-    GE.editor_jig.initMouseMode_TouchVertex();}
+  protected void mouseMovedCloseToVertex(KVertex v){
+    setCursorCircle();
+    mousemode=MOUSEMODE_TOUCHVERTEX;}
 
   protected void mouseMovedFarFromVertex(double[] p){
-    GE.editor_jig.initMouseMode_TouchSection();}
+    setCursorSquare();
+    mousemode=MOUSEMODE_TOUCHSECTION;}
   
 }

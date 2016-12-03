@@ -53,11 +53,27 @@ public class Editor_Jig extends Editor{
   public void refreshUI(){
     refreshGrid();
     refreshControls();}
-  
+
   public void refreshGrid(){
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangrid.gridrenderer.invalidateTileImage();
     ui.pangrid.repaint();}
+
+  void refreshJigDetailsUI(){
+    
+  }
+  
+  void refreshSectionDetailsUI(){
+    
+  }
+  
+  void refreshGeneralDetailsUI(){
+    
+  }
+  
+
+  
+
   
   void refreshControls(){
     EJ_UI ui=(EJ_UI)getUI();
@@ -66,7 +82,9 @@ public class Editor_Jig extends Editor{
   
   void refreshFocusSectionInfo(){
     EJ_UI ui=(EJ_UI)getUI();
-    ui.lblinfo.setText(getFocusElementInfo());}
+//    ui.lblinfo.setText(getFocusElementInfo());
+    
+  }
 
   /*
    * ################################
@@ -129,24 +147,38 @@ public class Editor_Jig extends Editor{
     viewgeometrycache=null;}
   
   /*
-   * touch a vertex on the kgrid
-   * if we touch the connectedhead then the connectedhead is turned into the unconnectedhead
+   * ################################
+   * MANIPULATE GRID
+   * ################################
    */
-  private void touchVertex(KVertex v){
+  
+  /*
+   * ++++++++++++++++++++++++++++++++
+   * TOUCH VERTEX
+   * ++++++++++++++++++++++++++++++++
+   */
+  
+  void touchVertex(final KVertex v){
     focuselement=null;
     if(v==null){
       System.out.println("null vertex");
+      model.rawgraph.invalidateDisconnectedGraph();
+      ((EJ_UI)getUI()).pangrid.repaint();
       return;}
     //if we touch the connectedhead then convert connectedhead to unconnectedhead
     if(connectedhead!=null&&v.equals(connectedhead)){
       unconnectedhead=connectedhead;
       connectedhead=null;
+      model.rawgraph.invalidateDisconnectedGraph();
+      ((EJ_UI)getUI()).pangrid.repaint();
       return;}
     //if we touch the unconnectedhead then delete unconnectedhead
     if(unconnectedhead!=null&&v.equals(unconnectedhead)){
       model.rawgraph.removeVertex(v);
       connectedhead=null;
       unconnectedhead=null;
+      model.rawgraph.invalidateDisconnectedGraph();
+      ((EJ_UI)getUI()).pangrid.repaint();
       return;}
     //if we touch a used vertex
     if(model.rawgraph.contains(v)){
@@ -156,6 +188,8 @@ public class Editor_Jig extends Editor{
       //v becomes connectedhead. unconnectedhead is nulled.
       connectedhead=v;
       unconnectedhead=null;
+      model.rawgraph.invalidateDisconnectedGraph();
+      ((EJ_UI)getUI()).pangrid.repaint();
       return;}
     //if we touch a vertex that is crossed by an edge (between but not on the edge's vertices)
     GEdge edge=model.rawgraph.getCrossingEdge(v);
@@ -171,6 +205,8 @@ public class Editor_Jig extends Editor{
       //v is new connectedhead
       connectedhead=v;
       unconnectedhead=null;
+      model.rawgraph.invalidateDisconnectedGraph();
+      ((EJ_UI)getUI()).pangrid.repaint();
       return;}
     //if we touch an unused vertex
     //(at this point we know that we touched an unused vertex that is not crossed by an edge)
@@ -180,63 +216,25 @@ public class Editor_Jig extends Editor{
       model.rawgraph.connect(v,connectedhead);
     connectedhead=v;
     unconnectedhead=null;
-    refreshControls();}
-  
-  private String getFocusElementInfo(){
-    if(focuselement==null)
-      return model.rawgraph.getInfo();
-    else
-      return focuselement.toString();}
-  
-  private void touchSection(KVertex v){
-    
-  }
-  
-  /*
-   * ################################
-   * MOUSE MODE 
-   * We monitor the distance of the mouse from any vertices
-   * when we're close we're in touch vertices mode
-   * when we're far we're in touch sections mode
-   * ################################
-   */
-  
-  private static final int 
-    MOUSEMODE_TOUCHVERTEX=0,
-    MOUSEMODE_TOUCHSECTION=1;
-  
-  int mousemode;
-  
-  public void initMouseMode_TouchVertex(){
-    if(mousemode==MOUSEMODE_TOUCHVERTEX)return;
-    mousemode=MOUSEMODE_TOUCHVERTEX;
-    EJ_UI ui=(EJ_UI)getUI();
-    ui.pangrid.setCursorCircle();}
-  
-  public void initMouseMode_TouchSection(){
-    if(mousemode==MOUSEMODE_TOUCHSECTION)return;
-    mousemode=MOUSEMODE_TOUCHSECTION;
-    EJ_UI ui=(EJ_UI)getUI();
-    ui.pangrid.setCursorSquare();}
-
-  /*
-   * ################################
-   * MOUSE
-   * ################################
-   */
-  
-  /*
-   * if the mode is draw vertex then we convert the point to a vertex and so on
-   * if the mode is select section then we do that 
-   */
-  public void touchGrid(final double[] p,final KVertex v){
-    if(mousemode==MOUSEMODE_TOUCHVERTEX){
-      touchVertex(v);
-      model.rawgraph.invalidateDisconnectedGraph();
-    }else{
-      touchSection(v);
-      refreshFocusSectionInfo();}
+    refreshControls();
+    model.rawgraph.invalidateDisconnectedGraph();
     ((EJ_UI)getUI()).pangrid.repaint();}
+  
+  /*
+   * ++++++++++++++++++++++++++++++++
+   * TOUCH SECTION
+   * or anything other than a vertex. unspecified territory I guess
+   * ++++++++++++++++++++++++++++++++
+   */
+  
+  void touchSection(final double[] p){
+    
+    //TODO
+    
+    refreshFocusSectionInfo();
+    ((EJ_UI)getUI()).pangrid.repaint();
+  }
+
   
   /*
    * ################################

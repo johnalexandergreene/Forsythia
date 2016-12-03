@@ -1,20 +1,15 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Jig;
 
-import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.Stroke;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.util.Iterator;
-import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GEdge;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GVertex;
 import org.fleen.forsythia.app.grammarEditor.util.UI;
-import org.fleen.geom_Kisrhombille.KYard;
 
 public class GridOverlayPainter{
   
@@ -22,7 +17,7 @@ public class GridOverlayPainter{
     graphics.setRenderingHints(UI.RENDERING_HINTS);
     GE.editor_jig.viewgeometrycache.update(w,h,scale,centerx,centery);
     renderHostMetagonPolygonAndFocusPolygon(graphics);
-    renderYards(graphics);
+//    renderYards(graphics);
     renderEdges(graphics);
     renderVertices(graphics);}
   
@@ -53,22 +48,22 @@ public class GridOverlayPainter{
    * ################################
    */
   
-  private void renderYards(Graphics2D graphics){
-    graphics.setPaint(new Color(128,128,255,128));
-    Path2D path;
-    List<KYard> yards=GE.editor_jig.model.rawgraph.getDisconnectedGraph().getYards();
-    System.out.println("### YARDCOUNT @ PAINTER : "+yards.size());
-    int rindex=0;
-    for(KYard y:yards){
-      System.out.println("rendering yard ::: "+rindex);
-      rindex++;
-      try{
-        path=GE.editor_jig.viewgeometrycache.getPath(y);
-        graphics.fill(path);
-      }catch(Exception x){
-        System.out.println("EXCEPTION IN RENDER YARDS");
-        x.printStackTrace();}}
-    }
+//  private void renderYards(Graphics2D graphics){
+//    graphics.setPaint(new Color(128,128,255,128));
+//    Path2D path;
+//    List<KYard> yards=GE.editor_jig.model.rawgraph.getDisconnectedGraph().getYards();
+//    System.out.println("### YARDCOUNT @ PAINTER : "+yards.size());
+//    int rindex=0;
+//    for(KYard y:yards){
+//      System.out.println("rendering yard ::: "+rindex);
+//      rindex++;
+//      try{
+//        path=GE.editor_jig.viewgeometrycache.getPath(y);
+//        graphics.fill(path);
+//      }catch(Exception x){
+//        System.out.println("EXCEPTION IN RENDER YARDS");
+//        x.printStackTrace();}}
+//    }
   
   /*
    * ################################
