@@ -1,9 +1,5 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Jig;
 
-import java.util.Hashtable;
-import java.util.List;
-import java.util.Map;
-
 import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
@@ -15,7 +11,7 @@ import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KVertex;
 
 /*
- * A jig is defined by it's grid density, graph, jig tags, jigsections and jigsection tags
+ * A jig is defined by it's grid density, graph, jig tags, jigsections, jigsection tags, jigsection anchors and jigsection chorus indices
  * 
  * For editing purposes we employ a jig editing model
  *   The model contains all that
@@ -26,6 +22,22 @@ import org.fleen.geom_Kisrhombille.KVertex;
  * For every created section we compare the resulting metagon with our existing set of metagons
  * If a match is found then we use that metagon to define a section.
  * If no match is found then we create a new metagon.
+ * 
+ * 
+ * ---------------------------
+ * given an empty grid
+ * click a vertex. this adds a vertex : v0
+ * click another vertex, v1. this draws a line from v0 to v1
+ * (if you click a vertex again it turns white. 
+ *   this means that clicking the next vertex will not connect. 
+ *   click a white vertex and the vertex is deleted)
+ * click and connect vertices until we have a polygon
+ * split the polygon to get 2 polygons and so on
+ * 
+ * whenever a polygon is created we register it and initialize tags, anchor and chorusindex
+ * 
+ * 
+ * 
  * 
  */
 public class Editor_Jig extends Editor{
@@ -93,7 +105,7 @@ public class Editor_Jig extends Editor{
    */
 
   public void configureForOpen(){
-    initModel();
+    initJigEditingObjects();
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangrid.centerAndFit();
     refreshUI();}
@@ -103,54 +115,39 @@ public class Editor_Jig extends Editor{
   
   /*
    * ################################
-   * JIG EDITING MODEL
+   * JIG EDITING OBJECTS
    * ################################
    */
   
-  //
-  KVertex connectedhead,unconnectedhead;
-  //tags for this protojig
-  public String protojigtags;
-  //tags for each section
-  public Map<KPolygon,String> sectiontagsbypolygon;
-  //either a section polygon or null.
-  //section polygon means focus in on a particular section
-  //null means focus is on the protojig as a whole
-  KPolygon focuselement=null;
-  //fast and convenient
-  ViewGeometryCache viewgeometrycache;
-  
+  //defines our jig to be
   JigEditingModel model;
+  //in the course of defining our geometry we have a "last vertex indicated"
+  //if we click it once it is connected, twice and it is unconnected
+  KVertex connectedhead,unconnectedhead;
+  //the section polygon that we are presently focused upon.
+  //highlighted in the grid, its details displayed up top in that second bar
+  KPolygon focussectionpolygon;
   
-  private void initModel(){
-    
+  private void initJigEditingObjects(){
     model=new JigEditingModel();
-    
-//    rawgraph=new RawGraph(GE.focusmetagon.kpolygon);
-    protojigtags="";
-    sectiontagsbypolygon=new Hashtable<KPolygon,String>();
     connectedhead=null;
     unconnectedhead=null;
-    focuselement=null;
-    viewgeometrycache=new ViewGeometryCache();}
-  
-  KPolygon getHostPolygon(){
-    return GE.focusmetagon.kmetagon.getScaledPolygon(model.griddensity);}
+    focussectionpolygon=null;}
   
   private void discardEditingObjects(){
     model=null;
-    protojigtags=null;
-    sectiontagsbypolygon=null;
     connectedhead=null;
     unconnectedhead=null;
-    focuselement=null;
-    viewgeometrycache=null;}
+    focussectionpolygon=null;}
   
   /*
    * ################################
    * MANIPULATE GRID
    * ################################
    */
+  
+  KPolygon getHostPolygon(){
+    return GE.focusmetagon.kmetagon.getScaledPolygon(model.griddensity);}
   
   /*
    * ++++++++++++++++++++++++++++++++
@@ -159,7 +156,7 @@ public class Editor_Jig extends Editor{
    */
   
   void touchVertex(final KVertex v){
-    focuselement=null;
+//    focuselement=null;
     if(v==null){
       System.out.println("null vertex");
       model.rawgraph.invalidateDisconnectedGraph();
@@ -180,7 +177,7 @@ public class Editor_Jig extends Editor{
       model.rawgraph.invalidateDisconnectedGraph();
       ((EJ_UI)getUI()).pangrid.repaint();
       return;}
-    //if we touch a used vertex
+    //if we touch a vertex that's already in the model
     if(model.rawgraph.contains(v)){
       //if connectedhead is nonnull then connect connectedhead to v
       if(connectedhead!=null)
@@ -245,10 +242,9 @@ public class Editor_Jig extends Editor{
   public void incrementGridDensity(){
     connectedhead=null;
     unconnectedhead=null;
-    focuselement=null;
+//    focuselement=null;
     System.out.println("increment");
     model.incrementGridDensity();
-    model.rawgraph=new RawGraph(getHostPolygon());
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangrid.gridrenderer.invalidateTileImage();
     ui.pangrid.centerAndFit();
@@ -258,10 +254,9 @@ public class Editor_Jig extends Editor{
   public void decrementGridDensity(){
     connectedhead=null;
     unconnectedhead=null;
-    focuselement=null;
+//    focuselement=null;
     System.out.println("decrement");
     model.decrementGridDensity();
-    model.rawgraph=new RawGraph(getHostPolygon());
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangrid.gridrenderer.invalidateTileImage();
     ui.pangrid.centerAndFit();
@@ -269,22 +264,11 @@ public class Editor_Jig extends Editor{
     refreshUI();}
   
   public void saveJig(){
-    //get the polygons and yards for the jig
-    //from the polygons list remove any outer polygons of yards
-    //TODO I dunno, maybe find a more elegant way to do this
-    //maybe do it elsewhere
-    List<KPolygon> sectionpolygons=model.rawgraph.getDisconnectedGraph().getUndividedPolygons();
-    //create the new jig
-    ProjectJig j=new ProjectJig(
-      GE.focusmetagon,
-      model.griddensity,
-      sectionpolygons);
-    //clean up
+    ProjectJig j=model.getProjectJig();
     GE.focusmetagon.invalidateOverviewIconImage();
     GE.focusmetagon.addJig(j);
     GE.focusjig=j;
-    //got to jig details editor
-    GE.setEditor(GE.editor_editjigdetails);}
+    GE.setEditor(GE.editor_grammar);}
   
   public void discardJig(){
     //TODO null everything

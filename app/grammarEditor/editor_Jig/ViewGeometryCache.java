@@ -4,23 +4,21 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFrame;
 
-import org.fleen.geom_2D.GD;
 import org.fleen.geom_Kisrhombille.GK;
 import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KVertex;
-import org.fleen.geom_Kisrhombille.KYard;
 
 /*
  * KGeometry elements converted to 2d elements for view and interaction
  * cached here for general service
- * also makes things faster  
+ * also makes things faster
+ * 
+ * we cache vertices, segs and polygons
  */
 public class ViewGeometryCache{
   
@@ -59,9 +57,7 @@ public class ViewGeometryCache{
   private void invalidate(){
     System.out.println("invalidate display geometry cache");
     p2dbykvertex.clear();
-    path2dbykpolygon.clear();
-//    path2dbykyard.clear();
-    }
+    path2dbykpolygon.clear();}
   
   /*
    * ################################

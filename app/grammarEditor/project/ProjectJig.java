@@ -8,7 +8,6 @@ import org.fleen.forsythia.app.grammarEditor.util.ElementMenuItem;
 import org.fleen.forsythia.core.grammar.Jig;
 import org.fleen.forsythia.core.grammar.JigSection;
 import org.fleen.geom_Kisrhombille.KPolygon;
-import org.fleen.geom_Kisrhombille.KYard;
 
 /*
  * This is a project jig
@@ -27,8 +26,9 @@ public class ProjectJig implements ElementMenuItem{
    */
   
   //create
-  //invoked by the jig geometry creating editor
+  //invoked by the jig editor
   //we specify just geometry stuff, details are set to default values
+  //TODO we gotta handle anchors, chorusindices and tags here too
   public ProjectJig(
     ProjectMetagon targetmetagon,
     int griddensity,
@@ -36,7 +36,6 @@ public class ProjectJig implements ElementMenuItem{
     this.targetmetagon=targetmetagon;
     this.griddensity=griddensity;
     initSectionsForCreate(sectionpolygons);
-//    initTypes();
     initSectionProductChorusIndices();}
   
   //import
@@ -82,8 +81,8 @@ public class ProjectJig implements ElementMenuItem{
 
   //returns true of any of our sections uses the specified metagon for its polygonal product
   public boolean usesForProduct(ProjectMetagon m){
-    for(ProjectJigSection ppjs:sections)
-      if(ppjs.productmetagon==m)
+    for(ProjectJigSection pjs:sections)
+      if(pjs.productmetagon==m)
         return true;
     return false;}
   

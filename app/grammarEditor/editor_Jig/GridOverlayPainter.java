@@ -15,8 +15,8 @@ public class GridOverlayPainter{
   
   void paint(Graphics2D graphics,int w,int h,double scale,double centerx,double centery){
     graphics.setRenderingHints(UI.RENDERING_HINTS);
-    GE.editor_jig.viewgeometrycache.update(w,h,scale,centerx,centery);
-    renderHostMetagonPolygonAndFocusPolygon(graphics);
+    GE.editor_jig.model.viewgeometrycache.update(w,h,scale,centerx,centery);
+//    renderFocusSection(graphics);
 //    renderYards(graphics);
     renderEdges(graphics);
     renderVertices(graphics);}
@@ -27,11 +27,11 @@ public class GridOverlayPainter{
    * ################################
    */
   
-  private void renderHostMetagonPolygonAndFocusPolygon(Graphics2D graphics){
-    Path2D hmppath=GE.editor_jig.viewgeometrycache.getPath(GE.editor_jig.getHostPolygon());
+  private void renderFocusSection(Graphics2D graphics){
+    Path2D focussectionpolygonpath=GE.editor_jig.model.viewgeometrycache.getPath(GE.editor_jig.focussectionpolygon);
     if(GE.editor_jig.focuselement!=null){
       Path2D fppath=GE.editor_jig.viewgeometrycache.getPath(GE.editor_jig.focuselement);  
-      Area a0=new Area(hmppath);
+      Area a0=new Area(focussectionpolygonpath);
       Area a1=new Area(fppath);
       a0.subtract(a1);  
       graphics.setPaint(UI.EDITORCREATEPROTOJIG_HOSTMETAGONFILLCOLOR);
@@ -40,7 +40,7 @@ public class GridOverlayPainter{
       graphics.fill(a1);
     }else{
       graphics.setPaint(UI.EDITORCREATEPROTOJIG_HOSTMETAGONFILLCOLOR);
-      graphics.fill(hmppath);}}
+      graphics.fill(focussectionpolygonpath);}}
   
   /*
    * ################################
@@ -88,8 +88,8 @@ public class GridOverlayPainter{
     //System.out.println("edge count:"+Q.editor_createjig.graph.getEdgeCount());
     while(i.hasNext()){
       e=i.next();
-      p0=GE.editor_jig.viewgeometrycache.getPoint(e.v0.kvertex);
-      p1=GE.editor_jig.viewgeometrycache.getPoint(e.v1.kvertex);
+      p0=GE.editor_jig.model.viewgeometrycache.getPoint(e.v0.kvertex);
+      p1=GE.editor_jig.model.viewgeometrycache.getPoint(e.v1.kvertex);
       path.reset();
       path.moveTo(p0[0],p0[1]);
       path.lineTo(p1[0],p1[1]);
@@ -120,7 +120,7 @@ public class GridOverlayPainter{
     double[] p;
     Ellipse2D dot=new Ellipse2D.Double();
     for(GVertex v:GE.editor_jig.model.rawgraph.vertices){
-      p=GE.editor_jig.viewgeometrycache.getPoint(v.kvertex);
+      p=GE.editor_jig.model.viewgeometrycache.getPoint(v.kvertex);
       dot.setFrame(p[0]-span/2,p[1]-span/2,span,span);
       graphics.fill(dot);}}
   
@@ -129,11 +129,11 @@ public class GridOverlayPainter{
     int span=UI.EDITORCREATEPROTOJIG_HEADVERTEXDECORATIONSPAN;
     double[] p;
     if(GE.editor_jig.connectedhead!=null){
-      p=GE.editor_jig.viewgeometrycache.getPoint(GE.editor_jig.connectedhead);
+      p=GE.editor_jig.model.viewgeometrycache.getPoint(GE.editor_jig.connectedhead);
       graphics.setPaint(UI.EDITORCREATEPROTOJIG_CONNECTEDHEADVERTEXDECORATIONCOLOR);
       graphics.drawOval(((int)p[0])-span/2,((int)p[1])-span/2,span,span);
     }else if(GE.editor_jig.unconnectedhead!=null){
-      p=GE.editor_jig.viewgeometrycache.getPoint(GE.editor_jig.unconnectedhead);
+      p=GE.editor_jig.model.viewgeometrycache.getPoint(GE.editor_jig.unconnectedhead);
       graphics.setPaint(UI.EDITORCREATEPROTOJIG_UNCONNECTEDHEADVERTEXDECORATIONCOLOR);
       graphics.drawOval(((int)p[0])-span/2,((int)p[1])-span/2,span,span);}}
   

@@ -16,6 +16,8 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
 class EJ_UI extends JPanel{
@@ -100,6 +102,9 @@ class EJ_UI extends JPanel{
     boxtop0.add(horizontalStrut);
     
     txtjigtags = new JTextField();
+    txtjigtags.addKeyListener(new KeyAdapter(){
+      public void keyTyped(KeyEvent e){
+        GE.editor_jig.model.jigtagstring=txtjigtags.getText();}});
     txtjigtags.setToolTipText("Jig Tags");
     txtjigtags.setFont(new Font("Dialog", Font.PLAIN, 18));
     txtjigtags.setText("jigtags");

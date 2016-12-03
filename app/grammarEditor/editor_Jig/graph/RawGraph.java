@@ -9,7 +9,7 @@ import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KVertex;
 
 /*
- * This is what we build when we draw with editor_CreateJigGeometry
+ * This is what we build when we draw with editor_Jig
  * It's a bunch of vertices and connections between vertices
  * We edit it. It's for editing. We add and remove vertices and edges.
  * 
@@ -186,6 +186,11 @@ public class RawGraph{
       disconnectedgraph=new DisconnectedGraph(this);}
     return disconnectedgraph;}
   
+  /*
+   * the disconnected graph is an interpretation of the raw graph 
+   * so when the raw graph changes we invalidate this disconnected graph
+   * because it no longer accurately reflects the raw graph 
+   */
   public void invalidateDisconnectedGraph(){
     disconnectedgraph=null;}
   
