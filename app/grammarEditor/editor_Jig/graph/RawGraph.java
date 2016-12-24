@@ -47,9 +47,13 @@ public class RawGraph{
    * We achieve this immutability by adding the polygon to the graph every time we make any other modification.
    * ex : add a vertex, then add hostpolygon. remove a vertex, then add hostpolygon.
    * It's brutish, but its simple and it works. 
+   * 
+   * 
+   * we scale the polygon by griddensity
+   * 
    */
-  public RawGraph(KPolygon p){
-    hostkpolygon=p;
+  public RawGraph(KPolygon p,int griddensity){
+    hostkpolygon=p.getKMetagon().getPolygon(griddensity,true);
     addHostKPolygon();
     }
   

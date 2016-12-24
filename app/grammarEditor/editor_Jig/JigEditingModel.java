@@ -67,7 +67,7 @@ class JigEditingModel{
   RawGraph rawgraph;
   
   void initGraph(){
-    rawgraph=new RawGraph(GE.focusmetagon.kpolygon);}
+    rawgraph=new RawGraph(GE.focusmetagon.kpolygon,griddensity);}
   
   
   
