@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_Jig;
+package org.fleen.forsythia.app.grammarEditor.editor_Jig.ui;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -20,7 +20,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 @SuppressWarnings("serial")
-class EJ_UI extends JPanel{
+class EJ_UI_OLD extends JPanel{
   
   JTextField txtjigtags,txtsectiontags;
   EJ_Grid pangrid;
@@ -29,7 +29,7 @@ class EJ_UI extends JPanel{
   /**
    * Create the panel.
    */
-  EJ_UI(){
+  EJ_UI_OLD(){
     
     pangrid = new EJ_Grid();
     

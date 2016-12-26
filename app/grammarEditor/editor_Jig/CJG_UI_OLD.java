@@ -13,6 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.ui.EJ_Grid;
 
 @SuppressWarnings("serial")
 public class CJG_UI_OLD extends JPanel{

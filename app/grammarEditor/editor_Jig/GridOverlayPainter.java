@@ -13,7 +13,7 @@ import org.fleen.forsythia.app.grammarEditor.util.UI;
 
 public class GridOverlayPainter{
   
-  void paint(Graphics2D graphics,int w,int h,double scale,double centerx,double centery){
+  public void paint(Graphics2D graphics,int w,int h,double scale,double centerx,double centery){
     graphics.setRenderingHints(UI.RENDERING_HINTS);
     GE.editor_jig.model.viewgeometrycache.update(w,h,scale,centerx,centery);
 //    renderFocusSection(graphics);
