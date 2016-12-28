@@ -45,7 +45,7 @@ public class CJG_UI_OLD extends JPanel{
     btnincrement.setBackground(new Color(255, 153, 0));
     btnincrement.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.editor_jig.incrementGridDensity();}});
+        GE.editor_jig.gridDensity_Increment();}});
     btnincrement.setFont(new Font("DejaVu Sans Mono", Font.BOLD, 18));
     hboxtop.add(btnincrement);
     
@@ -56,7 +56,7 @@ public class CJG_UI_OLD extends JPanel{
     btndecrement.setBackground(new Color(255, 0, 153));
     btndecrement.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.editor_jig.decrementGridDensity();}});
+        GE.editor_jig.gridDensity_Decrement();}});
     btndecrement.setFont(new Font("DejaVu Sans Mono", Font.BOLD, 18));
     hboxtop.add(btndecrement);
     
@@ -65,7 +65,7 @@ public class CJG_UI_OLD extends JPanel{
     btnsave.setFont(new Font("DejaVu Sans Mono", Font.BOLD, 18));
     btnsave.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.editor_jig.saveJig();}});
+        GE.editor_jig.save();}});
     
     Component horizontalGlue = Box.createHorizontalGlue();
     hboxtop.add(horizontalGlue);
@@ -79,7 +79,7 @@ public class CJG_UI_OLD extends JPanel{
     btndiscard.setFont(new Font("DejaVu Sans Mono", Font.BOLD, 18));
     btndiscard.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.editor_jig.discardJig();}});
+        GE.editor_jig.quit();}});
     hboxtop.add(btndiscard);
     
     Component horizontalStrut_6 = Box.createHorizontalStrut(20);

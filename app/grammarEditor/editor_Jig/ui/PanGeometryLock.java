@@ -3,16 +3,22 @@ package org.fleen.forsythia.app.grammarEditor.editor_Jig.ui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import java.awt.Font;
+
+import org.fleen.forsythia.app.grammarEditor.GE;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
-class PanGeometryLock extends JPanel{
+public class PanGeometryLock extends JPanel{
+  
+  public JButton btngeometrylock;
 
   public PanGeometryLock(){
     
@@ -34,7 +40,10 @@ class PanGeometryLock extends JPanel{
     Component horizontalStrut = Box.createHorizontalStrut(4);
     horizontalboxmid.add(horizontalStrut);
     
-    JButton btngeometrylock = new JButton("GEOMETRY UNLOCKED");
+    btngeometrylock = new JButton("GEOMETRY UNLOCKED");
+    btngeometrylock.addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent e){
+        GE.editor_jig.toggleGeometryLock();}});
     btngeometrylock.setFont(new Font("Dialog", Font.BOLD, 12));
     horizontalboxmid.add(btngeometrylock);
     

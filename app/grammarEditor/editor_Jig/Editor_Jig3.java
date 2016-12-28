@@ -24,7 +24,7 @@ import org.fleen.geom_Kisrhombille.KYard;
  * If no match is found then we create a new metagon.
  * 
  */
-public class Editor_Jig_OLD extends Editor{
+public class Editor_Jig3 extends Editor{
   
   private static final String NAME="Create Jig Geometry";
   
@@ -34,7 +34,7 @@ public class Editor_Jig_OLD extends Editor{
    * ################################
    */
   
-  public Editor_Jig_OLD(){
+  public Editor_Jig3(){
     super(NAME);}
   
   /*

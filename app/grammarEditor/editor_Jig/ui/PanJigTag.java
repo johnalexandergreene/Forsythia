@@ -3,18 +3,18 @@ package org.fleen.forsythia.app.grammarEditor.editor_Jig.ui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
-import java.awt.Font;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 @SuppressWarnings("serial")
-class PanJigTag extends JPanel{
-  private JTextField txtjigtag;
+public class PanJigTag extends JPanel{
+  
+  public JTextField txtjigtag;
 
   public PanJigTag(){
     

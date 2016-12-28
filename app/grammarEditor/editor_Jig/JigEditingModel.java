@@ -13,6 +13,7 @@ import org.fleen.geom_Kisrhombille.KPolygon;
 class JigEditingModel{
   
   JigEditingModel(){
+    System.out.println("init jig editing model");
     initGraph();
     initViewGeometryCache();
   }
@@ -32,8 +33,7 @@ class JigEditingModel{
     griddensity++;
     initGraph();
     initViewGeometryCache();
-    chorusindexbypolygon.clear();
-    }
+    chorusindexbypolygon.clear();}
   
   void decrementGridDensity(){
     if(griddensity>GRIDDENSITYLOWERLIMIT){
@@ -43,7 +43,7 @@ class JigEditingModel{
       chorusindexbypolygon.clear();}}
   
   String getGridDensityString(){
-    String s="GD="+String.format("%03d",griddensity);
+    String s="Grid Density = "+String.format("%03d",griddensity);
     return s;}
   
   /*

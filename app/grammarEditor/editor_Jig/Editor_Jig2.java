@@ -1,11 +1,10 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Jig;
 
-import java.awt.Color;
-
 import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GEdge;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.RawGraph;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.ui.EJ_UI;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectJig;
 import org.fleen.forsythia.app.grammarEditor.util.Editor;
@@ -42,7 +41,7 @@ import org.fleen.geom_Kisrhombille.KVertex;
  * 
  * 
  */
-public class Editor_Jig extends Editor{
+public class Editor_Jig2 extends Editor{
   
   private static final String NAME="Edit Jig";
   
@@ -52,7 +51,7 @@ public class Editor_Jig extends Editor{
    * ################################
    */
   
-  public Editor_Jig(){
+  public Editor_Jig2(){
     super(NAME);}
   
   /*
@@ -66,38 +65,39 @@ public class Editor_Jig extends Editor{
   
   public void refreshUI(){
     refreshGrid();
-    refreshAllControls();}
+    refreshControls();}
 
   public void refreshGrid(){
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangrid.gridrenderer.invalidateTileImage();
     ui.pangrid.repaint();}
+
+  void refreshJigDetailsUI(){
+    
+  }
   
-  void refreshAllControls(){
+  void refreshSectionDetailsUI(){
+    
+  }
+  
+  void refreshGeneralDetailsUI(){
+    
+  }
+  
+
+  
+
+  
+  void refreshControls(){
     EJ_UI ui=(EJ_UI)getUI();
-    ui.pangriddensity.lblgriddensity.setText(model.getGridDensityString());
-    refreshFocusSectionInfo();
-    refreshGeometryLockButton();
-    }
+    ui.lblgriddensity.setText(model.getGridDensityString());
+    refreshFocusSectionInfo();}
   
   void refreshFocusSectionInfo(){
     EJ_UI ui=(EJ_UI)getUI();
 //    ui.lblinfo.setText(getFocusElementInfo());
     
   }
-  
-  private static final Color 
-    BACKGROUND_GEOMETRYLOCKED=new Color(128,255,128),
-    BACKGROUND_GEOMETRYUNLOCKED=new Color(255,255,128);
-  
-  void refreshGeometryLockButton(){
-    EJ_UI ui=(EJ_UI)getUI();
-    if(geometrylock){
-      ui.pangeometrylock.btngeometrylock.setText("GEOMETRY LOCKED");
-      ui.pangeometrylock.btngeometrylock.setBackground(BACKGROUND_GEOMETRYLOCKED);
-    }else{
-      ui.pangeometrylock.btngeometrylock.setText("GEOMETRY UNLOCKED");
-      ui.pangeometrylock.btngeometrylock.setBackground(BACKGROUND_GEOMETRYUNLOCKED);}}
 
   /*
    * ################################
@@ -117,9 +117,6 @@ public class Editor_Jig extends Editor{
   /*
    * ################################
    * JIG EDITING OBJECTS
-   * The objects that we manipulate via this editor
-   *   that is, the jig editing model and associated convenient stuff
-   * Then, when we hit "save", the model gets converted into a project jig
    * ################################
    */
   
@@ -129,18 +126,14 @@ public class Editor_Jig extends Editor{
   //if we click it once it is connected, twice and it is unconnected
   KVertex connectedhead,unconnectedhead;
   //the section polygon that we are presently focused upon.
+  //highlighted in the grid, its details displayed up top in that second bar
   KPolygon focussectionpolygon;
-  //geometry lock toggle
-  //when we are satisfied wit hthe geometry we don't want to accidentally change
-  //it when we are editing the details, so we can lock it
-  boolean geometrylock; 
   
   private void initJigEditingObjects(){
     model=new JigEditingModel();
     connectedhead=null;
     unconnectedhead=null;
-    focussectionpolygon=null;
-    geometrylock=false;}
+    focussectionpolygon=null;}
   
   private void discardEditingObjects(){
     model=null;
@@ -150,30 +143,32 @@ public class Editor_Jig extends Editor{
   
   /*
    * ################################
-   * INTERFACE TO UI
-   * These are all methods that get invoked via the UI
+   * MANIPULATE GRID
    * ################################
    */
   
+  public KPolygon getHostPolygon(){
+    return GE.focusmetagon.kmetagon.getScaledPolygon(model.griddensity);}
+  
   /*
    * ++++++++++++++++++++++++++++++++
-   * GRID
+   * TOUCH VERTEX
    * ++++++++++++++++++++++++++++++++
    */
   
-  public void touchVertex(KVertex v){
-    EJ_UI ui=(EJ_UI)getUI();
+  void touchVertex(final KVertex v){
+//    focuselement=null;
     if(v==null){
       System.out.println("null vertex");
       model.rawgraph.invalidateDisconnectedGraph();
-      ui.pangrid.repaint();
+      ((EJ_UI)getUI()).pangrid.repaint();
       return;}
     //if we touch the connectedhead then convert connectedhead to unconnectedhead
     if(connectedhead!=null&&v.equals(connectedhead)){
       unconnectedhead=connectedhead;
       connectedhead=null;
       model.rawgraph.invalidateDisconnectedGraph();
-      ui.pangrid.repaint();
+      ((EJ_UI)getUI()).pangrid.repaint();
       return;}
     //if we touch the unconnectedhead then delete unconnectedhead
     if(unconnectedhead!=null&&v.equals(unconnectedhead)){
@@ -181,7 +176,7 @@ public class Editor_Jig extends Editor{
       connectedhead=null;
       unconnectedhead=null;
       model.rawgraph.invalidateDisconnectedGraph();
-      ui.pangrid.repaint();
+      ((EJ_UI)getUI()).pangrid.repaint();
       return;}
     //if we touch a vertex that's already in the model
     if(model.rawgraph.contains(v)){
@@ -192,7 +187,7 @@ public class Editor_Jig extends Editor{
       connectedhead=v;
       unconnectedhead=null;
       model.rawgraph.invalidateDisconnectedGraph();
-      ui.pangrid.repaint();
+      ((EJ_UI)getUI()).pangrid.repaint();
       return;}
     //if we touch a vertex that is crossed by an edge (between but not on the edge's vertices)
     GEdge edge=model.rawgraph.getCrossingEdge(v);
@@ -209,7 +204,7 @@ public class Editor_Jig extends Editor{
       connectedhead=v;
       unconnectedhead=null;
       model.rawgraph.invalidateDisconnectedGraph();
-      ui.pangrid.repaint();
+      ((EJ_UI)getUI()).pangrid.repaint();
       return;}
     //if we touch an unused vertex
     //(at this point we know that we touched an unused vertex that is not crossed by an edge)
@@ -219,11 +214,18 @@ public class Editor_Jig extends Editor{
       model.rawgraph.connect(v,connectedhead);
     connectedhead=v;
     unconnectedhead=null;
-    refreshAllControls();
+    refreshControls();
     model.rawgraph.invalidateDisconnectedGraph();
-    ui.pangrid.repaint();}
+    ((EJ_UI)getUI()).pangrid.repaint();}
   
-  public void touchSection(final double[] p){
+  /*
+   * ++++++++++++++++++++++++++++++++
+   * TOUCH SECTION
+   * or anything other than a vertex. unspecified territory I guess
+   * ++++++++++++++++++++++++++++++++
+   */
+  
+  void touchSection(final double[] p){
     
     //TODO
     
@@ -233,31 +235,16 @@ public class Editor_Jig extends Editor{
 
   
   /*
-   * ++++++++++++++++++++++++++++++++
+   * ################################
    * BUTTONS
-   * ++++++++++++++++++++++++++++++++
+   * ################################
    */
-
-  public void reset(){
-    
-  }
   
-  public void save(){
-    ProjectJig j=model.getProjectJig();
-    GE.focusmetagon.invalidateOverviewIconImage();
-    GE.focusmetagon.addJig(j);
-    GE.focusjig=j;
-    GE.setEditor(GE.editor_grammar);}
-  
-  public void quit(){
-    //TODO null everything
-    GE.setEditor(GE.editor_grammar);}
-  
-  public void gridDensity_Increment(){
-    System.out.println("grid density increment");
+  public void incrementGridDensity(){
     connectedhead=null;
     unconnectedhead=null;
-    focussectionpolygon=null;
+//    focuselement=null;
+    System.out.println("increment");
     model.incrementGridDensity();
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangrid.gridrenderer.invalidateTileImage();
@@ -265,11 +252,11 @@ public class Editor_Jig extends Editor{
     ui.pangrid.repaint();
     refreshUI();}
   
-  public void gridDensity_Decrement(){
-    System.out.println("grid density decrement");
+  public void decrementGridDensity(){
     connectedhead=null;
     unconnectedhead=null;
-    focussectionpolygon=null;
+//    focuselement=null;
+    System.out.println("decrement");
     model.decrementGridDensity();
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangrid.gridrenderer.invalidateTileImage();
@@ -277,15 +264,15 @@ public class Editor_Jig extends Editor{
     ui.pangrid.repaint();
     refreshUI();}
   
-  public void toggleGeometryLock(){
-    geometrylock=!geometrylock;
-    refreshGeometryLockButton();}
+  public void saveJig(){
+    ProjectJig j=model.getProjectJig();
+    GE.focusmetagon.invalidateOverviewIconImage();
+    GE.focusmetagon.addJig(j);
+    GE.focusjig=j;
+    GE.setEditor(GE.editor_grammar);}
   
-
-  
-  public KPolygon getHostPolygon(){
-    int d=1;
-    if(model!=null)d=model.griddensity;
-    return GE.focusmetagon.kmetagon.getScaledPolygon(d);}
+  public void discardJig(){
+    //TODO null everything
+    GE.setEditor(GE.editor_grammar);}
   
 }

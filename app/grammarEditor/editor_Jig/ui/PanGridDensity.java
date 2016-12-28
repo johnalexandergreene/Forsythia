@@ -8,11 +8,18 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+
+import org.fleen.forsythia.app.grammarEditor.GE;
+
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
-class PanGridDensity extends JPanel{
+public class PanGridDensity extends JPanel{
+  
+  public JLabel lblgriddensity;
 
   public PanGridDensity(){
     
@@ -34,7 +41,7 @@ class PanGridDensity extends JPanel{
     Component horizontalStrut = Box.createHorizontalStrut(4);
     horizontalboxmid.add(horizontalStrut);
     
-    JLabel lblgriddensity = new JLabel("Grid Density = 000");
+    lblgriddensity = new JLabel("Grid Density = 000");
     lblgriddensity.setFont(new Font("Dialog", Font.BOLD, 16));
     horizontalboxmid.add(lblgriddensity);
     
@@ -42,6 +49,9 @@ class PanGridDensity extends JPanel{
     horizontalboxmid.add(horizontalStrut_1);
     
     JButton btngriddensityincrement = new JButton("+");
+    btngriddensityincrement.addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent e){
+        GE.editor_jig.gridDensity_Increment();}});
     horizontalboxmid.add(btngriddensityincrement);
     
     Component horizontalStrut_2 = Box.createHorizontalStrut(8);
@@ -49,6 +59,9 @@ class PanGridDensity extends JPanel{
     
     JButton btngriddensitydecrement = new JButton("-");
     btngriddensitydecrement.setFont(new Font("Dialog", Font.BOLD, 12));
+    btngriddensitydecrement.addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent e){
+        GE.editor_jig.gridDensity_Decrement();}});
     horizontalboxmid.add(btngriddensitydecrement);
     
     Component horizontalStrut_3 = Box.createHorizontalStrut(4);

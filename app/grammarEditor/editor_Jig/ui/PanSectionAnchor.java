@@ -3,16 +3,15 @@ package org.fleen.forsythia.app.grammarEditor.editor_Jig.ui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JLabel;
-import java.awt.Font;
 
 @SuppressWarnings("serial")
-class PanSectionAnchor extends JPanel{
+public class PanSectionAnchor extends JPanel{
 
   public PanSectionAnchor(){
     

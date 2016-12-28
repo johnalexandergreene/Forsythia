@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KVertex;
 
@@ -53,7 +54,8 @@ public class RawGraph{
    * 
    */
   public RawGraph(KPolygon p,int griddensity){
-    hostkpolygon=p.getKMetagon().getPolygon(griddensity,true);
+//    hostkpolygon=p.getKMetagon().getPolygon(griddensity,true);
+    hostkpolygon=GE.editor_jig.getHostPolygon();
     addHostKPolygon();
     }
   

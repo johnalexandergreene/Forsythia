@@ -80,7 +80,7 @@ class EJ_UI_OLD extends JPanel{
     JButton btnincrementgriddensity = new JButton("+");
     btnincrementgriddensity.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.editor_jig.incrementGridDensity();}});
+        GE.editor_jig.gridDensity_Increment();}});
     btnincrementgriddensity.setToolTipText("Increment Grid Density");
     btnincrementgriddensity.setFont(new Font("DejaVu Sans Mono", Font.BOLD, 18));
     btnincrementgriddensity.setBackground(new Color(255, 153, 0));
@@ -92,7 +92,7 @@ class EJ_UI_OLD extends JPanel{
     JButton btndecrementgriddensity = new JButton("-");
     btndecrementgriddensity.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.editor_jig.decrementGridDensity();}});
+        GE.editor_jig.gridDensity_Decrement();}});
     btndecrementgriddensity.setToolTipText("Decrement Grid Density");
     btndecrementgriddensity.setFont(new Font("DejaVu Sans Mono", Font.BOLD, 18));
     btndecrementgriddensity.setBackground(new Color(244, 164, 96));
@@ -117,7 +117,7 @@ class EJ_UI_OLD extends JPanel{
     JButton btnsave = new JButton("save");
     btnsave.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.editor_jig.saveJig();}});
+        GE.editor_jig.save();}});
     btnsave.setFont(new Font("DejaVu Sans Mono", Font.BOLD, 18));
     btnsave.setBackground(new Color(51, 204, 102));
     boxtop0.add(btnsave);
@@ -128,7 +128,7 @@ class EJ_UI_OLD extends JPanel{
     JButton btndiscard = new JButton("discard");
     btndiscard.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.editor_jig.discardJig();}});
+        GE.editor_jig.quit();}});
     btndiscard.setFont(new Font("DejaVu Sans Mono", Font.BOLD, 18));
     btndiscard.setBackground(new Color(205, 92, 92));
     boxtop0.add(btndiscard);
