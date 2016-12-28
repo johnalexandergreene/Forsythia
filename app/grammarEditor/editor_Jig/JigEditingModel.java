@@ -10,7 +10,7 @@ import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.RawGraph;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectJig;
 import org.fleen.geom_Kisrhombille.KPolygon;
 
-class JigEditingModel{
+public class JigEditingModel{
   
   JigEditingModel(){
     System.out.println("init jig editing model");
@@ -64,7 +64,7 @@ class JigEditingModel{
    * ################################
    */
   
-  RawGraph rawgraph;
+  public RawGraph rawgraph;
   
   void initGraph(){
     rawgraph=new RawGraph(GE.focusmetagon.kpolygon,griddensity);}
@@ -128,7 +128,7 @@ class JigEditingModel{
    * ################################
    */
   
-  ViewGeometryCache viewgeometrycache;
+  public ViewGeometryCache viewgeometrycache;
   
   //TODO a clear method instead?
   void initViewGeometryCache(){

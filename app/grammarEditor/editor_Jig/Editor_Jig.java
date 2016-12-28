@@ -1,6 +1,7 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Jig;
 
 import java.awt.Color;
+import java.util.List;
 
 import javax.swing.JPanel;
 
@@ -86,18 +87,66 @@ public class Editor_Jig extends Editor{
     
   }
   
+  /*
+   * ++++++++++++++++++++++++++++++++
+   * GRID DENSITY
+   * ++++++++++++++++++++++++++++++++
+   */
+  
+  private void refreshGridDensityLabel(){
+    
+  }
+  
+  /*
+   * ++++++++++++++++++++++++++++++++
+   * GEOMETRY LOCKED BUTTON
+   * when geometry is unlocked, 
+   *   the graph is editable
+   *   the buttons that deal with geometry are enabled
+   *   the buttons that deal with sections are disabled 
+   * when geometry is locked
+   *   the graph cannot be edited
+   *   the buttons that deal with geometry are disabled
+   *   the buttons that deal with sections are enabled 
+   *   
+   *   
+   * we basically have 2 modes
+   * 
+   * when the geometry is locked
+   *   get the list of undivided polygons from the graph
+   *   set the first one in the list as the focus section
+   *   refresh the ui
+   *   
+   *   
+   *   
+   * ++++++++++++++++++++++++++++++++
+   */
+  
   private static final Color 
     BACKGROUND_GEOMETRYLOCKED=new Color(128,255,128),
     BACKGROUND_GEOMETRYUNLOCKED=new Color(255,255,128);
   
-  void refreshGeometryLockButton(){
+  private void refreshGeometryLockButton(){
     EJ_UI ui=(EJ_UI)getUI();
     if(geometrylock){
       ui.pangeometrylock.btngeometrylock.setText("GEOMETRY LOCKED");
       ui.pangeometrylock.btngeometrylock.setBackground(BACKGROUND_GEOMETRYLOCKED);
+      ui.pangriddensity.setEnabled(false);
+      initSectionEditingMode();
     }else{
       ui.pangeometrylock.btngeometrylock.setText("GEOMETRY UNLOCKED");
-      ui.pangeometrylock.btngeometrylock.setBackground(BACKGROUND_GEOMETRYUNLOCKED);}}
+      ui.pangeometrylock.btngeometrylock.setBackground(BACKGROUND_GEOMETRYUNLOCKED);
+      ui.pangriddensity.setEnabled(true);
+      initGeometryEditingMode();}}
+  
+  private void initGeometryEditingMode(){
+    focussectionpolygon=null;
+    refreshGrid();}
+  
+  private void initSectionEditingMode(){
+    List<KPolygon> undividedpolygons=model.rawgraph.getDisconnectedGraph().getUndividedPolygons();
+    focussectionpolygon=undividedpolygons.get(0);
+    refreshGrid();}
 
   /*
    * ################################
@@ -124,7 +173,7 @@ public class Editor_Jig extends Editor{
    */
   
   //defines our jig to be
-  JigEditingModel model;
+  public JigEditingModel model;
   //in the course of defining our geometry we have a "last vertex indicated"
   //if we click it once it is connected, twice and it is unconnected
   KVertex connectedhead,unconnectedhead;
@@ -162,6 +211,7 @@ public class Editor_Jig extends Editor{
    */
   
   public void touchVertex(KVertex v){
+    if(geometrylock)return;
     EJ_UI ui=(EJ_UI)getUI();
     if(v==null){
       System.out.println("null vertex");
@@ -223,13 +273,12 @@ public class Editor_Jig extends Editor{
     model.rawgraph.invalidateDisconnectedGraph();
     ui.pangrid.repaint();}
   
-  public void touchSection(final double[] p){
-    
-    //TODO
-    
-    refreshFocusSectionInfo();
-    ((EJ_UI)getUI()).pangrid.repaint();
-  }
+  public void touchSection(KPolygon polygon){
+    if(polygon==null)return;
+    if(!geometrylock)return;
+    focussectionpolygon=polygon;
+    refreshGrid();
+    refreshFocusSectionInfo();}
 
   
   /*
@@ -278,8 +327,18 @@ public class Editor_Jig extends Editor{
     refreshUI();}
   
   public void toggleGeometryLock(){
+    System.out.println("toggle geometry lock");
     geometrylock=!geometrylock;
     refreshGeometryLockButton();}
+  
+  public void setJigTags(String a){
+    System.out.println("set jig tags");
+    model.jigtagstring=a;}
+  
+  
+  
+  
+  //--------------------
   
 
   

@@ -1,9 +1,12 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Jig.ui;
 
 import java.awt.Graphics2D;
+import java.awt.geom.Path2D;
+import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.GridOverlayPainter;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.JigEditingModel;
 import org.fleen.forsythia.app.grammarEditor.util.grid.Grid;
 import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KVertex;
@@ -46,7 +49,7 @@ public class EJ_Grid extends Grid{
     if(mousemode==MOUSEMODE_TOUCHVERTEX)
       GE.editor_jig.touchVertex(v);
     else
-      GE.editor_jig.touchSection(p);}
+      GE.editor_jig.touchSection(getPolygon(p));}
 
   protected void mouseMovedCloseToVertex(KVertex v){
     setCursorCircle();
@@ -55,5 +58,15 @@ public class EJ_Grid extends Grid{
   protected void mouseMovedFarFromVertex(double[] p){
     setCursorSquare();
     mousemode=MOUSEMODE_TOUCHSECTION;}
+  
+  private KPolygon getPolygon(double[] p){
+    JigEditingModel m=GE.editor_jig.model;
+    List<KPolygon> undividedpolygons=m.rawgraph.getDisconnectedGraph().getUndividedPolygons();
+    Path2D path;
+    for(KPolygon a:undividedpolygons){
+      path=GE.editor_jig.model.viewgeometrycache.getPath(a);
+      if(path.contains(p[0],p[1]))
+        return a;}
+    return null;}
   
 }

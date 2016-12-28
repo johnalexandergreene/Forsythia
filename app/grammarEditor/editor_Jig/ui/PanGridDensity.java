@@ -20,6 +20,7 @@ import java.awt.event.MouseEvent;
 public class PanGridDensity extends JPanel{
   
   public JLabel lblgriddensity;
+  JButton btngriddensityincrement,btngriddensitydecrement;
 
   public PanGridDensity(){
     
@@ -48,20 +49,24 @@ public class PanGridDensity extends JPanel{
     Component horizontalStrut_1 = Box.createHorizontalStrut(8);
     horizontalboxmid.add(horizontalStrut_1);
     
-    JButton btngriddensityincrement = new JButton("+");
+    btngriddensityincrement = new JButton("+");
+    btngriddensityincrement.setBackground(new Color(255, 204, 255));
     btngriddensityincrement.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.editor_jig.gridDensity_Increment();}});
+        if(btngriddensityincrement.isEnabled())
+          GE.editor_jig.gridDensity_Increment();}});
     horizontalboxmid.add(btngriddensityincrement);
     
     Component horizontalStrut_2 = Box.createHorizontalStrut(8);
     horizontalboxmid.add(horizontalStrut_2);
     
-    JButton btngriddensitydecrement = new JButton("-");
+    btngriddensitydecrement = new JButton("-");
+    btngriddensitydecrement.setBackground(new Color(255, 204, 255));
     btngriddensitydecrement.setFont(new Font("Dialog", Font.BOLD, 12));
     btngriddensitydecrement.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.editor_jig.gridDensity_Decrement();}});
+        if(btngriddensitydecrement.isEnabled())
+          GE.editor_jig.gridDensity_Decrement();}});
     horizontalboxmid.add(btngriddensitydecrement);
     
     Component horizontalStrut_3 = Box.createHorizontalStrut(4);
@@ -74,4 +79,20 @@ public class PanGridDensity extends JPanel{
     horizontalboxbottom.add(rigidArea_1);
     
   }
+  
+  private static final Color 
+    BUTTONENABLED=new Color(255,200,255),
+    BUTTONDISABLED=new Color(200,200,200);
+  
+  public void setEnabled(boolean a){
+    super.setEnabled(a);
+    btngriddensityincrement.setEnabled(a);
+    btngriddensitydecrement.setEnabled(a);
+    if(a){
+      btngriddensityincrement.setBackground(BUTTONENABLED);
+      btngriddensitydecrement.setBackground(BUTTONENABLED);
+    }else{
+      btngriddensityincrement.setBackground(BUTTONDISABLED);
+      btngriddensitydecrement.setBackground(BUTTONDISABLED);}}
+  
 }

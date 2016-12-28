@@ -10,14 +10,14 @@ import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GEdge;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GVertex;
 import org.fleen.forsythia.app.grammarEditor.util.UI;
+import org.fleen.geom_Kisrhombille.KPolygon;
 
 public class GridOverlayPainter{
   
   public void paint(Graphics2D graphics,int w,int h,double scale,double centerx,double centery){
     graphics.setRenderingHints(UI.RENDERING_HINTS);
     GE.editor_jig.model.viewgeometrycache.update(w,h,scale,centerx,centery);
-//    renderFocusSection(graphics);
-//    renderYards(graphics);
+    renderFocusSection(graphics);
     renderEdges(graphics);
     renderVertices(graphics);}
   
@@ -28,19 +28,28 @@ public class GridOverlayPainter{
    */
   
   private void renderFocusSection(Graphics2D graphics){
-    Path2D focussectionpolygonpath=GE.editor_jig.model.viewgeometrycache.getPath(GE.editor_jig.focussectionpolygon);
-    if(GE.editor_jig.focuselement!=null){
-      Path2D fppath=GE.editor_jig.viewgeometrycache.getPath(GE.editor_jig.focuselement);  
-      Area a0=new Area(focussectionpolygonpath);
-      Area a1=new Area(fppath);
-      a0.subtract(a1);  
-      graphics.setPaint(UI.EDITORCREATEPROTOJIG_HOSTMETAGONFILLCOLOR);
-      graphics.fill(a0);  
-      graphics.setPaint(UI.EDITORCREATEPROTOJIG_FOCUSSECTIONFILLCOLOR);
-      graphics.fill(a1);
-    }else{
-      graphics.setPaint(UI.EDITORCREATEPROTOJIG_HOSTMETAGONFILLCOLOR);
-      graphics.fill(focussectionpolygonpath);}}
+    KPolygon polygon=GE.editor_jig.focussectionpolygon;
+    if(polygon==null)return;
+    Path2D focussectionpolygonpath=GE.editor_jig.model.viewgeometrycache.getPath(polygon);
+    graphics.setPaint(UI.EDITORCREATEPROTOJIG_FOCUSSECTIONFILLCOLOR);
+    graphics.fill(focussectionpolygonpath);}
+  
+//  private void renderFocusSection(Graphics2D graphics){
+//    KPolygon polygon=GE.editor_jig.focussectionpolygon;
+//    if(polygon==null)return;
+//    Path2D focussectionpolygonpath=GE.editor_jig.model.viewgeometrycache.getPath(polygon);
+//    if(GE.editor_jig.focuselement!=null){
+//      Path2D fppath=GE.editor_jig.viewgeometrycache.getPath(GE.editor_jig.focuselement);  
+//      Area a0=new Area(focussectionpolygonpath);
+//      Area a1=new Area(fppath);
+//      a0.subtract(a1);  
+//      graphics.setPaint(UI.EDITORCREATEPROTOJIG_HOSTMETAGONFILLCOLOR);
+//      graphics.fill(a0);  
+//      graphics.setPaint(UI.EDITORCREATEPROTOJIG_FOCUSSECTIONFILLCOLOR);
+//      graphics.fill(a1);
+//    }else{
+//      graphics.setPaint(UI.EDITORCREATEPROTOJIG_FOCUSSECTIONFILLCOLOR);
+//      graphics.fill(focussectionpolygonpath);}}
   
   /*
    * ################################

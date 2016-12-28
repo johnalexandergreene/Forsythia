@@ -6,6 +6,8 @@ import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.fleen.util.ui.WrapLayout;
+
 @SuppressWarnings("serial")
 public class EJ_UI extends JPanel{
   

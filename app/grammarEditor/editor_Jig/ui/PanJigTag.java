@@ -4,12 +4,16 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+
+import org.fleen.forsythia.app.grammarEditor.GE;
 
 @SuppressWarnings("serial")
 public class PanJigTag extends JPanel{
@@ -40,9 +44,6 @@ public class PanJigTag extends JPanel{
     lbljigtag.setFont(new Font("Dialog", Font.BOLD, 14));
     horizontalboxmid.add(lbljigtag);
     
-    
-    
-    
     Component horizontalStrut_3 = Box.createHorizontalStrut(4);
     horizontalboxmid.add(horizontalStrut_3);
     
@@ -50,6 +51,9 @@ public class PanJigTag extends JPanel{
     txtjigtag.setText("rabbit squirrel fox");
     txtjigtag.setFont(new Font("DejaVu Sans Mono", Font.PLAIN, 18));
     txtjigtag.setBorder(null);
+    txtjigtag.addKeyListener(new KeyAdapter(){
+      public void keyTyped(KeyEvent e){
+        GE.editor_jig.setJigTags(txtjigtag.getText());}});
     horizontalboxmid.add(txtjigtag);
     
     Component horizontalStrut_1 = Box.createHorizontalStrut(4);

@@ -97,11 +97,11 @@ public class ViewGeometryCache{
   
   private Map<KPolygon,Path2D> path2dbykpolygon=new Hashtable<KPolygon,Path2D>();
   
-  public Path2D getPath(KPolygon p){
-    Path2D path=path2dbykpolygon.get(p);
+  public Path2D getPath(KPolygon polygon){
+    Path2D path=path2dbykpolygon.get(polygon);
     if(path==null){
-      path=createPath(p);
-      path2dbykpolygon.put(p,path);}
+      path=createPath(polygon);
+      path2dbykpolygon.put(polygon,path);}
     return path;}
   
   private Path2D createPath(KPolygon kp){
