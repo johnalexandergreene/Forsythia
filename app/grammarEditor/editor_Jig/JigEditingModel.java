@@ -99,6 +99,7 @@ public class JigEditingModel{
   /*
    * ################################
    * SECTION POLYGON CHORUS INDICES
+   * TODO this should be done in the section model
    * ################################
    */
   
@@ -159,6 +160,10 @@ public class JigEditingModel{
   public int getMaxChorus(){
     int m=rawgraph.getDisconnectedGraph().getUndividedPolygons().size();
     return m;}
+  
+  public void setSectionTags(KPolygon sectionpolygon,String tags){
+    JigEditingSectionModel m=sectionmodelbypolygon.get(sectionpolygon);
+    m.tags=tags;}
   
   /*
    * ################################

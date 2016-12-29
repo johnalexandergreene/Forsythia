@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -11,9 +13,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import org.fleen.forsythia.app.grammarEditor.GE;
+
 @SuppressWarnings("serial")
 public class PanSectionTag extends JPanel{
-  private JTextField txtjigtag;
+  
+  public JTextField txttag;
 
   public PanSectionTag(){
     
@@ -42,11 +47,14 @@ public class PanSectionTag extends JPanel{
     Component horizontalStrut_3 = Box.createHorizontalStrut(4);
     horizontalboxmid.add(horizontalStrut_3);
     
-    txtjigtag = new JTextField();
-    txtjigtag.setText("cat bat rat");
-    txtjigtag.setFont(new Font("DejaVu Sans Mono", Font.PLAIN, 18));
-    txtjigtag.setBorder(null);
-    horizontalboxmid.add(txtjigtag);
+    txttag = new JTextField();
+    txttag.setText("cat bat rat");
+    txttag.setFont(new Font("DejaVu Sans Mono", Font.PLAIN, 18));
+    txttag.setBorder(null);
+    txttag.addKeyListener(new KeyAdapter(){
+      public void keyTyped(KeyEvent e){
+        GE.editor_jig.setSectionTags(txttag.getText());}});
+    horizontalboxmid.add(txttag);
     
     Component horizontalStrut_1 = Box.createHorizontalStrut(4);
     horizontalboxmid.add(horizontalStrut_1);
@@ -60,6 +68,6 @@ public class PanSectionTag extends JPanel{
   }
   
   public void setEnabled(boolean a){
-    txtjigtag.setEnabled(a);}
+    txttag.setEnabled(a);}
   
 }

@@ -14,6 +14,7 @@ public class JigEditingSectionModel{
   JigEditingModel jigeditingmodel;
   public KPolygon polygon;
   public int anchor=0,chorus=0;
+  public String tags="";
   
   public String getAnchorString(){
     String s="Section Anchor = "+String.format("%03d",anchor);

@@ -85,7 +85,8 @@ public class Editor_Jig extends Editor{
     EJ_UI ui=(EJ_UI)getUI();
     JigEditingSectionModel m=model.getSectionModel(focussectionpolygon);
     ui.pansectionanchor.setText(m.getAnchorString());
-    ui.pansectionchorus.setText(m.getChorusString());}
+    ui.pansectionchorus.setText(m.getChorusString());
+    ui.pansectiontag.txttag.setText(m.tags);}
   
   /*
    * ++++++++++++++++++++++++++++++++
@@ -362,6 +363,10 @@ public class Editor_Jig extends Editor{
     refreshForFocusSectionStuff();
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangrid.repaint();}
+  
+  public void setSectionTags(String a){
+    System.out.println("set jig section tags");
+    model.setSectionTags(focussectionpolygon,a);}
   
   
   
