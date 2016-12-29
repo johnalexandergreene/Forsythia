@@ -10,9 +10,16 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import org.fleen.forsythia.app.grammarEditor.GE;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 @SuppressWarnings("serial")
 public class PanSectionChorus extends JPanel{
 
+  JButton btn;
+  
   public PanSectionChorus(){
     
     setBackground(new Color(204, 255, 51));
@@ -33,9 +40,12 @@ public class PanSectionChorus extends JPanel{
     Component horizontalStrut = Box.createHorizontalStrut(4);
     horizontalboxmid.add(horizontalStrut);
     
-    JButton btngeometrylock = new JButton("SECTION CHORUS = 000");
-    btngeometrylock.setFont(new Font("Dialog", Font.BOLD, 12));
-    horizontalboxmid.add(btngeometrylock);
+    btn = new JButton("SECTION CHORUS = 000");
+    btn.setFont(new Font("Dialog", Font.BOLD, 12));
+    btn.addMouseListener(new MouseAdapter(){
+      public void mouseClicked(MouseEvent e){
+        GE.editor_jig.incrementSectionChorus();}});
+    horizontalboxmid.add(btn);
     
     Component horizontalStrut_3 = Box.createHorizontalStrut(4);
     horizontalboxmid.add(horizontalStrut_3);
@@ -47,4 +57,8 @@ public class PanSectionChorus extends JPanel{
     horizontalboxbottom.add(rigidArea_1);
     
   }
+  
+  public void setText(String a){
+    btn.setText(a);}
+  
 }

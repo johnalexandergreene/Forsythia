@@ -137,6 +137,31 @@ public class JigEditingModel{
   
   /*
    * ################################
+   * JIG SECTION MODELS
+   * ################################
+   */
+  
+  private Map<KPolygon,JigEditingSectionModel> sectionmodelbypolygon=new HashMap<KPolygon,JigEditingSectionModel>();
+  
+  public List<KPolygon> getSectionPolygons(){
+    return rawgraph.getDisconnectedGraph().getUndividedPolygons();}
+  
+  public void clearSectionPolygons(){
+    sectionmodelbypolygon.clear();}
+  
+  public JigEditingSectionModel getSectionModel(KPolygon sectionpolygon){
+    JigEditingSectionModel m=sectionmodelbypolygon.get(sectionpolygon);
+    if(m==null){
+      m=new JigEditingSectionModel(this,sectionpolygon);
+      sectionmodelbypolygon.put(sectionpolygon,m);}
+    return m;}
+  
+  public int getMaxChorus(){
+    int m=rawgraph.getDisconnectedGraph().getUndividedPolygons().size();
+    return m;}
+  
+  /*
+   * ################################
    * CREATE JIG
    * ################################
    */

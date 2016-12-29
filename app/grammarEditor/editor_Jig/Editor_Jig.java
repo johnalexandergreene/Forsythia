@@ -77,15 +77,15 @@ public class Editor_Jig extends Editor{
   void refreshAllControls(){
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangriddensity.lblgriddensity.setText(model.getGridDensityString());
-    refreshFocusSectionInfo();
+    refreshForFocusSectionStuff();
     refreshGeometryLockButton();
     }
   
-  void refreshFocusSectionInfo(){
+  void refreshForFocusSectionStuff(){
     EJ_UI ui=(EJ_UI)getUI();
-//    ui.lblinfo.setText(getFocusElementInfo());
-    
-  }
+    JigEditingSectionModel m=model.getSectionModel(focussectionpolygon);
+    ui.pansectionanchor.setText(m.getAnchorString());
+    ui.pansectionchorus.setText(m.getChorusString());}
   
   /*
    * ++++++++++++++++++++++++++++++++
@@ -140,12 +140,12 @@ public class Editor_Jig extends Editor{
       initGeometryEditingMode();}}
   
   private void initGeometryEditingMode(){
-    focussectionpolygon=null;
+    setFocusSectionPolygon(null);
     refreshGrid();}
   
   private void initSectionEditingMode(){
     List<KPolygon> undividedpolygons=model.rawgraph.getDisconnectedGraph().getUndividedPolygons();
-    focussectionpolygon=undividedpolygons.get(0);
+    setFocusSectionPolygon(undividedpolygons.get(0));
     refreshGrid();}
 
   /*
@@ -196,6 +196,9 @@ public class Editor_Jig extends Editor{
     connectedhead=null;
     unconnectedhead=null;
     focussectionpolygon=null;}
+  
+  public void setFocusSectionPolygon(KPolygon p){
+    focussectionpolygon=p;}
   
   /*
    * ################################
@@ -278,7 +281,7 @@ public class Editor_Jig extends Editor{
     if(!geometrylock)return;
     focussectionpolygon=polygon;
     refreshGrid();
-    refreshFocusSectionInfo();}
+    refreshForFocusSectionStuff();}
 
   
   /*
@@ -334,6 +337,18 @@ public class Editor_Jig extends Editor{
   public void setJigTags(String a){
     System.out.println("set jig tags");
     model.jigtagstring=a;}
+  
+  public void incrementSectionAnchor(){
+    System.out.println("increment section anchor");
+    JigEditingSectionModel m=model.getSectionModel(focussectionpolygon);
+    m.incrementAnchor();
+    refreshForFocusSectionStuff();}
+  
+  public void incrementSectionChorus(){
+    System.out.println("increment section chorus");
+    JigEditingSectionModel m=model.getSectionModel(focussectionpolygon);
+    m.incrementChorus();
+    refreshForFocusSectionStuff();}
   
   
   
