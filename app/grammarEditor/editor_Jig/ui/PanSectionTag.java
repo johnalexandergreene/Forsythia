@@ -39,9 +39,6 @@ public class PanSectionTag extends JPanel{
     lbljigtag.setFont(new Font("Dialog", Font.BOLD, 14));
     horizontalboxmid.add(lbljigtag);
     
-    
-    
-    
     Component horizontalStrut_3 = Box.createHorizontalStrut(4);
     horizontalboxmid.add(horizontalStrut_3);
     
@@ -61,4 +58,8 @@ public class PanSectionTag extends JPanel{
     horizontalboxbottom.add(rigidArea_1);
     
   }
+  
+  public void setEnabled(boolean a){
+    txtjigtag.setEnabled(a);}
+  
 }

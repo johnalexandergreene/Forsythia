@@ -1,7 +1,7 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Jig;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
 import java.util.Iterator;
@@ -30,8 +30,11 @@ public class GridOverlayPainter{
   private void renderFocusSection(Graphics2D graphics){
     KPolygon polygon=GE.editor_jig.focussectionpolygon;
     if(polygon==null)return;
+    //
+    int colorindex=GE.editor_jig.model.getSectionModel(polygon).chorus;
+    Color color=UI.EJD_SECTIONFILLCHORUSINDICES[colorindex%UI.EJD_SECTIONFILLCHORUSINDICES.length];
     Path2D focussectionpolygonpath=GE.editor_jig.model.viewgeometrycache.getPath(polygon);
-    graphics.setPaint(UI.EDITORCREATEPROTOJIG_FOCUSSECTIONFILLCOLOR);
+    graphics.setPaint(color);
     graphics.fill(focussectionpolygonpath);}
   
 //  private void renderFocusSection(Graphics2D graphics){
@@ -145,5 +148,51 @@ public class GridOverlayPainter{
       p=GE.editor_jig.model.viewgeometrycache.getPoint(GE.editor_jig.unconnectedhead);
       graphics.setPaint(UI.EDITORCREATEPROTOJIG_UNCONNECTEDHEADVERTEXDECORATIONCOLOR);
       graphics.drawOval(((int)p[0])-span/2,((int)p[1])-span/2,span,span);}}
+  
+//  /*
+//   * if the section is focus 
+//   *   put icons by all vertices, distinguish v0 by color
+//   *   draw twist arrows
+//   * if the section is nonfocus
+//   *   put icon by v0
+//   *   draw twist arrows
+//   */
+//  private void renderAnchorGlyphs(Graphics2D graphics,JigSectionDetailsModel model){
+//    JigSectionDetailsModelVertexIconCircles vic=model.getVertexIconCircles();
+//    KVertex v0=model.getV0();
+//    //always render the v0
+//    renderVertexIconCircle(graphics,vic.getCircle(v0),true);
+//    //if the section is focus then render the other v0 options as well
+//    Set<KVertex> v0options=model.getV0Options();
+//    v0options.remove(v0);
+//    if(model.isFocus())
+//      for(KVertex v:v0options)
+//        renderVertexIconCircle(graphics,vic.getCircle(v),false);
+//    //render twist arrows
+//    renderTwistArrows(graphics,vic.getCircles(),Color.black,model);}
+//  
+//  private void renderVertexIconCircle(Graphics2D g,DCircle c,boolean fill){
+//    g.setPaint(Color.black);
+//    Ellipse2D e=new Ellipse2D.Double(
+//      c.x-c.r,
+//      c.y-c.r,
+//      2*c.r,
+//      2*c.r);
+//    if(fill){
+//      g.fill(e);
+//    }else{
+//      g.setStroke(UI.GRID_DRAWINGSTROKE);
+//      g.draw(e);}}
+//  
+//  private void renderTwistArrows(Graphics2D g,List<DCircle> vertexiconcircles,Color color,JigSectionDetailsModel model){
+//    int inext,s=vertexiconcircles.size();
+//    double[] p0,p1;
+//    for(int i=0;i<s;i++){
+//      inext=i+1;
+//      if(inext==s)inext=0;
+//      p0=vertexiconcircles.get(i).getCenter();
+//      p1=vertexiconcircles.get(inext).getCenter();
+//      renderTwistArrow(p0,p1,g);}}
+  
   
 }

@@ -131,19 +131,27 @@ public class Editor_Jig extends Editor{
     if(geometrylock){
       ui.pangeometrylock.btngeometrylock.setText("GEOMETRY LOCKED");
       ui.pangeometrylock.btngeometrylock.setBackground(BACKGROUND_GEOMETRYLOCKED);
-      ui.pangriddensity.setEnabled(false);
       initSectionEditingMode();
     }else{
       ui.pangeometrylock.btngeometrylock.setText("GEOMETRY UNLOCKED");
       ui.pangeometrylock.btngeometrylock.setBackground(BACKGROUND_GEOMETRYUNLOCKED);
-      ui.pangriddensity.setEnabled(true);
       initGeometryEditingMode();}}
   
   private void initGeometryEditingMode(){
+    EJ_UI ui=(EJ_UI)getUI();
+    ui.pangriddensity.setEnabled(true);
+    ui.pansectionanchor.setEnabled(false);
+    ui.pansectionchorus.setEnabled(false);
+    ui.pansectiontag.setEnabled(false);
     setFocusSectionPolygon(null);
     refreshGrid();}
   
   private void initSectionEditingMode(){
+    EJ_UI ui=(EJ_UI)getUI();
+    ui.pangriddensity.setEnabled(false);
+    ui.pansectionanchor.setEnabled(true);
+    ui.pansectionchorus.setEnabled(true);
+    ui.pansectiontag.setEnabled(true);
     List<KPolygon> undividedpolygons=model.rawgraph.getDisconnectedGraph().getUndividedPolygons();
     setFocusSectionPolygon(undividedpolygons.get(0));
     refreshGrid();}
@@ -279,6 +287,7 @@ public class Editor_Jig extends Editor{
   public void touchSection(KPolygon polygon){
     if(polygon==null)return;
     if(!geometrylock)return;
+    System.out.println("touch section");
     focussectionpolygon=polygon;
     refreshGrid();
     refreshForFocusSectionStuff();}
@@ -342,13 +351,17 @@ public class Editor_Jig extends Editor{
     System.out.println("increment section anchor");
     JigEditingSectionModel m=model.getSectionModel(focussectionpolygon);
     m.incrementAnchor();
-    refreshForFocusSectionStuff();}
+    refreshForFocusSectionStuff();
+    EJ_UI ui=(EJ_UI)getUI();
+    ui.pangrid.repaint();}
   
   public void incrementSectionChorus(){
     System.out.println("increment section chorus");
     JigEditingSectionModel m=model.getSectionModel(focussectionpolygon);
     m.incrementChorus();
-    refreshForFocusSectionStuff();}
+    refreshForFocusSectionStuff();
+    EJ_UI ui=(EJ_UI)getUI();
+    ui.pangrid.repaint();}
   
   
   

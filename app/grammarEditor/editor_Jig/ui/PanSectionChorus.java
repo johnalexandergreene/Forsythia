@@ -61,4 +61,7 @@ public class PanSectionChorus extends JPanel{
   public void setText(String a){
     btn.setText(a);}
   
+  public void setEnabled(boolean a){
+    btn.setEnabled(a);}
+  
 }
