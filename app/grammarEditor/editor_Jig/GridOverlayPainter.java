@@ -21,11 +21,11 @@ public class GridOverlayPainter{
     //render for edit sections mode
     if(GE.editor_jig.geometrylock){
       fillSections(graphics);
-      renderEdges(graphics,Color.white);//TODO these should be UI colors
+      renderGraphEdges(graphics,Color.white);//TODO these should be UI colors
       renderVertices(graphics,Color.white);
     //render for edit geometry mode
     }else{
-      renderEdges(graphics,Color.black);
+      renderGraphEdges(graphics,Color.black);
       renderVertices(graphics,Color.black);
     }}
   
@@ -43,11 +43,11 @@ public class GridOverlayPainter{
   
   /*
    * ################################
-   * RENDER EDGES
+   * RENDER GRAPH EDGES
    * ################################
    */
   
-  private void renderEdges(Graphics2D graphics,Color color){
+  private void renderGraphEdges(Graphics2D graphics,Color color){
     graphics.setStroke(UI.GRID_DRAWINGSTROKE);
     graphics.setPaint(color);
     
@@ -76,7 +76,7 @@ public class GridOverlayPainter{
     renderHeadDecorations(graphics);}
   
   private void renderDefaultVertices(Graphics2D graphics,Color color){
-    graphics.setPaint(UI.GRID_DRAWINGSTROKECOLOR);
+    graphics.setPaint(color);
     float span=UI.GRID_DEFAULTVERTEXSPAN;
     double[] p;
     Ellipse2D dot=new Ellipse2D.Double();

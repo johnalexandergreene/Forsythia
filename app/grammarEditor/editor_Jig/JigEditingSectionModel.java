@@ -37,5 +37,21 @@ public class JigEditingSectionModel{
     if(chorus>maxchorus)
       chorus=0;}
   
+  /*
+   * this model is associated with a polygon
+   * we offer an idealized and contextualized (cleaned) version of this polygon
+   * by idealized we mean
+   *   all redundant colinear vertices removed
+   *   clockwiseized
+   * by contextualized we mean
+   *   if the polygon's metagon already exists within the grammar then we use that metagon's polygon
+   *   that is to say, we specify a v0
+   *   (if the polygon's metagon does not exist within the grammar, and we save this jig, 
+   *     then we save that section metagon too, adding it to the grammar) 
+   */
+  public KPolygon getCleanedPolygon(){
+    
+  }
+  
 
 }
