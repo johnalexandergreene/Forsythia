@@ -42,7 +42,6 @@ public class JigEditingSectionModel{
    * we offer an idealized and contextualized (cleaned) version of this polygon
    * by idealized we mean
    *   all redundant colinear vertices removed
-   *   clockwiseized
    * by contextualized we mean
    *   if the polygon's metagon already exists within the grammar then we use that metagon's polygon
    *   that is to say, we specify a v0
