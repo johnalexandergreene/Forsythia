@@ -38,17 +38,29 @@ public class JigEditingSectionModel{
       chorus=0;}
   
   /*
-   * this model is associated with a polygon
-   * we offer an idealized and contextualized (cleaned) version of this polygon
-   * by idealized we mean
-   *   all redundant colinear vertices removed
-   * by contextualized we mean
-   *   if the polygon's metagon already exists within the grammar then we use that metagon's polygon
-   *   that is to say, we specify a v0
-   *   (if the polygon's metagon does not exist within the grammar, and we save this jig, 
-   *     then we save that section metagon too, adding it to the grammar) 
+   * ################################
+   * CLEAN POLYGON
+   * this model is associated with a drawn polygon and also a polygon that is an optimized variant of that drawn polygon
+   * 
+   * call that the "clean" polygon
+   * 
+   * The clean polygon differs from the drawn polygon like this
+   * 
+   * the clean polygon has no redundant colinear vertices (rcv). We remove those.
+   * 
+   * the clean polygon is based on a metagon derived from either the drawn polygon, this jig or the working grammar
+   *   
+   * so the clean polygon getter delivers one of 3 possible polygons.
+   *     1) a polygon from the working grammar
+   *     2) a polygon from this jig, defined before this polygon
+   *     3) the drawn polygon (with the rcv removed)
+   *     
+   * The point here is that isomorphic (scale, location, rotation, etc independent) metagons are equal, 
+   *   so polygons that use the same metagon are referring to the same metagon.
+   * ################################
    */
-  public KPolygon getCleanedPolygon(){
+  
+  public KPolygon getCleanPolygon(){
     
   }
   
