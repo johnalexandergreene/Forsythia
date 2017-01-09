@@ -83,8 +83,8 @@ public class Editor_Jig extends Editor{
   
   void refreshForFocusSectionStuff(){
     EJ_UI ui=(EJ_UI)getUI();
-    JigEditingSectionModel m=model.getSectionModel(focussectionpolygon);
-    ui.pansectionanchor.setText(m.getAnchorString());
+    JigSectionEditingModel m=model.getSectionModel(getFocusSectionPolygon());
+    ui.pansectionanchor.setText(m.getAnchorIndexString());
     ui.pansectionchorus.setText(m.getChorusString());
     ui.pansectiontag.txttag.setText(m.tags);}
   
@@ -208,6 +208,15 @@ public class Editor_Jig extends Editor{
   
   public void setFocusSectionPolygon(KPolygon p){
     focussectionpolygon=p;}
+  
+  public KPolygon getFocusSectionPolygon(){
+    if(focussectionpolygon==null)
+      initFocusSectionPolygon();
+    return focussectionpolygon;}
+  
+  private void initFocusSectionPolygon(){
+    List<KPolygon> polygons=model.getSectionPolygons();
+    focussectionpolygon=polygons.get(0);}
   
   /*
    * ################################
@@ -350,7 +359,7 @@ public class Editor_Jig extends Editor{
   
   public void incrementSectionAnchor(){
     System.out.println("increment section anchor");
-    JigEditingSectionModel m=model.getSectionModel(focussectionpolygon);
+    JigSectionEditingModel m=model.getSectionModel(focussectionpolygon);
     m.incrementAnchor();
     refreshForFocusSectionStuff();
     EJ_UI ui=(EJ_UI)getUI();
@@ -358,7 +367,7 @@ public class Editor_Jig extends Editor{
   
   public void incrementSectionChorus(){
     System.out.println("increment section chorus");
-    JigEditingSectionModel m=model.getSectionModel(focussectionpolygon);
+    JigSectionEditingModel m=model.getSectionModel(focussectionpolygon);
     m.incrementChorus();
     refreshForFocusSectionStuff();
     EJ_UI ui=(EJ_UI)getUI();

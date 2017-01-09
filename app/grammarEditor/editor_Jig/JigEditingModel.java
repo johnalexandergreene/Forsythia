@@ -142,7 +142,7 @@ public class JigEditingModel{
    * ################################
    */
   
-  private Map<KPolygon,JigEditingSectionModel> sectionmodelbypolygon=new HashMap<KPolygon,JigEditingSectionModel>();
+  public Map<KPolygon,JigSectionEditingModel> sectionmodelbypolygon=new HashMap<KPolygon,JigSectionEditingModel>();
   
   public List<KPolygon> getSectionPolygons(){
     return rawgraph.getDisconnectedGraph().getUndividedPolygons();}
@@ -150,10 +150,10 @@ public class JigEditingModel{
   public void clearSectionPolygons(){
     sectionmodelbypolygon.clear();}
   
-  public JigEditingSectionModel getSectionModel(KPolygon sectionpolygon){
-    JigEditingSectionModel m=sectionmodelbypolygon.get(sectionpolygon);
+  public JigSectionEditingModel getSectionModel(KPolygon sectionpolygon){
+    JigSectionEditingModel m=sectionmodelbypolygon.get(sectionpolygon);
     if(m==null){
-      m=new JigEditingSectionModel(this,sectionpolygon);
+      m=new JigSectionEditingModel(this,sectionpolygon);
       sectionmodelbypolygon.put(sectionpolygon,m);}
     return m;}
   
@@ -162,7 +162,7 @@ public class JigEditingModel{
     return m;}
   
   public void setSectionTags(KPolygon sectionpolygon,String tags){
-    JigEditingSectionModel m=sectionmodelbypolygon.get(sectionpolygon);
+    JigSectionEditingModel m=sectionmodelbypolygon.get(sectionpolygon);
     m.tags=tags;}
   
   /*

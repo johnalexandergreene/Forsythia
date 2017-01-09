@@ -63,9 +63,9 @@ public class ProjectMetagon implements Serializable,ElementMenuItem{
    * ################################
    */
   
-  public KMetagon kmetagon;
-  public KPolygon kpolygon;
-  public DPolygon polygon2d;
+  public KMetagon kmetagon;//wrapped by this ProjectMetagon
+  public KPolygon kpolygon;//a default kpolygon for whatever
+  public DPolygon polygon2d;//
   
   private void initGeometry(List<KVertex> vertices){
     kmetagon=new KMetagon(vertices);
