@@ -30,16 +30,28 @@ public class GridOverlayPainter{
     }}
   
   private void fillSections(Graphics2D graphics){
-    List<KPolygon> polygons=GE.editor_jig.model.getSectionPolygons();
     int colorindex;
     Color color;
     Path2D path;
-    for(KPolygon polygon:polygons){
-      colorindex=GE.editor_jig.model.getSectionModel(polygon).chorus;
+    for(JigSectionEditingModel m:GE.editor_jig.model.sections){
+      colorindex=m.chorus;
       color=UI.EJD_SECTIONFILLCHORUSINDICES[colorindex%UI.EJD_SECTIONFILLCHORUSINDICES.length];
-      path=GE.editor_jig.model.viewgeometrycache.getPath(polygon);
+      path=GE.editor_jig.model.viewgeometrycache.getPath(m.getPolygon());
       graphics.setPaint(color);
       graphics.fill(path);}}
+  
+//  private void fillSections(Graphics2D graphics){
+//    
+//    List<KPolygon> polygons=GE.editor_jig.model.getSectionPolygons();
+//    int colorindex;
+//    Color color;
+//    Path2D path;
+//    for(KPolygon polygon:polygons){
+//      colorindex=GE.editor_jig.model.getSectionModel(polygon).chorus;
+//      color=UI.EJD_SECTIONFILLCHORUSINDICES[colorindex%UI.EJD_SECTIONFILLCHORUSINDICES.length];
+//      path=GE.editor_jig.model.viewgeometrycache.getPath(polygon);
+//      graphics.setPaint(color);
+//      graphics.fill(path);}}
   
   /*
    * ################################

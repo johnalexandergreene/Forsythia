@@ -97,7 +97,7 @@ public class ProjectMetagon implements Serializable,ElementMenuItem{
   
   /*
    * ################################
-   * PROTOJIGS
+   * JIGS
    * ################################
    */
   
@@ -112,7 +112,7 @@ public class ProjectMetagon implements Serializable,ElementMenuItem{
         return -1;}
       return 1;}};
   
-  public List<ProjectJig> getProtoJigs(){
+  public List<ProjectJig> getJigs(){
     return jigs;}
       
   public ProjectJig getJig(int i){
@@ -125,16 +125,16 @@ public class ProjectMetagon implements Serializable,ElementMenuItem{
     Collections.sort(jigs,ProjectJigComparator);
     return true;}
   
-  public boolean discardProtoJig(ProjectJig j){
+  public boolean discardJig(ProjectJig j){
     return jigs.remove(j);}
   
-  public int getProtoJigCount(){
+  public int getJigCount(){
     return jigs.size();}
   
-  public boolean hasProtoJigs(){
+  public boolean hasJigs(){
     return !jigs.isEmpty();}
   
-  public int getProtoJigIndex(ProjectJig j){
+  public int getJigIndex(ProjectJig j){
     return jigs.indexOf(j);}
   
   /*

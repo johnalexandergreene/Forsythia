@@ -1,5 +1,6 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Jig;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,9 @@ import java.util.Map;
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.RawGraph;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectJig;
+import org.fleen.forsythia.app.grammarEditor.project.ProjectMetagon;
+import org.fleen.geom_Kisrhombille.KAnchor;
+import org.fleen.geom_Kisrhombille.KMetagon;
 import org.fleen.geom_Kisrhombille.KPolygon;
 
 public class JigEditingModel{
@@ -138,32 +142,112 @@ public class JigEditingModel{
   
   /*
    * ################################
-   * JIG SECTION MODELS
+   * JIG SECTION MODELS AND SECTION EDITING MODE
+   * Our editor has 2 modes
+   *   geometry editing mode
+   *   section editing mode
    * ################################
    */
   
-  public Map<KPolygon,JigSectionEditingModel> sectionmodelbypolygon=new HashMap<KPolygon,JigSectionEditingModel>();
+  public List<JigSectionEditingModel> sections=new ArrayList<JigSectionEditingModel>();
+  List<ProjectMetagon> localsectionmetagons=new ArrayList<ProjectMetagon>();
   
-  public List<KPolygon> getSectionPolygons(){
-    return rawgraph.getDisconnectedGraph().getUndividedPolygons();}
+  /*
+   * for each undivided polygon in the graph (rawpolygons)
+   *   get a metagon
+   *     metagons are singular within the grammar. 
+   *     There is exactly 1 metagon for each shape. One triangle, hexagon, 2x4 rectangle, 2x4x2x6 T-shape, etc. 
+   */
+  public void initSections(){
+    sections.clear();
+    localsectionmetagons.clear();
+    List<KPolygon> rawpolygons=rawgraph.getDisconnectedGraph().getUndividedPolygons();
+    List<KPolygon> cleanpolygons=getCleanedSectionPolygons(rawpolygons);
+    List<JigSectionModelComponents> sectionmodelcomponents=getJigSectionModelComponents(cleanpolygons);
+    for(JigSectionModelComponents smc:sectionmodelcomponents)
+      sections.add(new JigSectionEditingModel(this,smc));}
   
-  public void clearSectionPolygons(){
-    sectionmodelbypolygon.clear();}
+  /*
+   * cull redundant colinear vertices
+   */
+  List<KPolygon> getCleanedSectionPolygons(List<KPolygon> rawpolygons){
+    List<KPolygon> cleanpolygons=new ArrayList<KPolygon>(rawpolygons.size());
+    KPolygon clean;
+    for(KPolygon raw:rawpolygons){
+      clean=new KPolygon(raw);
+      clean.removeRedundantColinearVertices();
+      cleanpolygons.add(clean);}
+    return cleanpolygons;}
   
-  public JigSectionEditingModel getSectionModel(KPolygon sectionpolygon){
-    JigSectionEditingModel m=sectionmodelbypolygon.get(sectionpolygon);
-    if(m==null){
-      m=new JigSectionEditingModel(this,sectionpolygon);
-      sectionmodelbypolygon.put(sectionpolygon,m);}
-    return m;}
+  /*
+   * for each polygon
+   *   get a metagon and a list of anchors
+   *   test the polygon against every metagon in the grammar
+   *     if a metagon is found, we can fit it to the polygon and we have some working anchors, then use that.
+   *   test the polygon against every metagon that we have created in this jig
+   *     if a metagon is found then use that and the associated anchors.
+   *   if no metagon has been found then create one.
+   * 
+   */
+  private List<JigSectionModelComponents> getJigSectionModelComponents(List<KPolygon> polygons){
+    List<JigSectionModelComponents> components=new ArrayList<JigSectionModelComponents>(polygons.size());
+    for(KPolygon polygon:polygons)
+      components.add(getJigSectionModelComponents(polygon));
+    return components;}
+  
+  private JigSectionModelComponents getJigSectionModelComponents(KPolygon polygon){
+    JigSectionModelComponents c=getComponentsFromGrammar(polygon);
+    if(c!=null)return c;
+    c=getComponentsLocally(polygon);
+    if(c!=null)return c;
+    c=createComponents(polygon);
+    return c;}
+  
+  /*
+   * check the metagons in the project grammar 
+   * see if one of them fits the specified polygon. 
+   * If a fit is found then return that metagon and anchors. 
+   * Otherwise return null.
+   */
+  private JigSectionModelComponents getComponentsFromGrammar(KPolygon polygon){
+    List<KAnchor> anchors;
+    for(ProjectMetagon metagon:GE.focusgrammar.metagons){
+      anchors=metagon.kmetagon.getAnchorOptions(polygon);
+      if(anchors!=null)
+        return new JigSectionModelComponents(metagon,anchors);}
+    return null;}
+  
+  /*
+   * check the metagons in the list of metagons created within this jig
+   * see if one of them fits the specified polygon. 
+   * If a fit is found then return that metagon and anchors. 
+   * Otherwise return null.
+   */
+  private JigSectionModelComponents getComponentsLocally(KPolygon polygon){
+    List<KAnchor> anchors;
+    for(ProjectMetagon metagon:localsectionmetagons){
+      anchors=metagon.kmetagon.getAnchorOptions(polygon);
+      if(anchors!=null)
+        return new JigSectionModelComponents(metagon,anchors);}
+    return null;}
+  
+  private JigSectionModelComponents createComponents(KPolygon polygon){
+    KMetagon m=polygon.getKMetagon();
+    List<KAnchor> anchors=m.getAnchorOptions(polygon);
+    ProjectMetagon pm=new ProjectMetagon(GE.focusgrammar,polygon,"");
+    localsectionmetagons.add(pm);
+    JigSectionModelComponents c=new JigSectionModelComponents(pm,anchors);
+    return c;}
+  
+//  public List<KPolygon> getSectionPolygons(){
+//    List<KPolygon> polygons=new ArrayList<KPolygon>(sections.size());
+//    for(JigSectionEditingModel m:sections)
+//      polygons.add(m.getPolygon());
+//    return polygons;}
   
   public int getMaxChorus(){
     int m=rawgraph.getDisconnectedGraph().getUndividedPolygons().size();
     return m;}
-  
-  public void setSectionTags(KPolygon sectionpolygon,String tags){
-    JigSectionEditingModel m=sectionmodelbypolygon.get(sectionpolygon);
-    m.tags=tags;}
   
   /*
    * ################################

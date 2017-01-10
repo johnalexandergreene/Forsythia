@@ -83,10 +83,9 @@ public class Editor_Jig extends Editor{
   
   void refreshForFocusSectionStuff(){
     EJ_UI ui=(EJ_UI)getUI();
-    JigSectionEditingModel m=model.getSectionModel(getFocusSectionPolygon());
-    ui.pansectionanchor.setText(m.getAnchorIndexString());
-    ui.pansectionchorus.setText(m.getChorusString());
-    ui.pansectiontag.txttag.setText(m.tags);}
+    ui.pansectionanchor.setText(focussection.getAnchorIndexString());
+    ui.pansectionchorus.setText(focussection.getChorusString());
+    ui.pansectiontag.txttag.setText(focussection.tags);}
   
   /*
    * ++++++++++++++++++++++++++++++++
@@ -144,17 +143,17 @@ public class Editor_Jig extends Editor{
     ui.pansectionanchor.setEnabled(false);
     ui.pansectionchorus.setEnabled(false);
     ui.pansectiontag.setEnabled(false);
-    setFocusSectionPolygon(null);
+    setFocusSection(null);
     refreshGrid();}
   
   private void initSectionEditingMode(){
+    model.initSections();
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangriddensity.setEnabled(false);
     ui.pansectionanchor.setEnabled(true);
     ui.pansectionchorus.setEnabled(true);
     ui.pansectiontag.setEnabled(true);
-    List<KPolygon> undividedpolygons=model.rawgraph.getDisconnectedGraph().getUndividedPolygons();
-    setFocusSectionPolygon(undividedpolygons.get(0));
+    focussection=model.sections.get(0);
     refreshGrid();}
 
   /*
@@ -187,7 +186,7 @@ public class Editor_Jig extends Editor{
   //if we click it once it is connected, twice and it is unconnected
   KVertex connectedhead,unconnectedhead;
   //the section polygon that we are presently focused upon.
-  KPolygon focussectionpolygon;
+  public JigSectionEditingModel focussection;
   //geometry lock toggle
   //when we are satisfied wit hthe geometry we don't want to accidentally change
   //it when we are editing the details, so we can lock it
@@ -197,26 +196,22 @@ public class Editor_Jig extends Editor{
     model=new JigEditingModel();
     connectedhead=null;
     unconnectedhead=null;
-    focussectionpolygon=null;
+    focussection=null;
     geometrylock=false;}
   
   private void discardEditingObjects(){
     model=null;
     connectedhead=null;
     unconnectedhead=null;
-    focussectionpolygon=null;}
+    focussection=null;}
   
-  public void setFocusSectionPolygon(KPolygon p){
-    focussectionpolygon=p;}
+  public void setFocusSection(JigSectionEditingModel m){
+    focussection=m;}
   
-  public KPolygon getFocusSectionPolygon(){
-    if(focussectionpolygon==null)
-      initFocusSectionPolygon();
-    return focussectionpolygon;}
-  
-  private void initFocusSectionPolygon(){
-    List<KPolygon> polygons=model.getSectionPolygons();
-    focussectionpolygon=polygons.get(0);}
+  public JigSectionEditingModel getFocusSection(){
+    if(focussection==null)
+      focussection=model.sections.get(0);
+    return focussection;}
   
   /*
    * ################################
@@ -294,11 +289,11 @@ public class Editor_Jig extends Editor{
     model.rawgraph.invalidateDisconnectedGraph();
     ui.pangrid.repaint();}
   
-  public void touchSection(KPolygon polygon){
-    if(polygon==null)return;
+  public void touchSection(JigSectionEditingModel m){
+    if(m==null)return;
     if(!geometrylock)return;
     System.out.println("touch section");
-    focussectionpolygon=polygon;
+    focussection=m;
     refreshGrid();
     refreshForFocusSectionStuff();}
 
@@ -328,7 +323,7 @@ public class Editor_Jig extends Editor{
     System.out.println("grid density increment");
     connectedhead=null;
     unconnectedhead=null;
-    focussectionpolygon=null;
+    focussection=null;
     model.incrementGridDensity();
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangrid.gridrenderer.invalidateTileImage();
@@ -340,7 +335,7 @@ public class Editor_Jig extends Editor{
     System.out.println("grid density decrement");
     connectedhead=null;
     unconnectedhead=null;
-    focussectionpolygon=null;
+    focussection=null;
     model.decrementGridDensity();
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangrid.gridrenderer.invalidateTileImage();
@@ -359,23 +354,21 @@ public class Editor_Jig extends Editor{
   
   public void incrementSectionAnchor(){
     System.out.println("increment section anchor");
-    JigSectionEditingModel m=model.getSectionModel(focussectionpolygon);
-    m.incrementAnchor();
+    focussection.incrementAnchor();
     refreshForFocusSectionStuff();
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangrid.repaint();}
   
   public void incrementSectionChorus(){
     System.out.println("increment section chorus");
-    JigSectionEditingModel m=model.getSectionModel(focussectionpolygon);
-    m.incrementChorus();
+    focussection.incrementChorus();
     refreshForFocusSectionStuff();
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangrid.repaint();}
   
   public void setSectionTags(String a){
     System.out.println("set jig section tags");
-    model.setSectionTags(focussectionpolygon,a);}
+    focussection.tags=a;}
   
   
   

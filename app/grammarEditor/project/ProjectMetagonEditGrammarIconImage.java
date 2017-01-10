@@ -37,7 +37,7 @@ class ProjectMetagonEditGrammarIconImage extends BufferedImage{
     g.transform(t);
     //fill metagon
     //use color to distinguish protojig counts
-    int pjcount=pm.getProtoJigCount();
+    int pjcount=pm.getJigCount();
     if(pjcount<UI.GRAMMAR_EDITOR_METAGON_ICONS_FILLCOLOR.length)
       g.setColor(UI.GRAMMAR_EDITOR_METAGON_ICONS_FILLCOLOR[pjcount]);
     else

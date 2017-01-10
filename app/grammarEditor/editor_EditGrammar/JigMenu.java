@@ -19,7 +19,7 @@ public class JigMenu extends ElementMenu{
 
   protected List<? extends ElementMenuItem> getItems(){
     if(GE.focusmetagon==null)return null;
-    return GE.focusmetagon.getProtoJigs();}
+    return GE.focusmetagon.getJigs();}
   
   protected boolean isFocusItem(ElementMenuItem i){
     return i==GE.focusjig;}

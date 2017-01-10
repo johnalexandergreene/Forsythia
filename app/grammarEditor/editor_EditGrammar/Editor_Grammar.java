@@ -45,7 +45,7 @@ public class Editor_Grammar extends Editor{
     //if focus metagon is nonnull and jig is null 
     //then try to make focus jig nonnull
     if(GE.focusmetagon!=null&&GE.focusjig==null)
-      if(GE.focusmetagon.hasProtoJigs())
+      if(GE.focusmetagon.hasJigs())
         GE.focusjig=GE.focusmetagon.getJig(0);
     //
     refreshUI();}
@@ -77,8 +77,8 @@ public class Editor_Grammar extends Editor{
   
   public void discardProtoJig(){
     ((G_UI)GE.editor_grammar.getUI()).panjigmenu.invalidateIconArrayMetrics();
-    int a=GE.focusmetagon.getProtoJigIndex(GE.focusjig)-1;
-    GE.focusmetagon.discardProtoJig(GE.focusjig);
+    int a=GE.focusmetagon.getJigIndex(GE.focusjig)-1;
+    GE.focusmetagon.discardJig(GE.focusjig);
     if(a<0)a=0;
     GE.focusjig=GE.focusmetagon.getJig(a);
     refreshInfo();
