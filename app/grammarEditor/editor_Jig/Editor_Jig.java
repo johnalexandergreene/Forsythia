@@ -1,8 +1,5 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Jig;
 
-import java.awt.Color;
-import java.util.List;
-
 import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
@@ -45,7 +42,7 @@ import org.fleen.geom_Kisrhombille.KVertex;
  */
 public class Editor_Jig extends Editor{
   
-  private static final String NAME="Edit Jig";
+  private static final String NAME="Jig Editor";
   
   /*
    * ################################
@@ -58,95 +55,56 @@ public class Editor_Jig extends Editor{
   
   /*
    * ################################
-   * UI
+   * CONFIGURE
+   * for editor open and close
+   * ################################
+   */
+
+  public void configureForOpen(){
+    createEditingObjects();
+    setModeEditGeometry();
+    refreshUI();}
+  
+  public void configureForClose(){
+    discardEditingObjects();}
+  
+  /*
+   * ################################
+   * MODE
+   * We have 2 modes
+   *   edit geometry
+   *   edit sections
+   * We start in edit geometry
+   * When we are finished editing geometry we hit the mode button, thus setting the mode to edit sections
+   * If, while editing sections, we decide that we don't like the geometry, we can hit the mode button again,
+   *   thus discarding all section data and returning to the edit geometry mode.
    * ################################
    */
   
-  protected JPanel createUI(){
-    return new EJ_UI();}
+  public static final int
+    MODE_UNDEFINED=0,
+    MODE_EDITGEOMETRY=1,
+    MODE_EDITSECTIONS=2;
   
-  public void refreshUI(){
-    refreshGrid();
-    refreshAllControls();}
-
-  public void refreshGrid(){
-    EJ_UI ui=(EJ_UI)getUI();
-    ui.pangrid.gridrenderer.invalidateTileImage();
-    ui.pangrid.repaint();}
+  public int mode=MODE_UNDEFINED;
   
-  void refreshAllControls(){
-    EJ_UI ui=(EJ_UI)getUI();
-    ui.pangriddensity.lblgriddensity.setText(model.getGridDensityString());
-    refreshForFocusSectionStuff();
-    refreshGeometryLockButton();
-    }
-  
-  void refreshForFocusSectionStuff(){
-    EJ_UI ui=(EJ_UI)getUI();
-    ui.pansectionanchor.setText(focussection.getAnchorIndexString());
-    ui.pansectionchorus.setText(focussection.getChorusString());
-    ui.pansectiontag.txttag.setText(focussection.tags);}
-  
-  /*
-   * ++++++++++++++++++++++++++++++++
-   * GRID DENSITY
-   * ++++++++++++++++++++++++++++++++
-   */
-  
-  private void refreshGridDensityLabel(){
-    
-  }
-  
-  /*
-   * ++++++++++++++++++++++++++++++++
-   * GEOMETRY LOCKED BUTTON
-   * when geometry is unlocked, 
-   *   the graph is editable
-   *   the buttons that deal with geometry are enabled
-   *   the buttons that deal with sections are disabled 
-   * when geometry is locked
-   *   the graph cannot be edited
-   *   the buttons that deal with geometry are disabled
-   *   the buttons that deal with sections are enabled 
-   *   
-   *   
-   * we basically have 2 modes
-   * 
-   * when the geometry is locked
-   *   get the list of undivided polygons from the graph
-   *   set the first one in the list as the focus section
-   *   refresh the ui
-   *   
-   *   
-   *   
-   * ++++++++++++++++++++++++++++++++
-   */
-  
-  private static final Color 
-    BACKGROUND_GEOMETRYLOCKED=new Color(128,255,128),
-    BACKGROUND_GEOMETRYUNLOCKED=new Color(255,255,128);
-  
-  private void refreshGeometryLockButton(){
-    EJ_UI ui=(EJ_UI)getUI();
-    if(geometrylock){
-      ui.pangeometrylock.btngeometrylock.setText("GEOMETRY LOCKED");
-      ui.pangeometrylock.btngeometrylock.setBackground(BACKGROUND_GEOMETRYLOCKED);
-      initSectionEditingMode();
-    }else{
-      ui.pangeometrylock.btngeometrylock.setText("GEOMETRY UNLOCKED");
-      ui.pangeometrylock.btngeometrylock.setBackground(BACKGROUND_GEOMETRYUNLOCKED);
-      initGeometryEditingMode();}}
-  
-  private void initGeometryEditingMode(){
+  void setModeEditGeometry(){
+    mode=MODE_EDITGEOMETRY;
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangriddensity.setEnabled(true);
     ui.pansectionanchor.setEnabled(false);
     ui.pansectionchorus.setEnabled(false);
     ui.pansectiontag.setEnabled(false);
+    //
     setFocusSection(null);
-    refreshGrid();}
+    //
+    refreshGridGeometryAndImage();
+    initGridPerspective();
+    refreshGridGeometryAndImage();
+    refreshButtons();}
   
-  private void initSectionEditingMode(){
+  void setModeEditSections(){
+    mode=MODE_EDITSECTIONS;
     model.initSections();
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangriddensity.setEnabled(false);
@@ -154,22 +112,69 @@ public class Editor_Jig extends Editor{
     ui.pansectionchorus.setEnabled(true);
     ui.pansectiontag.setEnabled(true);
     focussection=model.sections.get(0);
-    refreshGrid();}
-
+    //
+    refreshGridGeometryAndImage();
+    initGridPerspective();
+    refreshGridGeometryAndImage();
+    refreshButtons();}
+  
   /*
    * ################################
-   * CONFIGURE
+   * UI
    * ################################
    */
-
-  public void configureForOpen(){
-    initJigEditingObjects();
-    EJ_UI ui=(EJ_UI)getUI();
-    ui.pangrid.centerAndFit();
-    refreshUI();}
   
-  public void configureForClose(){
-    discardEditingObjects();}
+  protected JPanel createUI(){
+    return new EJ_UI();}
+  
+  void initGridPerspective(){
+    EJ_UI ui=(EJ_UI)getUI();
+    ui.pangrid.centerAndFit();}
+  
+  public void refreshUI(){
+    refreshGridGeometryAndImage();
+    refreshButtons();}
+
+  public void refreshGridImage(){
+    EJ_UI ui=(EJ_UI)getUI();
+    ui.pangrid.repaint();}
+  
+  public void refreshGridGeometryAndImage(){
+    EJ_UI ui=(EJ_UI)getUI();
+    ui.pangrid.gridrenderer.invalidateTileImage();
+    ui.pangrid.repaint();}
+  
+  void refreshButtons(){
+    EJ_UI ui=(EJ_UI)getUI();
+    //refresh grid density
+    ui.pangriddensity.lblgriddensity.setText("Grid Density = "+model.getGridDensityString());
+    //refresh section
+    refreshSectionAnchorButton();
+    refreshSectionChorusButton();
+    refreshSectionTags();
+    //refresh mode button
+    ui.panmode.setMode(mode);}
+  
+  private void refreshSectionAnchorButton(){
+    EJ_UI ui=(EJ_UI)getUI();
+    if(focussection==null)
+      ui.pansectionanchor.setText("Section Anchor = ---");
+    else
+      ui.pansectionanchor.setText("Section Anchor = "+focussection.getAnchorIndexString());}
+  
+  private void refreshSectionChorusButton(){
+    EJ_UI ui=(EJ_UI)getUI();
+    if(focussection==null)
+      ui.pansectionchorus.setText("Section Chorus = ---");
+    else
+      ui.pansectionchorus.setText("Section Chorus = "+focussection.getChorusString());}
+  
+  private void refreshSectionTags(){
+    EJ_UI ui=(EJ_UI)getUI();
+    if(focussection==null)
+      ui.pansectiontag.txttag.setText("---");
+    else
+      ui.pansectiontag.txttag.setText(focussection.tags);}
   
   /*
    * ################################
@@ -186,18 +191,13 @@ public class Editor_Jig extends Editor{
   //if we click it once it is connected, twice and it is unconnected
   KVertex connectedhead,unconnectedhead;
   //the section polygon that we are presently focused upon.
-  public JigSectionEditingModel focussection;
-  //geometry lock toggle
-  //when we are satisfied wit hthe geometry we don't want to accidentally change
-  //it when we are editing the details, so we can lock it
-  boolean geometrylock; 
+  public JigSectionEditingModel focussection; 
   
-  private void initJigEditingObjects(){
+  private void createEditingObjects(){
     model=new JigEditingModel();
     connectedhead=null;
     unconnectedhead=null;
-    focussection=null;
-    geometrylock=false;}
+    focussection=null;}
   
   private void discardEditingObjects(){
     model=null;
@@ -227,7 +227,7 @@ public class Editor_Jig extends Editor{
    */
   
   public void touchVertex(KVertex v){
-    if(geometrylock)return;
+    if(mode==MODE_EDITSECTIONS)return;
     EJ_UI ui=(EJ_UI)getUI();
     if(v==null){
       System.out.println("null vertex");
@@ -285,17 +285,17 @@ public class Editor_Jig extends Editor{
       model.rawgraph.connect(v,connectedhead);
     connectedhead=v;
     unconnectedhead=null;
-    refreshAllControls();
+    refreshButtons();
     model.rawgraph.invalidateDisconnectedGraph();
     ui.pangrid.repaint();}
   
   public void touchSection(JigSectionEditingModel m){
     if(m==null)return;
-    if(!geometrylock)return;
+    if(mode==MODE_EDITGEOMETRY)return;
     System.out.println("touch section");
     focussection=m;
-    refreshGrid();
-    refreshForFocusSectionStuff();}
+    refreshGridGeometryAndImage();
+    refreshButtons();}
 
   
   /*
@@ -327,8 +327,7 @@ public class Editor_Jig extends Editor{
     model.incrementGridDensity();
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangrid.gridrenderer.invalidateTileImage();
-    ui.pangrid.centerAndFit();
-    ui.pangrid.repaint();
+    initGridPerspective();
     refreshUI();}
   
   public void gridDensity_Decrement(){
@@ -339,14 +338,19 @@ public class Editor_Jig extends Editor{
     model.decrementGridDensity();
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangrid.gridrenderer.invalidateTileImage();
-    ui.pangrid.centerAndFit();
-    ui.pangrid.repaint();
+    initGridPerspective();
     refreshUI();}
   
-  public void toggleGeometryLock(){
+  public void toggleMode(){
     System.out.println("toggle geometry lock");
-    geometrylock=!geometrylock;
-    refreshGeometryLockButton();}
+    if(mode==MODE_EDITSECTIONS)
+      setModeEditGeometry();
+    else
+      setModeEditSections();
+    EJ_UI ui=(EJ_UI)getUI();
+    ui.panmode.setMode(mode);
+    initGridPerspective();
+    refreshGridImage();} 
   
   public void setJigTags(String a){
     System.out.println("set jig tags");
@@ -355,29 +359,26 @@ public class Editor_Jig extends Editor{
   public void incrementSectionAnchor(){
     System.out.println("increment section anchor");
     focussection.incrementAnchor();
-    refreshForFocusSectionStuff();
-    EJ_UI ui=(EJ_UI)getUI();
-    ui.pangrid.repaint();}
+    refreshButtons();
+    refreshGridImage();}
   
   public void incrementSectionChorus(){
     System.out.println("increment section chorus");
     focussection.incrementChorus();
-    refreshForFocusSectionStuff();
-    EJ_UI ui=(EJ_UI)getUI();
-    ui.pangrid.repaint();}
+    refreshButtons();
+    refreshGridImage();}
   
   public void setSectionTags(String a){
     System.out.println("set jig section tags");
     focussection.tags=a;}
   
+  /*
+   * ################################
+   * UTIL
+   * ################################
+   */
   
-  
-  
-  //--------------------
-  
-
-  
-  public KPolygon getHostPolygon(){
+  public KPolygon getScaledHostPolygon(){
     int d=1;
     if(model!=null)d=model.griddensity;
     return GE.focusmetagon.kmetagon.getScaledPolygon(d);}

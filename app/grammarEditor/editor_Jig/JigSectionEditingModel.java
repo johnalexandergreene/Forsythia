@@ -48,8 +48,7 @@ public class JigSectionEditingModel{
   List<KAnchor> anchors=null;
   
   public String getAnchorIndexString(){
-    String s="Section Anchor = "+String.format("%03d",anchorindex);
-    return s;}
+    return String.format("%03d",anchorindex);}
   
   public void incrementAnchor(){
     int maxanchor=anchors.size()-1;
@@ -70,8 +69,7 @@ public class JigSectionEditingModel{
   public int chorus=0;
   
   public String getChorusString(){
-    String s="Section Chorus = "+String.format("%03d",chorus);
-    return s;}
+    return String.format("%03d",chorus);}
   
   public void incrementChorus(){
     int maxchorus=jigeditingmodel.getMaxChorus();

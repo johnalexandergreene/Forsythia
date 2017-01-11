@@ -2,15 +2,24 @@ package org.fleen.forsythia.app.grammarEditor.editor_Jig.ui;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
-import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.GridOverlayPainter;
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.JigEditingModel;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.JigSectionEditingModel;
 import org.fleen.forsythia.app.grammarEditor.util.grid.Grid;
 import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KVertex;
+
+/*
+ * GRID
+ * when panning we repaint
+ * when zooming we repaint
+ * when changing grid density we init the graph then clear the geometry cache then repaint
+ * when touching vertices we repaint
+ * when touching sections we repaint 
+ * 
+ * 
+ */
 
 @SuppressWarnings("serial")
 public class EJ_Grid extends Grid{
@@ -29,7 +38,7 @@ public class EJ_Grid extends Grid{
      }catch(Exception x){}}
 
   protected KPolygon getHostPolygon(){
-    return GE.editor_jig.getHostPolygon();}
+    return GE.editor_jig.getScaledHostPolygon();}
   
   /*
    * ################################

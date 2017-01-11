@@ -47,18 +47,7 @@ public class JigEditingModel{
       chorusindexbypolygon.clear();}}
   
   String getGridDensityString(){
-    String s="Grid Density = "+String.format("%03d",griddensity);
-    return s;}
-  
-  /*
-   * ################################
-   * JIG SECTION POLYGONS
-   * ################################
-   */
-  
-  
-  
-  
+    return String.format("%03d",griddensity);}
   
   /*
    * ################################

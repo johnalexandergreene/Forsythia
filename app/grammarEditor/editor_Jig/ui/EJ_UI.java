@@ -17,7 +17,7 @@ public class EJ_UI extends JPanel{
   
   public PanResetSaveQuit panresetsavequit;
   public PanGridDensity pangriddensity;
-  public PanGeometryLock pangeometrylock;
+  public PanMode panmode;
   public PanJigTag panjigtag;
   public PanSectionChorus pansectionchorus;
   public PanSectionAnchor pansectionanchor;
@@ -38,8 +38,8 @@ public class EJ_UI extends JPanel{
     pangriddensity = new PanGridDensity();
     pantop.add(pangriddensity);
     
-    pangeometrylock = new PanGeometryLock();
-    pantop.add(pangeometrylock);    
+    panmode = new PanMode();
+    pantop.add(panmode);    
     
     panjigtag = new PanJigTag();
     pantop.add(panjigtag);

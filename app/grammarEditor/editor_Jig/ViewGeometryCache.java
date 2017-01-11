@@ -4,11 +4,15 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFrame;
 
+import org.fleen.geom_2D.DPoint;
+import org.fleen.geom_2D.DPolygon;
 import org.fleen.geom_Kisrhombille.GK;
 import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KVertex;
@@ -71,6 +75,13 @@ public class ViewGeometryCache{
       p=convertGridVertexToViewPoint(v);
       p2dbykvertex.put(v,p);}
     return p;}
+  
+  public DPolygon getDPolygon(KPolygon polygon){
+    int s=polygon.size();
+    DPolygon dpolygon=new DPolygon(s);
+    for(int i=0;i<s;i++)
+      dpolygon.add(new DPoint(getPoint(polygon.get(i))));
+    return dpolygon;}
   
   private double[] convertGridVertexToViewPoint(KVertex vertex){
     //get basic 2d point for the vertex
