@@ -4,8 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.GridOverlayPainter;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.JigSectionEditingModel;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.gridOverlayPainter.GridOverlayPainter;
 import org.fleen.forsythia.app.grammarEditor.util.grid.Grid;
 import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KVertex;

@@ -189,7 +189,7 @@ public class Editor_Jig extends Editor{
   public JigEditingModel model;
   //in the course of defining our geometry we have a "last vertex indicated"
   //if we click it once it is connected, twice and it is unconnected
-  KVertex connectedhead,unconnectedhead;
+  public KVertex connectedhead,unconnectedhead;
   //the section polygon that we are presently focused upon.
   public JigSectionEditingModel focussection; 
   

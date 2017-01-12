@@ -1,18 +1,21 @@
-package org.fleen.forsythia.app.grammarEditor.editor_Jig;
+package org.fleen.forsythia.app.grammarEditor.editor_Jig.gridOverlayPainter;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
+import java.awt.geom.Path2D.Double;
 import java.util.Iterator;
+import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.Editor_Jig;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.JigSectionEditingModel;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GEdge;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GVertex;
 import org.fleen.forsythia.app.grammarEditor.util.UI;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;
-import org.fleen.geom_2D.GD;
 import org.fleen.geom_Kisrhombille.KPolygon;
 
 public class GridOverlayPainter{
@@ -124,6 +127,14 @@ public class GridOverlayPainter{
    * ################################
    */
   
+  //TODO thse should be params in UI
+  private static final double 
+    GRIDOVERLAYPAINTER_GLYPHINSET=12,
+    GRIDOVERLAYPAINTER_GLYPHGAP=20;
+  //in terms of gap
+  private static final int 
+    GRIDOVERLAYPAINTER_GLYPHIDEALARROWLENGTH=4;
+  
   /*
    * get polygon points
    * get inward points
@@ -137,52 +148,57 @@ public class GridOverlayPainter{
   private void renderGlyphsForEditSections(Graphics2D graphics){
     System.out.println("render glyphs");
     DPolygon focuspolygon=GE.editor_jig.model.viewgeometrycache.getDPolygon(GE.editor_jig.focussection.getPolygon());
-    boolean clockwise=focuspolygon.getTwist();
-    DPolygon innerpolygon=getInnerPolygon(focuspolygon,clockwise);
+    GlyphSystemModel glyphsystemmodel=new GlyphSystemModel(
+      focuspolygon,
+      GRIDOVERLAYPAINTER_GLYPHINSET,
+      GRIDOVERLAYPAINTER_GLYPHGAP,
+      GRIDOVERLAYPAINTER_GLYPHIDEALARROWLENGTH);
+    renderGlyphs(graphics,glyphsystemmodel);}
+  
+  private void renderGlyphs(Graphics2D graphics,GlyphSystemModel glyphsystemmodel){
+    testFoo(graphics,glyphsystemmodel);
+    
+  }
+  
+  private void testFoo(Graphics2D graphics,GlyphSystemModel glyphsystemmodel){
     //TEST
     
     graphics.setStroke(UI.GRID_DRAWINGSTROKE);
     graphics.setPaint(UI.EDITORCREATEJIG_EDITSECTIONSGLYPHSTROKECOLOR);
-    Path2D path=innerpolygon.getPath2D();
+    Path2D path=getPath2D(glyphsystemmodel.pathmodel);
     graphics.draw(path);
-    DPoint v0=innerpolygon.get(0);
-    Ellipse2D dot=new Ellipse2D.Double(v0.x-5,v0.y-5,10,10);
-    graphics.fill(dot);
-    
-  }
+    Ellipse2D dot;
+    for(GlyphPathModelPoint p:glyphsystemmodel.pathmodel){
+      //
+      if(p.type==GlyphPathModel.PTYPE_FIRST)
+        graphics.setPaint(Color.red);
+      else if(p.type==GlyphPathModel.PTYPE_CORNER)
+        graphics.setPaint(Color.blue);
+      else if(p.type==GlyphPathModel.PTYPE_RETICULATION)
+        graphics.setPaint(Color.green);
+      else if(p.type==GlyphPathModel.PTYPE_LAST)
+        graphics.setPaint(Color.magenta);
+      else
+        graphics.setPaint(Color.gray);
+      
+      if(p.arrowstart||p.arrowend)
+        graphics.setPaint(Color.black);
+      
+      //
+      dot=new Ellipse2D.Double(p.x-5,p.y-5,10,10);
+      graphics.fill(dot);}}
   
-  private DPolygon getInnerPolygon(DPolygon outerpolygon,boolean clockwise){
-    int s=outerpolygon.size(),iprior,inext;
-    DPolygon innerpolygon=new DPolygon(s);
-    DPoint p,pprior,pnext,pinner;
-    for(int i=0;i<s;i++){
-      iprior=i-1;
-      if(iprior==-1)iprior=s-1;
-      inext=i+1;
-      if(inext==s)
-      inext=0;
-      p=outerpolygon.get(i);
-      pprior=outerpolygon.get(iprior);
-      pnext=outerpolygon.get(inext);
-      pinner=getInnerPoint(pprior,p,pnext,clockwise);
-      innerpolygon.add(pinner);}
-    return innerpolygon;}
+  private Path2D getPath2D(GlyphPathModel pathmodel){
+    Path2D path2d=new Path2D.Double();
+    GlyphPathModelPoint p=pathmodel.get(0);
+    path2d.moveTo(p.x,p.y);
+    int s=pathmodel.size();
+    for(int i=1;i<s;i++){
+      p=pathmodel.get(i);
+      path2d.lineTo(p.x,p.y);}
+    return path2d;}
   
-  static final double DESIREDINWARDDISTANCE=12;
-  
-  private DPoint getInnerPoint(DPoint p0,DPoint p1,DPoint p2,boolean clockwise){
-    double angle,dir;
-    if(clockwise){
-      angle=GD.getAngle_3Points(p0.x,p0.y,p1.x,p1.y,p2.x,p2.y);
-      dir=GD.getDirection_3Points(p0.x,p0.y,p1.x,p1.y,p2.x,p2.y);
-    }else{  
-      angle=GD.getAngle_3Points(p2.x,p2.y,p1.x,p1.y,p0.x,p0.y);
-      dir=GD.getDirection_3Points(p2.x,p2.y,p1.x,p1.y,p0.x,p0.y);}
-    if(angle>GD.PI)
-      angle=GD.PI2-angle;
-    double dis=DESIREDINWARDDISTANCE/(GD.sin(angle/2));
-    DPoint innerpoint=p1.getPoint(dir,dis);
-    return innerpoint;}
+
   
   
 }
