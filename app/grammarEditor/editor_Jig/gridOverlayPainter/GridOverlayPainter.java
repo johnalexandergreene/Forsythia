@@ -153,48 +153,42 @@ public class GridOverlayPainter{
       GRIDOVERLAYPAINTER_GLYPHINSET,
       GRIDOVERLAYPAINTER_GLYPHGAP,
       GRIDOVERLAYPAINTER_GLYPHIDEALARROWLENGTH);
-    renderGlyphs(graphics,glyphsystemmodel);}
+    if(glyphsystemmodel.isValid())
+      renderGlyphs(graphics,glyphsystemmodel);}
   
   private void renderGlyphs(Graphics2D graphics,GlyphSystemModel glyphsystemmodel){
-    testFoo(graphics,glyphsystemmodel);
-    
-  }
-  
-  private void testFoo(Graphics2D graphics,GlyphSystemModel glyphsystemmodel){
-    //TEST
-    
     graphics.setStroke(UI.GRID_DRAWINGSTROKE);
     graphics.setPaint(UI.EDITORCREATEJIG_EDITSECTIONSGLYPHSTROKECOLOR);
-    Path2D path=getPath2D(glyphsystemmodel.pathmodel);
-    graphics.draw(path);
+    Path2D path;
+    for(ArrowModel m:glyphsystemmodel.arrowmodels){
+      path=getPath2D(m.shaft);
+      graphics.draw(path);}
+    
     Ellipse2D dot;
     for(GlyphPathModelPoint p:glyphsystemmodel.pathmodel){
       //
-      if(p.type==GlyphPathModel.PTYPE_FIRST)
-        graphics.setPaint(Color.red);
-      else if(p.type==GlyphPathModel.PTYPE_CORNER)
-        graphics.setPaint(Color.blue);
-      else if(p.type==GlyphPathModel.PTYPE_RETICULATION)
+      if(p.arrowhead)
         graphics.setPaint(Color.green);
-      else if(p.type==GlyphPathModel.PTYPE_LAST)
-        graphics.setPaint(Color.magenta);
+      else if(p.arrowtail)
+        graphics.setPaint(Color.red);
+      else if(p.arrowhead&&p.arrowtail)
+        graphics.setPaint(Color.cyan);
       else
-        graphics.setPaint(Color.gray);
-      
-      if(p.arrowstart||p.arrowend)
         graphics.setPaint(Color.black);
+      if(p.corner)
+        graphics.setPaint(Color.magenta);
       
       //
       dot=new Ellipse2D.Double(p.x-5,p.y-5,10,10);
       graphics.fill(dot);}}
   
-  private Path2D getPath2D(GlyphPathModel pathmodel){
+  private Path2D getPath2D(List<DPoint> points){
     Path2D path2d=new Path2D.Double();
-    GlyphPathModelPoint p=pathmodel.get(0);
+    DPoint p=points.get(0);
     path2d.moveTo(p.x,p.y);
-    int s=pathmodel.size();
+    int s=points.size();
     for(int i=1;i<s;i++){
-      p=pathmodel.get(i);
+      p=points.get(i);
       path2d.lineTo(p.x,p.y);}
     return path2d;}
   

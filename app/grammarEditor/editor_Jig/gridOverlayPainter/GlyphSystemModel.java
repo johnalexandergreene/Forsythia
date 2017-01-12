@@ -19,7 +19,9 @@ public class GlyphSystemModel{
   
   public GlyphSystemModel(DPolygon polygon,double inset,double gap,int idealarrowlength){
     createInnerPolygon(polygon,inset);
-    createArrowModels(gap,idealarrowlength);}
+    doValidityTest(gap);
+    if(valid);
+      createArrowModels(gap,idealarrowlength);}
   
   /*
    * ################################
@@ -65,6 +67,39 @@ public class GlyphSystemModel{
   
   /*
    * ################################
+   * VALIDATION
+   * test the length of the longest side of the inner polygon
+   * ################################
+   */
+  private static final double TOOSMALL=2.1;
+  //handle degenerate case. inner polygon too small or cramped
+  //if one of the sides of the inner polygon is too short then this geometry is invalid
+  boolean valid=true;
+  
+  public boolean isValid(){
+    return valid;}
+  
+  private void doValidityTest(double gap){
+    //get longest side length
+    double 
+      longest=Double.MIN_VALUE, 
+      dis;
+    int s=innerpolygon.size(),i1;
+    DPoint p0,p1;
+    for(int i0=0;i0<s;i0++){
+      i1=i0+1;
+      if(i1==s)i1=0;
+      p0=innerpolygon.get(i0);
+      p1=innerpolygon.get(i1);
+      dis=p0.getDistance(p1);
+      if(longest<dis)
+        longest=dis;}
+    //test it
+    double limit=gap*TOOSMALL;
+    valid=longest>limit;}
+  
+  /*
+   * ################################
    * V0 DOT POINT
    * the location of the dot indicating the first vertex in the param polygon
    * ################################
@@ -75,14 +110,16 @@ public class GlyphSystemModel{
   
   /*
    * ################################
-   * PATH MODEL
+   * ARROW MODELS
    * ################################
    */
   
-  GlyphPathModel pathmodel;
+  GlyphPathModel pathmodel;//keep them here for debug and whatever
+  ArrowModels arrowmodels;
   
   private void createArrowModels(double gap,int idealarrowlength){
     pathmodel=new GlyphPathModel(innerpolygon,gap,idealarrowlength);
+    arrowmodels=new ArrowModels(pathmodel);
   }
  
 
