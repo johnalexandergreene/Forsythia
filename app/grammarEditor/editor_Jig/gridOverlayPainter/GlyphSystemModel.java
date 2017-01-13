@@ -86,7 +86,7 @@ public class GlyphSystemModel{
   /*
    * ################################
    * VALIDATION
-   * test the length of the longest side of the inner polygon
+   * test the length of the shortest side of the inner polygon
    * ################################
    */
   
@@ -101,22 +101,12 @@ public class GlyphSystemModel{
   
   private void doValidityTest(){
     //get longest side length
-    double 
-      longest=Double.MIN_VALUE, 
-      dis;
-    int s=innerpolygon.size(),i1;
-    DPoint p0,p1;
-    for(int i0=0;i0<s;i0++){
-      i1=i0+1;
-      if(i1==s)i1=0;
-      p0=innerpolygon.get(i0);
-      p1=innerpolygon.get(i1);
-      dis=p0.getDistance(p1);
-      if(longest<dis)
-        longest=dis;}
-    //test it
+    List<DSeg> segs=innerpolygon.getSegs();
     double limit=inset*TOOSMALL;
-    valid=longest>limit;}
+    for(DSeg seg:segs){
+      if(seg.getLength()<limit){
+        valid=false;
+        return;}}}
   
   /*
    * ################################
@@ -136,7 +126,7 @@ public class GlyphSystemModel{
   
   //minimum length of the last side, where the head of the glyph arrow is
   //in terms of gap
-  private static final int SHORTLASTSIDELIMIT=4;
+  private static final int SHORTLASTSIDELIMIT=6;
   List<DPoint> glyphpath;
   
   /*

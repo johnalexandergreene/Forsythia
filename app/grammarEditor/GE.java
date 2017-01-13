@@ -7,7 +7,6 @@ import java.net.URLDecoder;
 
 import org.fleen.forsythia.app.grammarEditor.editor_CreateMetagon.Editor_CreateMetagon;
 import org.fleen.forsythia.app.grammarEditor.editor_EditGrammar.Editor_Grammar;
-import org.fleen.forsythia.app.grammarEditor.editor_EditJigDetails.Editor_EditJigDetails;
 import org.fleen.forsythia.app.grammarEditor.editor_Generator.Editor_Generator;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.Editor_Jig;
 import org.fleen.forsythia.app.grammarEditor.editor_ViewMetagonEditTags.Editor_EditMetagonDetails;
@@ -51,7 +50,6 @@ public class GE{
   public static Editor_CreateMetagon editor_createmetagon;
   public static Editor_EditMetagonDetails editor_editmetagondetails;
   public static Editor_Jig editor_jig;
-  public static Editor_EditJigDetails editor_editjigdetails;
   //FOCUS GRAMMAR ELEMENTS
   //these are the grammar elements that we are focussing upon at any particular moment
   public static ProjectGrammar focusgrammar=null;
@@ -133,14 +131,12 @@ public class GE{
     editor_createmetagon=new Editor_CreateMetagon();
     editor_editmetagondetails=new Editor_EditMetagonDetails();
     editor_jig=new Editor_Jig();
-    editor_editjigdetails=new Editor_EditJigDetails();
     editors=new Editor[]{
       editor_generator,
       editor_grammar,
       editor_createmetagon,
       editor_editmetagondetails,
-      editor_jig,
-      editor_editjigdetails};
+      editor_jig};
     //init dialog associated uis
     for(Editor a:editors)
       uimain.paneditor.add(a.getUI(),a.getName());}
