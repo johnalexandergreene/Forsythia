@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -24,41 +25,23 @@ public class GridOverlayPainter{
     graphics.setRenderingHints(UI.RENDERING_HINTS);
     GE.editor_jig.model.viewgeometrycache.update(w,h,scale,centerx,centery);
     if(GE.editor_jig.mode==Editor_Jig.MODE_EDITSECTIONS){
-      fillSectionsForEditSections(graphics);
-      strokePolygonEdgesForEditSections(graphics);
-      renderGlyphsForEditSections(graphics);
+      renderJigModel_EditSections(graphics);
     }else{//GE.editor_jig.mode==Editor_Jig.MODE_EDITGEOMETRY
-      fillSectionsForEditGeometry(graphics);
-      strokeGraphEdgesForEditGeometry(graphics);
-      renderVertices(graphics);}}
+      renderJigModel_EditGeometry(graphics);}}
   
+  /*
+   * ################################
+   * RENDER JIG MODEL FOR EDIT GEOMETRY MODE
+   * ################################
+   */
   
-  private void strokePolygonEdgesForEditSections(Graphics2D graphics){
-    graphics.setStroke(UI.GRID_DRAWINGSTROKE);
-    graphics.setPaint(UI.EDITORCREATEJIG_EDITSECTIONSSTROKECOLOR);
-    Path2D path;
-    for(JigSectionEditingModel m:GE.editor_jig.model.sections){
-      if(m==GE.editor_jig.focussection)continue;
-      path=GE.editor_jig.model.viewgeometrycache.getPath(m.getPolygon());
-      graphics.draw(path);}
-    //focus
-    graphics.setPaint(UI.EDITORCREATEJIG_EDITSECTIONSGLYPHSTROKECOLOR);
-    path=GE.editor_jig.model.viewgeometrycache.getPath(GE.editor_jig.focussection.getPolygon());
-    graphics.draw(path);}
+  private void renderJigModel_EditGeometry(Graphics2D graphics){
+    fillSections_EditGeometry(graphics);
+    strokeGraphEdges_EditGeometry(graphics);
+    renderVertices_EditGeometry(graphics);
+  }
   
-  
-  private void fillSectionsForEditSections(Graphics2D graphics){
-    int colorindex;
-    Color color;
-    Path2D path;
-    for(JigSectionEditingModel m:GE.editor_jig.model.sections){
-      colorindex=m.chorus;
-      color=UI.EJD_SECTIONFILLCHORUSINDICES[colorindex%UI.EJD_SECTIONFILLCHORUSINDICES.length];
-      path=GE.editor_jig.model.viewgeometrycache.getPath(m.getPolygon());
-      graphics.setPaint(color);
-      graphics.fill(path);}}
-  
-  private void fillSectionsForEditGeometry(Graphics2D graphics){
+  private void fillSections_EditGeometry(Graphics2D graphics){
     Color color;
     Path2D path;
     for(KPolygon m:GE.editor_jig.model.rawgraph.getDisconnectedGraph().getUndividedPolygons()){
@@ -67,7 +50,7 @@ public class GridOverlayPainter{
       graphics.setPaint(color);
       graphics.fill(path);}}
   
-  private void strokeGraphEdgesForEditGeometry(Graphics2D graphics){
+  private void strokeGraphEdges_EditGeometry(Graphics2D graphics){
     graphics.setStroke(UI.GRID_DRAWINGSTROKE);
     graphics.setPaint(UI.EDITORCREATEJIG_EDITGEOMETRYSTROKECOLOR);
     Iterator<GEdge> i=GE.editor_jig.model.rawgraph.edges.iterator();
@@ -85,12 +68,12 @@ public class GridOverlayPainter{
       graphics.draw(path);}}
   
   /*
-   * ################################
+   * ++++++++++++++++++++++++++++++++
    * RENDER VERTICES
-   * ################################
+   * ++++++++++++++++++++++++++++++++
    */
   
-  private void renderVertices(Graphics2D graphics){
+  private void renderVertices_EditGeometry(Graphics2D graphics){
     renderDefaultVertices(graphics,UI.EDITORCREATEJIG_EDITGEOMETRYSTROKECOLOR);
     renderHeadDecorations(graphics);}
   
@@ -119,61 +102,116 @@ public class GridOverlayPainter{
   
   /*
    * ################################
+   * RENDER JIG MODEL FOR EDIT SECTIONS MODE
+   * ################################
+   */
+  
+  private void renderJigModel_EditSections(Graphics2D graphics){
+    fillSections_EditSections(graphics);
+    strokePolygonEdges_EditSections(graphics);
+    renderGlyphs_EditSections(graphics);}
+  
+  /*
+   * Fill color reflects chorus index. A rainbow.
+   * 0 is red, 1 is orangyred and so on 
+   */
+  private void fillSections_EditSections(Graphics2D graphics){
+    int colorindex;
+    Color color;
+    Path2D path;
+    for(JigSectionEditingModel m:GE.editor_jig.model.sections){
+      colorindex=m.chorus;
+      color=UI.EJD_SECTIONFILLCHORUSINDICES[colorindex%UI.EJD_SECTIONFILLCHORUSINDICES.length];
+      path=GE.editor_jig.model.viewgeometrycache.getPath(m.getPolygon());
+      graphics.setPaint(color);
+      graphics.fill(path);}}
+  
+  /*
+   * focus section gets stroked in one color, all of the unfocus sections get stroked in another
+   * colors probably match for glyph
+   */
+  private void strokePolygonEdges_EditSections(Graphics2D graphics){
+    graphics.setStroke(UI.GRID_DRAWINGSTROKE);
+    graphics.setPaint(UI.EDITORCREATEJIG_EDITSECTIONSSTROKECOLOR);
+    Path2D path;
+    for(JigSectionEditingModel m:GE.editor_jig.model.sections){
+      if(m==GE.editor_jig.focussection)continue;
+      path=GE.editor_jig.model.viewgeometrycache.getPath(m.getPolygon());
+      graphics.draw(path);}
+    //focus
+    graphics.setPaint(UI.EDITORCREATEJIG_EDITSECTIONSGLYPHSTROKECOLOR);
+    path=GE.editor_jig.model.viewgeometrycache.getPath(GE.editor_jig.focussection.getPolygon());
+    graphics.draw(path);}
+  
+  /*
+   * ################################
    * RENDER GLYPHS FOR EDIT SECTIONS
    * The focus polygon gets a system of glyphs within its edge that indicate
    * the form of the anchor. That is, v0 and twist.
    * we indicate vertex0 with a dot
-   * we indicate twist with a course of arrows 
+   * we indicate twist with a long bendy arrow 
    * ################################
    */
   
   //TODO thse should be params in UI
   private static final double GRIDOVERLAYPAINTER_GLYPHINSET=12;
   
-  /*
-   * get polygon points
-   * get inward points
-   * devise all end points for arrows
-   *   we divide each side into 3 parts
-   *   the ends get half a corner-arrow
-   *   the middle get a straight-arrow
-   *   v0 gets a dot and an arrow growing from it
-   * render dot and arrows
-   */
-  private void renderGlyphsForEditSections(Graphics2D graphics){
-    System.out.println("render glyphs");
-    DPolygon focuspolygon=GE.editor_jig.model.viewgeometrycache.getDPolygon(GE.editor_jig.focussection.getPolygon());
-    GlyphSystemModel glyphsystemmodel=new GlyphSystemModel(
-      focuspolygon,
-      GRIDOVERLAYPAINTER_GLYPHINSET);
-    if(glyphsystemmodel.isValid())
-      renderGlyphs(graphics,glyphsystemmodel);}
+  private void renderGlyphs_EditSections(Graphics2D graphics){
+    //get non-focus section polygons
+    List<DPolygon> nonfocussections=new ArrayList<DPolygon>();
+    for(JigSectionEditingModel section:GE.editor_jig.model.sections)
+      if(section!=GE.editor_jig.focussection)
+        nonfocussections.add(GE.editor_jig.model.viewgeometrycache.getDPolygon(section.getPolygon()));
+    //get focus section polygon
+    DPolygon focussection=GE.editor_jig.model.viewgeometrycache.getDPolygon(GE.editor_jig.focussection.getPolygon());
+    //render non-focus section polygons
+    for(DPolygon nonfocussection:nonfocussections)
+      renderGlyphs(graphics,nonfocussection,UI.EDITORCREATEJIG_EDITSECTIONSSTROKECOLOR);
+    //render focus section polygon
+    renderGlyphs(graphics,focussection,UI.EDITORCREATEJIG_EDITSECTIONSGLYPHSTROKECOLOR);}
   
-  private void renderGlyphs(Graphics2D graphics,GlyphSystemModel glyphsystemmodel){
-    //render v0 dot
-    renderV0Dot(graphics,glyphsystemmodel);
-    //render arrow shaft
-    graphics.setStroke(UI.GRID_DRAWINGSTROKE);
-    graphics.setPaint(UI.EDITORCREATEJIG_EDITSECTIONSGLYPHSTROKECOLOR);
-    Path2D path =getPath2D(glyphsystemmodel.glyphpath);
-    graphics.draw(path);
-    //render arrow head
-    renderArrowHead(graphics,glyphsystemmodel);}
+  private void renderGlyphs(Graphics2D graphics,DPolygon polygon,Color color){
+    System.out.println("render glyphs");
+    GlyphSystemModel glyphsystemmodel=new GlyphSystemModel(
+      polygon,
+      GRIDOVERLAYPAINTER_GLYPHINSET);
+    if(glyphsystemmodel.isValid()){
+      //render v0 dot
+      renderV0Dot(graphics,glyphsystemmodel,color);
+      //render arrow shaft
+      graphics.setStroke(UI.GRID_DRAWINGSTROKE);
+      graphics.setPaint(color);
+      Path2D path =getPath2D(glyphsystemmodel.glyphpath);
+      graphics.draw(path);
+      //render arrow head
+      renderArrowHead(graphics,glyphsystemmodel,color);}}
     
+  /*
+   * ++++++++++++++++++++++++++++++++
+   * RENDER V0 DOT
+   * ++++++++++++++++++++++++++++++++
+   */
+  
   private static final double V0DOTRADIUS=0.6;
   
-  private void renderV0Dot(Graphics2D graphics,GlyphSystemModel glyphsystemmodel){
+  private void renderV0Dot(Graphics2D graphics,GlyphSystemModel glyphsystemmodel,Color color){
     double dotradius=V0DOTRADIUS*GRIDOVERLAYPAINTER_GLYPHINSET;
     DPoint pv0=glyphsystemmodel.getV0DotPoint();
-    graphics.setPaint(UI.EDITORCREATEJIG_EDITSECTIONSGLYPHSTROKECOLOR);
+    graphics.setPaint(color);
     Ellipse2D dot=new Ellipse2D.Double(pv0.x-dotradius,pv0.y-dotradius,dotradius*2,dotradius*2);
     graphics.fill(dot);}
+  
+  /*
+   * ++++++++++++++++++++++++++++++++
+   * RENDER ARROW HEAD
+   * ++++++++++++++++++++++++++++++++
+   */
   
   //in terms of inset
   private static final double ARROWLENGTH=2.5,ARROWWIDTH=1.2;
   
-  private void renderArrowHead(Graphics2D graphics,GlyphSystemModel glyphsystemmodel){
-    graphics.setPaint(UI.EDITORCREATEJIG_EDITSECTIONSGLYPHSTROKECOLOR);
+  private void renderArrowHead(Graphics2D graphics,GlyphSystemModel glyphsystemmodel,Color color){
+    graphics.setPaint(color);
     DPoint 
       p0=glyphsystemmodel.glyphpath.get(glyphsystemmodel.glyphpath.size()-2),
       p1=glyphsystemmodel.glyphpath.get(glyphsystemmodel.glyphpath.size()-1);
@@ -198,8 +236,5 @@ public class GridOverlayPainter{
       p=points.get(i);
       path2d.lineTo(p.x,p.y);}
     return path2d;}
-  
-
-  
   
 }
