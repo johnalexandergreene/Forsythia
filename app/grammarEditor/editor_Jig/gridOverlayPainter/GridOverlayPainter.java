@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
-import java.awt.geom.Path2D.Double;
 import java.util.Iterator;
 import java.util.List;
 
@@ -16,6 +15,7 @@ import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GVertex;
 import org.fleen.forsythia.app.grammarEditor.util.UI;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;
+import org.fleen.geom_2D.GD;
 import org.fleen.geom_Kisrhombille.KPolygon;
 
 public class GridOverlayPainter{
@@ -128,12 +128,7 @@ public class GridOverlayPainter{
    */
   
   //TODO thse should be params in UI
-  private static final double 
-    GRIDOVERLAYPAINTER_GLYPHINSET=12,
-    GRIDOVERLAYPAINTER_GLYPHGAP=20;
-  //in terms of gap
-  private static final int 
-    GRIDOVERLAYPAINTER_GLYPHIDEALARROWLENGTH=4;
+  private static final double GRIDOVERLAYPAINTER_GLYPHINSET=12;
   
   /*
    * get polygon points
@@ -150,37 +145,49 @@ public class GridOverlayPainter{
     DPolygon focuspolygon=GE.editor_jig.model.viewgeometrycache.getDPolygon(GE.editor_jig.focussection.getPolygon());
     GlyphSystemModel glyphsystemmodel=new GlyphSystemModel(
       focuspolygon,
-      GRIDOVERLAYPAINTER_GLYPHINSET,
-      GRIDOVERLAYPAINTER_GLYPHGAP,
-      GRIDOVERLAYPAINTER_GLYPHIDEALARROWLENGTH);
+      GRIDOVERLAYPAINTER_GLYPHINSET);
     if(glyphsystemmodel.isValid())
       renderGlyphs(graphics,glyphsystemmodel);}
   
   private void renderGlyphs(Graphics2D graphics,GlyphSystemModel glyphsystemmodel){
+    //render v0 dot
+    renderV0Dot(graphics,glyphsystemmodel);
+    //render arrow shaft
     graphics.setStroke(UI.GRID_DRAWINGSTROKE);
     graphics.setPaint(UI.EDITORCREATEJIG_EDITSECTIONSGLYPHSTROKECOLOR);
-    Path2D path;
-    for(ArrowModel m:glyphsystemmodel.arrowmodels){
-      path=getPath2D(m.shaft);
-      graphics.draw(path);}
+    Path2D path =getPath2D(glyphsystemmodel.glyphpath);
+    graphics.draw(path);
+    //render arrow head
+    renderArrowHead(graphics,glyphsystemmodel);}
     
-    Ellipse2D dot;
-    for(GlyphPathModelPoint p:glyphsystemmodel.pathmodel){
-      //
-      if(p.arrowhead)
-        graphics.setPaint(Color.green);
-      else if(p.arrowtail)
-        graphics.setPaint(Color.red);
-      else if(p.arrowhead&&p.arrowtail)
-        graphics.setPaint(Color.cyan);
-      else
-        graphics.setPaint(Color.black);
-      if(p.corner)
-        graphics.setPaint(Color.magenta);
-      
-      //
-      dot=new Ellipse2D.Double(p.x-5,p.y-5,10,10);
-      graphics.fill(dot);}}
+  private static final double V0DOTRADIUS=0.6;
+  
+  private void renderV0Dot(Graphics2D graphics,GlyphSystemModel glyphsystemmodel){
+    double dotradius=V0DOTRADIUS*GRIDOVERLAYPAINTER_GLYPHINSET;
+    DPoint pv0=glyphsystemmodel.getV0DotPoint();
+    graphics.setPaint(UI.EDITORCREATEJIG_EDITSECTIONSGLYPHSTROKECOLOR);
+    Ellipse2D dot=new Ellipse2D.Double(pv0.x-dotradius,pv0.y-dotradius,dotradius*2,dotradius*2);
+    graphics.fill(dot);}
+  
+  //in terms of inset
+  private static final double ARROWLENGTH=2.5,ARROWWIDTH=1.2;
+  
+  private void renderArrowHead(Graphics2D graphics,GlyphSystemModel glyphsystemmodel){
+    graphics.setPaint(UI.EDITORCREATEJIG_EDITSECTIONSGLYPHSTROKECOLOR);
+    DPoint 
+      p0=glyphsystemmodel.glyphpath.get(glyphsystemmodel.glyphpath.size()-2),
+      p1=glyphsystemmodel.glyphpath.get(glyphsystemmodel.glyphpath.size()-1);
+    double forward=p0.getDirection(p1);
+    DPoint 
+      forewardpoint=p1.getPoint(forward,ARROWLENGTH*GRIDOVERLAYPAINTER_GLYPHINSET),
+      leftpoint=p1.getPoint(GD.normalizeDirection(forward-GD.HALFPI),ARROWWIDTH*GRIDOVERLAYPAINTER_GLYPHINSET/2),
+      rightpoint=p1.getPoint(GD.normalizeDirection(forward+GD.HALFPI),ARROWWIDTH*GRIDOVERLAYPAINTER_GLYPHINSET/2);
+    Path2D triangle=new Path2D.Double();
+    triangle.moveTo(leftpoint.x,leftpoint.y);
+    triangle.lineTo(forewardpoint.x,forewardpoint.y);
+    triangle.lineTo(rightpoint.x,rightpoint.y);
+    triangle.closePath();
+    graphics.fill(triangle);}
   
   private Path2D getPath2D(List<DPoint> points){
     Path2D path2d=new Path2D.Double();

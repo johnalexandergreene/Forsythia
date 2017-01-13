@@ -1,12 +1,20 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Jig.gridOverlayPainter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;
+import org.fleen.geom_2D.DSeg;
 import org.fleen.geom_2D.GD;
 
 /*
  * render certain attributes of a jig section polygon/model in terms of glyphs
- * a dot at v0 and a course of arrows running the permeter nicely
+ * an inner polygon gives us our basic geometry
+ * a dot at v0 and a wrap-around arrow
+ * the arrow starts at the dot and ends at E
+ * e is a point in the middle of a side of the inner polygon
+ * we use the first side that is long enough, going backwards from the last side
  *  
  */
 public class GlyphSystemModel{
@@ -17,11 +25,21 @@ public class GlyphSystemModel{
    * ################################
    */
   
-  public GlyphSystemModel(DPolygon polygon,double inset,double gap,int idealarrowlength){
-    createInnerPolygon(polygon,inset);
-    doValidityTest(gap);
+  public GlyphSystemModel(DPolygon polygon,double inset){
+    this.inset=inset;
+    createInnerPolygon(polygon);
+    doValidityTest();
     if(valid);
-      createArrowModels(gap,idealarrowlength);}
+      createGlyphPath();}
+  
+  /*
+   * ################################
+   * INSET
+   * we use this as our unit interval
+   * ################################
+   */
+  
+  double inset;
   
   /*
    * ################################
@@ -34,7 +52,7 @@ public class GlyphSystemModel{
   public DPolygon getInnerPolygon(){
     return innerpolygon;}
   
-  private void createInnerPolygon(DPolygon outerpolygon,double inset){
+  private void createInnerPolygon(DPolygon outerpolygon){
     boolean clockwise=outerpolygon.getTwist();
     int s=outerpolygon.size(),iprior,inext;
     innerpolygon=new DPolygon(s);
@@ -71,7 +89,9 @@ public class GlyphSystemModel{
    * test the length of the longest side of the inner polygon
    * ################################
    */
-  private static final double TOOSMALL=2.1;
+  
+  //length of a polygon side in terms of inset
+  private static final double TOOSMALL=2.2;
   //handle degenerate case. inner polygon too small or cramped
   //if one of the sides of the inner polygon is too short then this geometry is invalid
   boolean valid=true;
@@ -79,7 +99,7 @@ public class GlyphSystemModel{
   public boolean isValid(){
     return valid;}
   
-  private void doValidityTest(double gap){
+  private void doValidityTest(){
     //get longest side length
     double 
       longest=Double.MIN_VALUE, 
@@ -95,7 +115,7 @@ public class GlyphSystemModel{
       if(longest<dis)
         longest=dis;}
     //test it
-    double limit=gap*TOOSMALL;
+    double limit=inset*TOOSMALL;
     valid=longest>limit;}
   
   /*
@@ -110,19 +130,36 @@ public class GlyphSystemModel{
   
   /*
    * ################################
-   * ARROW MODELS
+   * GLYPH PATH
    * ################################
    */
   
-  GlyphPathModel pathmodel;//keep them here for debug and whatever
-  ArrowModels arrowmodels;
+  //minimum length of the last side, where the head of the glyph arrow is
+  //in terms of gap
+  private static final int SHORTLASTSIDELIMIT=4;
+  List<DPoint> glyphpath;
   
-  private void createArrowModels(double gap,int idealarrowlength){
-    pathmodel=new GlyphPathModel(innerpolygon,gap,idealarrowlength);
-    arrowmodels=new ArrowModels(pathmodel);
-  }
+  /*
+   * get last side. test lengths starting at last side in inner polygon and go backwards
+   * from last side get last point
+   * assemble glyph path from inner polygon points and last point
+   */
+  private void createGlyphPath(){
+    List<DSeg> segs=innerpolygon.getSegs();
+    glyphpath=new ArrayList<DPoint>(innerpolygon.size());
+    int lastside=getLastSide(segs);
+    for(int i=0;i<lastside+1;i++)
+      glyphpath.add(innerpolygon.get(i));
+    glyphpath.add(new DPoint(segs.get(lastside).getPointAtProportionalOffset(0.5)));}
+  
+  private int getLastSide(List<DSeg> segs){
+    double shortsidelimit=SHORTLASTSIDELIMIT*inset;
+    int s=segs.size();
+    DSeg seg;
+    for(int i=s-1;i>-1;i--){
+      seg=segs.get(i);
+      if(seg.getLength()>shortsidelimit)
+        return i;}
+    throw new IllegalArgumentException("couldn't get the last side seg index");}
  
-
-  
-  
 }
