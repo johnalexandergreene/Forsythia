@@ -14,7 +14,16 @@ import org.fleen.geom_Kisrhombille.KAnchor;
 import org.fleen.geom_Kisrhombille.KMetagon;
 import org.fleen.geom_Kisrhombille.KPolygon;
 
+/*
+ * A model of an edited jig
+ */
 public class JigEditingModel{
+  
+  /*
+   * ################################
+   * CONSTRUCTOR
+   * ################################
+   */
   
   JigEditingModel(){
     initGraph();
@@ -60,15 +69,12 @@ public class JigEditingModel{
   void initGraph(){
     rawgraph=new RawGraph(GE.focusmetagon.kpolygon,griddensity);}
   
-  
-  
   /*
    * ################################
    * JIG TAGS
    * ################################
    */
   
-  //space delimited
   String jigtagstring="";
   
   List<String> getJigTags(){
@@ -77,20 +83,13 @@ public class JigEditingModel{
   
   /*
    * ################################
-   * SECTION TAGS
-   * ################################
-   */
-  
-  /*
-   * ################################
-   * SECTION ANCHORS
-   * ################################
-   */
-  
-  /*
-   * ################################
-   * SECTION POLYGON CHORUS INDICES
-   * TODO this should be done in the section model
+   * SECTION CHORUS INDICES
+   * A little overview and management
+   * when we spin the index our max index is sectioncount
+   *   that is to say, our range of indices is [0..sectioncount]. One for each + an extra.
+   *   
+   * TODO we should init the sections so that isomorphic sections 
+   *   get the same index and nonisomorphic get differing indices. 
    * ################################
    */
   
