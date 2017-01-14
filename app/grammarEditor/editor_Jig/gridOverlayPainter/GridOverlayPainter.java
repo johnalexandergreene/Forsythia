@@ -45,14 +45,14 @@ public class GridOverlayPainter{
     Color color;
     Path2D path;
     for(KPolygon m:GE.editor_jig.model.rawgraph.getDisconnectedGraph().getUndividedPolygons()){
-      color=UI.EDITORCREATEJIG_HOSTMETAGONFILLCOLOR;
+      color=UI.EDITJIG_EDITGEOMETRY_HOSTMETAGONFILLCOLOR;
       path=GE.editor_jig.model.viewgeometrycache.getPath(m);
       graphics.setPaint(color);
       graphics.fill(path);}}
   
   private void strokeGraphEdges_EditGeometry(Graphics2D graphics){
     graphics.setStroke(UI.GRID_DRAWINGSTROKE);
-    graphics.setPaint(UI.EDITORCREATEJIG_EDITGEOMETRYSTROKECOLOR);
+    graphics.setPaint(UI.EDITJIG_EDITGEOMETRY_STROKECOLOR);
     Iterator<GEdge> i=GE.editor_jig.model.rawgraph.edges.iterator();
     GEdge e;
     double[] p0,p1;
@@ -74,7 +74,7 @@ public class GridOverlayPainter{
    */
   
   private void renderVertices_EditGeometry(Graphics2D graphics){
-    renderDefaultVertices(graphics,UI.EDITORCREATEJIG_EDITGEOMETRYSTROKECOLOR);
+    renderDefaultVertices(graphics,UI.EDITJIG_EDITGEOMETRY_STROKECOLOR);
     renderHeadDecorations(graphics);}
   
   private void renderDefaultVertices(Graphics2D graphics,Color color){
@@ -88,16 +88,16 @@ public class GridOverlayPainter{
       graphics.fill(dot);}}
   
   private void renderHeadDecorations(Graphics2D graphics){
-    graphics.setStroke(UI.EDITORCREATEJIG_HEADVERTEXDECORATIONSTROKE);
-    int span=UI.EDITORCREATEJIG_HEADVERTEXDECORATIONSPAN;
+    graphics.setStroke(UI.EDITJIG_EDITGEOMETRY_HEADVERTEXDECORATIONSTROKE);
+    int span=UI.EDITJIG_EDITGEOMETRY_HEADVERTEXDECORATIONSPAN;
     double[] p;
     if(GE.editor_jig.connectedhead!=null){
       p=GE.editor_jig.model.viewgeometrycache.getPoint(GE.editor_jig.connectedhead);
-      graphics.setPaint(UI.EDITORCREATEJIG_CONNECTEDHEADVERTEXDECORATIONCOLOR);
+      graphics.setPaint(UI.EDITJIG_EDITGEOMETRY_CONNECTEDHEADVERTEXDECORATIONCOLOR);
       graphics.drawOval(((int)p[0])-span/2,((int)p[1])-span/2,span,span);
     }else if(GE.editor_jig.unconnectedhead!=null){
       p=GE.editor_jig.model.viewgeometrycache.getPoint(GE.editor_jig.unconnectedhead);
-      graphics.setPaint(UI.EDITORCREATEJIG_UNCONNECTEDHEADVERTEXDECORATIONCOLOR);
+      graphics.setPaint(UI.EDITJIG_EDITGEOMETRY_UNCONNECTEDHEADVERTEXDECORATIONCOLOR);
       graphics.drawOval(((int)p[0])-span/2,((int)p[1])-span/2,span,span);}}
   
   /*
@@ -121,7 +121,7 @@ public class GridOverlayPainter{
     Path2D path;
     for(JigSectionEditingModel m:GE.editor_jig.model.sections){
       colorindex=m.chorus;
-      color=UI.EJD_SECTIONFILLCHORUSINDICES[colorindex%UI.EJD_SECTIONFILLCHORUSINDICES.length];
+      color=UI.EDITJIG_EDITSECTIONS_SECTIONFILL[colorindex%UI.EDITJIG_EDITSECTIONS_SECTIONFILL.length];
       path=GE.editor_jig.model.viewgeometrycache.getPath(m.getPolygon());
       graphics.setPaint(color);
       graphics.fill(path);}}
@@ -132,14 +132,14 @@ public class GridOverlayPainter{
    */
   private void strokePolygonEdges_EditSections(Graphics2D graphics){
     graphics.setStroke(UI.GRID_DRAWINGSTROKE);
-    graphics.setPaint(UI.EDITORCREATEJIG_EDITSECTIONSSTROKECOLOR);
+    graphics.setPaint(UI.EDITJIG_EDITSECTIONS_UNFOCUSSTROKECOLOR);
     Path2D path;
     for(JigSectionEditingModel m:GE.editor_jig.model.sections){
       if(m==GE.editor_jig.focussection)continue;
       path=GE.editor_jig.model.viewgeometrycache.getPath(m.getPolygon());
       graphics.draw(path);}
     //focus
-    graphics.setPaint(UI.EDITORCREATEJIG_EDITSECTIONSGLYPHSTROKECOLOR);
+    graphics.setPaint(UI.EDITJIG_EDITSECTIONS_FOCUSSTROKECOLOR);
     path=GE.editor_jig.model.viewgeometrycache.getPath(GE.editor_jig.focussection.getPolygon());
     graphics.draw(path);}
   
@@ -166,9 +166,9 @@ public class GridOverlayPainter{
     DPolygon focussection=GE.editor_jig.model.viewgeometrycache.getDPolygon(GE.editor_jig.focussection.getPolygon());
     //render non-focus section polygons
     for(DPolygon nonfocussection:nonfocussections)
-      renderGlyphs(graphics,nonfocussection,UI.EDITORCREATEJIG_EDITSECTIONSSTROKECOLOR);
+      renderGlyphs(graphics,nonfocussection,UI.EDITJIG_EDITSECTIONS_UNFOCUSSTROKECOLOR);
     //render focus section polygon
-    renderGlyphs(graphics,focussection,UI.EDITORCREATEJIG_EDITSECTIONSGLYPHSTROKECOLOR);}
+    renderGlyphs(graphics,focussection,UI.EDITJIG_EDITSECTIONS_FOCUSSTROKECOLOR);}
   
   private void renderGlyphs(Graphics2D graphics,DPolygon polygon,Color color){
     System.out.println("render glyphs");

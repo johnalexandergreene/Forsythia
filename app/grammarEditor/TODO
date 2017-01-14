@@ -1,4 +1,4 @@
-jig editor. fix export
+jig editor. fix export jig model to project jig at save
 jig editor. make noncolinear point selection impossible
 jig editor. make info bar work
 jig editor. jig tags, section tags, text box bug. leaves off last character

@@ -13,14 +13,27 @@ import org.fleen.forsythia.app.grammarEditor.util.textures.Texture;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;
 
-//graphics, constants and utilities for ui
+/*
+ * STUFF FOR ALL UI IN THE APP
+ * graphics constants
+ * Layout params
+ * graphics utilities? 
+ * misc utilities
+ */
 public class UI{
   
   /*
    * ################################
-   * RENDERING HINTS FOR EVERYTHING
+   * #  #  #  #  #  #  #  #  #  #  #
+   * ################################
+   * UTILITIES
+   * ################################
+   * #  #  #  #  #  #  #  #  #  #  #
    * ################################
    */
+  
+  //--------------------------------
+  //RENDERING HINTS
   
   public static final HashMap<RenderingHints.Key,Object> RENDERING_HINTS=
       new HashMap<RenderingHints.Key,Object>();
@@ -48,7 +61,7 @@ public class UI{
    * DISTINGUISHABLE RAINBOW COLOR SEQUENCE
    * pure colors. probably wanna pastelize them for actual use
    * for when we need a rainbow type sequence of colors that are easy to distinguish from one another
-   * we store them as integers because it's just cleaner that way, and we'll have to 
+   * we store them as integers because it's more useful that way, and we'll have to 
    * translate to android eventually anyway
    * ################################
    */
@@ -67,8 +80,19 @@ public class UI{
   
   /*
    * ################################
-   * EDIT GRAMMAR ELEMENT MENUS
+   * #  #  #  #  #  #  #  #  #  #  #
    * ################################
+   * UI PARAM CONSTANTS FOR EDITOR
+   * EDIT GRAMMAR 
+   * ################################
+   * #  #  #  #  #  #  #  #  #  #  #
+   * ################################
+   */
+  
+  /*
+   * ++++++++++++++++++++++++++++++++
+   * ELEMENT MENUS
+   * ++++++++++++++++++++++++++++++++
    */
     
   public static final int 
@@ -144,57 +168,67 @@ public class UI{
   public static final Color
     EDITORCREATEMETAGON_FINISHEDMETAGONFILLCOLOR=new Color(0,255,0,64);
   
-  private static final int EJD_SECTIONCOLORALPHA=96;
+  /*
+   * ################################
+   * #  #  #  #  #  #  #  #  #  #  #
+   * ################################
+   * UI PARAM CONSTANTS FOR EDITOR
+   * EDIT JIG
+   * ################################
+   * #  #  #  #  #  #  #  #  #  #  #
+   * ################################
+   */
+  
+  //--------------------------------
+  //EDIT GEOMETRY
+  
+  //colors for edit geometry ui
+  public static final Color
+    EDITJIG_EDITGEOMETRY_STROKECOLOR=new Color(32,32,32),
+    EDITJIG_EDITGEOMETRY_HOSTMETAGONFILLCOLOR=new Color(255,255,255,64),
+    EDITJIG_EDITGEOMETRY_CONNECTEDHEADVERTEXDECORATIONCOLOR=new Color(255,255,64),
+    EDITJIG_EDITGEOMETRY_UNCONNECTEDHEADVERTEXDECORATIONCOLOR=new Color(255,64,64);;
+
+  public static final int
+    EDITJIG_EDITGEOMETRY_HEADVERTEXDECORATIONSPAN=32;
+  
+  public static final float 
+    EDITJIG_EDITGEOMETRY_HEADVERTEXDECORATIONSTROKETHICKNESS=8.0f;
+
+  public static final Stroke 
+    EDITJIG_EDITGEOMETRY_HEADVERTEXDECORATIONSTROKE=
+      new BasicStroke(EDITJIG_EDITGEOMETRY_HEADVERTEXDECORATIONSTROKETHICKNESS,
+      BasicStroke.CAP_SQUARE,BasicStroke.JOIN_ROUND,0,null,0);
+  
+  //--------------------------------
+  //EDIT SECTIONS
+  
+  //colors for edit sections ui
+  public static final Color
+    EDITJIG_EDITSECTIONS_UNFOCUSSTROKECOLOR=new Color(244,244,244),
+    EDITJIG_EDITSECTIONS_FOCUSSTROKECOLOR=new Color(48,48,48);
+  
+  //rainbow fill for sections
+  //color by chorus index. 0=red, 1=orange, etc
+  private static final int EDITJIG_EDITSECTIONS_SECTIONFILLALPHA=130;
   private static final float 
-    EJD_PASTELBRIGHTNESS=1.0f,
-    EJD_PASTELSATURATION=0.5f;
+    EDITJIG_EDITSECTIONS_SECTIONFILLBRIGHTNESS=1.0f,
+    EDITJIG_EDITSECTIONS_SECTIONFILLSATURATION=0.5f;
   
   //pastel translucent rainbow 
-  public static Color[] EJD_SECTIONFILLCHORUSINDICES;
+  public static Color[] EDITJIG_EDITSECTIONS_SECTIONFILL;
   
   static{
     Color c;
     float[] hsbvals=new float[3];
-    EJD_SECTIONFILLCHORUSINDICES=new Color[RAINBOW.length];
+    EDITJIG_EDITSECTIONS_SECTIONFILL=new Color[RAINBOW.length];
     for(int i=0;i<RAINBOW.length;i++){
       c=new Color(RAINBOW[i]);
       Color.RGBtoHSB(c.getRed(),c.getGreen(),c.getBlue(),hsbvals);
-      hsbvals[1]=EJD_PASTELSATURATION;
-      hsbvals[2]=EJD_PASTELBRIGHTNESS;
+      hsbvals[1]=EDITJIG_EDITSECTIONS_SECTIONFILLSATURATION;
+      hsbvals[2]=EDITJIG_EDITSECTIONS_SECTIONFILLBRIGHTNESS;
       c=new Color(Color.HSBtoRGB(hsbvals[0],hsbvals[1],hsbvals[2]));
-      EJD_SECTIONFILLCHORUSINDICES[i]=new Color(c.getRed(),c.getGreen(),c.getBlue(),EJD_SECTIONCOLORALPHA);}}
-  
-  //TEXTURE
-  public static final float EJD_TEXTUREALPHA=0.1f;
-  
-  public static final Texture[] getTextures(){
-    return Texture.getTextures();}
-  
-  /*
-   * ################################
-   * CREATE JIG
-   * ################################
-   */
-  
-  public static final Color
-    EDITORCREATEJIG_EDITGEOMETRYSTROKECOLOR=new Color(32,32,32),
-    EDITORCREATEJIG_EDITSECTIONSSTROKECOLOR=new Color(224,224,224),
-    EDITORCREATEJIG_EDITSECTIONSGLYPHSTROKECOLOR=new Color(32,32,32),
-    EDITORCREATEJIG_HOSTMETAGONFILLCOLOR=new Color(255,255,255,64),
-    EDITORCREATEJIG_FOCUSSECTIONFILLCOLOR=new Color(255,255,0,64),
-    EDITORCREATEJIG_CONNECTEDHEADVERTEXDECORATIONCOLOR=new Color(255,176,64),
-    EDITORCREATEJIG_UNCONNECTEDHEADVERTEXDECORATIONCOLOR=new Color(255,255,255);
-  
-  public static final int
-    EDITORCREATEJIG_HEADVERTEXDECORATIONSPAN=32;
-  
-  public static final float 
-    EDITORCREATEJIG_HEADVERTEXDECORATIONSTROKETHICKNESS=7.0f;
-  
-  public static final Stroke 
-    EDITORCREATEJIG_HEADVERTEXDECORATIONSTROKE=
-      new BasicStroke(EDITORCREATEJIG_HEADVERTEXDECORATIONSTROKETHICKNESS,
-        BasicStroke.CAP_SQUARE,BasicStroke.JOIN_ROUND,0,null,0);
+      EDITJIG_EDITSECTIONS_SECTIONFILL[i]=new Color(c.getRed(),c.getGreen(),c.getBlue(),EDITJIG_EDITSECTIONS_SECTIONFILLALPHA);}}
   
   /*
    * ################################

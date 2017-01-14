@@ -17,15 +17,13 @@ import org.fleen.geom_Kisrhombille.KPolygon;
 public class JigEditingModel{
   
   JigEditingModel(){
-    System.out.println("init jig editing model");
     initGraph();
-    initViewGeometryCache();
-  }
+    initViewGeometryCache();}
   
   /*
    * ################################
    * GRID DENSITY
-   * When we change this we re-init the graph and clear all section tags
+   * When we change this we re-init the graph and clear all section data
    * ################################
    */
   
