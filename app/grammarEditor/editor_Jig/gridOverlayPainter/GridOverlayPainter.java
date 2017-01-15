@@ -38,8 +38,7 @@ public class GridOverlayPainter{
   private void renderJigModel_EditGeometry(Graphics2D graphics){
     fillSections_EditGeometry(graphics);
     strokeGraphEdges_EditGeometry(graphics);
-    renderVertices_EditGeometry(graphics);
-  }
+    renderVertices_EditGeometry(graphics);}
   
   private void fillSections_EditGeometry(Graphics2D graphics){
     Color color;
@@ -120,7 +119,7 @@ public class GridOverlayPainter{
     Color color;
     Path2D path;
     for(JigSectionEditingModel m:GE.editor_jig.model.sections){
-      colorindex=m.chorus;
+      colorindex=m.chorusindex;
       color=UI.EDITJIG_EDITSECTIONS_SECTIONFILL[colorindex%UI.EDITJIG_EDITSECTIONS_SECTIONFILL.length];
       path=GE.editor_jig.model.viewgeometrycache.getPath(m.getPolygon());
       graphics.setPaint(color);
@@ -153,9 +152,6 @@ public class GridOverlayPainter{
    * ################################
    */
   
-  //TODO thse should be params in UI
-  private static final double GRIDOVERLAYPAINTER_GLYPHINSET=12;
-  
   private void renderGlyphs_EditSections(Graphics2D graphics){
     //get non-focus section polygons
     List<DPolygon> nonfocussections=new ArrayList<DPolygon>();
@@ -174,7 +170,7 @@ public class GridOverlayPainter{
     System.out.println("render glyphs");
     GlyphSystemModel glyphsystemmodel=new GlyphSystemModel(
       polygon,
-      GRIDOVERLAYPAINTER_GLYPHINSET);
+      UI.EDITJIG_EDITSECTIONS_GLYPHINSET);
     if(glyphsystemmodel.isValid()){
       //render v0 dot
       renderV0Dot(graphics,glyphsystemmodel,color);
@@ -192,10 +188,8 @@ public class GridOverlayPainter{
    * ++++++++++++++++++++++++++++++++
    */
   
-  private static final double V0DOTRADIUS=0.6;
-  
   private void renderV0Dot(Graphics2D graphics,GlyphSystemModel glyphsystemmodel,Color color){
-    double dotradius=V0DOTRADIUS*GRIDOVERLAYPAINTER_GLYPHINSET;
+    double dotradius=UI.EDITJIG_EDITSECTIONS_GLYPHV0DOTRADIUS*UI.EDITJIG_EDITSECTIONS_GLYPHINSET;
     DPoint pv0=glyphsystemmodel.getV0DotPoint();
     graphics.setPaint(color);
     Ellipse2D dot=new Ellipse2D.Double(pv0.x-dotradius,pv0.y-dotradius,dotradius*2,dotradius*2);
@@ -207,9 +201,6 @@ public class GridOverlayPainter{
    * ++++++++++++++++++++++++++++++++
    */
   
-  //in terms of inset
-  private static final double ARROWLENGTH=2.5,ARROWWIDTH=1.2;
-  
   private void renderArrowHead(Graphics2D graphics,GlyphSystemModel glyphsystemmodel,Color color){
     graphics.setPaint(color);
     DPoint 
@@ -217,9 +208,15 @@ public class GridOverlayPainter{
       p1=glyphsystemmodel.glyphpath.get(glyphsystemmodel.glyphpath.size()-1);
     double forward=p0.getDirection(p1);
     DPoint 
-      forewardpoint=p1.getPoint(forward,ARROWLENGTH*GRIDOVERLAYPAINTER_GLYPHINSET),
-      leftpoint=p1.getPoint(GD.normalizeDirection(forward-GD.HALFPI),ARROWWIDTH*GRIDOVERLAYPAINTER_GLYPHINSET/2),
-      rightpoint=p1.getPoint(GD.normalizeDirection(forward+GD.HALFPI),ARROWWIDTH*GRIDOVERLAYPAINTER_GLYPHINSET/2);
+      forewardpoint=p1.getPoint(
+        forward,
+        UI.EDITJIG_EDITSECTIONS_GLYPHARROWLENGTH*UI.EDITJIG_EDITSECTIONS_GLYPHINSET),
+      leftpoint=p1.getPoint(
+        GD.normalizeDirection(forward-GD.HALFPI),
+        UI.EDITJIG_EDITSECTIONS_GLYPHARROWWIDTH*UI.EDITJIG_EDITSECTIONS_GLYPHINSET/2),
+      rightpoint=p1.getPoint(
+        GD.normalizeDirection(forward+GD.HALFPI),
+        UI.EDITJIG_EDITSECTIONS_GLYPHARROWWIDTH*UI.EDITJIG_EDITSECTIONS_GLYPHINSET/2);
     Path2D triangle=new Path2D.Double();
     triangle.moveTo(leftpoint.x,leftpoint.y);
     triangle.lineTo(forewardpoint.x,forewardpoint.y);
@@ -227,6 +224,7 @@ public class GridOverlayPainter{
     triangle.closePath();
     graphics.fill(triangle);}
   
+  //an open path
   private Path2D getPath2D(List<DPoint> points){
     Path2D path2d=new Path2D.Double();
     DPoint p=points.get(0);

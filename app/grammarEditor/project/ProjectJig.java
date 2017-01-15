@@ -4,18 +4,15 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.JigEditingModel;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.JigSectionEditingModel;
 import org.fleen.forsythia.app.grammarEditor.util.ElementMenuItem;
 import org.fleen.forsythia.core.grammar.Jig;
 import org.fleen.forsythia.core.grammar.JigSection;
-import org.fleen.geom_Kisrhombille.KPolygon;
 
 /*
  * This is a project jig
- * it contains a jig definition in terms amenable to our project
- * we can construct one of these in 2 ways
- *   via jig editor
- *   via import
- *       
+ * It's a Jig designed for ez editing
  */
 public class ProjectJig implements ElementMenuItem{
   
@@ -25,18 +22,25 @@ public class ProjectJig implements ElementMenuItem{
    * ################################
    */
   
+//  //create
+//  //invoked by the jig editor
+//  //we specify just geometry stuff, details are set to default values
+//  //TODO we gotta handle anchors, chorusindices and tags here too
+//  public ProjectJig(
+//    ProjectMetagon targetmetagon,
+//    int griddensity,
+//    List<KPolygon> sectionpolygons){
+//    this.targetmetagon=targetmetagon;
+//    this.griddensity=griddensity;
+//    initSectionsForCreate(sectionpolygons);
+//    initSectionProductChorusIndices();}
+  
   //create
-  //invoked by the jig editor
-  //we specify just geometry stuff, details are set to default values
-  //TODO we gotta handle anchors, chorusindices and tags here too
   public ProjectJig(
-    ProjectMetagon targetmetagon,
-    int griddensity,
-    List<KPolygon> sectionpolygons){
-    this.targetmetagon=targetmetagon;
-    this.griddensity=griddensity;
-    initSectionsForCreate(sectionpolygons);
-    initSectionProductChorusIndices();}
+    JigEditingModel jigeditingmodel){
+    targetmetagon=jigeditingmodel.targetmetagon;
+    griddensity=jigeditingmodel.griddensity;
+    initSectionsForCreate(jigeditingmodel);}
   
   //import
   public ProjectJig(ProjectMetagon targetmetagon,Jig jig){
@@ -82,9 +86,15 @@ public class ProjectJig implements ElementMenuItem{
   //returns true of any of our sections uses the specified metagon for its polygonal product
   public boolean usesForProduct(ProjectMetagon m){
     for(ProjectJigSection pjs:sections)
-      if(pjs.productmetagon==m)
+      if(pjs.metagon==m)
         return true;
     return false;}
+  
+  /*
+   * ++++++++++++++++++++++++++++++++
+   * INIT SECTIONS FOR IMPORT
+   * ++++++++++++++++++++++++++++++++
+   */
   
   /*
    * At this point the project metagons list should be fully populated
@@ -99,18 +109,28 @@ public class ProjectJig implements ElementMenuItem{
          sections.add(pjspolygon);}}
     ((ArrayList<ProjectJigSection>)sections).trimToSize();}
   
-  private void initSectionsForCreate(List<KPolygon> sectionpolygons){
-    for(KPolygon p:sectionpolygons)
-      sections.add(new ProjectJigSection(this,p));}
-  
   /*
-   * init to all different. no chorussing
+   * ++++++++++++++++++++++++++++++++
+   * INIT SECTIONS FOR CREATE
+   * ++++++++++++++++++++++++++++++++
    */
-  private void initSectionProductChorusIndices(){
-    int i=0;
-    for(ProjectJigSection s:sections){
-      s.setProductChorusIndex(i);
-      i++;}}
+  
+  private void initSectionsForCreate(JigEditingModel jigeditingmodel){
+    for(JigSectionEditingModel jigsectioneditingmodel:jigeditingmodel.sections)
+      sections.add(new ProjectJigSection(this,jigsectioneditingmodel));}
+  
+//  private void initSectionsForCreate(List<KPolygon> sectionpolygons){
+//    for(KPolygon p:sectionpolygons)
+//      sections.add(new ProjectJigSection(this,p));}
+//  
+//  /*
+//   * init to all different. no chorussing
+//   */
+//  private void initSectionProductChorusIndices(){
+//    int i=0;
+//    for(ProjectJigSection s:sections){
+//      s.setProductChorusIndex(i);
+//      i++;}}
   
   /*
    * ################################

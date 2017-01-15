@@ -50,6 +50,7 @@ public class PanGridDensity extends JPanel{
     horizontalboxmid.add(horizontalStrut_1);
     
     btngriddensityincrement = new JButton("+");
+    btngriddensityincrement.setFont(new Font("Dialog", Font.BOLD, 16));
     btngriddensityincrement.setBackground(new Color(255, 204, 255));
     btngriddensityincrement.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
@@ -62,7 +63,7 @@ public class PanGridDensity extends JPanel{
     
     btngriddensitydecrement = new JButton("-");
     btngriddensitydecrement.setBackground(new Color(255, 204, 255));
-    btngriddensitydecrement.setFont(new Font("Dialog", Font.BOLD, 12));
+    btngriddensitydecrement.setFont(new Font("Dialog", Font.BOLD, 16));
     btngriddensitydecrement.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
         if(btngriddensitydecrement.isEnabled())

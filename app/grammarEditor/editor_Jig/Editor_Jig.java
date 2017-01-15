@@ -146,8 +146,9 @@ public class Editor_Jig extends Editor{
   
   void refreshButtons(){
     EJ_UI ui=(EJ_UI)getUI();
-    //refresh grid density
+    //refresh jig stuff
     ui.pangriddensity.lblgriddensity.setText("Grid Density = "+model.getGridDensityString());
+    ui.panjigtag.txtjigtag.setText(model.jigtagstring);
     //refresh section
     refreshSectionAnchorButton();
     refreshSectionChorusButton();
@@ -194,7 +195,7 @@ public class Editor_Jig extends Editor{
   public JigSectionEditingModel focussection; 
   
   private void createEditingObjects(){
-    model=new JigEditingModel();
+    model=new JigEditingModel(GE.focusmetagon);
     connectedhead=null;
     unconnectedhead=null;
     focussection=null;}
@@ -305,11 +306,11 @@ public class Editor_Jig extends Editor{
    */
 
   public void reset(){
-    
-  }
+    configureForOpen();}
   
   public void save(){
-    ProjectJig j=model.getProjectJig();
+    GE.focusgrammar.addMetagons(model.localsectionmetagons);
+    ProjectJig j=new ProjectJig(model);
     GE.focusmetagon.invalidateOverviewIconImage();
     GE.focusmetagon.addJig(j);
     GE.focusjig=j;
@@ -353,7 +354,7 @@ public class Editor_Jig extends Editor{
     refreshGridImage();} 
   
   public void setJigTags(String a){
-    System.out.println("set jig tags");
+    System.out.println("set jig tags : "+a);
     model.jigtagstring=a;}
   
   public void incrementSectionAnchor(){
@@ -369,7 +370,7 @@ public class Editor_Jig extends Editor{
     refreshGridImage();}
   
   public void setSectionTags(String a){
-    System.out.println("set jig section tags");
+    System.out.println("set jig section tags "+a);
     focussection.tags=a;}
   
   /*

@@ -1,15 +1,8 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Jig;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Map;
-
-import javax.swing.JFrame;
 
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;
@@ -58,7 +51,7 @@ public class ViewGeometryCache{
       viewcenterx=centerx;
       viewcentery=centery;}}
   
-  private void invalidate(){
+  public void invalidate(){
     System.out.println("invalidate display geometry cache");
     p2dbykvertex.clear();
     path2dbykpolygon.clear();}
@@ -129,75 +122,5 @@ public class ViewGeometryCache{
     path.closePath();
     return path;}  
   
-  /*
-   * ################################
-   * TEST
-   * ################################
-   */
-  
-  /*
-   * make a polygon and a point
-   * create a pointdef
-   * leave polygon unaltered. set point location according to pointdef
-   * should do nothing to the geometry
-   * illustrate this on a JFrame
-   */
-//  public static final void main(String[] a){
-//
-//    //create display
-//    TestFrame testframe=new TestFrame();
-//    testframe.repaint();}
-//  
-//  @SuppressWarnings("serial")
-//  static class TestFrame extends JFrame{
-//    
-//    TestFrame(){
-//      super();
-//      
-//      setSize(800,800);
-//      setVisible(true);
-//      setBackground(Color.white);}
-//    
-//    public void paint(Graphics g){
-//      Graphics2D g2d=(Graphics2D)g;
-//      
-//      Path2D pathsquare=new Path2D.Double();
-//      pathsquare.moveTo(40,40);
-//      pathsquare.lineTo(500,40);
-//      pathsquare.lineTo(500,500);
-//      pathsquare.lineTo(40,500);
-//      pathsquare.closePath();
-//      
-//      Path2D pathtri=new Path2D.Double();
-//      pathtri.moveTo(100,100);
-//      pathtri.lineTo(200,100);
-//      pathtri.lineTo(200,200);
-//      pathtri.closePath();
-//      
-//      Path2D path=new java.awt.geom.Path2D.Double();
-//      path.setWindingRule(Path2D.WIND_EVEN_ODD);
-//      path.append(pathsquare,false);
-//      path.append(pathtri,false);
-//      
-//      g2d.setPaint(new Color(255,0,0));
-//      g2d.fill(path);
-//      
-//    }}
-  
-  @SuppressWarnings("serial")
-  class TestFrame0 extends JFrame{
-    Path2D path;
-    
-    TestFrame0(Path2D path){
-      super();
-      this.path=path;
-      setSize(800,800);
-      setVisible(true);
-      setBackground(Color.white);}
-    
-    public void paint(Graphics g){
-      Graphics2D g2d=(Graphics2D)g;
-      g2d.setPaint(new Color(255,0,0));
-      g2d.fill(path);}}
 
 }

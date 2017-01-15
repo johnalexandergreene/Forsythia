@@ -73,14 +73,16 @@ public abstract class Grid extends JPanel{
    * CURSOR
    * Our convention : 
    * Circle means we're addressing vertices. 
-   * Square means we're doing something other than addressing vertices, like selecting sections.  
+   * Square means we're doing something other than addressing vertices, like selecting sections. 
+   * X means the thing we're hovering over is not to be clicked 
    * ################################
    */
   
-  private static final int
+  static final int
     CURSORMODE_AMBIGUOUS=-1,
     CURSORMODE_CIRCLE=0,
-    CURSORMODE_SQUARE=1;
+    CURSORMODE_SQUARE=1,
+    CURSORMODE_X=2;
   
   private int cursormode=CURSORMODE_AMBIGUOUS;
   
@@ -93,6 +95,11 @@ public abstract class Grid extends JPanel{
     if(cursormode!=CURSORMODE_SQUARE){
       cursormode=CURSORMODE_SQUARE;
       CursorSquare.setCursor(this);}}
+  
+  public void setCursorX(){
+    if(cursormode!=CURSORMODE_X){
+      cursormode=CURSORMODE_X;
+      CursorX.setCursor(this);}}
   
   /*
    * ################################
@@ -148,7 +155,7 @@ public abstract class Grid extends JPanel{
    */
   
   private static final double 
-    VIEWSCALE_DEFAULT=32.0,//looks nice
+    VIEWSCALE_DEFAULT=64.0,//looks nice
     VIEWSCALE_MIN=8.0,//any smaller is impractical. Max is dependent on view dimensions
     VIEWCENTERX_DEFAULT=0,//origin
     VIEWCENTERY_DEFAULT=0;

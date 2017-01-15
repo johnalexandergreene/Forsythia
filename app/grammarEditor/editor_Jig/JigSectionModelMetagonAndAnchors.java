@@ -5,9 +5,9 @@ import java.util.List;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectMetagon;
 import org.fleen.geom_Kisrhombille.KAnchor;
 
-class JigSectionModelComponents{
+class JigSectionModelMetagonAndAnchors{
   
-  JigSectionModelComponents(ProjectMetagon metagon,List<KAnchor> anchors){
+  JigSectionModelMetagonAndAnchors(ProjectMetagon metagon,List<KAnchor> anchors){
     this.metagon=metagon;
     this.anchors=anchors;}
   

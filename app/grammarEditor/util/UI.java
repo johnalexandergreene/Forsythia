@@ -9,7 +9,6 @@ import java.awt.geom.Path2D;
 import java.util.HashMap;
 import java.util.List;
 
-import org.fleen.forsythia.app.grammarEditor.util.textures.Texture;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;
 
@@ -146,7 +145,8 @@ public class UI{
 
   public static final int 
     GRID_CURSORCIRCLESIZE=32,
-    GRID_CURSORSQUARESIZE=28;
+    GRID_CURSORSQUARESIZE=28,
+    GRID_CURSORXSIZE=32;
 
   public static final int GRID_CENTERANDFITVIEWMARGIN=36;
   
@@ -161,12 +161,17 @@ public class UI{
   
   /*
    * ################################
-   * CREATE METAGON
+   * #  #  #  #  #  #  #  #  #  #  #
+   * ################################
+   * UI PARAM CONSTANTS FOR EDITOR
+   * EDIT METAGON
+   * ################################
+   * #  #  #  #  #  #  #  #  #  #  #
    * ################################
    */
   
   public static final Color
-    EDITORCREATEMETAGON_FINISHEDMETAGONFILLCOLOR=new Color(0,255,0,64);
+    EDITORCREATEMETAGON_FINISHEDMETAGONFILLCOLOR=new Color(255,255,255,64);
   
   /*
    * ################################
@@ -229,6 +234,14 @@ public class UI{
       hsbvals[2]=EDITJIG_EDITSECTIONS_SECTIONFILLBRIGHTNESS;
       c=new Color(Color.HSBtoRGB(hsbvals[0],hsbvals[1],hsbvals[2]));
       EDITJIG_EDITSECTIONS_SECTIONFILL[i]=new Color(c.getRed(),c.getGreen(),c.getBlue(),EDITJIG_EDITSECTIONS_SECTIONFILLALPHA);}}
+  
+  //glyph stuff
+  public static final double 
+    EDITJIG_EDITSECTIONS_GLYPHINSET=12,
+    //in terms of glyph inset
+    EDITJIG_EDITSECTIONS_GLYPHV0DOTRADIUS=0.6,
+    EDITJIG_EDITSECTIONS_GLYPHARROWLENGTH=2.5,
+    EDITJIG_EDITSECTIONS_GLYPHARROWWIDTH=1.2;
   
   /*
    * ################################

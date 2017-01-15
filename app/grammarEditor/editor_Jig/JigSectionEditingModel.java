@@ -14,10 +14,14 @@ public class JigSectionEditingModel{
    * ################################
    */
   
-  public JigSectionEditingModel(JigEditingModel jigeditingmodel,JigSectionModelComponents components){
+  public JigSectionEditingModel(
+      JigEditingModel jigeditingmodel,
+      JigSectionModelMetagonAndAnchors metagonandanchors,
+      int chorusindex){
       this.jigeditingmodel=jigeditingmodel;
-      metagon=components.metagon;
-      anchors=components.anchors;}
+      metagon=metagonandanchors.metagon;
+      anchors=metagonandanchors.anchors;
+      this.chorusindex=chorusindex;}
   
   /*
    * ################################
@@ -45,7 +49,7 @@ public class JigSectionEditingModel{
    */
   
   public int anchorindex=0;
-  List<KAnchor> anchors=null;
+  public List<KAnchor> anchors=null;
   
   public String getAnchorIndexString(){
     return String.format("%03d",anchorindex);}
@@ -61,27 +65,25 @@ public class JigSectionEditingModel{
   
   /*
    * ################################
-   * CHORUS
+   * CHORUS INDEX
    * The chorus index of this section
    * ################################
    */
   
-  public int chorus=0;
+  public int chorusindex=0;
   
   public String getChorusString(){
-    return String.format("%03d",chorus);}
+    return String.format("%03d",chorusindex);}
   
   public void incrementChorus(){
-    int maxchorus=jigeditingmodel.getMaxChorus();
-    chorus++;
-    if(chorus>maxchorus)
-      chorus=0;}
+    chorusindex=jigeditingmodel.getNextValidChorusIndex(this,chorusindex);}
   
   /*
    * ################################
    * TAGS
    * Every section has tags. 
    * In the cultivation process the tags get put on the created polygons
+   * Our tag string here is a bunch of space-delimited tags
    * ################################
    */
   

@@ -1,7 +1,6 @@
 package org.fleen.forsythia.app.grammarEditor.util.grid;
 
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;

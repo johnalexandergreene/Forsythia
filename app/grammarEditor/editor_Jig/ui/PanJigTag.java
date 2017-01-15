@@ -48,11 +48,11 @@ public class PanJigTag extends JPanel{
     horizontalboxmid.add(horizontalStrut_3);
     
     txtjigtag = new JTextField();
-    txtjigtag.setText("rabbit squirrel fox");
+    txtjigtag.setText("foo foo");
     txtjigtag.setFont(new Font("DejaVu Sans Mono", Font.PLAIN, 18));
     txtjigtag.setBorder(null);
     txtjigtag.addKeyListener(new KeyAdapter(){
-      public void keyTyped(KeyEvent e){
+      public void keyReleased(KeyEvent e){
         GE.editor_jig.setJigTags(txtjigtag.getText());}});
     horizontalboxmid.add(txtjigtag);
     

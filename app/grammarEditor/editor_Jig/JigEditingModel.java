@@ -8,7 +8,6 @@ import java.util.Map;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.RawGraph;
-import org.fleen.forsythia.app.grammarEditor.project.ProjectJig;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectMetagon;
 import org.fleen.geom_Kisrhombille.KAnchor;
 import org.fleen.geom_Kisrhombille.KMetagon;
@@ -25,9 +24,18 @@ public class JigEditingModel{
    * ################################
    */
   
-  JigEditingModel(){
+  JigEditingModel(ProjectMetagon targetmetagon){
+    this.targetmetagon=targetmetagon;
     initGraph();
     initViewGeometryCache();}
+  
+  /*
+   * ################################
+   * TARGET METAGON
+   * ################################
+   */
+  
+  public ProjectMetagon targetmetagon;
   
   /*
    * ################################
@@ -38,20 +46,18 @@ public class JigEditingModel{
   
   private static final int GRIDDENSITYLOWERLIMIT=1;
   
-  int griddensity=GRIDDENSITYLOWERLIMIT;
+  public int griddensity=GRIDDENSITYLOWERLIMIT;
   
   void incrementGridDensity(){
     griddensity++;
     initGraph();
-    initViewGeometryCache();
-    chorusindexbypolygon.clear();}
+    initViewGeometryCache();}
   
   void decrementGridDensity(){
     if(griddensity>GRIDDENSITYLOWERLIMIT){
       griddensity--;
       initGraph();
-      initViewGeometryCache();
-      chorusindexbypolygon.clear();}}
+      initViewGeometryCache();}}
   
   String getGridDensityString(){
     return String.format("%03d",griddensity);}
@@ -83,80 +89,105 @@ public class JigEditingModel{
   
   /*
    * ################################
-   * SECTION CHORUS INDICES
-   * A little overview and management
-   * when we spin the index our max index is sectioncount
-   *   that is to say, our range of indices is [0..sectioncount]. One for each + an extra.
-   *   
-   * TODO we should init the sections so that isomorphic sections 
-   *   get the same index and nonisomorphic get differing indices. 
+   * VIEW GEOMETRY CACHE
+   * all the polygons and whatever that we use to create our UI stuff
    * ################################
    */
   
-  private Map<KPolygon,Integer> chorusindexbypolygon=new HashMap<KPolygon,Integer>();
+  public ViewGeometryCache viewgeometrycache=new ViewGeometryCache();
   
-  boolean hasChorusIndex(KPolygon p){
-    return chorusindexbypolygon.get(p)!=null;}
-  
-  void initChorusindex(KPolygon p){
-    chorusindexbypolygon.put(p,getLowestUnusedChorusIndex());}
-  
-  int getChorusIndex(KPolygon p){
-    return chorusindexbypolygon.get(p);}
-  
-  void setChorusIndex(KPolygon p,int i){
-    chorusindexbypolygon.put(p,i);}
-  
-  private int getLowestUnusedChorusIndex(){
-    Integer i=0;
-    while(!chorusindexbypolygon.values().contains(i))
-      i++;
-    return i;}
-  
-  /*
-   * ################################
-   * GEOMETRY
-   * ################################
-   */
-  
-  public ViewGeometryCache viewgeometrycache;
-  
-  //TODO a clear method instead?
   void initViewGeometryCache(){
-    viewgeometrycache=new ViewGeometryCache();
-  }
+    viewgeometrycache.invalidate();}
   
   /*
    * ################################
-   * JIG SECTION MODELS AND SECTION EDITING MODE
-   * Our editor has 2 modes
-   *   geometry editing mode
-   *   section editing mode
+   * #  #  #  #  #  #  #  #  #  #  #
+   * ################################
+   * JIG SECTION MODELS
+   * ################################
+   * #  #  #  #  #  #  #  #  #  #  #
    * ################################
    */
   
+  //all of our sections
   public List<JigSectionEditingModel> sections=new ArrayList<JigSectionEditingModel>();
+  //metagons that got created indirectly via section polygon creation
   List<ProjectMetagon> localsectionmetagons=new ArrayList<ProjectMetagon>();
   
   /*
+   * ################################
+   * SECTION CHORUS INDICES
+   * A little management
+   * we have a max chorus index
+   * We disallow nonisomorphic sections having the same chorus
+   * ################################
+   */
+  
+  public int getMaxSectionChorusIndex(){
+    return sections.size();}
+  
+  private ProjectMetagon getMetagonByChorusIndex(int chorusindex){
+    for(JigSectionEditingModel section:sections)
+      if(section.chorusindex==chorusindex)
+        return section.metagon;
+    return null;}
+  
+  /*
+   * cycle through the range of chorus indices until one is found that is not 
+   * presently in use by a section with a differing metagon
+   */
+  public int getNextValidChorusIndex(JigSectionEditingModel model,int chorusindex){
+    boolean valid=false;
+    ProjectMetagon test;
+    int maxtries=getMaxSectionChorusIndex()*2,tries=0;
+    while(!valid){
+      //to avoid an infinite loop
+      maxtries++;
+      tries++;
+      if(tries==maxtries)
+        throw new IllegalArgumentException("infinite loop");
+      //  
+      chorusindex++;
+      if(chorusindex>getMaxSectionChorusIndex())
+        chorusindex=0;
+      test=getMetagonByChorusIndex(chorusindex);
+      if(test==null||test==model.metagon)
+        valid=true;}
+    return chorusindex;}
+  
+  /*
+   * ################################
+   * INIT SECTIONS
+   * We are shifting modes, from geometry editing to section editing
+   * From the geometry we derive our section polygons
+   * Then we init metagons, anchors and chorus indices
+   * ################################
+   */
+  
+  /*
    * for each undivided polygon in the graph (rawpolygons)
-   *   get a metagon
-   *     metagons are singular within the grammar. 
-   *     There is exactly 1 metagon for each shape. One triangle, hexagon, 2x4 rectangle, 2x4x2x6 T-shape, etc. 
+   * get a metagon, a list of anchors and a chorus index 
    */
   public void initSections(){
     sections.clear();
     localsectionmetagons.clear();
     List<KPolygon> rawpolygons=rawgraph.getDisconnectedGraph().getUndividedPolygons();
-    List<KPolygon> cleanpolygons=getCleanedSectionPolygons(rawpolygons);
-    List<JigSectionModelComponents> sectionmodelcomponents=getJigSectionModelComponents(cleanpolygons);
-    for(JigSectionModelComponents smc:sectionmodelcomponents)
-      sections.add(new JigSectionEditingModel(this,smc));}
+    List<KPolygon> cleanpolygons=getCleanedSectionPolygonsForSectionsInit(rawpolygons);
+    List<JigSectionModelMetagonAndAnchors> metagonandanchors=getJigSectionModelComponentsForSectionsInit(cleanpolygons);
+    List<Integer> sectionmodelchorusindices=getJigSectionModelChorusIndicesForSectionsInit(metagonandanchors);
+    //
+    int sectioncount=rawpolygons.size();
+    JigSectionModelMetagonAndAnchors ma;
+    int chorusindex;
+    for(int i=0;i<sectioncount;i++){
+      ma=metagonandanchors.get(i);
+      chorusindex=sectionmodelchorusindices.get(i);
+      sections.add(new JigSectionEditingModel(this,ma,chorusindex));}}
   
   /*
-   * cull redundant colinear vertices
+   * cleaning the polygon means culling redundant colinear vertices
    */
-  List<KPolygon> getCleanedSectionPolygons(List<KPolygon> rawpolygons){
+  List<KPolygon> getCleanedSectionPolygonsForSectionsInit(List<KPolygon> rawpolygons){
     List<KPolygon> cleanpolygons=new ArrayList<KPolygon>(rawpolygons.size());
     KPolygon clean;
     for(KPolygon raw:rawpolygons){
@@ -166,6 +197,41 @@ public class JigEditingModel{
     return cleanpolygons;}
   
   /*
+   * ################################
+   * INIT JIG SECTION MODEL CHORUS INDICES
+   * specify max chorus index (section count)
+   * set init chorus indices for sections
+   * 
+   * at init, isomorphic sections (same metagon) get the same index and nonisomorphic get differing indices.
+   * ################################ 
+   */
+  
+  private int highestindexsofar;//because we can't pass ints
+  
+  private List<Integer> getJigSectionModelChorusIndicesForSectionsInit(List<JigSectionModelMetagonAndAnchors> sectionmodelmetagonandanchors){
+    List<Integer> chorusindices=new ArrayList<Integer>();
+    Map<ProjectMetagon,Integer> indicesbymetagon=new HashMap<ProjectMetagon,Integer>();
+    int chorusindex;
+    highestindexsofar=0;
+    for(JigSectionModelMetagonAndAnchors ma:sectionmodelmetagonandanchors){
+      chorusindex=getChorusIndexForSectionsInit(ma.metagon,indicesbymetagon);
+      chorusindices.add(chorusindex);}
+    return chorusindices;}
+  
+  private int getChorusIndexForSectionsInit(ProjectMetagon m,Map<ProjectMetagon,Integer> indicesbymetagon){
+    Integer i=indicesbymetagon.get(m);
+    if(i!=null)return i;
+    i=highestindexsofar;
+    indicesbymetagon.put(m,highestindexsofar);
+    highestindexsofar++;
+    return i;}
+  
+  /*
+   * ################################
+   * JIG SECTION MODEL COMPONENTS FOR SECTION INIT
+   * Specifically, the metagon and the list of anchors
+   * Get them for init here
+   * 
    * for each polygon
    *   get a metagon and a list of anchors
    *   test the polygon against every metagon in the grammar
@@ -173,16 +239,17 @@ public class JigEditingModel{
    *   test the polygon against every metagon that we have created in this jig
    *     if a metagon is found then use that and the associated anchors.
    *   if no metagon has been found then create one.
-   * 
+   * ################################
    */
-  private List<JigSectionModelComponents> getJigSectionModelComponents(List<KPolygon> polygons){
-    List<JigSectionModelComponents> components=new ArrayList<JigSectionModelComponents>(polygons.size());
+  
+  private List<JigSectionModelMetagonAndAnchors> getJigSectionModelComponentsForSectionsInit(List<KPolygon> polygons){
+    List<JigSectionModelMetagonAndAnchors> components=new ArrayList<JigSectionModelMetagonAndAnchors>(polygons.size());
     for(KPolygon polygon:polygons)
       components.add(getJigSectionModelComponents(polygon));
     return components;}
   
-  private JigSectionModelComponents getJigSectionModelComponents(KPolygon polygon){
-    JigSectionModelComponents c=getComponentsFromGrammar(polygon);
+  private JigSectionModelMetagonAndAnchors getJigSectionModelComponents(KPolygon polygon){
+    JigSectionModelMetagonAndAnchors c=getComponentsFromGrammar(polygon);
     if(c!=null)return c;
     c=getComponentsLocally(polygon);
     if(c!=null)return c;
@@ -195,12 +262,12 @@ public class JigEditingModel{
    * If a fit is found then return that metagon and anchors. 
    * Otherwise return null.
    */
-  private JigSectionModelComponents getComponentsFromGrammar(KPolygon polygon){
+  private JigSectionModelMetagonAndAnchors getComponentsFromGrammar(KPolygon polygon){
     List<KAnchor> anchors;
     for(ProjectMetagon metagon:GE.focusgrammar.metagons){
       anchors=metagon.kmetagon.getAnchorOptions(polygon);
       if(anchors!=null)
-        return new JigSectionModelComponents(metagon,anchors);}
+        return new JigSectionModelMetagonAndAnchors(metagon,anchors);}
     return null;}
   
   /*
@@ -209,52 +276,20 @@ public class JigEditingModel{
    * If a fit is found then return that metagon and anchors. 
    * Otherwise return null.
    */
-  private JigSectionModelComponents getComponentsLocally(KPolygon polygon){
+  private JigSectionModelMetagonAndAnchors getComponentsLocally(KPolygon polygon){
     List<KAnchor> anchors;
     for(ProjectMetagon metagon:localsectionmetagons){
       anchors=metagon.kmetagon.getAnchorOptions(polygon);
       if(anchors!=null)
-        return new JigSectionModelComponents(metagon,anchors);}
+        return new JigSectionModelMetagonAndAnchors(metagon,anchors);}
     return null;}
   
-  private JigSectionModelComponents createComponents(KPolygon polygon){
+  private JigSectionModelMetagonAndAnchors createComponents(KPolygon polygon){
     KMetagon m=polygon.getKMetagon();
     List<KAnchor> anchors=m.getAnchorOptions(polygon);
     ProjectMetagon pm=new ProjectMetagon(GE.focusgrammar,polygon,"");
     localsectionmetagons.add(pm);
-    JigSectionModelComponents c=new JigSectionModelComponents(pm,anchors);
+    JigSectionModelMetagonAndAnchors c=new JigSectionModelMetagonAndAnchors(pm,anchors);
     return c;}
   
-//  public List<KPolygon> getSectionPolygons(){
-//    List<KPolygon> polygons=new ArrayList<KPolygon>(sections.size());
-//    for(JigSectionEditingModel m:sections)
-//      polygons.add(m.getPolygon());
-//    return polygons;}
-  
-  public int getMaxChorus(){
-    int m=rawgraph.getDisconnectedGraph().getUndividedPolygons().size();
-    return m;}
-  
-  /*
-   * ################################
-   * CREATE JIG
-   * ################################
-   */
-  
-  ProjectJig getProjectJig(){
-    List<KPolygon> sectionpolygons=rawgraph.getDisconnectedGraph().getUndividedPolygons();
-    ProjectJig j=new ProjectJig(
-      GE.focusmetagon,
-      griddensity,
-      sectionpolygons);
-    return j;}
-  
-  
-  
-  
-  
-  
-  
-  
-
 }

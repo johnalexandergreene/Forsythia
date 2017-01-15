@@ -1,11 +1,12 @@
-jig editor. fix export jig model to project jig at save
-jig editor. make noncolinear point selection impossible
+
+jig editor : make edit jig after creation work
+
 jig editor. make info bar work
-jig editor. jig tags, section tags, text box bug. leaves off last character
-jig editor. do reset button
+
 metagon editor. coarsen grid resolution at init
+
 grid : make sturctures and lines line up better. It isn't quite perfect when the structures get big.
-jig editor : make it so you can only select sections in edit sections mode. so you can't click on vertex-zones and thus achieve zip
+
 redo metagon editor ui
 redo grammar editor ui
 redo generator editor ui

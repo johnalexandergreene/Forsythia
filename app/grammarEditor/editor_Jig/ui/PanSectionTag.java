@@ -48,11 +48,11 @@ public class PanSectionTag extends JPanel{
     horizontalboxmid.add(horizontalStrut_3);
     
     txttag = new JTextField();
-    txttag.setText("cat bat rat");
+    txttag.setText("bar bar");
     txttag.setFont(new Font("DejaVu Sans Mono", Font.PLAIN, 18));
     txttag.setBorder(null);
     txttag.addKeyListener(new KeyAdapter(){
-      public void keyTyped(KeyEvent e){
+      public void keyReleased(KeyEvent e){
         GE.editor_jig.setSectionTags(txttag.getText());}});
     horizontalboxmid.add(txttag);
     
