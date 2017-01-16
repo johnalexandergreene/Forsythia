@@ -86,14 +86,17 @@ public class PanGridDensity extends JPanel{
     BUTTONDISABLED=new Color(200,200,200);
   
   public void setEnabled(boolean a){
-    super.setEnabled(a);
-    btngriddensityincrement.setEnabled(a);
-    btngriddensitydecrement.setEnabled(a);
-    if(a){
-      btngriddensityincrement.setBackground(BUTTONENABLED);
-      btngriddensitydecrement.setBackground(BUTTONENABLED);
-    }else{
-      btngriddensityincrement.setBackground(BUTTONDISABLED);
-      btngriddensitydecrement.setBackground(BUTTONDISABLED);}}
+    setVisible(a);
+//    
+//    super.setEnabled(a);
+//    btngriddensityincrement.setEnabled(a);
+//    btngriddensitydecrement.setEnabled(a);
+//    if(a){
+//      btngriddensityincrement.setBackground(BUTTONENABLED);
+//      btngriddensitydecrement.setBackground(BUTTONENABLED);
+//    }else{
+//      btngriddensityincrement.setBackground(BUTTONDISABLED);
+//      btngriddensitydecrement.setBackground(BUTTONDISABLED);}
+    }
   
 }

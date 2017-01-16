@@ -35,11 +35,11 @@ public class EJ_UI extends JPanel{
     panresetsavequit = new PanResetSaveQuit();
     pantop.add(panresetsavequit);
     
-    pangriddensity = new PanGridDensity();
-    pantop.add(pangriddensity);
-    
     panmode = new PanMode();
     pantop.add(panmode);    
+    
+    pangriddensity = new PanGridDensity();
+    pantop.add(pangriddensity);
     
     panjigtag = new PanJigTag();
     pantop.add(panjigtag);

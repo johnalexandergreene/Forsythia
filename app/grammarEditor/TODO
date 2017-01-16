@@ -1,11 +1,21 @@
 
 jig editor : make edit jig after creation work
+  jig editor : modes
+    mode_create_editgeometry (edit0?) (geometryunlocked?)
+    mode_create_editsections (edit1?) 
+    mode_retouch_editsections (edit2?)
+
+Also, instead of disabling buttons just make them nonvisible. It's the better effect.
+
+----------------
 
 jig editor. make info bar work
 
 metagon editor. coarsen grid resolution at init
 
 grid : make sturctures and lines line up better. It isn't quite perfect when the structures get big.
+
+jig editor : mouse cursor is weird in edit sections : inappropriate
 
 redo metagon editor ui
 redo grammar editor ui

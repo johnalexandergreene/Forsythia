@@ -61,6 +61,8 @@ public class PanSectionAnchor extends JPanel{
     btn.setText(a);}
   
   public void setEnabled(boolean a){
-    btn.setEnabled(a);}
+    setVisible(a);
+//    btn.setEnabled(a);
+    }
   
 }

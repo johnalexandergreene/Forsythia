@@ -68,6 +68,10 @@ public class PanSectionTag extends JPanel{
   }
   
   public void setEnabled(boolean a){
-    txttag.setEnabled(a);}
+    setVisible(a);
+//    txttag.setEnabled(a);
+    }
+  
+  
   
 }
