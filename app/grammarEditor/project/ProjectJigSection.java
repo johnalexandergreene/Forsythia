@@ -4,7 +4,7 @@ import java.awt.geom.Path2D;
 import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.JigSectionEditingModel;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.model.JigSectionEditingModel;
 import org.fleen.forsythia.core.grammar.JigSection;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;

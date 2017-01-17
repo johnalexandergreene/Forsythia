@@ -1,18 +1,17 @@
-package org.fleen.forsythia.app.grammarEditor.editor_EditGrammar;
+package org.fleen.forsythia.app.grammarEditor.editor_EditGrammar.ui;
 
 import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.Editor_Jig;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectJig;
 import org.fleen.forsythia.app.grammarEditor.util.ElementMenu;
 import org.fleen.forsythia.app.grammarEditor.util.ElementMenuItem;
 import org.fleen.forsythia.app.grammarEditor.util.UI;
 
 @SuppressWarnings("serial")
-public class JigMenu extends ElementMenu{
+public class PanJigMenu extends ElementMenu{
 
-  public JigMenu(){
+  public PanJigMenu(){
     super(UI.ELEMENTMENU_OVERVIEWJIGSROWS);}
 
   protected void doPopupMenu(int x,int y){}
@@ -28,6 +27,6 @@ public class JigMenu extends ElementMenu{
     GE.editor_grammar.setFocusJig((ProjectJig)i);}
   
   protected void doDoubleclick(ElementMenuItem i){
-    GE.editor_grammar.viewProtoJigEditTags();}
+    GE.editor_grammar.editJig();}
 
 }

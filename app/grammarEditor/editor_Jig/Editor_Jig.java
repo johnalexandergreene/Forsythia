@@ -4,6 +4,8 @@ import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GEdge;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.model.JigEditingModel;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.model.JigSectionEditingModel;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.ui.EJ_UI;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectJig;
 import org.fleen.forsythia.app.grammarEditor.util.Editor;
@@ -42,7 +44,7 @@ import org.fleen.geom_Kisrhombille.KVertex;
  */
 public class Editor_Jig extends Editor{
   
-  private static final String NAME="Jig Editor";
+  private static final String NAME="Jig";
   
   /*
    * ################################

@@ -42,28 +42,28 @@ public class ProjectGrammar{
   
   //for import
   //convert forsythia grammar to project grammar
-  public ProjectGrammar(ForsythiaGrammar fg){
+  public ProjectGrammar(ForsythiaGrammar fg,File path){
+    grammarfilepath=path;
     init(this,fg);}
   
   /*
    * ################################
-   * GRAMMAR FILE PATH
+   * GRAMMAR FILE PATH AND NAME
    * The path to the serialized ForsythiaGrammar class object file that 
    * this ProjectGrammar file is saved to and/or loaded from.
    * It can be null
    * ################################
    */
   
+  public static final String DEFAULTNAME="fgrammar";
+  
   public File grammarfilepath=null;
   
-  /*
-   * ################################
-   * NAME
-   * ################################
-   */
-  
-  static final String DEFAULTGRAMMARNAME="Nameless Grammar";
-  public String grammarname=DEFAULTGRAMMARNAME;
+  public String getName(){
+    if(grammarfilepath!=null)
+      return grammarfilepath.getName();
+    else
+      return DEFAULTNAME;}
   
   /*
    * ################################

@@ -10,9 +10,9 @@ import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.Editor_Jig;
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.JigSectionEditingModel;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GEdge;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GVertex;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.model.JigSectionEditingModel;
 import org.fleen.forsythia.app.grammarEditor.util.UI;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;

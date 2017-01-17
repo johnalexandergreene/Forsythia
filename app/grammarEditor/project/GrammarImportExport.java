@@ -37,8 +37,7 @@ public class GrammarImportExport{
       fg=extractForsythiaGrammarFromFile(path);
     }catch(Exception x){
       x.printStackTrace();}
-    GE.focusgrammar=new ProjectGrammar(fg);
-//    System.out.println("imported : "+fg);
+    GE.focusgrammar=new ProjectGrammar(fg,path);
     initFocusElementsForNewGrammar();}
   
   private static final void initFocusElementsForNewGrammar(){

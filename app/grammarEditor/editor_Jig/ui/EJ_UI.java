@@ -12,7 +12,7 @@ import org.fleen.util.ui.WrapLayout;
 public class EJ_UI extends JPanel{
   
   public JPanel pantop;
-  public EJ_Grid pangrid;
+  public GridEditJigs pangrid;
   public JLabel lblinfo;
   
   public PanResetSaveQuit panresetsavequit;
@@ -53,7 +53,7 @@ public class EJ_UI extends JPanel{
     pansectiontag = new PanSectionTag();
     pantop.add(pansectiontag);
     
-    pangrid = new EJ_Grid();
+    pangrid = new GridEditJigs();
     add(pangrid, BorderLayout.CENTER);
     
     JPanel panbot = new JPanel();

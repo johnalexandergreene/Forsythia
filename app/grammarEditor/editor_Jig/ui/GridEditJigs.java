@@ -5,8 +5,8 @@ import java.awt.geom.Path2D;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.Editor_Jig;
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.JigSectionEditingModel;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.gridOverlayPainter.GridOverlayPainter;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.model.JigSectionEditingModel;
 import org.fleen.forsythia.app.grammarEditor.util.grid.Grid;
 import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KVertex;
@@ -23,7 +23,7 @@ import org.fleen.geom_Kisrhombille.KVertex;
  */
 
 @SuppressWarnings("serial")
-public class EJ_Grid extends Grid{
+public class GridEditJigs extends Grid{
   
   GridOverlayPainter overlaypainter=new GridOverlayPainter();
 

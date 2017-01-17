@@ -7,6 +7,8 @@ jig editor : make edit jig after creation work
 
 Also, instead of disabling buttons just make them nonvisible. It's the better effect.
 
+save should be disabled in editgeometry mode
+
 ----------------
 
 jig editor. make info bar work

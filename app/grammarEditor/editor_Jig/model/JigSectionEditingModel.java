@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_Jig;
+package org.fleen.forsythia.app.grammarEditor.editor_Jig.model;
 
 import java.util.List;
 

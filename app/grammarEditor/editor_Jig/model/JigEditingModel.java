@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_Jig;
+package org.fleen.forsythia.app.grammarEditor.editor_Jig.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.ViewGeometryCache;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.RawGraph;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectMetagon;
 import org.fleen.geom_Kisrhombille.KAnchor;
@@ -24,7 +25,7 @@ public class JigEditingModel{
    * ################################
    */
   
-  JigEditingModel(ProjectMetagon targetmetagon){
+  public JigEditingModel(ProjectMetagon targetmetagon){
     this.targetmetagon=targetmetagon;
     initGraph();
     initViewGeometryCache();}
@@ -48,18 +49,18 @@ public class JigEditingModel{
   
   public int griddensity=GRIDDENSITYLOWERLIMIT;
   
-  void incrementGridDensity(){
+  public void incrementGridDensity(){
     griddensity++;
     initGraph();
     initViewGeometryCache();}
   
-  void decrementGridDensity(){
+  public void decrementGridDensity(){
     if(griddensity>GRIDDENSITYLOWERLIMIT){
       griddensity--;
       initGraph();
       initViewGeometryCache();}}
   
-  String getGridDensityString(){
+  public String getGridDensityString(){
     return String.format("%03d",griddensity);}
   
   /*
@@ -81,9 +82,9 @@ public class JigEditingModel{
    * ################################
    */
   
-  String jigtagstring="";
+  public String jigtagstring="";
   
-  List<String> getJigTags(){
+  public List<String> getJigTags(){
     List<String> t=Arrays.asList(jigtagstring.split(" "));
     return t;}
   
@@ -112,7 +113,7 @@ public class JigEditingModel{
   //all of our sections
   public List<JigSectionEditingModel> sections=new ArrayList<JigSectionEditingModel>();
   //metagons that got created indirectly via section polygon creation
-  List<ProjectMetagon> localsectionmetagons=new ArrayList<ProjectMetagon>();
+  public List<ProjectMetagon> localsectionmetagons=new ArrayList<ProjectMetagon>();
   
   /*
    * ################################

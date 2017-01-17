@@ -1,9 +1,8 @@
-package org.fleen.forsythia.app.grammarEditor.editor_EditGrammar;
+package org.fleen.forsythia.app.grammarEditor.editor_EditGrammar.ui;
 
 import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.app.grammarEditor.editor_CreateMetagon.Editor_CreateMetagon;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectMetagon;
 import org.fleen.forsythia.app.grammarEditor.util.ElementMenu;
 import org.fleen.forsythia.app.grammarEditor.util.ElementMenuItem;
@@ -11,12 +10,12 @@ import org.fleen.forsythia.app.grammarEditor.util.UI;
 
 
 @SuppressWarnings("serial")
-public class MetagonMenu extends ElementMenu{
+public class PanMetagonMenu extends ElementMenu{
 
   /**
    * Create the panel.
    */
-  public MetagonMenu(){
+  public PanMetagonMenu(){
     super(UI.ELEMENTMENU_OVERVIEWMETAGONSROWS);}
 
   protected void doPopupMenu(int x,int y){}
@@ -32,6 +31,6 @@ public class MetagonMenu extends ElementMenu{
     GE.editor_grammar.setFocusMetagon((ProjectMetagon)i);}
   
   protected void doDoubleclick(ElementMenuItem i){
-    GE.editor_grammar.viewMetagonAndEditTags();}
+    GE.editor_grammar.editMetagon();}
 
 }

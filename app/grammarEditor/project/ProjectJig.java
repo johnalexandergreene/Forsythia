@@ -4,8 +4,8 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.JigEditingModel;
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.JigSectionEditingModel;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.model.JigEditingModel;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.model.JigSectionEditingModel;
 import org.fleen.forsythia.app.grammarEditor.util.ElementMenuItem;
 import org.fleen.forsythia.core.grammar.Jig;
 import org.fleen.forsythia.core.grammar.JigSection;
