@@ -44,7 +44,7 @@ public class PanSectionChorus extends JPanel{
     btn.setFont(new Font("Dialog", Font.BOLD, 12));
     btn.addMouseListener(new MouseAdapter(){
       public void mouseClicked(MouseEvent e){
-        GE.editor_jig.incrementSectionChorus();}});
+        GE.ge.editor_jig.incrementSectionChorus();}});
     horizontalboxmid.add(btn);
     
     Component horizontalStrut_3 = Box.createHorizontalStrut(4);

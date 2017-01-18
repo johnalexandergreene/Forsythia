@@ -197,7 +197,7 @@ public class Editor_Jig extends Editor{
   public JigSectionEditingModel focussection; 
   
   private void createEditingObjects(){
-    model=new JigEditingModel(GE.focusmetagon);
+    model=new JigEditingModel(GE.ge.focusmetagon);
     connectedhead=null;
     unconnectedhead=null;
     focussection=null;}
@@ -311,16 +311,16 @@ public class Editor_Jig extends Editor{
     configureForOpen();}
   
   public void save(){
-    GE.focusgrammar.addMetagons(model.localsectionmetagons);
+    GE.ge.focusgrammar.addMetagons(model.localsectionmetagons);
     ProjectJig j=new ProjectJig(model);
-    GE.focusmetagon.invalidateOverviewIconImage();
-    GE.focusmetagon.addJig(j);
-    GE.focusjig=j;
-    GE.setEditor(GE.editor_grammar);}
+    GE.ge.focusmetagon.invalidateOverviewIconImage();
+    GE.ge.focusmetagon.addJig(j);
+    GE.ge.focusjig=j;
+    GE.ge.setEditor(GE.ge.editor_grammar);}
   
   public void quit(){
     //TODO null everything
-    GE.setEditor(GE.editor_grammar);}
+    GE.ge.setEditor(GE.ge.editor_grammar);}
   
   public void gridDensity_Increment(){
     System.out.println("grid density increment");
@@ -384,6 +384,6 @@ public class Editor_Jig extends Editor{
   public KPolygon getScaledHostPolygon(){
     int d=1;
     if(model!=null)d=model.griddensity;
-    return GE.focusmetagon.kmetagon.getScaledPolygon(d);}
+    return GE.ge.focusmetagon.kmetagon.getScaledPolygon(d);}
   
 }

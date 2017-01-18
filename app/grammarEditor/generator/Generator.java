@@ -31,12 +31,14 @@ public class Generator{
    * ################################
    */
   
+  
+  GeneratorConfig gc=new GeneratorConfig();
+  
   public void startContinuous(){
     new Thread(){
       public void run(){
         
         setParamsForTest();
-        GeneratorConfig gc=GE.config.getGeneratorConfig();
         
         //--------------------------------
         
@@ -51,11 +53,11 @@ public class Generator{
           starttime=System.currentTimeMillis();
           ForsythiaSimpleComposer composer=gc.getComposer();
           System.out.println("composing");
-          composition=composer.compose(GE.focusgrammar.getForsythiaGrammar());
+          composition=composer.compose(GE.ge.focusgrammar.getForsythiaGrammar());
           if((composition!=null)&&!stop){
             ForsythiaSimpleRenderer renderer=gc.getRenderer();
             System.out.println("rendering");
-            JPanel p=GE.editor_generator.getViewer();
+            JPanel p=GE.ge.editor_generator.getViewer();
             int 
               w=p.getWidth(),
               h=p.getHeight();
@@ -82,11 +84,10 @@ public class Generator{
       public void run(){
         setPriority(MIN_PRIORITY);
         setParamsForTest();
-        GeneratorConfig gc=GE.config.getGeneratorConfig();
         ForsythiaSimpleComposer composer=gc.getComposer();
-        composition=composer.compose(GE.focusgrammar.getForsythiaGrammar());
+        composition=composer.compose(GE.ge.focusgrammar.getForsythiaGrammar());
         ForsythiaSimpleRenderer renderer=gc.getRenderer();
-        JPanel p=GE.editor_generator.getViewer();
+        JPanel p=GE.ge.editor_generator.getViewer();
         int 
           w=p.getWidth(),
           h=p.getHeight();
@@ -99,6 +100,8 @@ public class Generator{
   public void stop(){
     stop=true;}
   
+  CompositionExportConfig ec=new CompositionExportConfig();
+  
   /*
    * SET PARAMS FOR TEST
    * set the various config stuff here
@@ -106,13 +109,10 @@ public class Generator{
    */
   private void setParamsForTest(){
     //composition export
-    CompositionExportConfig ec=GE.config.getCompositionExportConfig();
     
     ec.setCompositionExportDir(new File("/home/john/Desktop/quasarcompositionexport"));
     ec.setRasterImagePreferredDimensions(860,980);
     
-    //generator
-    GeneratorConfig gc=GE.config.getGeneratorConfig();
     
     gc.setComposer(new FSC_Basic());
 //    gc.setComposer(new FC_ChorusedVaryingDetailAreas());
@@ -190,11 +190,9 @@ public class Generator{
   public BufferedImage getImageForCompositionExport(){
     setParamsForTest();
     stop=false;
-    GeneratorConfig gc=GE.config.getGeneratorConfig();
     ForsythiaComposition composition=Generator.this.composition;
     if(composition==null)
-      composition=gc.getComposer().compose(GE.focusgrammar.getForsythiaGrammar());
-    CompositionExportConfig ec=GE.config.getCompositionExportConfig();
+      composition=gc.getComposer().compose(GE.ge.focusgrammar.getForsythiaGrammar());
     
     
     //TODO
@@ -231,23 +229,23 @@ public class Generator{
   
   private void reportContinuousGenerationCycleFinished(){
     System.out.println("continuous generation cycle finished");
-    GE.editor_generator.refreshUI();}
+    GE.ge.editor_generator.refreshUI();}
   
   private void reportIntermittantGenerationCycleFinished(){
     System.out.println("intermittant generation cycle finished");
-    GE.editor_generator.refreshUI();}
+    GE.ge.editor_generator.refreshUI();}
   
   public void reportProgress(GProgress p){
     System.out.println("progress");
-    GE.editor_generator.refreshGeneratorStateInfoLabelText();}
+    GE.ge.editor_generator.refreshGeneratorStateInfoLabelText();}
   
   public void reportStarted(){
     System.out.println("started");
-    GE.editor_generator.refreshUI();}
+    GE.ge.editor_generator.refreshUI();}
   
   public void reportStopped(){
     System.out.println("stopped");
-    GE.editor_generator.refreshUI();}
+    GE.ge.editor_generator.refreshUI();}
   
   /*
    * ################################

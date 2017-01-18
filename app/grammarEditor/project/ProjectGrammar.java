@@ -201,7 +201,7 @@ public class ProjectGrammar{
    * convert forsythia grammar elements to project grammar elements and fill project grammar.
    */
   private static final void init(ProjectGrammar projectgrammar,ForsythiaGrammar forsythiagrammar){
-    GE.focusgrammar=projectgrammar;
+    GE.ge.focusgrammar=projectgrammar;
     if(forsythiagrammar==null)return;
     //convert all of the metagons in the forsythia grammar into 
     //projectmetagons and put them in a set (to cull dupes)

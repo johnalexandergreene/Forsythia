@@ -2,7 +2,6 @@ package org.fleen.forsythia.app.grammarEditor.editor_Generator;
 
 import javax.swing.JPanel;
 
-import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.compositionExporter.CompositionRasterExporter;
 import org.fleen.forsythia.app.grammarEditor.generator.Generator;
 import org.fleen.forsythia.app.grammarEditor.util.Editor;
@@ -142,11 +141,12 @@ public class Editor_Generator extends Editor implements HasViewer{
   }
   
   void openCompositionExporterConfigurator(){
-    GE.setEditor(GE.editor_compositionexportconfig);
+//    GE.setEditor(ge.editor_compositionexportconfig);
   }
   
   void openGrammarConfigurator(){
-    GE.setEditor(GE.editor_grammar);}
+//    GE.setEditor(ge.editor_grammar);
+    }
   
   public void startForQInit(){
 //    generatormode=GENERATORMODE_CONTINUOUS;

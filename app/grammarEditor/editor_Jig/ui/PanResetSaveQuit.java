@@ -38,7 +38,7 @@ public class PanResetSaveQuit extends JPanel{
     JButton btnreset = new JButton("RESET");
     btnreset.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.editor_jig.reset();}});
+        GE.ge.editor_jig.reset();}});
     horizontalboxmid.add(btnreset);
     
     Component horizontalStrut_1 = Box.createHorizontalStrut(8);
@@ -47,7 +47,7 @@ public class PanResetSaveQuit extends JPanel{
     JButton btnsave = new JButton("SAVE");
     btnsave.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.editor_jig.save();}});
+        GE.ge.editor_jig.save();}});
     horizontalboxmid.add(btnsave);
     
     Component horizontalStrut_2 = Box.createHorizontalStrut(8);
@@ -56,7 +56,7 @@ public class PanResetSaveQuit extends JPanel{
     JButton btnquit = new JButton("QUIT");
     btnquit.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.editor_jig.quit();}});
+        GE.ge.editor_jig.quit();}});
     horizontalboxmid.add(btnquit);
     
     Component horizontalStrut_3 = Box.createHorizontalStrut(4);

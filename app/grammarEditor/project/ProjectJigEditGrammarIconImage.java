@@ -56,7 +56,7 @@ class ProjectJigEditGrammarIconImage extends BufferedImage{
   //host metagon polygon points
   //for overall icon geometry
   private DPolygon getHostMPPoints(ProjectJig j){
-    KMetagon m=GE.focusgrammar.getMetagon(j).kmetagon;
+    KMetagon m=GE.ge.focusgrammar.getMetagon(j).kmetagon;
     KPolygon p=m.getScaledPolygon(j.getGridDensity());
     return p.getDefaultPolygon2D();}
   

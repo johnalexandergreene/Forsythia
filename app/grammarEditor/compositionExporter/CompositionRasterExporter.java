@@ -22,7 +22,7 @@ public class CompositionRasterExporter{
   private static final int DPI=300;
   
   public static void export(){
-    BufferedImage image=GE.editor_generator.generator.getImageForCompositionExport();
+    BufferedImage image=GE.ge.editor_generator.generator.getImageForCompositionExport();
     writeImage(image);
     System.out.println("COMPOSITION EXPORT FINISHED");}
 
@@ -32,7 +32,7 @@ public class CompositionRasterExporter{
   
   private static void writeImage(BufferedImage image){
     System.out.println("write image");
-    File exportdir=GE.config.getCompositionExportConfig().getExportDir();
+    File exportdir=new CompositionExportConfig().getExportDir();
     CompositionRasterExporter.image=image;
     CompositionRasterExporter.file=getExportFile(exportdir);
     CompositionRasterExporter.dpi=DPI;

@@ -53,7 +53,7 @@ public class PanSectionTag extends JPanel{
     txttag.setBorder(null);
     txttag.addKeyListener(new KeyAdapter(){
       public void keyReleased(KeyEvent e){
-        GE.editor_jig.setSectionTags(txttag.getText());}});
+        GE.ge.editor_jig.setSectionTags(txttag.getText());}});
     horizontalboxmid.add(txttag);
     
     Component horizontalStrut_1 = Box.createHorizontalStrut(4);

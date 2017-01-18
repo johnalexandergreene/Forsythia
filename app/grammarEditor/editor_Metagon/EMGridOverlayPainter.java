@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_CreateMetagon;
+package org.fleen.forsythia.app.grammarEditor.editor_Metagon;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
@@ -8,13 +8,13 @@ import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.util.UI;
 import org.fleen.forsythia.app.grammarEditor.util.grid.UIGridUtil;
 
-public class ECMGridOverlayPainter{
+public class EMGridOverlayPainter{
   
   void paint(Graphics2D graphics,int w,int h,double scale,double centerx,double centery){
     graphics.setRenderingHints(UI.RENDERING_HINTS);
-    if(GE.editor_createmetagon.workingpolygon.isEmpty())return;
-    List<double[]> points=UIGridUtil.convertGridVerticesToViewPoints(GE.editor_createmetagon.workingpolygon,w,h,scale,centerx,centery);
-    if(GE.editor_createmetagon.workingpolygon.finished)
+    if(GE.ge.editor_metagon.workingpolygon.isEmpty())return;
+    List<double[]> points=UIGridUtil.convertGridVerticesToViewPoints(GE.ge.editor_metagon.workingpolygon,w,h,scale,centerx,centery);
+    if(GE.ge.editor_metagon.workingpolygon.finished)
       renderFinishedPolygon(graphics,points);  
     else if(points.size()>1)
       renderOpenVertexSequence(graphics,points);

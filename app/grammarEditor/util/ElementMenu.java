@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
+import org.fleen.forsythia.app.grammarEditor.GE;
+
 
 /*
  * A menu

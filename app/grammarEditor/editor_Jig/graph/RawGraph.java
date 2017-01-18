@@ -55,7 +55,7 @@ public class RawGraph{
    */
   public RawGraph(KPolygon p,int griddensity){
 //    hostkpolygon=p.getKMetagon().getPolygon(griddensity,true);
-    hostkpolygon=GE.editor_jig.getScaledHostPolygon();
+    hostkpolygon=GE.ge.editor_jig.getScaledHostPolygon();
     addHostKPolygon();
     }
   

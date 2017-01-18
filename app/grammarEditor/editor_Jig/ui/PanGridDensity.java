@@ -55,7 +55,7 @@ public class PanGridDensity extends JPanel{
     btngriddensityincrement.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
         if(btngriddensityincrement.isEnabled())
-          GE.editor_jig.gridDensity_Increment();}});
+          GE.ge.editor_jig.gridDensity_Increment();}});
     horizontalboxmid.add(btngriddensityincrement);
     
     Component horizontalStrut_2 = Box.createHorizontalStrut(8);
@@ -67,7 +67,7 @@ public class PanGridDensity extends JPanel{
     btngriddensitydecrement.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
         if(btngriddensitydecrement.isEnabled())
-          GE.editor_jig.gridDensity_Decrement();}});
+          GE.ge.editor_jig.gridDensity_Decrement();}});
     horizontalboxmid.add(btngriddensitydecrement);
     
     Component horizontalStrut_3 = Box.createHorizontalStrut(4);
@@ -81,22 +81,7 @@ public class PanGridDensity extends JPanel{
     
   }
   
-  private static final Color 
-    BUTTONENABLED=new Color(255,200,255),
-    BUTTONDISABLED=new Color(200,200,200);
-  
   public void setEnabled(boolean a){
-    setVisible(a);
-//    
-//    super.setEnabled(a);
-//    btngriddensityincrement.setEnabled(a);
-//    btngriddensitydecrement.setEnabled(a);
-//    if(a){
-//      btngriddensityincrement.setBackground(BUTTONENABLED);
-//      btngriddensitydecrement.setBackground(BUTTONENABLED);
-//    }else{
-//      btngriddensityincrement.setBackground(BUTTONDISABLED);
-//      btngriddensitydecrement.setBackground(BUTTONDISABLED);}
-    }
+    setVisible(a);}
   
 }

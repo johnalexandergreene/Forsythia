@@ -7,6 +7,9 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.SystemColor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -15,9 +18,6 @@ import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.util.ui.WrapLayout;
-import java.awt.SystemColor;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 @SuppressWarnings("serial")
 public class EG_UI extends JPanel{
@@ -77,19 +77,19 @@ public class EG_UI extends JPanel{
     btngrammarimport = new JButton("Import");
     btngrammarimport.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
-        GE.editor_grammar.importGrammar();}});
+        GE.ge.editor_grammar.importGrammar();}});
     pantop.add(btngrammarimport);
     
     btngrammarexport = new JButton("Export");
     btngrammarexport.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
-        GE.editor_grammar.exportGrammar();}});
+        GE.ge.editor_grammar.exportGrammar();}});
     pantop.add(btngrammarexport);
     
     btngrammarnew = new JButton("New");
     btngrammarnew.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
-        GE.editor_grammar.createNewGrammar();}});
+        GE.ge.editor_grammar.createNewGrammar();}});
     pantop.add(btngrammarnew);
     
     Component horizontalStrut = Box.createHorizontalStrut(20);
@@ -98,7 +98,7 @@ public class EG_UI extends JPanel{
     btngenerate = new JButton("Generate");
     btngenerate.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
-        GE.editor_grammar.generate();}});
+        GE.ge.editor_grammar.generate();}});
     pantop.add(btngenerate);
     
     JPanel panmetagonbuttons = new JPanel();
@@ -137,7 +137,7 @@ public class EG_UI extends JPanel{
     btnmetagonscreate = new JButton("Create");
     btnmetagonscreate.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
-        GE.editor_grammar.createMetagon();}});
+        GE.ge.editor_grammar.createMetagon();}});
     
     lblmetagonsisolatedcount = new JLabel("Isolated=foo");
     lblmetagonsisolatedcount.setFont(new Font("Dialog", Font.BOLD, 16));
@@ -150,13 +150,13 @@ public class EG_UI extends JPanel{
     btnmetagonsedit = new JButton("Edit");
     btnmetagonsedit.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
-        GE.editor_grammar.editMetagon();}});
+        GE.ge.editor_grammar.editMetagon();}});
     panmetagonbuttons.add(btnmetagonsedit);
     
     btnmetagonsdiscard = new JButton("Discard");
     btnmetagonsdiscard.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
-        GE.editor_grammar.discardMetagon();}});
+        GE.ge.editor_grammar.discardMetagon();}});
     panmetagonbuttons.add(btnmetagonsdiscard);
     
     panmetagonmenu = new PanMetagonMenu();
@@ -200,19 +200,19 @@ public class EG_UI extends JPanel{
     btnjigscreate = new JButton("Create");
     btnjigscreate.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
-        GE.editor_grammar.createJig();}});
+        GE.ge.editor_grammar.createJig();}});
     panjigbuttons.add(btnjigscreate);
     
     btnjigsedit = new JButton("Edit");
     btnjigsedit.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
-        GE.editor_grammar.editJig();}});
+        GE.ge.editor_grammar.editJig();}});
     panjigbuttons.add(btnjigsedit);
     
     btnjigsdiscard = new JButton("Discard");
     btnjigsdiscard.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
-        GE.editor_grammar.discardJig();}});
+        GE.ge.editor_grammar.discardJig();}});
     panjigbuttons.add(btnjigsdiscard);
     GridBagConstraints gbc_panjigmenu = new GridBagConstraints();
     gbc_panjigmenu.fill = GridBagConstraints.BOTH;

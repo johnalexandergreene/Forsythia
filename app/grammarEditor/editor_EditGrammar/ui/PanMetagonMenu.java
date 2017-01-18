@@ -21,16 +21,16 @@ public class PanMetagonMenu extends ElementMenu{
   protected void doPopupMenu(int x,int y){}
   
   protected List<? extends ElementMenuItem> getItems(){
-    if(GE.focusgrammar==null)return null;
-    return GE.focusgrammar.metagons;}
+    if(GE.ge==null||GE.ge.focusgrammar==null)return null;
+    return GE.ge.focusgrammar.metagons;}
   
   protected boolean isFocusItem(ElementMenuItem i){
-    return i==GE.focusmetagon;}
+    return i==GE.ge.focusmetagon;}
   
   protected void setFocusItem(ElementMenuItem i){
-    GE.editor_grammar.setFocusMetagon((ProjectMetagon)i);}
+    GE.ge.editor_grammar.setFocusMetagon((ProjectMetagon)i);}
   
   protected void doDoubleclick(ElementMenuItem i){
-    GE.editor_grammar.editMetagon();}
+    GE.ge.editor_grammar.editMetagon();}
 
 }

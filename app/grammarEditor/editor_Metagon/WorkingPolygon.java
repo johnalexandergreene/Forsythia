@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_CreateMetagon;
+package org.fleen.forsythia.app.grammarEditor.editor_Metagon;
 
 import org.fleen.geom_2D.GD;
 import org.fleen.geom_Kisrhombille.GK;

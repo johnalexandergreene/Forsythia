@@ -43,7 +43,7 @@ public class PanSectionAnchor extends JPanel{
     btn.setFont(new Font("Dialog", Font.BOLD, 12));
     btn.addMouseListener(new MouseAdapter(){
       public void mouseClicked(MouseEvent e){
-        GE.editor_jig.incrementSectionAnchor();}});
+        GE.ge.editor_jig.incrementSectionAnchor();}});
     horizontalboxmid.add(btn);
     
     Component horizontalStrut_3 = Box.createHorizontalStrut(4);

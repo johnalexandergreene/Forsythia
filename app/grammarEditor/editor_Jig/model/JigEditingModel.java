@@ -74,7 +74,7 @@ public class JigEditingModel{
   public RawGraph rawgraph;
   
   void initGraph(){
-    rawgraph=new RawGraph(GE.focusmetagon.kpolygon,griddensity);}
+    rawgraph=new RawGraph(GE.ge.focusmetagon.kpolygon,griddensity);}
   
   /*
    * ################################
@@ -265,7 +265,7 @@ public class JigEditingModel{
    */
   private JigSectionModelMetagonAndAnchors getComponentsFromGrammar(KPolygon polygon){
     List<KAnchor> anchors;
-    for(ProjectMetagon metagon:GE.focusgrammar.metagons){
+    for(ProjectMetagon metagon:GE.ge.focusgrammar.metagons){
       anchors=metagon.kmetagon.getAnchorOptions(polygon);
       if(anchors!=null)
         return new JigSectionModelMetagonAndAnchors(metagon,anchors);}
@@ -288,7 +288,7 @@ public class JigEditingModel{
   private JigSectionModelMetagonAndAnchors createComponents(KPolygon polygon){
     KMetagon m=polygon.getKMetagon();
     List<KAnchor> anchors=m.getAnchorOptions(polygon);
-    ProjectMetagon pm=new ProjectMetagon(GE.focusgrammar,polygon,"");
+    ProjectMetagon pm=new ProjectMetagon(GE.ge.focusgrammar,polygon,"");
     localsectionmetagons.add(pm);
     JigSectionModelMetagonAndAnchors c=new JigSectionModelMetagonAndAnchors(pm,anchors);
     return c;}

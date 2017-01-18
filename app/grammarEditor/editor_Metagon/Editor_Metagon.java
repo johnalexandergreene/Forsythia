@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_CreateMetagon;
+package org.fleen.forsythia.app.grammarEditor.editor_Metagon;
 
 import javax.swing.JPanel;
 
@@ -15,7 +15,7 @@ import org.fleen.geom_Kisrhombille.KVertex;
  * Draw metagon polygon
  * Specify tags (space-delimited strings)
  */
-public class Editor_CreateMetagon extends Editor{
+public class Editor_Metagon extends Editor{
   
   public static final String NAME="Create Metagon";
   
@@ -25,7 +25,7 @@ public class Editor_CreateMetagon extends Editor{
    * ################################
    */
   
-  public Editor_CreateMetagon(){
+  public Editor_Metagon(){
     super(NAME);}
 
   /*
@@ -35,7 +35,7 @@ public class Editor_CreateMetagon extends Editor{
    */
 
   protected JPanel createUI(){
-    return new ECMUI();}
+    return new EMUI();}
   
   /*
    * ################################
@@ -46,7 +46,7 @@ public class Editor_CreateMetagon extends Editor{
   WorkingPolygon workingpolygon=null;
   
   String getTags(){
-    ECMUI ui=(ECMUI)getUI();
+    EMUI ui=(EMUI)getUI();
     return ui.txttags.getText();}
   
   /*
@@ -56,7 +56,7 @@ public class Editor_CreateMetagon extends Editor{
    */
   
   protected void configureForOpen(){
-    ECMUI ui=(ECMUI)getUI();
+    EMUI ui=(EMUI)getUI();
     workingpolygon=new WorkingPolygon();
     ui.txttags.setText("");
     ui.grid.setTransformDefaults();
@@ -77,12 +77,12 @@ public class Editor_CreateMetagon extends Editor{
     getUI().repaint();}
   
   public void refreshGrid(){
-    ECMUI ui=(ECMUI)getUI();
+    EMUI ui=(EMUI)getUI();
     ui.grid.gridrenderer.invalidateTileImage();
     ui.grid.repaint();}
   
   private void refreshButtons(){
-    ECMUI ui=(ECMUI)getUI();
+    EMUI ui=(EMUI)getUI();
     if(workingpolygon.finished){
       ui.btnsavemetagon.setVisible(true);
       ui.btndiscardmetagon.setVisible(true);
@@ -100,19 +100,19 @@ public class Editor_CreateMetagon extends Editor{
   public void touchVertex(final KVertex v){
     workingpolygon.touchVertex(v);
     refreshButtons();
-    ((ECMUI)getUI()).grid.repaint();}
+    ((EMUI)getUI()).grid.repaint();}
   
   public void saveMetagonAndReturnToGrammarEditor(){
     //invalidate cached forsythiagrammar in projectgrammar because we changed the grammar
     //update focus metagon
     workingpolygon.clean();
     ProjectMetagon pm=new ProjectMetagon(
-      GE.focusgrammar,new KPolygon(workingpolygon),getTags());
-    GE.focusgrammar.addMetagon(pm);
-    GE.focusmetagon=pm;
-    GE.setEditor(GE.editor_grammar);}
+      GE.ge.focusgrammar,new KPolygon(workingpolygon),getTags());
+    GE.ge.focusgrammar.addMetagon(pm);
+    GE.ge.focusmetagon=pm;
+    GE.ge.setEditor(GE.ge.editor_grammar);}
   
   public void discardMetagonAndReturnToGrammarEditor(){
-    GE.setEditor(GE.editor_grammar);}
+    GE.ge.setEditor(GE.ge.editor_grammar);}
   
 }

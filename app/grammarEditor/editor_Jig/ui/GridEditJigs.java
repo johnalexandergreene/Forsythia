@@ -39,7 +39,7 @@ public class GridEditJigs extends Grid{
      }catch(Exception x){}}
 
   protected KPolygon getHostPolygon(){
-    return GE.editor_jig.getScaledHostPolygon();}
+    return GE.ge.editor_jig.getScaledHostPolygon();}
   
   /*
    * ################################
@@ -58,13 +58,13 @@ public class GridEditJigs extends Grid{
 
   //TODO clean up
   protected void mouseTouched(double[] p,KVertex v){
-    if(GE.editor_jig.mode==Editor_Jig.MODE_EDITGEOMETRY&&mousemode==MOUSEMODE_TOUCHVERTEX){
+    if(GE.ge.editor_jig.mode==Editor_Jig.MODE_EDITGEOMETRY&&mousemode==MOUSEMODE_TOUCHVERTEX){
       boolean valid=true;
-      if(GE.editor_jig.connectedhead!=null&&v!=null&&!v.isColinear(GE.editor_jig.connectedhead))
+      if(GE.ge.editor_jig.connectedhead!=null&&v!=null&&!v.isColinear(GE.ge.editor_jig.connectedhead))
         valid=false;
-      if(valid)GE.editor_jig.touchVertex(v);
+      if(valid)GE.ge.editor_jig.touchVertex(v);
     }else{
-      GE.editor_jig.touchSection(getSection(p));}}
+      GE.ge.editor_jig.touchSection(getSection(p));}}
 
   /*
    * test the vertex 
@@ -73,7 +73,7 @@ public class GridEditJigs extends Grid{
    */
   protected void mouseMovedCloseToVertex(KVertex v){
     boolean valid=true;
-    if(GE.editor_jig.connectedhead!=null&&v!=null&&!v.isColinear(GE.editor_jig.connectedhead))
+    if(GE.ge.editor_jig.connectedhead!=null&&v!=null&&!v.isColinear(GE.ge.editor_jig.connectedhead))
       valid=false;
     if(valid)
       setCursorCircle();
@@ -87,8 +87,8 @@ public class GridEditJigs extends Grid{
   
   private JigSectionEditingModel getSection(double[] p){
     Path2D path;
-    for(JigSectionEditingModel m:GE.editor_jig.model.sections){
-      path=GE.editor_jig.model.viewgeometrycache.getPath(m.getPolygon());
+    for(JigSectionEditingModel m:GE.ge.editor_jig.model.sections){
+      path=GE.ge.editor_jig.model.viewgeometrycache.getPath(m.getPolygon());
       if(path.contains(p[0],p[1]))
         return m;}
     return null;}

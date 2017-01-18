@@ -44,7 +44,7 @@ public class UIMain extends JFrame{
   public UIMain(){
     addWindowListener(new WindowAdapter(){
       public void windowClosing(WindowEvent e){
-        GE.term();}});
+        GE.ge.term();}});
     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     //
     setTitle(GE.APPNAME);

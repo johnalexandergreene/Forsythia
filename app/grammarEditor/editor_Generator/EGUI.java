@@ -69,7 +69,7 @@ public class EGUI extends JPanel{
     btnmode.setForeground(Color.YELLOW);
     btnmode.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
-        GE.editor_generator.toggleMode();}});
+        GE.ge.editor_generator.toggleMode();}});
     btnmode.setToolTipText("Toggle intermittant/continuous");
     btnmode.setBackground(new Color(204, 51, 255));
     btnmode.setFont(new Font("DejaVu Sans Mono", Font.BOLD, 18));
@@ -81,7 +81,7 @@ public class EGUI extends JPanel{
     btnstartstop = new JButton(">>");
     btnstartstop.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
-        GE.editor_generator.generatorStartStop();}});
+        GE.ge.editor_generator.generatorStartStop();}});
     btnstartstop.setToolTipText("Generate the next composition");
     btnstartstop.setBackground(new Color(153, 255, 255));
     btnstartstop.setFont(new Font("DejaVu Sans Mono", Font.BOLD, 18));
@@ -97,7 +97,7 @@ public class EGUI extends JPanel{
     btnexportcomposition.setFont(new Font("DejaVu Sans Mono", Font.BOLD, 18));
     btnexportcomposition.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
-        GE.editor_generator.exportComposition();}});
+        GE.ge.editor_generator.exportComposition();}});
     
     btneditgrammar = new JButton("Configure");
     btneditgrammar.setToolTipText("edit grammar");

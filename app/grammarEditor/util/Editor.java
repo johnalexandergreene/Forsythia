@@ -2,6 +2,7 @@ package org.fleen.forsythia.app.grammarEditor.util;
 
 import java.awt.event.HierarchyBoundsListener;
 import java.awt.event.HierarchyEvent;
+import java.io.Serializable;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -14,8 +15,10 @@ import javax.swing.JPanel;
 /*
  * A viewer and/or manipulator of something
  */
-public abstract class Editor{
+public abstract class Editor implements Serializable{
   
+  private static final long serialVersionUID=1108647719698212710L;
+
   /*
    * ################################
    * CONSTRUCTOR

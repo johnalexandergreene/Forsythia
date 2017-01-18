@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
+import org.fleen.forsythia.app.grammarEditor.compositionExporter.CompositionExportConfig;
 
 @SuppressWarnings("serial")
 public class CompositionExportConfigEditorUI extends JPanel{
@@ -46,7 +47,8 @@ public class CompositionExportConfigEditorUI extends JPanel{
     txtexportdirpath.setColumns(10);
     txtexportdirpath.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.editor_compositionexportconfig.gleanExportPathDir();}});
+//        new CompositionExportConfig().gleanExportPathDir();
+        }});
     
     txtsize = new JTextField();
     txtsize.setToolTipText("Maximum size of exported raster image in the form 123x456");
@@ -58,13 +60,15 @@ public class CompositionExportConfigEditorUI extends JPanel{
     btnsavechanges.setToolTipText("save shanges");
     btnsavechanges.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.editor_compositionexportconfig.saveChanges();}});
+//        GE.editor_compositionexportconfig.saveChanges();
+        }});
     
     JButton btndiscardchanges = new JButton("D");
     btndiscardchanges.setToolTipText("discard changes");
     btndiscardchanges.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.editor_compositionexportconfig.discardChanges();}});
+//        GE.editor_compositionexportconfig.discardChanges();
+        }});
     
     GroupLayout groupLayout = new GroupLayout(this);
     groupLayout.setHorizontalGroup(

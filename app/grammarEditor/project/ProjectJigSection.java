@@ -110,7 +110,7 @@ public class ProjectJigSection{
    * if none found then exception
    */
   private void initForImport(JigSection jigsection){
-    metagon=GE.focusgrammar.getMetagon(jigsection.productmetagon);
+    metagon=GE.ge.focusgrammar.getMetagon(jigsection.productmetagon);
     if(metagon==null)throw new IllegalArgumentException("metagon in jigsection not found in focus grammar");
     //
     anchors=metagon.kmetagon.getAnchorOptions(metagon.kmetagon.getPolygon(jigsection.productanchor));

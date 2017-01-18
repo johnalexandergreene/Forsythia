@@ -17,16 +17,16 @@ public class PanJigMenu extends ElementMenu{
   protected void doPopupMenu(int x,int y){}
 
   protected List<? extends ElementMenuItem> getItems(){
-    if(GE.focusmetagon==null)return null;
-    return GE.focusmetagon.getJigs();}
+    if(GE.ge==null||GE.ge.focusmetagon==null)return null;
+    return GE.ge.focusmetagon.getJigs();}
   
   protected boolean isFocusItem(ElementMenuItem i){
-    return i==GE.focusjig;}
+    return i==GE.ge.focusjig;}
 
   protected void setFocusItem(ElementMenuItem i){
-    GE.editor_grammar.setFocusJig((ProjectJig)i);}
+    GE.ge.editor_grammar.setFocusJig((ProjectJig)i);}
   
   protected void doDoubleclick(ElementMenuItem i){
-    GE.editor_grammar.editJig();}
+    GE.ge.editor_grammar.editJig();}
 
 }

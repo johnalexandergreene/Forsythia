@@ -21,7 +21,7 @@ public class EGUI_Viewer extends JPanel{
   public void paint(Graphics g){
     try{
       Graphics2D g2d=(Graphics2D)g;
-      BufferedImage i=GE.editor_generator.generator.getViewerImage();
+      BufferedImage i=GE.ge.editor_generator.generator.getViewerImage();
       System.out.println("image @ viewer.paint="+i);
       if(i!=null)
         g2d.drawImage(i,null,null);

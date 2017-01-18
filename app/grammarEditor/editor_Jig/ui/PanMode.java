@@ -43,7 +43,7 @@ public class PanMode extends JPanel{
     btnmode = new JButton("MODE FOO");
     btnmode.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.editor_jig.toggleMode();}});
+        GE.ge.editor_jig.toggleMode();}});
     btnmode.setFont(new Font("Dialog", Font.BOLD, 12));
     horizontalboxmid.add(btnmode);
     

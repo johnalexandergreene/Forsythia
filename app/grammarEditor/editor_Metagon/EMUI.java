@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_CreateMetagon;
+package org.fleen.forsythia.app.grammarEditor.editor_Metagon;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -18,9 +18,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import org.fleen.forsythia.app.grammarEditor.GE;
 
 @SuppressWarnings("serial")
-public class ECMUI extends JPanel{
+public class EMUI extends JPanel{
 
-  public ECMGrid grid;
+  public EMGrid grid;
   public JTextField txttags,txtinfo;
   public JButton 
     btnsavemetagon,
@@ -29,10 +29,10 @@ public class ECMUI extends JPanel{
   /**
    * Create the panel.
    */
-  public ECMUI(){
+  public EMUI(){
     setBackground(Color.LIGHT_GRAY);
     
-    grid = new ECMGrid();
+    grid = new EMGrid();
     grid.setBackground(Color.MAGENTA);
     
     Box horizontalBox = Box.createHorizontalBox();
@@ -94,7 +94,7 @@ public class ECMUI extends JPanel{
     btnsavemetagon.setMargin(new Insets(0,0,0,0));
     btnsavemetagon.addMouseListener(new MouseAdapter(){
       public void mouseClicked(MouseEvent e){
-        GE.editor_createmetagon.saveMetagonAndReturnToGrammarEditor();}});
+        GE.ge.editor_metagon.saveMetagonAndReturnToGrammarEditor();}});
     
     btndiscardmetagon = new JButton("X");
     panel.add(btndiscardmetagon);
@@ -104,7 +104,7 @@ public class ECMUI extends JPanel{
     btndiscardmetagon.setMargin(new Insets(0,0,0,0));
     btndiscardmetagon.addMouseListener(new MouseAdapter(){
       public void mouseClicked(MouseEvent e){
-        GE.editor_createmetagon.discardMetagonAndReturnToGrammarEditor();}});
+        GE.ge.editor_metagon.discardMetagonAndReturnToGrammarEditor();}});
     
     setLayout(groupLayout);}
 }

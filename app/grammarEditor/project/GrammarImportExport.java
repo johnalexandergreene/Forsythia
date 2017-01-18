@@ -37,22 +37,22 @@ public class GrammarImportExport{
       fg=extractForsythiaGrammarFromFile(path);
     }catch(Exception x){
       x.printStackTrace();}
-    GE.focusgrammar=new ProjectGrammar(fg,path);
+    GE.ge.focusgrammar=new ProjectGrammar(fg,path);
     initFocusElementsForNewGrammar();}
   
   private static final void initFocusElementsForNewGrammar(){
-    if(GE.focusgrammar.hasMetagons()){
-      GE.focusmetagon=GE.focusgrammar.getMetagon(0);
-      if(GE.focusmetagon!=null)
-        GE.focusjig=GE.focusmetagon.getJig(0);
+    if(GE.ge.focusgrammar.hasMetagons()){
+      GE.ge.focusmetagon=GE.ge.focusgrammar.getMetagon(0);
+      if(GE.ge.focusmetagon!=null)
+        GE.ge.focusjig=GE.ge.focusmetagon.getJig(0);
     }else{
-      GE.focusmetagon=null;
-      GE.focusjig=null;}}
+      GE.ge.focusmetagon=null;
+      GE.ge.focusjig=null;}}
 
   private static final File getGrammarFile(){
     JFileChooser fc=new JFileChooser();
     fc.setCurrentDirectory(GE.getLocalDir());
-    int r=fc.showOpenDialog(GE.uimain);
+    int r=fc.showOpenDialog(GE.ge.uimain);
     if(r!=JFileChooser.APPROVE_OPTION)
       return null;
     return fc.getSelectedFile();}
@@ -83,16 +83,16 @@ public class GrammarImportExport{
   public static final void exportGrammar(){
     File f=getExportFile(FILE_NAME_SUFFIX);
     if(f==null)return;
-    ForsythiaGrammar g=GE.focusgrammar.getForsythiaGrammar();
+    ForsythiaGrammar g=GE.ge.focusgrammar.getForsythiaGrammar();
     if(g==null)return;
     writeExportFile(g,f);}
   
   private static final File getExportFile(String suffix){
     JFileChooser fc=new JFileChooser();
-    fc.setCurrentDirectory(GE.focusgrammar.grammarfilepath);
-    if(fc.showSaveDialog(GE.uimain)!=JFileChooser.APPROVE_OPTION)return null;
-    GE.focusgrammar.grammarfilepath=fc.getSelectedFile();
-    return GE.focusgrammar.grammarfilepath;}
+    fc.setCurrentDirectory(GE.ge.focusgrammar.grammarfilepath);
+    if(fc.showSaveDialog(GE.ge.uimain)!=JFileChooser.APPROVE_OPTION)return null;
+    GE.ge.focusgrammar.grammarfilepath=fc.getSelectedFile();
+    return GE.ge.focusgrammar.grammarfilepath;}
   
   private static final void writeExportFile(Serializable grammar,File file){
     FileOutputStream fos;

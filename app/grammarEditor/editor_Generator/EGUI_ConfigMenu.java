@@ -15,14 +15,14 @@ class EGUI_ConfigMenu extends JPopupMenu{
   
   private PopupMenuItem configuregenerator=new PopupMenuItem("Generator",true){
     protected void doThing(){
-      GE.editor_generator.openGeneratorConfigurator();}};
+      GE.ge.editor_generator.openGeneratorConfigurator();}};
       
   private PopupMenuItem configurecompositionexporter=new PopupMenuItem("Exporter",true){
     protected void doThing(){
-      GE.editor_generator.openCompositionExporterConfigurator();}};
+      GE.ge.editor_generator.openCompositionExporterConfigurator();}};
           
   private PopupMenuItem configuregrammar=new PopupMenuItem("Grammar",true){
     protected void doThing(){
-      GE.editor_generator.openGrammarConfigurator();}};
+      GE.ge.editor_generator.openGrammarConfigurator();}};
 
 }
