@@ -1,7 +1,10 @@
 package org.fleen.forsythia.app.grammarEditor;
 
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.Rectangle;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -15,9 +18,9 @@ import javax.swing.border.EmptyBorder;
 @SuppressWarnings("serial")
 public class UIMain extends JFrame{
   
-//  private static final int 
-//    DEFAULTWIDTH=768,
-//    DEFAULTHEIGHT=1024;
+  private static final int 
+    DEFAULTWIDTH=1024,
+    DEFAULTHEIGHT=768;
   
   public JPanel paneditor;
   
@@ -48,13 +51,13 @@ public class UIMain extends JFrame{
     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     //
     setTitle(GE.APPNAME);
-//    Dimension ss=Toolkit.getDefaultToolkit().getScreenSize();
-//    setBounds(new Rectangle(
-//      (ss.width-DEFAULTWIDTH)/2,
-//      (ss.height-DEFAULTHEIGHT)/2,
-//      DEFAULTWIDTH,
-//      DEFAULTHEIGHT));
-    setExtendedState(UIMain.MAXIMIZED_BOTH);
+    Dimension ss=Toolkit.getDefaultToolkit().getScreenSize();
+    setBounds(new Rectangle(
+      (ss.width-DEFAULTWIDTH)/2,
+      (ss.height-DEFAULTHEIGHT)/2,
+      DEFAULTWIDTH,
+      DEFAULTHEIGHT));
+//    setExtendedState(UIMain.MAXIMIZED_BOTH);
     setVisible(true);
     
     JPanel contentPane=new JPanel();

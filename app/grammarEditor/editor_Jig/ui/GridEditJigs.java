@@ -22,9 +22,10 @@ import org.fleen.geom_Kisrhombille.KVertex;
  * 
  */
 
-@SuppressWarnings("serial")
 public class GridEditJigs extends Grid{
   
+  private static final long serialVersionUID=-4286658320538693888L;
+
   GridOverlayPainter overlaypainter=new GridOverlayPainter();
 
   protected void paintOverlay(Graphics2D g,int w,int h,double scale,double centerx,double centery){

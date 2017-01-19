@@ -44,6 +44,8 @@ import org.fleen.geom_Kisrhombille.KVertex;
  */
 public class Editor_Jig extends Editor{
   
+  private static final long serialVersionUID=5782373205247413080L;
+
   private static final String NAME="Jig";
   
   /*
@@ -94,9 +96,9 @@ public class Editor_Jig extends Editor{
     mode=MODE_EDITGEOMETRY;
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangriddensity.setEnabled(true);
-    ui.pansectionanchor.setEnabled(false);
-    ui.pansectionchorus.setEnabled(false);
-    ui.pansectiontag.setEnabled(false);
+    ui.btnsectionanchor.setVisible(false);
+    ui.btnsectionchorus.setVisible(false);
+    ui.pansectiontags.setVisible(false);
     //
     setFocusSection(null);
     //
@@ -110,9 +112,9 @@ public class Editor_Jig extends Editor{
     model.initSections();
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangriddensity.setEnabled(false);
-    ui.pansectionanchor.setEnabled(true);
-    ui.pansectionchorus.setEnabled(true);
-    ui.pansectiontag.setEnabled(true);
+    ui.btnsectionanchor.setVisible(true);
+    ui.btnsectionchorus.setVisible(true);
+    ui.pansectiontags.setVisible(true);
     focussection=model.sections.get(0);
     //
     refreshGridGeometryAndImage();
@@ -156,28 +158,35 @@ public class Editor_Jig extends Editor{
     refreshSectionChorusButton();
     refreshSectionTags();
     //refresh mode button
-    ui.panmode.setMode(mode);}
+    refreshModeButton();}
+  
+  private void refreshModeButton(){
+    EJ_UI ui=(EJ_UI)getUI();
+    if(mode==MODE_EDITGEOMETRY)
+      ui.btnmode.setText("Mode=EditGeometry");
+    else//mode= MODE_EDITSECTIONS
+      ui.btnmode.setText("Mode=EditSections");}
   
   private void refreshSectionAnchorButton(){
     EJ_UI ui=(EJ_UI)getUI();
     if(focussection==null)
-      ui.pansectionanchor.setText("Section Anchor = ---");
+      ui.btnsectionanchor.setText("Section Anchor = ---");
     else
-      ui.pansectionanchor.setText("Section Anchor = "+focussection.getAnchorIndexString());}
+      ui.btnsectionanchor.setText("Section Anchor = "+focussection.getAnchorIndexString());}
   
   private void refreshSectionChorusButton(){
     EJ_UI ui=(EJ_UI)getUI();
     if(focussection==null)
-      ui.pansectionchorus.setText("Section Chorus = ---");
+      ui.btnsectionchorus.setText("Section Chorus = ---");
     else
-      ui.pansectionchorus.setText("Section Chorus = "+focussection.getChorusString());}
+      ui.btnsectionchorus.setText("Section Chorus = "+focussection.getChorusString());}
   
   private void refreshSectionTags(){
     EJ_UI ui=(EJ_UI)getUI();
     if(focussection==null)
-      ui.pansectiontag.txttag.setText("---");
+      ui.pansectiontags.txttag.setText("---");
     else
-      ui.pansectiontag.txttag.setText(focussection.tags);}
+      ui.pansectiontags.txttag.setText(focussection.tags);}
   
   /*
    * ################################
@@ -350,10 +359,8 @@ public class Editor_Jig extends Editor{
       setModeEditGeometry();
     else
       setModeEditSections();
-    EJ_UI ui=(EJ_UI)getUI();
-    ui.panmode.setMode(mode);
     initGridPerspective();
-    refreshGridImage();} 
+    refreshUI();} 
   
   public void setJigTags(String a){
     System.out.println("set jig tags : "+a);

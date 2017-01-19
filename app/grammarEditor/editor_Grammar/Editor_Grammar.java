@@ -1,9 +1,9 @@
-package org.fleen.forsythia.app.grammarEditor.editor_EditGrammar;
+package org.fleen.forsythia.app.grammarEditor.editor_Grammar;
 
 import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.app.grammarEditor.editor_EditGrammar.ui.EG_UI;
+import org.fleen.forsythia.app.grammarEditor.editor_Grammar.ui.EG_UI;
 import org.fleen.forsythia.app.grammarEditor.project.GrammarImportExport;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectGrammar;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectJig;
@@ -12,6 +12,8 @@ import org.fleen.forsythia.app.grammarEditor.util.Editor;
 
 public class Editor_Grammar extends Editor{
 
+  private static final long serialVersionUID=1681991061348332454L;
+  
   public static final String NAME="Grammar";
   
   /*

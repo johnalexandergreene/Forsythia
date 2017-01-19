@@ -20,5 +20,6 @@ grid : make sturctures and lines line up better. It isn't quite perfect when the
 jig editor : mouse cursor is weird in edit sections : inappropriate
 
 redo metagon editor ui
-redo grammar editor ui
 redo generator editor ui
+
+make grammar editor jig icons just like section view in jig editor, with colors and glyphs

@@ -6,23 +6,33 @@ import java.awt.FlowLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.util.ui.WrapLayout;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Component;
+import javax.swing.Box;
 
-@SuppressWarnings("serial")
 public class EJ_UI extends JPanel{
+  
+  private static final long serialVersionUID=-8825258503202494056L;
   
   public JPanel pantop;
   public GridEditJigs pangrid;
   public JLabel lblinfo;
   
-  public PanResetSaveQuit panresetsavequit;
+  public JButton btnquit;
+  public JButton btnreset;
+  public JButton btnsave;
+  public JButton btnmode;
+  
   public PanGridDensity pangriddensity;
-  public PanMode panmode;
-  public PanJigTag panjigtag;
-  public PanSectionChorus pansectionchorus;
-  public PanSectionAnchor pansectionanchor;
-  public PanSectionTag pansectiontag;
-
+  public PanJigTags panjigtag;
+  public PanSectionTags pansectiontags;
+  public JButton btnsectionchorus;
+  public JButton btnsectionanchor;
+  
   public EJ_UI(){
     setLayout(new BorderLayout(0, 0));
     
@@ -32,26 +42,53 @@ public class EJ_UI extends JPanel{
     layouttop.setAlignment(FlowLayout.LEFT);
     pantop.setLayout(layouttop);
     
-    panresetsavequit = new PanResetSaveQuit();
-    pantop.add(panresetsavequit);
+    btnquit = new JButton("Quit");
+    btnquit.addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent e){
+        GE.ge.editor_jig.quit();}});
+    pantop.add(btnquit);
     
-    panmode = new PanMode();
-    pantop.add(panmode);    
+    btnreset = new JButton("Reset");
+    btnreset.addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent e){
+        GE.ge.editor_jig.reset();}});
+    pantop.add(btnreset);
+    
+    btnsave = new JButton("Save");
+    btnsave.addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent e){
+        GE.ge.editor_jig.save();}});
+    pantop.add(btnsave);
+    
+    Component horizontalStrut = Box.createHorizontalStrut(20);
+    pantop.add(horizontalStrut);
+    
+    btnmode = new JButton("Mode=foo");
+    btnmode.addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent e){
+        GE.ge.editor_jig.toggleMode();}});
+    pantop.add(btnmode);
     
     pangriddensity = new PanGridDensity();
     pantop.add(pangriddensity);
     
-    panjigtag = new PanJigTag();
+    panjigtag = new PanJigTags();
     pantop.add(panjigtag);
     
-    pansectionchorus = new PanSectionChorus();
-    pantop.add(pansectionchorus);
+    btnsectionchorus = new JButton("SectionChorus=000");
+    btnsectionchorus.addMouseListener(new MouseAdapter(){
+      public void mouseClicked(MouseEvent e){
+        GE.ge.editor_jig.incrementSectionChorus();}});
+    pantop.add(btnsectionchorus);
     
-    pansectionanchor = new PanSectionAnchor();
-    pantop.add(pansectionanchor);
+    btnsectionanchor = new JButton("SectionAnchor=000");
+    btnsectionanchor.addMouseListener(new MouseAdapter(){
+      public void mouseClicked(MouseEvent e){
+        GE.ge.editor_jig.incrementSectionAnchor();}});
+    pantop.add(btnsectionanchor);
     
-    pansectiontag = new PanSectionTag();
-    pantop.add(pansectiontag);
+    pansectiontags = new PanSectionTags();
+    pantop.add(pansectiontags);
     
     pangrid = new GridEditJigs();
     add(pangrid, BorderLayout.CENTER);

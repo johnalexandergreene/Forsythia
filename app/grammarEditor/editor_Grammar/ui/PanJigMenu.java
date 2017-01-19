@@ -1,36 +1,32 @@
-package org.fleen.forsythia.app.grammarEditor.editor_EditGrammar.ui;
+package org.fleen.forsythia.app.grammarEditor.editor_Grammar.ui;
 
 import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.app.grammarEditor.project.ProjectMetagon;
+import org.fleen.forsythia.app.grammarEditor.project.ProjectJig;
 import org.fleen.forsythia.app.grammarEditor.util.ElementMenu;
 import org.fleen.forsythia.app.grammarEditor.util.ElementMenuItem;
 import org.fleen.forsythia.app.grammarEditor.util.UI;
 
-
 @SuppressWarnings("serial")
-public class PanMetagonMenu extends ElementMenu{
+public class PanJigMenu extends ElementMenu{
 
-  /**
-   * Create the panel.
-   */
-  public PanMetagonMenu(){
-    super(UI.ELEMENTMENU_OVERVIEWMETAGONSROWS);}
+  public PanJigMenu(){
+    super(UI.ELEMENTMENU_OVERVIEWJIGSROWS);}
 
   protected void doPopupMenu(int x,int y){}
-  
+
   protected List<? extends ElementMenuItem> getItems(){
-    if(GE.ge==null||GE.ge.focusgrammar==null)return null;
-    return GE.ge.focusgrammar.metagons;}
+    if(GE.ge==null||GE.ge.focusmetagon==null)return null;
+    return GE.ge.focusmetagon.getJigs();}
   
   protected boolean isFocusItem(ElementMenuItem i){
-    return i==GE.ge.focusmetagon;}
-  
+    return i==GE.ge.focusjig;}
+
   protected void setFocusItem(ElementMenuItem i){
-    GE.ge.editor_grammar.setFocusMetagon((ProjectMetagon)i);}
+    GE.ge.editor_grammar.setFocusJig((ProjectJig)i);}
   
   protected void doDoubleclick(ElementMenuItem i){
-    GE.ge.editor_grammar.editMetagon();}
+    GE.ge.editor_grammar.editJig();}
 
 }

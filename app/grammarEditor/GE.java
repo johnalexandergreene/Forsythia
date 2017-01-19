@@ -12,8 +12,8 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.URLDecoder;
 
-import org.fleen.forsythia.app.grammarEditor.editor_EditGrammar.Editor_Grammar;
 import org.fleen.forsythia.app.grammarEditor.editor_Generator.Editor_Generator;
+import org.fleen.forsythia.app.grammarEditor.editor_Grammar.Editor_Grammar;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.Editor_Jig;
 import org.fleen.forsythia.app.grammarEditor.editor_Metagon.Editor_Metagon;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectGrammar;

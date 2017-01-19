@@ -9,16 +9,15 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import org.fleen.forsythia.app.grammarEditor.GE;
-
 
 /*
  * A menu
  * 1..n rows of icons
  * clickdrag side scrolling
  */
-@SuppressWarnings("serial")
 public abstract class ElementMenu extends JPanel{
+  
+  private static final long serialVersionUID=-1864008707499697749L;
   
   private static final long MOUSEDRAGSAMPLEPERIOD=50;
   

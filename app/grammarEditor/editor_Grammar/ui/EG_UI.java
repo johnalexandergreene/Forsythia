@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_EditGrammar.ui;
+package org.fleen.forsythia.app.grammarEditor.editor_Grammar.ui;
 
 import java.awt.Color;
 import java.awt.Component;
