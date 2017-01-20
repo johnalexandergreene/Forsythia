@@ -1,18 +1,20 @@
-package org.fleen.forsythia.app.grammarEditor.project;
+package org.fleen.forsythia.app.grammarEditor.project.jig;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.model.JigEditingModel;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.model.JigEditingModelForCreate;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.model.JigSectionEditingModel;
+import org.fleen.forsythia.app.grammarEditor.project.metagon.ProjectMetagon;
 import org.fleen.forsythia.app.grammarEditor.util.ElementMenuItem;
 import org.fleen.forsythia.core.grammar.Jig;
 import org.fleen.forsythia.core.grammar.JigSection;
 
 /*
  * This is a project jig
- * It's a Jig designed for ez editing
+ * a bunch of Jig data in an ez to edit form
+ * stuff for import and export
  */
 public class ProjectJig implements ElementMenuItem{
   
@@ -22,24 +24,12 @@ public class ProjectJig implements ElementMenuItem{
    * ################################
    */
   
-//  //create
-//  //invoked by the jig editor
-//  //we specify just geometry stuff, details are set to default values
-//  //TODO we gotta handle anchors, chorusindices and tags here too
-//  public ProjectJig(
-//    ProjectMetagon targetmetagon,
-//    int griddensity,
-//    List<KPolygon> sectionpolygons){
-//    this.targetmetagon=targetmetagon;
-//    this.griddensity=griddensity;
-//    initSectionsForCreate(sectionpolygons);
-//    initSectionProductChorusIndices();}
-  
   //create
   public ProjectJig(
-    JigEditingModel jigeditingmodel){
+    JigEditingModelForCreate jigeditingmodel){
     targetmetagon=jigeditingmodel.targetmetagon;
     griddensity=jigeditingmodel.griddensity;
+    tags=jigeditingmodel.getJigTags();
     initSectionsForCreate(jigeditingmodel);}
   
   //import
@@ -59,7 +49,7 @@ public class ProjectJig implements ElementMenuItem{
   
   /*
    * ################################
-   * GRID DENSITY AND FISH FACTOR
+   * GRID DENSITY
    * ################################
    */ 
   
@@ -115,22 +105,9 @@ public class ProjectJig implements ElementMenuItem{
    * ++++++++++++++++++++++++++++++++
    */
   
-  private void initSectionsForCreate(JigEditingModel jigeditingmodel){
+  private void initSectionsForCreate(JigEditingModelForCreate jigeditingmodel){
     for(JigSectionEditingModel jigsectioneditingmodel:jigeditingmodel.sections)
       sections.add(new ProjectJigSection(this,jigsectioneditingmodel));}
-  
-//  private void initSectionsForCreate(List<KPolygon> sectionpolygons){
-//    for(KPolygon p:sectionpolygons)
-//      sections.add(new ProjectJigSection(this,p));}
-//  
-//  /*
-//   * init to all different. no chorussing
-//   */
-//  private void initSectionProductChorusIndices(){
-//    int i=0;
-//    for(ProjectJigSection s:sections){
-//      s.setProductChorusIndex(i);
-//      i++;}}
   
   /*
    * ################################

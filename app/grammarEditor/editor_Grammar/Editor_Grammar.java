@@ -6,8 +6,8 @@ import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Grammar.ui.EG_UI;
 import org.fleen.forsythia.app.grammarEditor.project.GrammarImportExport;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectGrammar;
-import org.fleen.forsythia.app.grammarEditor.project.ProjectJig;
-import org.fleen.forsythia.app.grammarEditor.project.ProjectMetagon;
+import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJig;
+import org.fleen.forsythia.app.grammarEditor.project.metagon.ProjectMetagon;
 import org.fleen.forsythia.app.grammarEditor.util.Editor;
 
 public class Editor_Grammar extends Editor{

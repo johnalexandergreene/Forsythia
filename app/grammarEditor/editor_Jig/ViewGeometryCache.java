@@ -111,9 +111,6 @@ public class ViewGeometryCache{
   private Path2D createPath(KPolygon kp){
     int pointcount=kp.size();
     Path2D.Double path=new Path2D.Double();
-    //we set this to be uniform with multiedge path winding rule (yard) (see below)
-    //maybe unnecessary, but don't mess with it.
-    path.setWindingRule(Path2D.WIND_EVEN_ODD);
     double[] p=getPoint(kp.get(0));
     path.moveTo(p[0],p[1]);
     for(int i=1;i<pointcount;i++){

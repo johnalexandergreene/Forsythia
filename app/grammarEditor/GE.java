@@ -17,8 +17,8 @@ import org.fleen.forsythia.app.grammarEditor.editor_Grammar.Editor_Grammar;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.Editor_Jig;
 import org.fleen.forsythia.app.grammarEditor.editor_Metagon.Editor_Metagon;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectGrammar;
-import org.fleen.forsythia.app.grammarEditor.project.ProjectJig;
-import org.fleen.forsythia.app.grammarEditor.project.ProjectMetagon;
+import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJig;
+import org.fleen.forsythia.app.grammarEditor.project.metagon.ProjectMetagon;
 import org.fleen.forsythia.app.grammarEditor.util.Editor;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 

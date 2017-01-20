@@ -3,7 +3,7 @@ package org.fleen.forsythia.app.grammarEditor.editor_Grammar.ui;
 import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.app.grammarEditor.project.ProjectMetagon;
+import org.fleen.forsythia.app.grammarEditor.project.metagon.ProjectMetagon;
 import org.fleen.forsythia.app.grammarEditor.util.ElementMenu;
 import org.fleen.forsythia.app.grammarEditor.util.ElementMenuItem;
 import org.fleen.forsythia.app.grammarEditor.util.UI;

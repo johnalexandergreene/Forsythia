@@ -13,6 +13,9 @@ import java.util.Map;
 import java.util.Set;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
+import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJig;
+import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJigSection;
+import org.fleen.forsythia.app.grammarEditor.project.metagon.ProjectMetagon;
 import org.fleen.forsythia.core.grammar.FMetagon;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 import org.fleen.forsythia.core.grammar.Jig;

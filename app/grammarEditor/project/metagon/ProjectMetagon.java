@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.project;
+package org.fleen.forsythia.app.grammarEditor.project.metagon;
 
 import java.awt.geom.Path2D;
 import java.awt.image.BufferedImage;
@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import org.fleen.forsythia.app.grammarEditor.project.ProjectGrammar;
+import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJig;
 import org.fleen.forsythia.app.grammarEditor.util.ElementMenuItem;
 import org.fleen.forsythia.app.grammarEditor.util.UI;
 import org.fleen.forsythia.core.grammar.FMetagon;
@@ -101,7 +103,7 @@ public class ProjectMetagon implements Serializable,ElementMenuItem{
    * ################################
    */
   
-  List<ProjectJig> jigs=new ArrayList<ProjectJig>();
+  public List<ProjectJig> jigs=new ArrayList<ProjectJig>();
   
   Comparator<ProjectJig> ProjectJigComparator=new Comparator<ProjectJig>(){
     public int compare(ProjectJig j0,ProjectJig j1){

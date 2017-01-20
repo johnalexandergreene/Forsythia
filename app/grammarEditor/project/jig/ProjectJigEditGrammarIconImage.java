@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.project;
+package org.fleen.forsythia.app.grammarEditor.project.jig;
 
 import java.awt.BasicStroke;
 import java.awt.Graphics2D;

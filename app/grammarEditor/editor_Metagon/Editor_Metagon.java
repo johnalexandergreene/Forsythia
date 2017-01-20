@@ -3,7 +3,7 @@ package org.fleen.forsythia.app.grammarEditor.editor_Metagon;
 import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.app.grammarEditor.project.ProjectMetagon;
+import org.fleen.forsythia.app.grammarEditor.project.metagon.ProjectMetagon;
 import org.fleen.forsythia.app.grammarEditor.util.Editor;
 import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KVertex;

@@ -5,9 +5,12 @@ jig editor : make edit jig after creation work
     mode_create_editsections (edit1?) 
     mode_retouch_editsections (edit2?)
 
-Also, instead of disabling buttons just make them nonvisible. It's the better effect.
-
 save should be disabled in editgeometry mode
+
+we will have an interface : jigediting model
+it will come in 2 concrete classes
+  one for creating
+  one for retouching
 
 ----------------
 

@@ -4,10 +4,10 @@ import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GEdge;
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.model.JigEditingModel;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.model.JigEditingModelForCreate;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.model.JigSectionEditingModel;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.ui.EJ_UI;
-import org.fleen.forsythia.app.grammarEditor.project.ProjectJig;
+import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJig;
 import org.fleen.forsythia.app.grammarEditor.util.Editor;
 import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KVertex;
@@ -152,7 +152,7 @@ public class Editor_Jig extends Editor{
     EJ_UI ui=(EJ_UI)getUI();
     //refresh jig stuff
     ui.pangriddensity.lblgriddensity.setText("Grid Density = "+model.getGridDensityString());
-    ui.panjigtag.txtjigtag.setText(model.jigtagstring);
+    ui.panjigtag.txtjigtag.setText(model.getJigTags());
     //refresh section
     refreshSectionAnchorButton();
     refreshSectionChorusButton();
@@ -198,7 +198,7 @@ public class Editor_Jig extends Editor{
    */
   
   //defines our jig to be
-  public JigEditingModel model;
+  public JigEditingModelForCreate model;
   //in the course of defining our geometry we have a "last vertex indicated"
   //if we click it once it is connected, twice and it is unconnected
   public KVertex connectedhead,unconnectedhead;
@@ -206,7 +206,7 @@ public class Editor_Jig extends Editor{
   public JigSectionEditingModel focussection; 
   
   private void createEditingObjects(){
-    model=new JigEditingModel(GE.ge.focusmetagon);
+    model=new JigEditingModelForCreate(GE.ge.focusmetagon);
     connectedhead=null;
     unconnectedhead=null;
     focussection=null;}
@@ -364,7 +364,7 @@ public class Editor_Jig extends Editor{
   
   public void setJigTags(String a){
     System.out.println("set jig tags : "+a);
-    model.jigtagstring=a;}
+    model.setJigTags(a);}
   
   public void incrementSectionAnchor(){
     System.out.println("increment section anchor");

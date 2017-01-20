@@ -1,10 +1,11 @@
-package org.fleen.forsythia.app.grammarEditor.project;
+package org.fleen.forsythia.app.grammarEditor.project.jig;
 
 import java.awt.geom.Path2D;
 import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.model.JigSectionEditingModel;
+import org.fleen.forsythia.app.grammarEditor.project.metagon.ProjectMetagon;
 import org.fleen.forsythia.core.grammar.JigSection;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;
@@ -97,6 +98,11 @@ public class ProjectJigSection{
   
   public KAnchor getAnchor(){
     return anchors.get(anchorindex);}
+  
+  public void incrementAnchorIndex(){
+    anchorindex++;
+    if(anchorindex==anchors.size())
+      anchorindex=0;}
   
   /*
    * ################################
