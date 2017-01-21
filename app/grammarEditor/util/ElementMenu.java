@@ -193,7 +193,7 @@ public abstract class ElementMenu extends JPanel{
       xy=getIconXY(itemcount,itemindex);
       //render metagon geometry
       g.drawImage(
-        item.getElementMenuItemIconImage(getIconSpan())
+        item.getGrammarEditorIconImage(getIconSpan())
         ,xy[0],xy[1],null);
       //render border to reveal focus state
       if(isFocusItem(item))

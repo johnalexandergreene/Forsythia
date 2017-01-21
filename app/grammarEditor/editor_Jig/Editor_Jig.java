@@ -4,10 +4,10 @@ import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GEdge;
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.model.JigEditingModelForCreate;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.model.JigSectionEditingModel;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.ui.EJ_UI;
 import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJig;
+import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJigSection;
 import org.fleen.forsythia.app.grammarEditor.util.Editor;
 import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KVertex;
@@ -109,13 +109,13 @@ public class Editor_Jig extends Editor{
   
   void setModeEditSections(){
     mode=MODE_EDITSECTIONS;
-    model.initSections();
+    jig.initSections();
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangriddensity.setEnabled(false);
     ui.btnsectionanchor.setVisible(true);
     ui.btnsectionchorus.setVisible(true);
     ui.pansectiontags.setVisible(true);
-    focussection=model.sections.get(0);
+    focussection=jig.sections.get(0);
     //
     refreshGridGeometryAndImage();
     initGridPerspective();
@@ -151,8 +151,8 @@ public class Editor_Jig extends Editor{
   void refreshButtons(){
     EJ_UI ui=(EJ_UI)getUI();
     //refresh jig stuff
-    ui.pangriddensity.lblgriddensity.setText("Grid Density = "+model.getGridDensityString());
-    ui.panjigtag.txtjigtag.setText(model.getJigTags());
+    ui.pangriddensity.lblgriddensity.setText("Grid Density = "+jig.getGridDensityString());
+    ui.panjigtag.txtjigtag.setText(jig.tags);
     //refresh section
     refreshSectionAnchorButton();
     refreshSectionChorusButton();
@@ -198,31 +198,38 @@ public class Editor_Jig extends Editor{
    */
   
   //defines our jig to be
-  public JigEditingModelForCreate model;
+  
+//  public JigEditingModelForCreate model;
+  public ProjectJig jig;
+  
   //in the course of defining our geometry we have a "last vertex indicated"
   //if we click it once it is connected, twice and it is unconnected
   public KVertex connectedhead,unconnectedhead;
   //the section polygon that we are presently focused upon.
-  public JigSectionEditingModel focussection; 
+//  public JigSectionEditingModel focussection;
+  public ProjectJigSection focussection;
   
   private void createEditingObjects(){
-    model=new JigEditingModelForCreate(GE.ge.focusmetagon);
+    
+//    model=new JigEditingModelForCreate(GE.ge.focusmetagon);
+    jig=new ProjectJig(GE.ge.focusmetagon);
+    
     connectedhead=null;
     unconnectedhead=null;
     focussection=null;}
   
   private void discardEditingObjects(){
-    model=null;
+    jig=null;
     connectedhead=null;
     unconnectedhead=null;
     focussection=null;}
   
-  public void setFocusSection(JigSectionEditingModel m){
+  public void setFocusSection(ProjectJigSection m){
     focussection=m;}
   
-  public JigSectionEditingModel getFocusSection(){
+  public ProjectJigSection getFocusSection(){
     if(focussection==null)
-      focussection=model.sections.get(0);
+      focussection=jig.sections.get(0);
     return focussection;}
   
   /*
@@ -243,65 +250,65 @@ public class Editor_Jig extends Editor{
     EJ_UI ui=(EJ_UI)getUI();
     if(v==null){
       System.out.println("null vertex");
-      model.rawgraph.invalidateDisconnectedGraph();
+      jig.rawgraph.invalidateDisconnectedGraph();
       ui.pangrid.repaint();
       return;}
     //if we touch the connectedhead then convert connectedhead to unconnectedhead
     if(connectedhead!=null&&v.equals(connectedhead)){
       unconnectedhead=connectedhead;
       connectedhead=null;
-      model.rawgraph.invalidateDisconnectedGraph();
+      jig.rawgraph.invalidateDisconnectedGraph();
       ui.pangrid.repaint();
       return;}
     //if we touch the unconnectedhead then delete unconnectedhead
     if(unconnectedhead!=null&&v.equals(unconnectedhead)){
-      model.rawgraph.removeVertex(v);
+      jig.rawgraph.removeVertex(v);
       connectedhead=null;
       unconnectedhead=null;
-      model.rawgraph.invalidateDisconnectedGraph();
+      jig.rawgraph.invalidateDisconnectedGraph();
       ui.pangrid.repaint();
       return;}
     //if we touch a vertex that's already in the model
-    if(model.rawgraph.contains(v)){
+    if(jig.rawgraph.contains(v)){
       //if connectedhead is nonnull then connect connectedhead to v
       if(connectedhead!=null)
-        model.rawgraph.connect(v,connectedhead);
+        jig.rawgraph.connect(v,connectedhead);
       //v becomes connectedhead. unconnectedhead is nulled.
       connectedhead=v;
       unconnectedhead=null;
-      model.rawgraph.invalidateDisconnectedGraph();
+      jig.rawgraph.invalidateDisconnectedGraph();
       ui.pangrid.repaint();
       return;}
     //if we touch a vertex that is crossed by an edge (between but not on the edge's vertices)
-    GEdge edge=model.rawgraph.getCrossingEdge(v);
+    GEdge edge=jig.rawgraph.getCrossingEdge(v);
     if(edge!=null){
       //add v, inserting it between the edge vertices. adjust connections appropriately
-      model.rawgraph.disconnect(edge.v0.kvertex,edge.v1.kvertex);
-      model.rawgraph.addVertex(v);
-      model.rawgraph.connect(edge.v0.kvertex,v);
-      model.rawgraph.connect(edge.v1.kvertex,v);
+      jig.rawgraph.disconnect(edge.v0.kvertex,edge.v1.kvertex);
+      jig.rawgraph.addVertex(v);
+      jig.rawgraph.connect(edge.v0.kvertex,v);
+      jig.rawgraph.connect(edge.v1.kvertex,v);
       //if connectedhead is nonnull then connect that too
       if(connectedhead!=null)
-        model.rawgraph.connect(connectedhead,v);
+        jig.rawgraph.connect(connectedhead,v);
       //v is new connectedhead
       connectedhead=v;
       unconnectedhead=null;
-      model.rawgraph.invalidateDisconnectedGraph();
+      jig.rawgraph.invalidateDisconnectedGraph();
       ui.pangrid.repaint();
       return;}
     //if we touch an unused vertex
     //(at this point we know that we touched an unused vertex that is not crossed by an edge)
     //if connectedhead is nonnull then add vertex and connect
-    model.rawgraph.addVertex(v);
+    jig.rawgraph.addVertex(v);
     if(connectedhead!=null)
-      model.rawgraph.connect(v,connectedhead);
+      jig.rawgraph.connect(v,connectedhead);
     connectedhead=v;
     unconnectedhead=null;
     refreshButtons();
-    model.rawgraph.invalidateDisconnectedGraph();
+    jig.rawgraph.invalidateDisconnectedGraph();
     ui.pangrid.repaint();}
   
-  public void touchSection(JigSectionEditingModel m){
+  public void touchSection(ProjectJigSection m){
     if(m==null)return;
     if(mode==MODE_EDITGEOMETRY)return;
     System.out.println("touch section");
@@ -320,11 +327,11 @@ public class Editor_Jig extends Editor{
     configureForOpen();}
   
   public void save(){
-    GE.ge.focusgrammar.addMetagons(model.localsectionmetagons);
-    ProjectJig j=new ProjectJig(model);
+    GE.ge.focusgrammar.addMetagons(jig.localsectionmetagons);
+//    ProjectJig j=new ProjectJig(model);
     GE.ge.focusmetagon.invalidateOverviewIconImage();
-    GE.ge.focusmetagon.addJig(j);
-    GE.ge.focusjig=j;
+    GE.ge.focusmetagon.addJig(jig);
+    GE.ge.focusjig=jig;
     GE.ge.setEditor(GE.ge.editor_grammar);}
   
   public void quit(){
@@ -336,7 +343,7 @@ public class Editor_Jig extends Editor{
     connectedhead=null;
     unconnectedhead=null;
     focussection=null;
-    model.incrementGridDensity();
+    jig.incrementGridDensity();
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangrid.gridrenderer.invalidateTileImage();
     initGridPerspective();
@@ -347,7 +354,7 @@ public class Editor_Jig extends Editor{
     connectedhead=null;
     unconnectedhead=null;
     focussection=null;
-    model.decrementGridDensity();
+    jig.decrementGridDensity();
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangrid.gridrenderer.invalidateTileImage();
     initGridPerspective();
@@ -364,7 +371,7 @@ public class Editor_Jig extends Editor{
   
   public void setJigTags(String a){
     System.out.println("set jig tags : "+a);
-    model.setJigTags(a);}
+    jig.tags=a;}
   
   public void incrementSectionAnchor(){
     System.out.println("increment section anchor");
@@ -390,7 +397,7 @@ public class Editor_Jig extends Editor{
   
   public KPolygon getScaledHostPolygon(){
     int d=1;
-    if(model!=null)d=model.griddensity;
+    if(jig!=null)d=jig.griddensity;
     return GE.ge.focusmetagon.kmetagon.getScaledPolygon(d);}
   
 }

@@ -4,6 +4,6 @@ import java.awt.image.BufferedImage;
 
 public interface ElementMenuItem{
   
-  BufferedImage getElementMenuItemIconImage(int span);
+  BufferedImage getGrammarEditorIconImage(int span);
 
 }

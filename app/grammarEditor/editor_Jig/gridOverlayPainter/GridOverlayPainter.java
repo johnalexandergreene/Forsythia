@@ -12,7 +12,7 @@ import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.Editor_Jig;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GEdge;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GVertex;
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.model.JigSectionEditingModel;
+import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJigSection;
 import org.fleen.forsythia.app.grammarEditor.util.UI;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;
@@ -23,7 +23,7 @@ public class GridOverlayPainter{
   
   public void paint(Graphics2D graphics,int w,int h,double scale,double centerx,double centery){
     graphics.setRenderingHints(UI.RENDERING_HINTS);
-    GE.ge.editor_jig.model.viewgeometrycache.update(w,h,scale,centerx,centery);
+    GE.ge.editor_jig.jig.jigeditorgeometrycache.update(w,h,scale,centerx,centery);
     if(GE.ge.editor_jig.mode==Editor_Jig.MODE_EDITSECTIONS){
       renderJigModel_EditSections(graphics);
     }else{//GE.editor_jig.mode==Editor_Jig.MODE_EDITGEOMETRY
@@ -43,24 +43,24 @@ public class GridOverlayPainter{
   private void fillSections_EditGeometry(Graphics2D graphics){
     Color color;
     Path2D path;
-    for(KPolygon m:GE.ge.editor_jig.model.rawgraph.getDisconnectedGraph().getUndividedPolygons()){
+    for(KPolygon m:GE.ge.editor_jig.jig.rawgraph.getDisconnectedGraph().getUndividedPolygons()){
       color=UI.EDITJIG_EDITGEOMETRY_HOSTMETAGONFILLCOLOR;
-      path=GE.ge.editor_jig.model.viewgeometrycache.getPath(m);
+      path=GE.ge.editor_jig.jig.jigeditorgeometrycache.getPath(m);
       graphics.setPaint(color);
       graphics.fill(path);}}
   
   private void strokeGraphEdges_EditGeometry(Graphics2D graphics){
     graphics.setStroke(UI.GRID_DRAWINGSTROKE);
     graphics.setPaint(UI.EDITJIG_EDITGEOMETRY_STROKECOLOR);
-    Iterator<GEdge> i=GE.ge.editor_jig.model.rawgraph.edges.iterator();
+    Iterator<GEdge> i=GE.ge.editor_jig.jig.rawgraph.edges.iterator();
     GEdge e;
     double[] p0,p1;
     Path2D path=new Path2D.Double();
     //System.out.println("edge count:"+Q.editor_createjig.graph.getEdgeCount());
     while(i.hasNext()){
       e=i.next();
-      p0=GE.ge.editor_jig.model.viewgeometrycache.getPoint(e.v0.kvertex);
-      p1=GE.ge.editor_jig.model.viewgeometrycache.getPoint(e.v1.kvertex);
+      p0=GE.ge.editor_jig.jig.jigeditorgeometrycache.getPoint(e.v0.kvertex);
+      p1=GE.ge.editor_jig.jig.jigeditorgeometrycache.getPoint(e.v1.kvertex);
       path.reset();
       path.moveTo(p0[0],p0[1]);
       path.lineTo(p1[0],p1[1]);
@@ -81,8 +81,8 @@ public class GridOverlayPainter{
     float span=UI.GRID_DEFAULTVERTEXSPAN;
     double[] p;
     Ellipse2D dot=new Ellipse2D.Double();
-    for(GVertex v:GE.ge.editor_jig.model.rawgraph.vertices){
-      p=GE.ge.editor_jig.model.viewgeometrycache.getPoint(v.kvertex);
+    for(GVertex v:GE.ge.editor_jig.jig.rawgraph.vertices){
+      p=GE.ge.editor_jig.jig.jigeditorgeometrycache.getPoint(v.kvertex);
       dot.setFrame(p[0]-span/2,p[1]-span/2,span,span);
       graphics.fill(dot);}}
   
@@ -91,11 +91,11 @@ public class GridOverlayPainter{
     int span=UI.EDITJIG_EDITGEOMETRY_HEADVERTEXDECORATIONSPAN;
     double[] p;
     if(GE.ge.editor_jig.connectedhead!=null){
-      p=GE.ge.editor_jig.model.viewgeometrycache.getPoint(GE.ge.editor_jig.connectedhead);
+      p=GE.ge.editor_jig.jig.jigeditorgeometrycache.getPoint(GE.ge.editor_jig.connectedhead);
       graphics.setPaint(UI.EDITJIG_EDITGEOMETRY_CONNECTEDHEADVERTEXDECORATIONCOLOR);
       graphics.drawOval(((int)p[0])-span/2,((int)p[1])-span/2,span,span);
     }else if(GE.ge.editor_jig.unconnectedhead!=null){
-      p=GE.ge.editor_jig.model.viewgeometrycache.getPoint(GE.ge.editor_jig.unconnectedhead);
+      p=GE.ge.editor_jig.jig.jigeditorgeometrycache.getPoint(GE.ge.editor_jig.unconnectedhead);
       graphics.setPaint(UI.EDITJIG_EDITGEOMETRY_UNCONNECTEDHEADVERTEXDECORATIONCOLOR);
       graphics.drawOval(((int)p[0])-span/2,((int)p[1])-span/2,span,span);}}
   
@@ -118,10 +118,10 @@ public class GridOverlayPainter{
     int colorindex;
     Color color;
     Path2D path;
-    for(JigSectionEditingModel m:GE.ge.editor_jig.model.sections){
+    for(ProjectJigSection m:GE.ge.editor_jig.jig.sections){
       colorindex=m.chorusindex;
       color=UI.EDITJIG_EDITSECTIONS_SECTIONFILL[colorindex%UI.EDITJIG_EDITSECTIONS_SECTIONFILL.length];
-      path=GE.ge.editor_jig.model.viewgeometrycache.getPath(m.getPolygon());
+      path=GE.ge.editor_jig.jig.jigeditorgeometrycache.getPath(m.getPolygon());
       graphics.setPaint(color);
       graphics.fill(path);}}
   
@@ -133,13 +133,13 @@ public class GridOverlayPainter{
     graphics.setStroke(UI.GRID_DRAWINGSTROKE);
     graphics.setPaint(UI.EDITJIG_EDITSECTIONS_UNFOCUSSTROKECOLOR);
     Path2D path;
-    for(JigSectionEditingModel m:GE.ge.editor_jig.model.sections){
+    for(ProjectJigSection m:GE.ge.editor_jig.jig.sections){
       if(m==GE.ge.editor_jig.focussection)continue;
-      path=GE.ge.editor_jig.model.viewgeometrycache.getPath(m.getPolygon());
+      path=GE.ge.editor_jig.jig.jigeditorgeometrycache.getPath(m.getPolygon());
       graphics.draw(path);}
     //focus
     graphics.setPaint(UI.EDITJIG_EDITSECTIONS_FOCUSSTROKECOLOR);
-    path=GE.ge.editor_jig.model.viewgeometrycache.getPath(GE.ge.editor_jig.focussection.getPolygon());
+    path=GE.ge.editor_jig.jig.jigeditorgeometrycache.getPath(GE.ge.editor_jig.focussection.getPolygon());
     graphics.draw(path);}
   
   /*
@@ -155,11 +155,11 @@ public class GridOverlayPainter{
   private void renderGlyphs_EditSections(Graphics2D graphics){
     //get non-focus section polygons
     List<DPolygon> nonfocussections=new ArrayList<DPolygon>();
-    for(JigSectionEditingModel section:GE.ge.editor_jig.model.sections)
+    for(ProjectJigSection section:GE.ge.editor_jig.jig.sections)
       if(section!=GE.ge.editor_jig.focussection)
-        nonfocussections.add(GE.ge.editor_jig.model.viewgeometrycache.getDPolygon(section.getPolygon()));
+        nonfocussections.add(GE.ge.editor_jig.jig.jigeditorgeometrycache.getDPolygon(section.getPolygon()));
     //get focus section polygon
-    DPolygon focussection=GE.ge.editor_jig.model.viewgeometrycache.getDPolygon(GE.ge.editor_jig.focussection.getPolygon());
+    DPolygon focussection=GE.ge.editor_jig.jig.jigeditorgeometrycache.getDPolygon(GE.ge.editor_jig.focussection.getPolygon());
     //render non-focus section polygons
     for(DPolygon nonfocussection:nonfocussections)
       renderGlyphs(graphics,nonfocussection,UI.EDITJIG_EDITSECTIONS_UNFOCUSSTROKECOLOR);

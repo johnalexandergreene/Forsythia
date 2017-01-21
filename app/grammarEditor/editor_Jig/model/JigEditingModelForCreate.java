@@ -161,7 +161,7 @@ public class JigEditingModelForCreate implements JigEditingModel{
    * SECTION CHORUS INDICES
    * A little management
    * we have a max chorus index
-   * We disallow nonisomorphic sections having the same chorus
+   * We disallow nonisomorphic sections from having the same chorus
    * ################################
    */
   

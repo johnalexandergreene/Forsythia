@@ -155,7 +155,7 @@ public class ProjectMetagon implements Serializable,ElementMenuItem{
   public boolean isIsolated(){
     for(ProjectMetagon m:grammar.metagons)
       for(ProjectJig j:m.jigs)
-        if(j.usesForProduct(this))
+        if(j.usesInSection(this))
           return false;
     return true;}
   
@@ -185,7 +185,7 @@ public class ProjectMetagon implements Serializable,ElementMenuItem{
     return imagepath;}
   
   //implementation of UIElementMenuElement interface
-  public BufferedImage getElementMenuItemIconImage(int span){
+  public BufferedImage getGrammarEditorIconImage(int span){
     if(iconimage==null)
       iconimage=new ProjectMetagonEditGrammarIconImage(this,span);
     return iconimage;}

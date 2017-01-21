@@ -4,6 +4,7 @@ import java.awt.geom.Path2D;
 import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.model.JigSectionEditingModel;
 import org.fleen.forsythia.app.grammarEditor.project.metagon.ProjectMetagon;
 import org.fleen.forsythia.core.grammar.JigSection;
 import org.fleen.geom_2D.DPoint;
@@ -13,7 +14,7 @@ import org.fleen.geom_Kisrhombille.KAnchor;
 import org.fleen.geom_Kisrhombille.KMetagon;
 import org.fleen.geom_Kisrhombille.KPolygon;
 
-public class ProjectJigSection{
+public class ProjectJigSection2{
   
   /*
    * ################################
@@ -22,17 +23,12 @@ public class ProjectJigSection{
    */
   
   //create
-  public ProjectJigSection(
-      ProjectJig owner,
-      MetagonAndAnchors metagonandanchors,
-      int chorusindex){
-      this.owner=owner;
-      metagon=metagonandanchors.metagon;
-      anchors=metagonandanchors.anchors;
-      this.chorusindex=chorusindex;}
+  public ProjectJigSection2(ProjectJig owner,JigSectionEditingModel jigsectioneditingmodel){
+    this.owner=owner;
+    initForCreate(jigsectioneditingmodel);}
   
   //import
-  public ProjectJigSection(ProjectJig owner,JigSection jigsection){
+  public ProjectJigSection2(ProjectJig owner,JigSection jigsection){
     this.owner=owner;
     initForImport(jigsection);}
   
@@ -56,38 +52,17 @@ public class ProjectJigSection{
   
   /*
    * ################################
-   * ANCHOR
-   * ################################
-   */
-  
-  public int anchorindex=0;
-  public List<KAnchor> anchors=null;
-  
-  public String getAnchorIndexString(){
-    return String.format("%03d",anchorindex);}
-  
-  public void incrementAnchor(){
-    int maxanchor=anchors.size()-1;
-    anchorindex++;
-    if(anchorindex>maxanchor)
-      anchorindex=0;}
-  
-  public KAnchor getAnchor(){
-    return anchors.get(anchorindex);}
-  
-  /*
-   * ################################
    * CHORUS INDEX
    * ################################
    */
   
-  public int chorusindex=0;
+  private int chorusindex=0;
   
-  public String getChorusString(){
-    return String.format("%03d",chorusindex);}
+  public int getChorusIndex(){
+    return chorusindex;}
   
-  public void incrementChorus(){
-    chorusindex=owner.getNextValidChorusIndex(this,chorusindex);}
+  public void setChorusIndex(int i){
+    chorusindex=i;}
     
   /*
    * ################################
@@ -111,6 +86,23 @@ public class ProjectJigSection{
     if(tags.equals(""))return new String[0];
     String[] a=tags.split(" ");
     return a;}
+  
+  /*
+   * ################################
+   * ANCHOR
+   * ################################
+   */
+  
+  public List<KAnchor> anchors;
+  public int anchorindex;
+  
+  public KAnchor getAnchor(){
+    return anchors.get(anchorindex);}
+  
+  public void incrementAnchorIndex(){
+    anchorindex++;
+    if(anchorindex==anchors.size())
+      anchorindex=0;}
   
   /*
    * ################################
@@ -142,12 +134,15 @@ public class ProjectJigSection{
   
   /*
    * ################################
-   * POLYGON
+   * INIT FOR CREATE
    * ################################
    */
   
-  public KPolygon getPolygon(){
-    return metagon.kmetagon.getPolygon(getAnchor());}
+  private void initForCreate(JigSectionEditingModel jigsectioneditingmodel){
+    metagon=jigsectioneditingmodel.metagon;
+    anchors=jigsectioneditingmodel.anchors;
+    anchorindex=jigsectioneditingmodel.anchorindex;
+    tags=jigsectioneditingmodel.tags;}
   
   /*
    * ################################

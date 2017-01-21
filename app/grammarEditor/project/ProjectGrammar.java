@@ -147,7 +147,7 @@ public class ProjectGrammar{
       i=pm.jigs.iterator();
       while(i.hasNext()){
         pj=i.next();
-        if(pj.usesForProduct(m))i.remove();}}}
+        if(pj.usesInSection(m))i.remove();}}}
   
   public void discardMetagons(List<ProjectMetagon> pms){
     for(ProjectMetagon a:pms)

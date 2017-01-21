@@ -17,9 +17,9 @@ import org.fleen.geom_Kisrhombille.KPolygon;
  * a large square icon image rendering a project jig 
  * TODO if the jig is invalid then show it. render all the strokes in red or something.
  */
-class ProjectJigEditGrammarIconImage extends BufferedImage{
+class GrammarEditorIconImage extends BufferedImage{
   
-  ProjectJigEditGrammarIconImage(ProjectJig pj,int span){
+  GrammarEditorIconImage(ProjectJig pj,int span){
     super(span,span,BufferedImage.TYPE_INT_RGB);
     //init graphics
     Graphics2D g=createGraphics();
@@ -57,7 +57,7 @@ class ProjectJigEditGrammarIconImage extends BufferedImage{
   //for overall icon geometry
   private DPolygon getHostMPPoints(ProjectJig j){
     KMetagon m=GE.ge.focusgrammar.getMetagon(j).kmetagon;
-    KPolygon p=m.getScaledPolygon(j.getGridDensity());
+    KPolygon p=m.getScaledPolygon(j.griddensity);
     return p.getDefaultPolygon2D();}
   
   /*
