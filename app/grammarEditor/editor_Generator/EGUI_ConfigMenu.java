@@ -23,6 +23,6 @@ class EGUI_ConfigMenu extends JPopupMenu{
           
   private PopupMenuItem configuregrammar=new PopupMenuItem("Grammar",true){
     protected void doThing(){
-      GE.ge.editor_generator.openGrammarConfigurator();}};
+      GE.ge.editor_generator.openGrammarEditor();}};
 
 }

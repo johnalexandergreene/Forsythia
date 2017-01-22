@@ -22,9 +22,11 @@ import org.fleen.geom_Kisrhombille.KPolygon;
 public class GridOverlayPainter{
   
   public void paint(Graphics2D graphics,int w,int h,double scale,double centerx,double centery){
+    System.out.println("--------------rendering overlay------------");
     graphics.setRenderingHints(UI.RENDERING_HINTS);
     GE.ge.editor_jig.jig.jigeditorgeometrycache.update(w,h,scale,centerx,centery);
-    if(GE.ge.editor_jig.mode==Editor_Jig.MODE_EDITSECTIONS){
+    if(GE.ge.editor_jig.mode==Editor_Jig.MODE_CREATE_B||GE.ge.editor_jig.mode==Editor_Jig.MODE_RETOUCH){
+      System.out.println("--------------rendering sections------------");
       renderJigModel_EditSections(graphics);
     }else{//GE.editor_jig.mode==Editor_Jig.MODE_EDITGEOMETRY
       renderJigModel_EditGeometry(graphics);}}
@@ -36,14 +38,19 @@ public class GridOverlayPainter{
    */
   
   private void renderJigModel_EditGeometry(Graphics2D graphics){
-    fillSections_EditGeometry(graphics);
-    strokeGraphEdges_EditGeometry(graphics);
-    renderVertices_EditGeometry(graphics);}
+    System.out.println("--------------rendering graph------------");
+    try{
+      fillSections_EditGeometry(graphics);
+      strokeGraphEdges_EditGeometry(graphics);
+      renderVertices_EditGeometry(graphics);
+    }catch(Exception x){
+      x.printStackTrace();}}
   
   private void fillSections_EditGeometry(Graphics2D graphics){
     Color color;
     Path2D path;
     for(KPolygon m:GE.ge.editor_jig.jig.rawgraph.getDisconnectedGraph().getUndividedPolygons()){
+      System.out.println("fill section");
       color=UI.EDITJIG_EDITGEOMETRY_HOSTMETAGONFILLCOLOR;
       path=GE.ge.editor_jig.jig.jigeditorgeometrycache.getPath(m);
       graphics.setPaint(color);
@@ -56,8 +63,9 @@ public class GridOverlayPainter{
     GEdge e;
     double[] p0,p1;
     Path2D path=new Path2D.Double();
-    //System.out.println("edge count:"+Q.editor_createjig.graph.getEdgeCount());
+    System.out.println("edge count:"+GE.ge.editor_jig.jig.rawgraph.edges.size());
     while(i.hasNext()){
+      System.out.println("stroke edge");
       e=i.next();
       p0=GE.ge.editor_jig.jig.jigeditorgeometrycache.getPoint(e.v0.kvertex);
       p1=GE.ge.editor_jig.jig.jigeditorgeometrycache.getPoint(e.v1.kvertex);

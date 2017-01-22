@@ -34,7 +34,8 @@ public class ProjectJig implements ElementMenuItem{
   //create
   public ProjectJig(
     ProjectMetagon jiggedmetagon){
-    this.jiggedmetagon=jiggedmetagon;}
+    this.jiggedmetagon=jiggedmetagon;
+    initGraph();}
   
   //import
   public ProjectJig(ProjectMetagon jiggedmetagon,Jig jig){
@@ -112,10 +113,7 @@ public class ProjectJig implements ElementMenuItem{
   public RawGraph rawgraph;
   
   void initGraph(){
-    rawgraph=new RawGraph(GE.ge.focusmetagon.kpolygon,griddensity);}
-  
-  public RawGraph getRawGraph(){
-    return rawgraph;}
+    rawgraph=new RawGraph(jiggedmetagon.kpolygon,griddensity);}
   
   /*
    * ################################
@@ -257,7 +255,7 @@ public class ProjectJig implements ElementMenuItem{
    * for each undivided polygon in the graph (rawpolygons)
    * get a metagon, a list of anchors and a chorus index 
    */
-  public void initSections(){
+  public void deriveSectionsFromGraph(){
     sections.clear();
     localsectionmetagons.clear();
     List<KPolygon> rawpolygons=rawgraph.getDisconnectedGraph().getUndividedPolygons();

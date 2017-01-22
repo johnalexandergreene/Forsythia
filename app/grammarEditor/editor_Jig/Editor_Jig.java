@@ -46,7 +46,7 @@ public class Editor_Jig extends Editor{
   
   private static final long serialVersionUID=5782373205247413080L;
 
-  private static final String NAME="Jig";
+  private static final String NAME="JIG";
   
   /*
    * ################################
@@ -65,8 +65,13 @@ public class Editor_Jig extends Editor{
    */
 
   public void configureForOpen(){
-    createEditingObjects();
-    setModeEditGeometry();
+    modelocked=false;
+    if(GE.ge.focusjig==null){
+      initEditingObjectsForCreate();
+      setMode_CREATE_A();
+    }else{
+      initEditingObjectsForRetouch();
+      setMode_RETOUCH();}
     refreshUI();}
   
   public void configureForClose(){
@@ -75,25 +80,32 @@ public class Editor_Jig extends Editor{
   /*
    * ################################
    * MODE
-   * We have 2 modes
-   *   edit geometry
-   *   edit sections
-   * We start in edit geometry
-   * When we are finished editing geometry we hit the mode button, thus setting the mode to edit sections
-   * If, while editing sections, we decide that we don't like the geometry, we can hit the mode button again,
-   *   thus discarding all section data and returning to the edit geometry mode.
+   * 
+   * We have 3 modes
+   *   MODE_CREATE_A
+   *     create geometry
+   *   MODE_CREATE_B
+   *     edit sections with the option to return to MODE_CREATE_A. 
+   *     That is, the option to clear section data and go back to editing geometry 
+   *   MODE_RETOUCH
+   *     edit sections, but without the option to go to MODE_CREATE_A.
+   *     
+   * When we are creating a jig we start in MODE_CREATE_A
+   * When we are retouching a jig we start in MODE_RETOUCH
    * ################################
    */
   
   public static final int
-    MODE_UNDEFINED=0,
-    MODE_EDITGEOMETRY=1,
-    MODE_EDITSECTIONS=2;
+    MODE_CREATE_A=0,
+    MODE_CREATE_B=1,
+    MODE_RETOUCH=2;
   
-  public int mode=MODE_UNDEFINED;
+  public int mode;
+  //mode retouch is mode create b with the mode locked
+  boolean modelocked=false;
   
-  void setModeEditGeometry(){
-    mode=MODE_EDITGEOMETRY;
+  void setMode_CREATE_A(){
+    mode=MODE_CREATE_A;
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangriddensity.setEnabled(true);
     ui.btnsectionanchor.setVisible(false);
@@ -102,14 +114,13 @@ public class Editor_Jig extends Editor{
     //
     setFocusSection(null);
     //
-    refreshGridGeometryAndImage();
     initGridPerspective();
-    refreshGridGeometryAndImage();
-    refreshButtons();}
+    refreshUI();}
   
-  void setModeEditSections(){
-    mode=MODE_EDITSECTIONS;
-    jig.initSections();
+  
+  void setMode_CREATE_B(){
+    mode=MODE_CREATE_B;
+    jig.deriveSectionsFromGraph();
     EJ_UI ui=(EJ_UI)getUI();
     ui.pangriddensity.setEnabled(false);
     ui.btnsectionanchor.setVisible(true);
@@ -117,7 +128,20 @@ public class Editor_Jig extends Editor{
     ui.pansectiontags.setVisible(true);
     focussection=jig.sections.get(0);
     //
+    initGridPerspective();
     refreshGridGeometryAndImage();
+    refreshButtons();}
+  
+  void setMode_RETOUCH(){
+    mode=MODE_RETOUCH;
+    modelocked=true;
+    EJ_UI ui=(EJ_UI)getUI();
+    ui.pangriddensity.setEnabled(false);
+    ui.btnsectionanchor.setVisible(true);
+    ui.btnsectionchorus.setVisible(true);
+    ui.pansectiontags.setVisible(true);
+    focussection=jig.sections.get(0);
+    //
     initGridPerspective();
     refreshGridGeometryAndImage();
     refreshButtons();}
@@ -162,10 +186,15 @@ public class Editor_Jig extends Editor{
   
   private void refreshModeButton(){
     EJ_UI ui=(EJ_UI)getUI();
-    if(mode==MODE_EDITGEOMETRY)
-      ui.btnmode.setText("Mode=EditGeometry");
+    if(modelocked){
+      ui.btnmode.setVisible(false);
+    }else{
+      ui.btnmode.setVisible(true);}
+    //
+    if(mode==MODE_CREATE_A)
+      ui.btnmode.setText("Geometry Unlocked");
     else//mode= MODE_EDITSECTIONS
-      ui.btnmode.setText("Mode=EditSections");}
+      ui.btnmode.setText("Geometry Locked");}
   
   private void refreshSectionAnchorButton(){
     EJ_UI ui=(EJ_UI)getUI();
@@ -197,25 +226,22 @@ public class Editor_Jig extends Editor{
    * ################################
    */
   
-  //defines our jig to be
-  
-//  public JigEditingModelForCreate model;
+  //the jig we're editing
   public ProjectJig jig;
-  
+  //the section that we are presently focused upon.
+  public ProjectJigSection focussection;
   //in the course of defining our geometry we have a "last vertex indicated"
   //if we click it once it is connected, twice and it is unconnected
   public KVertex connectedhead,unconnectedhead;
-  //the section polygon that we are presently focused upon.
-//  public JigSectionEditingModel focussection;
-  public ProjectJigSection focussection;
   
-  private void createEditingObjects(){
-    
-//    model=new JigEditingModelForCreate(GE.ge.focusmetagon);
+  private void initEditingObjectsForCreate(){
     jig=new ProjectJig(GE.ge.focusmetagon);
-    
     connectedhead=null;
     unconnectedhead=null;
+    focussection=null;}
+  
+  private void initEditingObjectsForRetouch(){
+    jig=GE.ge.focusjig;
     focussection=null;}
   
   private void discardEditingObjects(){
@@ -246,7 +272,7 @@ public class Editor_Jig extends Editor{
    */
   
   public void touchVertex(KVertex v){
-    if(mode==MODE_EDITSECTIONS)return;
+    if(mode==MODE_CREATE_B)return;
     EJ_UI ui=(EJ_UI)getUI();
     if(v==null){
       System.out.println("null vertex");
@@ -310,7 +336,7 @@ public class Editor_Jig extends Editor{
   
   public void touchSection(ProjectJigSection m){
     if(m==null)return;
-    if(mode==MODE_EDITGEOMETRY)return;
+    if(mode==MODE_CREATE_A)return;
     System.out.println("touch section");
     focussection=m;
     refreshGridGeometryAndImage();
@@ -327,11 +353,13 @@ public class Editor_Jig extends Editor{
     configureForOpen();}
   
   public void save(){
-    GE.ge.focusgrammar.addMetagons(jig.localsectionmetagons);
-//    ProjectJig j=new ProjectJig(model);
-    GE.ge.focusmetagon.invalidateOverviewIconImage();
-    GE.ge.focusmetagon.addJig(jig);
-    GE.ge.focusjig=jig;
+    //if we are in create mode then create the jig
+    if(mode!=MODE_RETOUCH){
+      GE.ge.focusgrammar.addMetagons(jig.localsectionmetagons);
+      GE.ge.focusmetagon.invalidateOverviewIconImage();
+      GE.ge.focusmetagon.addJig(jig);
+      GE.ge.focusjig=jig;}
+    //
     GE.ge.setEditor(GE.ge.editor_grammar);}
   
   public void quit(){
@@ -362,10 +390,10 @@ public class Editor_Jig extends Editor{
   
   public void toggleMode(){
     System.out.println("toggle geometry lock");
-    if(mode==MODE_EDITSECTIONS)
-      setModeEditGeometry();
+    if(mode==MODE_CREATE_B)
+      setMode_CREATE_A();
     else
-      setModeEditSections();
+      setMode_CREATE_B();
     initGridPerspective();
     refreshUI();} 
   

@@ -68,7 +68,7 @@ public class PanMode extends JPanel{
     BACKGROUND_MODEEDITGEOMETRY=new Color(255,255,128);
   
   public void setMode(int mode){
-    if(mode==Editor_Jig.MODE_EDITSECTIONS){
+    if(mode==Editor_Jig.MODE_CREATE_B){
       btnmode.setText("MODE = EDIT SECTIONS");
       btnmode.setBackground(BACKGROUND_MODEEDITSECTIONS);
     }else{//mode==MODE_EDITGEOMETRY)

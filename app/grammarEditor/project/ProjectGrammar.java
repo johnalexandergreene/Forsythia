@@ -264,7 +264,7 @@ public class ProjectGrammar{
     List<JigSection> jigsections;
     String[] jigtags;
     for(ProjectJig projectjig:pm.jigs){
-      jiggriddensity=projectjig.getGridDensity();
+      jiggriddensity=projectjig.griddensity;
       jigsections=getJigSections(projectjig,fmetagonbykmetagon);
       jigtags=projectjig.getTagsForExport();
       jig=new Jig(jiggriddensity,jigsections,jigtags);
@@ -284,7 +284,7 @@ public class ProjectGrammar{
     KAnchor jsproductanchor;
     String[] jstags;
     for(ProjectJigSection projectjigsection:projectjig.sections){
-      jsproductchorusindex=projectjigsection.getChorusIndex();
+      jsproductchorusindex=projectjigsection.chorusindex;
       jsproductmetagon=fmetagonbykmetagon.get(projectjigsection.metagon.kmetagon);
       jsproductanchor=projectjigsection.getAnchor();
       jstags=projectjigsection.getTagsForExport();

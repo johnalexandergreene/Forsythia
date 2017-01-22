@@ -6,7 +6,7 @@ import java.awt.geom.Path2D;
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.Editor_Jig;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.gridOverlayPainter.GridOverlayPainter;
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.model.JigSectionEditingModel;
+import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJigSection;
 import org.fleen.forsythia.app.grammarEditor.util.grid.Grid;
 import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KVertex;
@@ -59,7 +59,7 @@ public class GridEditJigs extends Grid{
 
   //TODO clean up
   protected void mouseTouched(double[] p,KVertex v){
-    if(GE.ge.editor_jig.mode==Editor_Jig.MODE_EDITGEOMETRY&&mousemode==MOUSEMODE_TOUCHVERTEX){
+    if(GE.ge.editor_jig.mode==Editor_Jig.MODE_CREATE_A&&mousemode==MOUSEMODE_TOUCHVERTEX){
       boolean valid=true;
       if(GE.ge.editor_jig.connectedhead!=null&&v!=null&&!v.isColinear(GE.ge.editor_jig.connectedhead))
         valid=false;
@@ -86,10 +86,10 @@ public class GridEditJigs extends Grid{
     setCursorSquare();
     mousemode=MOUSEMODE_TOUCHSECTION;}
   
-  private JigSectionEditingModel getSection(double[] p){
+  private ProjectJigSection getSection(double[] p){
     Path2D path;
-    for(JigSectionEditingModel m:GE.ge.editor_jig.model.sections){
-      path=GE.ge.editor_jig.model.viewgeometrycache.getPath(m.getPolygon());
+    for(ProjectJigSection m:GE.ge.editor_jig.jig.sections){
+      path=GE.ge.editor_jig.jig.jigeditorgeometrycache.getPath(m.getPolygon());
       if(path.contains(p[0],p[1]))
         return m;}
     return null;}

@@ -32,6 +32,12 @@ import org.fleen.geom_Kisrhombille.KVertex;
  *   0..n kpolygons
  * 
  * The DisconnectedGraph also contains 0..n Areas (space between nesting ConnectedGraphs)
+ * 
+ * 
+ * 
+ * TODO
+ * generalize this. stick it in org.fleen.util
+ * 
  */
 public class RawGraph{
   
