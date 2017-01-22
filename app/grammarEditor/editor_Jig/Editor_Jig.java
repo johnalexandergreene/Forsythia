@@ -171,17 +171,21 @@ public class Editor_Jig extends Editor{
     ui.pangrid.gridrenderer.invalidateTileImage();
     ui.pangrid.repaint();}
   
+  /*
+   * ++++++++++++++++++++++++++++++++
+   * REFRESH BUTTONS
+   * ++++++++++++++++++++++++++++++++
+   */
+  
   void refreshButtons(){
     EJ_UI ui=(EJ_UI)getUI();
-    //refresh jig stuff
     ui.pangriddensity.lblgriddensity.setText("Grid Density = "+jig.getGridDensityString());
     ui.panjigtag.txtjigtag.setText(jig.tags);
-    //refresh section
     refreshSectionAnchorButton();
     refreshSectionChorusButton();
     refreshSectionTags();
-    //refresh mode button
-    refreshModeButton();}
+    refreshModeButton();
+    refreshInfo();}
   
   private void refreshModeButton(){
     EJ_UI ui=(EJ_UI)getUI();
@@ -215,6 +219,27 @@ public class Editor_Jig extends Editor{
       ui.pansectiontags.txttag.setText("---");
     else
       ui.pansectiontags.txttag.setText(focussection.tags);}
+  
+  private void refreshInfo(){
+    EJ_UI ui=(EJ_UI)getUI();
+    ui.lblinfo.setText(getInfoString());}
+  
+  /*
+   * ################################
+   * INFO STRING
+   * A little analysis of the state of the edited thing, for that info bar at the bottom
+   * ################################
+   */
+  
+  private String getInfoString(){
+    if(mode==MODE_CREATE_A){
+      int 
+        opensequencecount=jig.graph.getDisconnectedGraph().getOpenKVertexSequences().size(),
+        undividedpolygoncount=jig.graph.getDisconnectedGraph().getUndividedPolygons().size();
+      return "opensequences="+opensequencecount+" polygons="+undividedpolygoncount;
+    }else{//mode==MODE_CREATE_B || mode==MODE_RETOUCH
+      int sectioncount=jig.sections.size();
+      return "sections="+sectioncount;}}
   
   /*
    * ################################
@@ -259,8 +284,8 @@ public class Editor_Jig extends Editor{
   
   /*
    * ################################
-   * INTERFACE TO UI
-   * These are all methods that get invoked via the UI
+   * COMMANDS
+   * The top level jig-editing methods invoked in this editor via the UI or whatever
    * ################################
    */
   
@@ -271,66 +296,66 @@ public class Editor_Jig extends Editor{
    */
   
   public void touchVertex(KVertex v){
-    if(mode==MODE_CREATE_B)return;
+    if(mode==MODE_CREATE_B||mode==MODE_RETOUCH)return;
     EJ_UI ui=(EJ_UI)getUI();
     if(v==null){
       System.out.println("null vertex");
-      jig.rawgraph.invalidateDisconnectedGraph();
+      jig.graph.invalidateDisconnectedGraph();
       ui.pangrid.repaint();
       return;}
     //if we touch the connectedhead then convert connectedhead to unconnectedhead
     if(connectedhead!=null&&v.equals(connectedhead)){
       unconnectedhead=connectedhead;
       connectedhead=null;
-      jig.rawgraph.invalidateDisconnectedGraph();
+      jig.graph.invalidateDisconnectedGraph();
       ui.pangrid.repaint();
       return;}
     //if we touch the unconnectedhead then delete unconnectedhead
     if(unconnectedhead!=null&&v.equals(unconnectedhead)){
-      jig.rawgraph.removeVertex(v);
+      jig.graph.removeVertex(v);
       connectedhead=null;
       unconnectedhead=null;
-      jig.rawgraph.invalidateDisconnectedGraph();
+      jig.graph.invalidateDisconnectedGraph();
       ui.pangrid.repaint();
       return;}
     //if we touch a vertex that's already in the model
-    if(jig.rawgraph.contains(v)){
+    if(jig.graph.contains(v)){
       //if connectedhead is nonnull then connect connectedhead to v
       if(connectedhead!=null)
-        jig.rawgraph.connect(v,connectedhead);
+        jig.graph.connect(v,connectedhead);
       //v becomes connectedhead. unconnectedhead is nulled.
       connectedhead=v;
       unconnectedhead=null;
-      jig.rawgraph.invalidateDisconnectedGraph();
-      ui.pangrid.repaint();
+      jig.graph.invalidateDisconnectedGraph();
+      refreshUI();
       return;}
     //if we touch a vertex that is crossed by an edge (between but not on the edge's vertices)
-    GEdge edge=jig.rawgraph.getCrossingEdge(v);
+    GEdge edge=jig.graph.getCrossingEdge(v);
     if(edge!=null){
       //add v, inserting it between the edge vertices. adjust connections appropriately
-      jig.rawgraph.disconnect(edge.v0.kvertex,edge.v1.kvertex);
-      jig.rawgraph.addVertex(v);
-      jig.rawgraph.connect(edge.v0.kvertex,v);
-      jig.rawgraph.connect(edge.v1.kvertex,v);
+      jig.graph.disconnect(edge.v0.kvertex,edge.v1.kvertex);
+      jig.graph.addVertex(v);
+      jig.graph.connect(edge.v0.kvertex,v);
+      jig.graph.connect(edge.v1.kvertex,v);
       //if connectedhead is nonnull then connect that too
       if(connectedhead!=null)
-        jig.rawgraph.connect(connectedhead,v);
+        jig.graph.connect(connectedhead,v);
       //v is new connectedhead
       connectedhead=v;
       unconnectedhead=null;
-      jig.rawgraph.invalidateDisconnectedGraph();
-      ui.pangrid.repaint();
+      jig.graph.invalidateDisconnectedGraph();
+      refreshUI();
       return;}
     //if we touch an unused vertex
     //(at this point we know that we touched an unused vertex that is not crossed by an edge)
     //if connectedhead is nonnull then add vertex and connect
-    jig.rawgraph.addVertex(v);
+    jig.graph.addVertex(v);
     if(connectedhead!=null)
-      jig.rawgraph.connect(v,connectedhead);
+      jig.graph.connect(v,connectedhead);
     connectedhead=v;
     unconnectedhead=null;
     refreshButtons();
-    jig.rawgraph.invalidateDisconnectedGraph();
+    jig.graph.invalidateDisconnectedGraph();
     ui.pangrid.repaint();}
   
   public void touchSection(ProjectJigSection m){
@@ -350,6 +375,7 @@ public class Editor_Jig extends Editor{
   public void save(){
     //if we are in create mode then create the jig
     if(mode!=MODE_RETOUCH){
+      jig.graph=null;//discard that. TODO what else can we discard?
       GE.ge.focusgrammar.addMetagons(jig.localsectionmetagons);
       GE.ge.focusmetagon.invalidateOverviewIconImage();
       GE.ge.focusmetagon.addJig(jig);

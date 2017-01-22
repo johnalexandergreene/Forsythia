@@ -21,9 +21,18 @@ public class DisconnectedGraph{
    * ################################
    */
   
-  DisconnectedGraph(RawGraph rawgraph){
-    this.rawgraph=rawgraph;
+  DisconnectedGraph(Graph graph){
+    this.graph=graph;
     build();}
+  
+  /*
+   * ################################
+   * GRAPH
+   * the graph from which this disconnected graph is derived
+   * ################################
+   */
+  
+  Graph graph;
   
   /*
    * ################################
@@ -33,10 +42,10 @@ public class DisconnectedGraph{
   
   private void build(){
     //init traversal record
-    for(GEdge e:rawgraph.edges)
+    for(GEdge e:graph.edges)
       e.initTraversalRecord();
     //traverse the graph
-    List<GVertex> vertices=new ArrayList<GVertex>(rawgraph.vertices);
+    List<GVertex> vertices=new ArrayList<GVertex>(graph.vertices);
     ConnectedGraph cga;
     GVertex v;
     while(!vertices.isEmpty()){
@@ -44,14 +53,6 @@ public class DisconnectedGraph{
       cga=new ConnectedGraph(v);
       connectedgraphs.add(cga);
       vertices.removeAll(cga.getVertices());}}
-  
-  /*
-   * ################################
-   * RAW GRAPH
-   * ################################
-   */
-  
-  RawGraph rawgraph;
   
   /*
    * ################################
@@ -63,15 +64,6 @@ public class DisconnectedGraph{
 
   public boolean hasMutipleConnectedGraphs(){
     return connectedgraphs.size()>1;}
-  
-  /*
-   * ################################
-   * VERTICES
-   * ################################
-   */
-  
-//  public Set<KVertex> getKVertices(){
-//    return rawgraph.kvertices;}
   
   /*
    * ################################
@@ -106,7 +98,7 @@ public class DisconnectedGraph{
    * ################################
    * UNDIVIDED POLYGONS
    * All the undivided polygons from all the connected graphs
-   * used for defining sections in the jig, along with the areas
+   * used for defining sections in the jig
    * ################################
    */
   
@@ -226,8 +218,8 @@ public class DisconnectedGraph{
   public String toString(){
     StringBuffer s=new StringBuffer();
     s.append("-----------------------\n");
-    s.append("vertices : "+rawgraph.vertices.size()+"\n");
-    s.append("edges : "+rawgraph.edges.size()+"\n");
+    s.append("vertices : "+graph.vertices.size()+"\n");
+    s.append("edges : "+graph.edges.size()+"\n");
     s.append("polygons : "+getPolygons().size()+"\n");
     s.append("connected graphs : "+connectedgraphs.size()+"\n");
     s.append("undivided polygons : "+getUndividedPolygons().size()+"\n");

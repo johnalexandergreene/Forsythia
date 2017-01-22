@@ -17,7 +17,7 @@ import org.fleen.geom_Kisrhombille.KVertex;
  * 
  * we cache vertices, segs and polygons
  */
-public class ViewGeometryCache{
+public class ViewGeometryCache2{
   
   /*
    * ################################

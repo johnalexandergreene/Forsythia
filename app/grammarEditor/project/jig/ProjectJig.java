@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.RawGraph;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.Graph;
 import org.fleen.forsythia.app.grammarEditor.project.metagon.ProjectMetagon;
 import org.fleen.forsythia.app.grammarEditor.util.ElementMenuItem;
 import org.fleen.forsythia.core.grammar.Jig;
@@ -110,10 +110,10 @@ public class ProjectJig implements ElementMenuItem{
    * ################################
    */
   
-  public RawGraph rawgraph;
+  public Graph graph;
   
   void initGraph(){
-    rawgraph=new RawGraph(jiggedmetagon.kpolygon,griddensity);}
+    graph=new Graph(jiggedmetagon.kpolygon,griddensity);}
   
   /*
    * ################################
@@ -258,7 +258,7 @@ public class ProjectJig implements ElementMenuItem{
   public void deriveSectionsFromGraph(){
     sections.clear();
     localsectionmetagons.clear();
-    List<KPolygon> rawpolygons=rawgraph.getDisconnectedGraph().getUndividedPolygons();
+    List<KPolygon> rawpolygons=graph.getDisconnectedGraph().getUndividedPolygons();
     List<KPolygon> cleanpolygons=getCleanedSectionPolygonsForSectionsInit(rawpolygons);
     List<MetagonAndAnchors> metagonandanchors=getJigSectionModelComponentsForSectionsInit(cleanpolygons);
     List<Integer> sectionmodelchorusindices=getJigSectionModelChorusIndicesForSectionsInit(metagonandanchors);

@@ -2,7 +2,6 @@ package org.fleen.forsythia.app.grammarEditor.editor_Jig.graph;
 
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
@@ -39,7 +38,7 @@ import org.fleen.geom_Kisrhombille.KVertex;
  * generalize this. stick it in org.fleen.util
  * 
  */
-public class RawGraph{
+public class Graph{
   
   /*
    * ################################
@@ -59,7 +58,7 @@ public class RawGraph{
    * we scale the polygon by griddensity
    * 
    */
-  public RawGraph(KPolygon p,int griddensity){
+  public Graph(KPolygon p,int griddensity){
 //    hostkpolygon=p.getKMetagon().getPolygon(griddensity,true);
     hostkpolygon=GE.ge.editor_jig.getScaledHostPolygon();
     addHostKPolygon();
@@ -101,8 +100,8 @@ public class RawGraph{
   //if there is no such gvertex associated with the specified, or
   //if the gvertex is immutable, then fail.
   public void removeVertex(KVertex v){
-    GVertex gv=getGVertex(v);
     invalidateDisconnectedGraph();
+    GVertex gv=getGVertex(v);
     vertices.remove(gv);
     Iterator<GEdge> i=edges.iterator();
     GEdge edge;
@@ -176,11 +175,9 @@ public class RawGraph{
   /*
    * ################################
    * DISCONNECTED GRAPH
-   * It's an orderly, analyzed version of the raw graph
-   * We derive it from the raw graph
+   * It's an orderly analysis of this graph
    * It contains 
    *   1..n ConnectedGraphs
-   *   Areas (space between ConnectedGraphs)
    * ConnectedGraphs nest, so we arrange them in 1..n trees
    * ConnectedGraphs contain vertices, edges, polygons
    * ################################
@@ -190,11 +187,6 @@ public class RawGraph{
   
   public DisconnectedGraph getDisconnectedGraph(){
     if(disconnectedgraph==null){
-      //this is how we make sure that the host polygon, the polygon that the jig is jigging, persists
-      //we just keep adding it. If it's redundant then that ok. If it isn't then whatever hospolygon structure
-      //that needs healing gets healed.
-//      addHostKPolygon();
-      //
       disconnectedgraph=new DisconnectedGraph(this);}
     return disconnectedgraph;}
   
@@ -206,19 +198,4 @@ public class RawGraph{
   public void invalidateDisconnectedGraph(){
     disconnectedgraph=null;}
   
-  /*
-   * ################################
-   * JIG SYSTEM INFO
-   * ################################
-   */
-  
-  public String getInfo(){
-    int osc=getDisconnectedGraph().getOpenKVertexSequences().size();
-    if(osc>0)return "incomplete";
-    List<KPolygon> up=getDisconnectedGraph().getUndividedPolygons();
-    if(up.size()<2)return "incomplete";
-//    Forsythia.JigSystemAnalysis jsa=Forsythia.getJigSystemAnalysis(hostkpolygon,up);
-    return "foo";}
-  
-
 }
