@@ -23,7 +23,6 @@ public class EJ_UI extends JPanel{
   public JLabel lblinfo;
   
   public JButton btnquit;
-  public JButton btnreset;
   public JButton btnsave;
   public JButton btnmode;
   
@@ -47,12 +46,6 @@ public class EJ_UI extends JPanel{
       public void mouseClicked(MouseEvent e){
         GE.ge.editor_jig.quit();}});
     pantop.add(btnquit);
-    
-    btnreset = new JButton("Reset");
-    btnreset.addMouseListener(new MouseAdapter() {
-      public void mouseClicked(MouseEvent e){
-        GE.ge.editor_jig.reset();}});
-    pantop.add(btnreset);
     
     btnsave = new JButton("Save");
     btnsave.addMouseListener(new MouseAdapter() {

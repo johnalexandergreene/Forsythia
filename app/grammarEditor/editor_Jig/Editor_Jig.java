@@ -4,7 +4,6 @@ import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GEdge;
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.model.JigSectionEditingModel;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.ui.EJ_UI;
 import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJig;
 import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJigSection;
@@ -342,15 +341,11 @@ public class Editor_Jig extends Editor{
     refreshGridGeometryAndImage();
     refreshButtons();}
 
-  
   /*
    * ++++++++++++++++++++++++++++++++
    * BUTTONS
    * ++++++++++++++++++++++++++++++++
    */
-
-  public void reset(){
-    configureForOpen();}
   
   public void save(){
     //if we are in create mode then create the jig
@@ -363,7 +358,6 @@ public class Editor_Jig extends Editor{
     GE.ge.setEditor(GE.ge.editor_grammar);}
   
   public void quit(){
-    //TODO null everything
     GE.ge.setEditor(GE.ge.editor_grammar);}
   
   public void gridDensity_Increment(){

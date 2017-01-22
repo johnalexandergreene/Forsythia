@@ -1,28 +1,18 @@
 
-jig editor : make edit jig after creation work
-  jig editor : modes
-    mode_create_editgeometry (edit0?) (geometryunlocked?)
-    mode_create_editsections (edit1?) 
-    mode_retouch_editsections (edit2?)
-
-save should be disabled in editgeometry mode
-
-we will have an interface : jigediting model
-it will come in 2 concrete classes
-  one for creating
-  one for retouching
-
-----------------
-
 jig editor. make info bar work
+
+jig editor. make save button invisible in edit geometry mode
+
+generalize jig editor graph. put it in org.fleen.util
+
+redo metagon editor ui
+
+redo generator editor ui
 
 metagon editor. coarsen grid resolution at init
 
 grid : make sturctures and lines line up better. It isn't quite perfect when the structures get big.
 
 jig editor : mouse cursor is weird in edit sections : inappropriate
-
-redo metagon editor ui
-redo generator editor ui
 
 make grammar editor jig icons just like section view in jig editor, with colors and glyphs
