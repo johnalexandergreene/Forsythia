@@ -1,8 +1,10 @@
+
+
+generalize jig editor graph. put it in org.fleen.util
+
 jig editor : the geometry editor is a little weird. like sometimes you can't click the vertex you just clicked. fix it
 
 jig editor. make save button invisible in edit geometry mode
-
-generalize jig editor graph. put it in org.fleen.util
 
 redo metagon editor ui
 
@@ -14,4 +16,4 @@ jig editor : mouse cursor is weird in edit sections : inappropriate
 
 make grammar editor jig icons just like section view in jig editor, with colors and glyphs
 
-an about button on the grammar editor
+put an about button on the grammar editor

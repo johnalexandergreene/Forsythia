@@ -285,7 +285,7 @@ public class Editor_Jig extends Editor{
   /*
    * ################################
    * COMMANDS
-   * The top level jig-editing methods invoked in this editor via the UI or whatever
+   * The top level jig-editing etc methods invoked in this editor via the UI or whatever
    * ################################
    */
   
@@ -296,75 +296,66 @@ public class Editor_Jig extends Editor{
    */
   
   public void touchVertex(KVertex v){
+    //if we are in the wrong mode for vertex-touching the we're done
+    //probably already handled further up the logic tree? TODO
     if(mode==MODE_CREATE_B||mode==MODE_RETOUCH)return;
-    EJ_UI ui=(EJ_UI)getUI();
-    if(v==null){
-      System.out.println("null vertex");
-      jig.graph.invalidateDisconnectedGraph();
-      ui.pangrid.repaint();
-      return;}
-    //if we touch the connectedhead then convert connectedhead to unconnectedhead
+    //
+    //if we touched the connectedhead then convert the connectedhead to unconnectedhead
     if(connectedhead!=null&&v.equals(connectedhead)){
       unconnectedhead=connectedhead;
-      connectedhead=null;
-      jig.graph.invalidateDisconnectedGraph();
-      ui.pangrid.repaint();
-      return;}
+      connectedhead=null;  
     //if we touch the unconnectedhead then delete unconnectedhead
-    if(unconnectedhead!=null&&v.equals(unconnectedhead)){
+    }else if(unconnectedhead!=null&&v.equals(unconnectedhead)){
       jig.graph.removeVertex(v);
       connectedhead=null;
       unconnectedhead=null;
-      jig.graph.invalidateDisconnectedGraph();
-      ui.pangrid.repaint();
-      return;}
-    //if we touch a vertex that's already in the model
-    if(jig.graph.contains(v)){
+    //if we touch a vertex that's already in the graph
+    }else if(jig.graph.contains(v)){
       //if connectedhead is nonnull then connect connectedhead to v
       if(connectedhead!=null)
         jig.graph.connect(v,connectedhead);
       //v becomes connectedhead. unconnectedhead is nulled.
       connectedhead=v;
       unconnectedhead=null;
-      jig.graph.invalidateDisconnectedGraph();
-      refreshUI();
-      return;}
-    //if we touch a vertex that is crossed by an edge (between but not on the edge's vertices)
-    GEdge edge=jig.graph.getCrossingEdge(v);
-    if(edge!=null){
-      //add v, inserting it between the edge vertices. adjust connections appropriately
-      jig.graph.disconnect(edge.v0.kvertex,edge.v1.kvertex);
-      jig.graph.addVertex(v);
-      jig.graph.connect(edge.v0.kvertex,v);
-      jig.graph.connect(edge.v1.kvertex,v);
-      //if connectedhead is nonnull then connect that too
-      if(connectedhead!=null)
-        jig.graph.connect(connectedhead,v);
-      //v is new connectedhead
-      connectedhead=v;
-      unconnectedhead=null;
-      jig.graph.invalidateDisconnectedGraph();
-      refreshUI();
-      return;}
-    //if we touch an unused vertex
-    //(at this point we know that we touched an unused vertex that is not crossed by an edge)
-    //if connectedhead is nonnull then add vertex and connect
-    jig.graph.addVertex(v);
-    if(connectedhead!=null)
-      jig.graph.connect(v,connectedhead);
-    connectedhead=v;
-    unconnectedhead=null;
-    refreshButtons();
+    //at this point we know that we touched an unused vertex
+    //did we touch a vertex on an existing graph edge (between but not on the edge's vertices)?
+    }else{
+      GEdge edge=jig.graph.getCrossingEdge(v);
+      //## Yes, we are on an edge
+      if(edge!=null){
+        //add v, inserting it between the edge vertices. adjust connections appropriately
+        jig.graph.disconnect(edge.v0.kvertex,edge.v1.kvertex);
+        jig.graph.addVertex(v);
+        jig.graph.connect(edge.v0.kvertex,v);
+        jig.graph.connect(edge.v1.kvertex,v);
+        //if connectedhead is nonnull then connect that too
+        if(connectedhead!=null)
+          jig.graph.connect(connectedhead,v);
+        //v is new connectedhead
+        connectedhead=v;
+        unconnectedhead=null;
+      //## No, we are not on an edge
+      //add the vertex to the graph. maybe connect.
+      }else{
+        jig.graph.addVertex(v);
+        if(connectedhead!=null)
+          jig.graph.connect(v,connectedhead);
+        connectedhead=v;
+        unconnectedhead=null;
+      }}
+    //
     jig.graph.invalidateDisconnectedGraph();
-    ui.pangrid.repaint();}
+    refreshUI();}
   
   public void touchSection(ProjectJigSection m){
     if(m==null)return;
+    //we only touch sections in MODE_CREATE_A and MODE_RETOUCH
+    //this is probably already handled further up the logic tree but just in case
     if(mode==MODE_CREATE_A)return;
+    //
     System.out.println("touch section");
     focussection=m;
-    refreshGridGeometryAndImage();
-    refreshButtons();}
+    refreshUI();}
 
   /*
    * ++++++++++++++++++++++++++++++++
