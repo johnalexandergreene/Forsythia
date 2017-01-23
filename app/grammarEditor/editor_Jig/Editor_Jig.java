@@ -3,13 +3,13 @@ package org.fleen.forsythia.app.grammarEditor.editor_Jig;
 import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GEdge;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.ui.EJ_UI;
 import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJig;
 import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJigSection;
 import org.fleen.forsythia.app.grammarEditor.util.Editor;
 import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KVertex;
+import org.fleen.geom_Kisrhombille.graph.GEdge;
 
 /*
  * A jig is defined by it's grid density, graph, jig tags, jigsections, jigsection tags, jigsection anchors and jigsection chorus indices

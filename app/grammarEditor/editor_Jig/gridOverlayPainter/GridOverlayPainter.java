@@ -10,14 +10,14 @@ import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.Editor_Jig;
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GEdge;
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.GVertex;
 import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJigSection;
 import org.fleen.forsythia.app.grammarEditor.util.UI;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;
 import org.fleen.geom_2D.GD;
 import org.fleen.geom_Kisrhombille.KPolygon;
+import org.fleen.geom_Kisrhombille.graph.GEdge;
+import org.fleen.geom_Kisrhombille.graph.GVertex;
 
 public class GridOverlayPainter{
   

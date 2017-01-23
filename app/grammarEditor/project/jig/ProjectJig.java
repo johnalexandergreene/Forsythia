@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.graph.Graph;
 import org.fleen.forsythia.app.grammarEditor.project.metagon.ProjectMetagon;
 import org.fleen.forsythia.app.grammarEditor.util.ElementMenuItem;
 import org.fleen.forsythia.core.grammar.Jig;
@@ -15,6 +14,7 @@ import org.fleen.forsythia.core.grammar.JigSection;
 import org.fleen.geom_Kisrhombille.KAnchor;
 import org.fleen.geom_Kisrhombille.KMetagon;
 import org.fleen.geom_Kisrhombille.KPolygon;
+import org.fleen.geom_Kisrhombille.graph.Graph;
 
 /*
  * A Forsythia Jig in an editor-useful form
@@ -113,7 +113,7 @@ public class ProjectJig implements ElementMenuItem{
   public Graph graph;
   
   void initGraph(){
-    graph=new Graph(jiggedmetagon.kpolygon,griddensity);}
+    graph=new Graph(jiggedmetagon.kmetagon.getPolygon(griddensity,true));}
   
   /*
    * ################################
