@@ -10,3 +10,5 @@ grid : make sturctures and lines line up better. It isn't quite perfect when the
 make grammar editor jig icons just like section view in jig editor, with colors and glyphs
 
 put an about button on the grammar editor
+
+make it so it serializes properly at exit

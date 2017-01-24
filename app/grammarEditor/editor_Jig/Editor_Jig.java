@@ -106,7 +106,8 @@ public class Editor_Jig extends Editor{
   void setMode_CREATE_A(){
     mode=MODE_CREATE_A;
     UIEditJig ui=(UIEditJig)getUI();
-    ui.pangriddensity.setEnabled(true);
+    ui.btnsave.setVisible(false);
+    ui.pangriddensity.setVisible(true);
     ui.btnsectionanchor.setVisible(false);
     ui.btnsectionchorus.setVisible(false);
     ui.pansectiontags.setVisible(false);
@@ -121,7 +122,8 @@ public class Editor_Jig extends Editor{
     mode=MODE_CREATE_B;
     jig.deriveSectionsFromGraph();
     UIEditJig ui=(UIEditJig)getUI();
-    ui.pangriddensity.setEnabled(false);
+    ui.btnsave.setVisible(true);
+    ui.pangriddensity.setVisible(false);
     ui.btnsectionanchor.setVisible(true);
     ui.btnsectionchorus.setVisible(true);
     ui.pansectiontags.setVisible(true);
@@ -135,7 +137,8 @@ public class Editor_Jig extends Editor{
     mode=MODE_RETOUCH;
     modelocked=true;
     UIEditJig ui=(UIEditJig)getUI();
-    ui.pangriddensity.setEnabled(false);
+    ui.btnsave.setVisible(true);
+    ui.pangriddensity.setVisible(false);
     ui.btnsectionanchor.setVisible(true);
     ui.btnsectionchorus.setVisible(true);
     ui.pansectiontags.setVisible(true);

@@ -58,7 +58,4 @@ public class PanGridDensity extends JPanel{
     
   }
   
-  public void setEnabled(boolean a){
-    setVisible(a);}
-  
 }
