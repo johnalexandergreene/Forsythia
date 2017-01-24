@@ -14,12 +14,12 @@ import java.awt.event.MouseEvent;
 import java.awt.Component;
 import javax.swing.Box;
 
-public class EJ_UI extends JPanel{
+public class UIEditJig extends JPanel{
   
   private static final long serialVersionUID=-8825258503202494056L;
   
   public JPanel pantop;
-  public GridEditJigs pangrid;
+  public GridEditJig pangrid;
   public JLabel lblinfo;
   
   public JButton btnquit;
@@ -32,7 +32,7 @@ public class EJ_UI extends JPanel{
   public JButton btnsectionchorus;
   public JButton btnsectionanchor;
   
-  public EJ_UI(){
+  public UIEditJig(){
     setLayout(new BorderLayout(0, 0));
     
     pantop = new JPanel();
@@ -83,7 +83,7 @@ public class EJ_UI extends JPanel{
     pansectiontags = new PanSectionTags();
     pantop.add(pansectiontags);
     
-    pangrid = new GridEditJigs();
+    pangrid = new GridEditJig();
     add(pangrid, BorderLayout.CENTER);
     
     JPanel panbot = new JPanel();

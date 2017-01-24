@@ -3,7 +3,7 @@ package org.fleen.forsythia.app.grammarEditor.editor_Jig;
 import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.ui.EJ_UI;
+import org.fleen.forsythia.app.grammarEditor.editor_Jig.ui.UIEditJig;
 import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJig;
 import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJigSection;
 import org.fleen.forsythia.app.grammarEditor.util.Editor;
@@ -105,7 +105,7 @@ public class Editor_Jig extends Editor{
   
   void setMode_CREATE_A(){
     mode=MODE_CREATE_A;
-    EJ_UI ui=(EJ_UI)getUI();
+    UIEditJig ui=(UIEditJig)getUI();
     ui.pangriddensity.setEnabled(true);
     ui.btnsectionanchor.setVisible(false);
     ui.btnsectionchorus.setVisible(false);
@@ -120,7 +120,7 @@ public class Editor_Jig extends Editor{
   void setMode_CREATE_B(){
     mode=MODE_CREATE_B;
     jig.deriveSectionsFromGraph();
-    EJ_UI ui=(EJ_UI)getUI();
+    UIEditJig ui=(UIEditJig)getUI();
     ui.pangriddensity.setEnabled(false);
     ui.btnsectionanchor.setVisible(true);
     ui.btnsectionchorus.setVisible(true);
@@ -134,7 +134,7 @@ public class Editor_Jig extends Editor{
   void setMode_RETOUCH(){
     mode=MODE_RETOUCH;
     modelocked=true;
-    EJ_UI ui=(EJ_UI)getUI();
+    UIEditJig ui=(UIEditJig)getUI();
     ui.pangriddensity.setEnabled(false);
     ui.btnsectionanchor.setVisible(true);
     ui.btnsectionchorus.setVisible(true);
@@ -152,10 +152,10 @@ public class Editor_Jig extends Editor{
    */
   
   protected JPanel createUI(){
-    return new EJ_UI();}
+    return new UIEditJig();}
   
   void initGridPerspective(){
-    EJ_UI ui=(EJ_UI)getUI();
+    UIEditJig ui=(UIEditJig)getUI();
     ui.pangrid.centerAndFit();}
   
   public void refreshUI(){
@@ -163,11 +163,11 @@ public class Editor_Jig extends Editor{
     refreshButtons();}
 
   public void refreshGridImage(){
-    EJ_UI ui=(EJ_UI)getUI();
+    UIEditJig ui=(UIEditJig)getUI();
     ui.pangrid.repaint();}
   
   public void refreshGridGeometryAndImage(){
-    EJ_UI ui=(EJ_UI)getUI();
+    UIEditJig ui=(UIEditJig)getUI();
     ui.pangrid.gridrenderer.invalidateTileImage();
     ui.pangrid.repaint();}
   
@@ -178,7 +178,7 @@ public class Editor_Jig extends Editor{
    */
   
   void refreshButtons(){
-    EJ_UI ui=(EJ_UI)getUI();
+    UIEditJig ui=(UIEditJig)getUI();
     ui.pangriddensity.lblgriddensity.setText("Grid Density = "+jig.getGridDensityString());
     ui.panjigtag.txtjigtag.setText(jig.tags);
     refreshSectionAnchorButton();
@@ -188,40 +188,40 @@ public class Editor_Jig extends Editor{
     refreshInfo();}
   
   private void refreshModeButton(){
-    EJ_UI ui=(EJ_UI)getUI();
+    UIEditJig ui=(UIEditJig)getUI();
     if(modelocked){
       ui.btnmode.setVisible(false);
     }else{
       ui.btnmode.setVisible(true);}
     //
     if(mode==MODE_CREATE_A)
-      ui.btnmode.setText("Geometry Unlocked");
+      ui.btnmode.setText("Edit Sections");
     else//mode= MODE_EDITSECTIONS
-      ui.btnmode.setText("Geometry Locked");}
+      ui.btnmode.setText("Edit Geometry");}
   
   private void refreshSectionAnchorButton(){
-    EJ_UI ui=(EJ_UI)getUI();
+    UIEditJig ui=(UIEditJig)getUI();
     if(focussection==null)
       ui.btnsectionanchor.setText("Section Anchor = ---");
     else
       ui.btnsectionanchor.setText("Section Anchor = "+focussection.getAnchorIndexString());}
   
   private void refreshSectionChorusButton(){
-    EJ_UI ui=(EJ_UI)getUI();
+    UIEditJig ui=(UIEditJig)getUI();
     if(focussection==null)
       ui.btnsectionchorus.setText("Section Chorus = ---");
     else
       ui.btnsectionchorus.setText("Section Chorus = "+focussection.getChorusString());}
   
   private void refreshSectionTags(){
-    EJ_UI ui=(EJ_UI)getUI();
+    UIEditJig ui=(UIEditJig)getUI();
     if(focussection==null)
       ui.pansectiontags.txttag.setText("---");
     else
       ui.pansectiontags.txttag.setText(focussection.tags);}
   
   private void refreshInfo(){
-    EJ_UI ui=(EJ_UI)getUI();
+    UIEditJig ui=(UIEditJig)getUI();
     ui.lblinfo.setText(getInfoString());}
   
   /*
@@ -383,7 +383,7 @@ public class Editor_Jig extends Editor{
     unconnectedhead=null;
     focussection=null;
     jig.incrementGridDensity();
-    EJ_UI ui=(EJ_UI)getUI();
+    UIEditJig ui=(UIEditJig)getUI();
     ui.pangrid.gridrenderer.invalidateTileImage();
     initGridPerspective();
     refreshUI();}
@@ -394,7 +394,7 @@ public class Editor_Jig extends Editor{
     unconnectedhead=null;
     focussection=null;
     jig.decrementGridDensity();
-    EJ_UI ui=(EJ_UI)getUI();
+    UIEditJig ui=(UIEditJig)getUI();
     ui.pangrid.gridrenderer.invalidateTileImage();
     initGridPerspective();
     refreshUI();}
