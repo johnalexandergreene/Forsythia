@@ -1,10 +1,11 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Metagon.ui;
 
 import java.awt.Graphics2D;
+import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.app.grammarEditor.editor_Metagon.overlayPainter.EMGridOverlayPainter;
 import org.fleen.forsythia.app.grammarEditor.editor_Metagon.Editor_Metagon;
+import org.fleen.forsythia.app.grammarEditor.editor_Metagon.overlayPainter.EMGridOverlayPainter;
 import org.fleen.forsythia.app.grammarEditor.util.grid.Grid;
 import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KVertex;
@@ -38,11 +39,9 @@ public class EditMetagonGrid extends Grid{
      }catch(Exception x){}}
 
   protected KPolygon getHostPolygon(){
-//    int d=1;
-//    ProjectMetagon metagon=GE.ge.editor_metagon.editedmetagon;
-//    if(metagon!=null)d=jig.griddensity;
-//    return GE.ge.focusmetagon.kmetagon.getScaledPolygon(d);
-    return null;}
+    List<KPolygon> p=GE.ge.editor_metagon.editedmetagon.getGraph().getDisconnectedGraph().getPolygons();
+    if(p.isEmpty())return null;
+    return p.get(0);}
   
   /*
    * ################################

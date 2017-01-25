@@ -4,16 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.app.grammarEditor.editor_Metagon.Editor_Metagon;
 import org.fleen.forsythia.app.grammarEditor.util.UI;
-import org.fleen.geom_2D.DPoint;
-import org.fleen.geom_2D.DPolygon;
-import org.fleen.geom_2D.GD;
 import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.graph.GEdge;
 import org.fleen.geom_Kisrhombille.graph.GVertex;
@@ -33,7 +27,7 @@ public class EMGridOverlayPainter{
   
   private void renderGraph(Graphics2D graphics){
     try{
-//      fillSections_EditGeometry(graphics);
+      fillSections_EditGeometry(graphics);
       strokeGraphEdges_EditGeometry(graphics);
       renderVertices_EditGeometry(graphics);
     }catch(Exception x){
@@ -42,7 +36,7 @@ public class EMGridOverlayPainter{
   private void fillSections_EditGeometry(Graphics2D graphics){
     Color color;
     Path2D path;
-    for(KPolygon m:GE.ge.editor_metagon.editedmetagon.graph.getDisconnectedGraph().getUndividedPolygons()){
+    for(KPolygon m:GE.ge.editor_metagon.editedmetagon.getGraph().getDisconnectedGraph().getUndividedPolygons()){
       color=UI.EDITJIG_EDITGEOMETRY_HOSTMETAGONFILLCOLOR;
       path=GE.ge.editor_metagon.editedmetagon.metagoneditorgeometrycache.getPath(m);
       graphics.setPaint(color);
@@ -51,7 +45,7 @@ public class EMGridOverlayPainter{
   private void strokeGraphEdges_EditGeometry(Graphics2D graphics){
     graphics.setStroke(UI.GRID_DRAWINGSTROKE);
     graphics.setPaint(UI.EDITJIG_EDITGEOMETRY_STROKECOLOR);
-    Iterator<GEdge> i=GE.ge.editor_metagon.editedmetagon.graph.edges.iterator();
+    Iterator<GEdge> i=GE.ge.editor_metagon.editedmetagon.getGraph().edges.iterator();
     GEdge e;
     double[] p0,p1;
     Path2D path=new Path2D.Double();
@@ -79,7 +73,7 @@ public class EMGridOverlayPainter{
     float span=UI.GRID_DEFAULTVERTEXSPAN;
     double[] p;
     Ellipse2D dot=new Ellipse2D.Double();
-    for(GVertex v:GE.ge.editor_metagon.editedmetagon.graph.vertices){
+    for(GVertex v:GE.ge.editor_metagon.editedmetagon.getGraph().vertices){
       p=GE.ge.editor_metagon.editedmetagon.metagoneditorgeometrycache.getPoint(v.kvertex);
       dot.setFrame(p[0]-span/2,p[1]-span/2,span,span);
       graphics.fill(dot);}}

@@ -24,9 +24,8 @@ public class EditMetagonUI extends JPanel{
   
   public JButton btnquit;
   public JButton btnsave;
-  public JButton btnmode;
   
-  public PanJigTags panjigtag;
+  public PanMetagonTags panmetagontag;
   
   public EditMetagonUI(){
     setLayout(new BorderLayout(0, 0));
@@ -40,20 +39,20 @@ public class EditMetagonUI extends JPanel{
     btnquit = new JButton("Quit");
     btnquit.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.ge.editor_jig.quit();}});
+        GE.ge.editor_metagon.quit();}});
     pantop.add(btnquit);
     
     btnsave = new JButton("Save");
     btnsave.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
-        GE.ge.editor_jig.save();}});
+        GE.ge.editor_metagon.save();}});
     pantop.add(btnsave);
     
     Component horizontalStrut = Box.createHorizontalStrut(20);
     pantop.add(horizontalStrut);
     
-    panjigtag = new PanJigTags();
-    pantop.add(panjigtag);
+    panmetagontag = new PanMetagonTags();
+    pantop.add(panmetagontag);
     
     pangrid = new EditMetagonGrid();
     add(pangrid, BorderLayout.CENTER);

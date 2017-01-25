@@ -4,8 +4,6 @@ import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Metagon.ui.EditMetagonUI;
-import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJig;
-import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJigSection;
 import org.fleen.forsythia.app.grammarEditor.project.metagon.ProjectMetagon;
 import org.fleen.forsythia.app.grammarEditor.util.Editor;
 import org.fleen.geom_Kisrhombille.KVertex;
@@ -47,7 +45,6 @@ public class Editor_Metagon extends Editor{
    */
 
   public void configureForOpen(){
-    modelocked=false;
     if(GE.ge.focusmetagon==null){
       initEditingObjectsForCreate();
       setMode_Create();
@@ -82,8 +79,6 @@ public class Editor_Metagon extends Editor{
     MODE_RETOUCH=1;
   
   public int mode;
-  //mode retouch is mode create b with the mode locked
-  boolean modelocked=false;
   
   void setMode_Create(){
     mode=MODE_CREATE;
@@ -95,7 +90,6 @@ public class Editor_Metagon extends Editor{
   
   void setMode_Retouch(){
     mode=MODE_RETOUCH;
-    modelocked=true;
     EditMetagonUI ui=(EditMetagonUI)getUI();
     ui.btnsave.setVisible(true);
     //
@@ -137,7 +131,11 @@ public class Editor_Metagon extends Editor{
   
   void refreshButtons(){
     EditMetagonUI ui=(EditMetagonUI)getUI();
-    ui.panjigtag.txtjigtag.setText(editedmetagon.tags);
+    ui.panmetagontag.txtmetagontags.setText(editedmetagon.tags);
+    if(graphisvalid){
+      ui.btnsave.setVisible(true);
+    }else{
+      ui.btnsave.setVisible(false);}
     refreshInfo();}
   
   private void refreshInfo(){
@@ -152,17 +150,7 @@ public class Editor_Metagon extends Editor{
    */
 
   private String getInfoString(){
-    return "foo bar";}
-  
-//  private String getInfoString(){
-//    if(mode==MODE_CREATE){
-//      int 
-//        opensequencecount=editedmetagon.graph.getDisconnectedGraph().getOpenKVertexSequences().size(),
-//        undividedpolygoncount=editedmetagon.graph.getDisconnectedGraph().getUndividedPolygons().size();
-//      return "opensequences="+opensequencecount+" polygons="+undividedpolygoncount;
-//    }else{//mode==MODE_CREATE_B || mode==MODE_RETOUCH
-//      int sectioncount=editedmetagon.sections.size();
-//      return "sections="+sectioncount;}}
+    return "vertex count="+editedmetagon.getGraph().vertices.size();}
   
   /*
    * ################################
@@ -175,19 +163,30 @@ public class Editor_Metagon extends Editor{
   //in the course of defining our geometry we have a "last vertex indicated"
   //if we click it once it is connected, twice and it is unconnected
   public KVertex connectedhead,unconnectedhead;
+  //this is for if we are doing MODE_RETOUCH and we quit
+  //it's so we can reset the tags.
+  private String tagsbackup;
+  //flag graph describing metagon validity
+  boolean graphisvalid;
   
   private void initEditingObjectsForCreate(){
     editedmetagon=new ProjectMetagon(GE.ge.focusgrammar);
     connectedhead=null;
-    unconnectedhead=null;}
+    unconnectedhead=null;
+    graphisvalid=false;}
   
   private void initEditingObjectsForRetouch(){
-    editedmetagon=GE.ge.focusmetagon;}
+    editedmetagon=GE.ge.focusmetagon;
+    tagsbackup=GE.ge.focusmetagon.tags;
+    graphisvalid=true;}
   
   private void discardEditingObjects(){
     editedmetagon=null;
     connectedhead=null;
     unconnectedhead=null;}
+  
+  private void validateGraph(){
+    graphisvalid=editedmetagon.getGraphValidity();}
   
   /*
    * ################################
@@ -213,45 +212,45 @@ public class Editor_Metagon extends Editor{
       connectedhead=null;  
     //if we touch the unconnectedhead then delete unconnectedhead
     }else if(unconnectedhead!=null&&v.equals(unconnectedhead)){
-      editedmetagon.graph.removeVertex(v);
+      editedmetagon.getGraph().removeVertex(v);
       connectedhead=null;
       unconnectedhead=null;
     //if we touch a vertex that's already in the graph
-    }else if(editedmetagon.graph.contains(v)){
+    }else if(editedmetagon.getGraph().contains(v)){
       //if connectedhead is nonnull then connect connectedhead to v
       if(connectedhead!=null)
-        editedmetagon.graph.connect(v,connectedhead);
+        editedmetagon.getGraph().connect(v,connectedhead);
       //v becomes connectedhead. unconnectedhead is nulled.
       connectedhead=v;
       unconnectedhead=null;
     //at this point we know that we touched an unused vertex
     //did we touch a vertex on an existing graph edge (between but not on the edge's vertices)?
     }else{
-      GEdge edge=editedmetagon.graph.getCrossingEdge(v);
+      GEdge edge=editedmetagon.getGraph().getCrossingEdge(v);
       //## Yes, we are on an edge
       if(edge!=null){
         //add v, inserting it between the edge vertices. adjust connections appropriately
-        editedmetagon.graph.disconnect(edge.v0.kvertex,edge.v1.kvertex);
-        editedmetagon.graph.addVertex(v);
-        editedmetagon.graph.connect(edge.v0.kvertex,v);
-        editedmetagon.graph.connect(edge.v1.kvertex,v);
+        editedmetagon.getGraph().disconnect(edge.v0.kvertex,edge.v1.kvertex);
+        editedmetagon.getGraph().addVertex(v);
+        editedmetagon.getGraph().connect(edge.v0.kvertex,v);
+        editedmetagon.getGraph().connect(edge.v1.kvertex,v);
         //if connectedhead is nonnull then connect that too
         if(connectedhead!=null)
-          editedmetagon.graph.connect(connectedhead,v);
+          editedmetagon.getGraph().connect(connectedhead,v);
         //v is new connectedhead
         connectedhead=v;
         unconnectedhead=null;
       //## No, we are not on an edge
       //add the vertex to the graph. maybe connect.
       }else{
-        editedmetagon.graph.addVertex(v);
+        editedmetagon.getGraph().addVertex(v);
         if(connectedhead!=null)
-          editedmetagon.graph.connect(v,connectedhead);
+          editedmetagon.getGraph().connect(v,connectedhead);
         connectedhead=v;
-        unconnectedhead=null;
-      }}
+        unconnectedhead=null;}}
     //
-    editedmetagon.graph.invalidateDisconnectedGraph();
+    editedmetagon.getGraph().invalidateDisconnectedGraph();
+    validateGraph();
     refreshUI();}
 
   /*
@@ -260,20 +259,50 @@ public class Editor_Metagon extends Editor{
    * ++++++++++++++++++++++++++++++++
    */
   
+  /*
+   * SAVE THE METAGON
+   * if mode == MODE_CREATE 
+   *   init editedmetagon.polygon
+   *   add the metagon to the focus grammar
+   *   set ge.focusmetagon=editedmetagon
+   * if mode == MODE_RETOUCH
+   *   do nothing
+   * exit to grammar editor
+   */
   public void save(){
-    //if we are in create mode then create the jig
-    if(mode!=MODE_RETOUCH){
-      editedmetagon.graph=null;//discard that. TODO what else can we discard?
+    if(mode==MODE_CREATE){
+      editedmetagon.initGeometryForMetagonEditorCreate();
       GE.ge.focusgrammar.addMetagon(editedmetagon);
-      GE.ge.focusmetagon=editedmetagon;}
+      GE.ge.focusmetagon=editedmetagon;
+    }else{
+      //
+    }
     //
     GE.ge.setEditor(GE.ge.editor_grammar);}
   
+  /*
+   * QUIT, DISCARDING ANY CREATION OR CHANGES
+   * if mode == MODE_CREATE 
+   *   set editedmetagon to null
+   *   set the focus metagon to the first metagon in the focus grammar's list
+   * if mode == MODE_RETOUCH
+   *   set editedmetagon.tags to tags backup string 
+   * exit to grammar editor
+   */
   public void quit(){
+    if(mode==MODE_CREATE){
+      editedmetagon=null;
+      if(GE.ge.focusgrammar.metagons.isEmpty())
+        GE.ge.focusmetagon=null;
+      else
+        GE.ge.focusmetagon=GE.ge.focusgrammar.metagons.get(0);
+    }else{//MODE RETOUCH
+      GE.ge.focusmetagon.tags=tagsbackup;}
+    //
     GE.ge.setEditor(GE.ge.editor_grammar);}
   
   
-  public void setJigTags(String a){
+  public void setMetagonTags(String a){
     System.out.println("set jig tags : "+a);
     editedmetagon.tags=a;}
   

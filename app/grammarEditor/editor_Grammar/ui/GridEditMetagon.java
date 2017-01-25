@@ -42,7 +42,7 @@ public class GridEditMetagon extends Grid{
 
   protected KPolygon getHostPolygon(){
     int d=1;
-    ProjectJig jig=GE.ge.editor_jig.jig;
+    ProjectJig jig=GE.ge.editor_jig.editedjig;
     if(jig!=null)d=jig.griddensity;
     return GE.ge.focusmetagon.kmetagon.getScaledPolygon(d);}
   
@@ -102,8 +102,8 @@ public class GridEditMetagon extends Grid{
   
   private ProjectJigSection getSection(double[] p){
     Path2D path;
-    for(ProjectJigSection m:GE.ge.editor_jig.jig.sections){
-      path=GE.ge.editor_jig.jig.jigeditorgeometrycache.getPath(m.getPolygon());
+    for(ProjectJigSection m:GE.ge.editor_jig.editedjig.sections){
+      path=GE.ge.editor_jig.editedjig.jigeditorgeometrycache.getPath(m.getPolygon());
       if(path.contains(p[0],p[1]))
         return m;}
     return null;}

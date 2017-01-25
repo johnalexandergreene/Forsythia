@@ -14,13 +14,13 @@ import javax.swing.JTextField;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 
-public class PanJigTags extends JPanel{
+public class PanMetagonTags extends JPanel{
   
   private static final long serialVersionUID=-1484832312439244645L;
   
-  public JTextField txtjigtag;
+  public JTextField txtmetagontags;
 
-  public PanJigTags(){
+  public PanMetagonTags(){
     
     setBackground(new Color(255, 204, 255));
     setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -35,13 +35,13 @@ public class PanJigTags extends JPanel{
     Component horizontalStrut_3 = Box.createHorizontalStrut(4);
     add(horizontalStrut_3);
     
-    txtjigtag = new JTextField("foo",20);
-    add(txtjigtag);
-    txtjigtag.setFont(new Font("DejaVu Sans Mono", Font.PLAIN, 18));
-    txtjigtag.setBorder(null);
-    txtjigtag.addKeyListener(new KeyAdapter(){
+    txtmetagontags = new JTextField("foo",20);
+    add(txtmetagontags);
+    txtmetagontags.setFont(new Font("DejaVu Sans Mono", Font.PLAIN, 18));
+    txtmetagontags.setBorder(null);
+    txtmetagontags.addKeyListener(new KeyAdapter(){
       public void keyReleased(KeyEvent e){
-        GE.ge.editor_jig.setJigTags(txtjigtag.getText());}});
+        GE.ge.editor_metagon.setMetagonTags(txtmetagontags.getText());}});
     
     Component horizontalStrut_1 = Box.createHorizontalStrut(4);
     add(horizontalStrut_1);

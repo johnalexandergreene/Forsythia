@@ -119,14 +119,14 @@ public class Editor_Jig extends Editor{
   
   void setMode_CREATE_B(){
     mode=MODE_CREATE_B;
-    jig.deriveSectionsFromGraph();
+    editedjig.deriveSectionsFromGraph();
     UIEditJig ui=(UIEditJig)getUI();
     ui.btnsave.setVisible(true);
     ui.pangriddensity.setVisible(false);
     ui.btnsectionanchor.setVisible(true);
     ui.btnsectionchorus.setVisible(true);
     ui.pansectiontags.setVisible(true);
-    focussection=jig.sections.get(0);
+    focussection=editedjig.sections.get(0);
     //
     initGridPerspective();
     refreshGridGeometryAndImage();
@@ -141,7 +141,7 @@ public class Editor_Jig extends Editor{
     ui.btnsectionanchor.setVisible(true);
     ui.btnsectionchorus.setVisible(true);
     ui.pansectiontags.setVisible(true);
-    focussection=jig.sections.get(0);
+    focussection=editedjig.sections.get(0);
     //
     initGridPerspective();
     refreshGridGeometryAndImage();
@@ -181,8 +181,8 @@ public class Editor_Jig extends Editor{
   
   void refreshButtons(){
     UIEditJig ui=(UIEditJig)getUI();
-    ui.pangriddensity.lblgriddensity.setText("Grid Density = "+jig.getGridDensityString());
-    ui.panjigtag.txtjigtag.setText(jig.tags);
+    ui.pangriddensity.lblgriddensity.setText("Grid Density = "+editedjig.getGridDensityString());
+    ui.panjigtag.txtjigtag.setText(editedjig.tags);
     refreshSectionAnchorButton();
     refreshSectionChorusButton();
     refreshSectionTags();
@@ -236,11 +236,11 @@ public class Editor_Jig extends Editor{
   private String getInfoString(){
     if(mode==MODE_CREATE_A){
       int 
-        opensequencecount=jig.graph.getDisconnectedGraph().getOpenKVertexSequences().size(),
-        undividedpolygoncount=jig.graph.getDisconnectedGraph().getUndividedPolygons().size();
+        opensequencecount=editedjig.graph.getDisconnectedGraph().getOpenKVertexSequences().size(),
+        undividedpolygoncount=editedjig.graph.getDisconnectedGraph().getUndividedPolygons().size();
       return "opensequences="+opensequencecount+" polygons="+undividedpolygoncount;
     }else{//mode==MODE_CREATE_B || mode==MODE_RETOUCH
-      int sectioncount=jig.sections.size();
+      int sectioncount=editedjig.sections.size();
       return "sections="+sectioncount;}}
   
   /*
@@ -250,7 +250,7 @@ public class Editor_Jig extends Editor{
    */
   
   //the jig we're editing
-  public ProjectJig jig;
+  public ProjectJig editedjig;
   //the section that we are presently focused upon.
   public ProjectJigSection focussection;
   //in the course of defining our geometry we have a "last vertex indicated"
@@ -258,17 +258,17 @@ public class Editor_Jig extends Editor{
   public KVertex connectedhead,unconnectedhead;
   
   private void initEditingObjectsForCreate(){
-    jig=new ProjectJig(GE.ge.focusmetagon);
+    editedjig=new ProjectJig(GE.ge.focusmetagon);
     connectedhead=null;
     unconnectedhead=null;
     focussection=null;}
   
   private void initEditingObjectsForRetouch(){
-    jig=GE.ge.focusjig;
+    editedjig=GE.ge.focusjig;
     focussection=null;}
   
   private void discardEditingObjects(){
-    jig=null;
+    editedjig=null;
     connectedhead=null;
     unconnectedhead=null;
     focussection=null;}
@@ -278,7 +278,7 @@ public class Editor_Jig extends Editor{
   
   public ProjectJigSection getFocusSection(){
     if(focussection==null)
-      focussection=jig.sections.get(0);
+      focussection=editedjig.sections.get(0);
     return focussection;}
   
   /*
@@ -305,45 +305,45 @@ public class Editor_Jig extends Editor{
       connectedhead=null;  
     //if we touch the unconnectedhead then delete unconnectedhead
     }else if(unconnectedhead!=null&&v.equals(unconnectedhead)){
-      jig.graph.removeVertex(v);
+      editedjig.graph.removeVertex(v);
       connectedhead=null;
       unconnectedhead=null;
     //if we touch a vertex that's already in the graph
-    }else if(jig.graph.contains(v)){
+    }else if(editedjig.graph.contains(v)){
       //if connectedhead is nonnull then connect connectedhead to v
       if(connectedhead!=null)
-        jig.graph.connect(v,connectedhead);
+        editedjig.graph.connect(v,connectedhead);
       //v becomes connectedhead. unconnectedhead is nulled.
       connectedhead=v;
       unconnectedhead=null;
     //at this point we know that we touched an unused vertex
     //did we touch a vertex on an existing graph edge (between but not on the edge's vertices)?
     }else{
-      GEdge edge=jig.graph.getCrossingEdge(v);
+      GEdge edge=editedjig.graph.getCrossingEdge(v);
       //## Yes, we are on an edge
       if(edge!=null){
         //add v, inserting it between the edge vertices. adjust connections appropriately
-        jig.graph.disconnect(edge.v0.kvertex,edge.v1.kvertex);
-        jig.graph.addVertex(v);
-        jig.graph.connect(edge.v0.kvertex,v);
-        jig.graph.connect(edge.v1.kvertex,v);
+        editedjig.graph.disconnect(edge.v0.kvertex,edge.v1.kvertex);
+        editedjig.graph.addVertex(v);
+        editedjig.graph.connect(edge.v0.kvertex,v);
+        editedjig.graph.connect(edge.v1.kvertex,v);
         //if connectedhead is nonnull then connect that too
         if(connectedhead!=null)
-          jig.graph.connect(connectedhead,v);
+          editedjig.graph.connect(connectedhead,v);
         //v is new connectedhead
         connectedhead=v;
         unconnectedhead=null;
       //## No, we are not on an edge
       //add the vertex to the graph. maybe connect.
       }else{
-        jig.graph.addVertex(v);
+        editedjig.graph.addVertex(v);
         if(connectedhead!=null)
-          jig.graph.connect(v,connectedhead);
+          editedjig.graph.connect(v,connectedhead);
         connectedhead=v;
         unconnectedhead=null;
       }}
     //
-    jig.graph.invalidateDisconnectedGraph();
+    editedjig.graph.invalidateDisconnectedGraph();
     refreshUI();}
   
   public void touchSection(ProjectJigSection m){
@@ -365,11 +365,11 @@ public class Editor_Jig extends Editor{
   public void save(){
     //if we are in create mode then create the jig
     if(mode!=MODE_RETOUCH){
-      jig.graph=null;//discard that. TODO what else can we discard?
-      GE.ge.focusgrammar.addMetagons(jig.localsectionmetagons);
+      editedjig.graph=null;//discard that. TODO what else can we discard?
+      GE.ge.focusgrammar.addMetagons(editedjig.localsectionmetagons);
       GE.ge.focusmetagon.invalidateOverviewIconImage();
-      GE.ge.focusmetagon.addJig(jig);
-      GE.ge.focusjig=jig;}
+      GE.ge.focusmetagon.addJig(editedjig);
+      GE.ge.focusjig=editedjig;}
     //
     GE.ge.setEditor(GE.ge.editor_grammar);}
   
@@ -381,7 +381,7 @@ public class Editor_Jig extends Editor{
     connectedhead=null;
     unconnectedhead=null;
     focussection=null;
-    jig.incrementGridDensity();
+    editedjig.incrementGridDensity();
     UIEditJig ui=(UIEditJig)getUI();
     ui.pangrid.gridrenderer.invalidateTileImage();
     initGridPerspective();
@@ -392,7 +392,7 @@ public class Editor_Jig extends Editor{
     connectedhead=null;
     unconnectedhead=null;
     focussection=null;
-    jig.decrementGridDensity();
+    editedjig.decrementGridDensity();
     UIEditJig ui=(UIEditJig)getUI();
     ui.pangrid.gridrenderer.invalidateTileImage();
     initGridPerspective();
@@ -409,7 +409,7 @@ public class Editor_Jig extends Editor{
   
   public void setJigTags(String a){
     System.out.println("set jig tags : "+a);
-    jig.tags=a;}
+    editedjig.tags=a;}
   
   public void incrementSectionAnchor(){
     System.out.println("increment section anchor");

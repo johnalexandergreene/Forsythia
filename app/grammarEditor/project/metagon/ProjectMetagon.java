@@ -88,10 +88,24 @@ public class ProjectMetagon implements Serializable,ElementMenuItem{
    * ################################
    */
   
-  public Graph graph;
+  private Graph graph=null;
   
-  void initGraph(){
+  private void initGraph(){
     graph=new Graph();}
+  
+  public Graph getGraph(){
+    if(graph==null)graph=new Graph(kpolygon);
+    return graph;}
+  
+  /*
+   * a valid graph describes 1 polygon
+   */
+  public boolean getGraphValidity(){
+    int a=graph.getDisconnectedGraph().getPolygons().size();
+    if(a!=1)return false;
+    a=graph.getDisconnectedGraph().getOpenKVertexSequences().size();
+    if(a!=0)return false;
+    return true;}
   
   /*
    * ################################
@@ -99,13 +113,24 @@ public class ProjectMetagon implements Serializable,ElementMenuItem{
    * ################################
    */
   
-  public KMetagon kmetagon;//wrapped by this ProjectMetagon
-  public KPolygon kpolygon;//a default kpolygon for whatever
-  public DPolygon polygon2d;//
+  //we hold all this stuff because we'll need it eventually
+  //we init it asap
+  public KMetagon kmetagon;
+  public KPolygon kpolygon;
+  public DPolygon polygon2d;
   
   private void initGeometry(List<KVertex> vertices){
     kmetagon=new KMetagon(vertices);
     kpolygon=kmetagon.getPolygon();
+    polygon2d=kpolygon.getDefaultPolygon2D();}
+  
+  /*
+   * derive the geometry from the graph
+   * we drew the graph in the metagon editor
+   */
+  public void initGeometryForMetagonEditorCreate(){
+    kpolygon=graph.getDisconnectedGraph().getPolygons().get(0);
+    kmetagon=new KMetagon(kpolygon);
     polygon2d=kpolygon.getDefaultPolygon2D();}
   
   /*
