@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_Metagon;
+package org.fleen.forsythia.app.grammarEditor.editor_Metagon.ui;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
@@ -18,9 +18,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import org.fleen.forsythia.app.grammarEditor.GE;
 
 @SuppressWarnings("serial")
-public class EMUI extends JPanel{
+public class EMUI2 extends JPanel{
 
-  public EMGrid grid;
+  public EditMetagonGrid grid;
   public JTextField txttags,txtinfo;
   public JButton 
     btnsavemetagon,
@@ -29,10 +29,10 @@ public class EMUI extends JPanel{
   /**
    * Create the panel.
    */
-  public EMUI(){
+  public EMUI2(){
     setBackground(Color.LIGHT_GRAY);
     
-    grid = new EMGrid();
+    grid = new EditMetagonGrid();
     grid.setBackground(Color.MAGENTA);
     
     Box horizontalBox = Box.createHorizontalBox();

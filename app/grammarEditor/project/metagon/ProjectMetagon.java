@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.project.ProjectGrammar;
+import org.fleen.forsythia.app.grammarEditor.project.jig.JigEditorGeometryCache;
 import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJig;
 import org.fleen.forsythia.app.grammarEditor.util.ElementMenuItem;
 import org.fleen.forsythia.app.grammarEditor.util.UI;
@@ -17,6 +18,7 @@ import org.fleen.geom_2D.DPolygon;
 import org.fleen.geom_Kisrhombille.KMetagon;
 import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KVertex;
+import org.fleen.geom_Kisrhombille.graph.Graph;
 
 /*
  * This is
@@ -39,7 +41,12 @@ public class ProjectMetagon implements Serializable,ElementMenuItem{
    * ################################
    */
   
-  //create 
+  //create in metagon editor
+  public ProjectMetagon(ProjectGrammar grammar){
+    this.grammar=grammar;
+    initGraph();}
+  
+  //create in jig editor section creation 
   public ProjectMetagon(ProjectGrammar grammar,List<KVertex> vertices,String tags){
     this.grammar=grammar;
     initGeometry(vertices);
@@ -53,11 +60,38 @@ public class ProjectMetagon implements Serializable,ElementMenuItem{
   
   /*
    * ################################
+   * METAGON EDITOR 2D GEOMETRY CACHE
+   * This is the 2d geometry upon which is based the metagon graphics
+   * in the metagon editor
+   * ################################
+   */
+  
+  public MetagonEditorGeometryCache metagoneditorgeometrycache=new MetagonEditorGeometryCache();
+  
+  void invalidateJigEditorGeometryCache(){
+    metagoneditorgeometrycache.invalidate();}
+  
+  /*
+   * ################################
    * GRAMMAR
    * ################################
    */
   
   ProjectGrammar grammar;
+  
+  /*
+   * ################################
+   * GRAPH
+   * add, remove and connect vertices
+   * interpret as disconnectedgraph
+   * used in metagon editor
+   * ################################
+   */
+  
+  public Graph graph;
+  
+  void initGraph(){
+    graph=new Graph();}
   
   /*
    * ################################

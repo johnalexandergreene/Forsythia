@@ -1,7 +1,7 @@
 
-jig editor. make save button invisible in edit geometry mode
-
-redo metagon editor ui
+redo metagon editor 
+  ui
+  use graph for drawing data
 
 redo generator editor ui
 
@@ -12,3 +12,5 @@ make grammar editor jig icons just like section view in jig editor, with colors 
 put an about button on the grammar editor
 
 make it so it serializes properly at exit
+
+tweak the colors. organize color stuff

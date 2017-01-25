@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_Jig.ui;
+package org.fleen.forsythia.app.grammarEditor.editor_Grammar.ui;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
@@ -6,6 +6,7 @@ import java.awt.geom.Path2D;
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.Editor_Jig;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.gridOverlayPainter.GridOverlayPainter;
+import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJig;
 import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJigSection;
 import org.fleen.forsythia.app.grammarEditor.util.grid.Grid;
 import org.fleen.geom_Kisrhombille.KPolygon;
@@ -22,7 +23,7 @@ import org.fleen.geom_Kisrhombille.KVertex;
  * 
  */
 
-public class GridEditJig2 extends Grid{
+public class GridEditMetagon extends Grid{
   
   private static final long serialVersionUID=-4286658320538693888L;
 
@@ -40,51 +41,64 @@ public class GridEditJig2 extends Grid{
      }catch(Exception x){}}
 
   protected KPolygon getHostPolygon(){
-    return GE.ge.editor_jig.getScaledHostPolygon();}
+    int d=1;
+    ProjectJig jig=GE.ge.editor_jig.jig;
+    if(jig!=null)d=jig.griddensity;
+    return GE.ge.focusmetagon.kmetagon.getScaledPolygon(d);}
   
   /*
    * ################################
-   * MOUSE
-   * We monitor the distance of the mouse from any vertices
-   * when we're close we're in touch vertices mode
-   * when we're far we're in touch sections mode
+   * MOUSE MOVE
    * ################################
    */
 
-  private static final int 
-    MOUSEMODE_TOUCHVERTEX=0,
-    MOUSEMODE_TOUCHSECTION=1;
+  static final int 
+    MOUSEMOVE_VERTEXNEAR=0,
+    MOUSEMOVE_VERTEXFAR=1;
   
-  private int mousemode;
-
-  //TODO clean up
-  protected void mouseTouched(double[] p,KVertex v){
-    if(GE.ge.editor_jig.mode==Editor_Jig.MODE_CREATE_A&&mousemode==MOUSEMODE_TOUCHVERTEX){
-      boolean valid=true;
-      if(GE.ge.editor_jig.connectedhead!=null&&v!=null&&!v.isColinear(GE.ge.editor_jig.connectedhead))
-        valid=false;
-      if(valid)GE.ge.editor_jig.touchVertex(v);
-    }else{
-      GE.ge.editor_jig.touchSection(getSection(p));}}
-
+  int mousemove;
+  
   /*
    * test the vertex 
    * if the vertex is not colinear with the vertex that we are connecting to (if the previous vertex isn't null) then we should 
    * indicate that with an invalid flag or something 
    */
   protected void mouseMovedCloseToVertex(KVertex v){
-    boolean valid=true;
-    if(GE.ge.editor_jig.connectedhead!=null&&v!=null&&!v.isColinear(GE.ge.editor_jig.connectedhead))
-      valid=false;
-    if(valid)
-      setCursorCircle();
-    else
-      setCursorX();
-    mousemode=MOUSEMODE_TOUCHVERTEX;}
+    mousemove=MOUSEMOVE_VERTEXNEAR;
+    if(GE.ge.editor_jig.mode==Editor_Jig.MODE_CREATE_A){
+      //test the hovered vertex and connectedhead for colinearity
+      //not colinear
+      if(GE.ge.editor_jig.connectedhead!=null&&v!=null&&!v.isColinear(GE.ge.editor_jig.connectedhead)){
+        setCursorX();
+      //colinear  
+      }else{
+        setCursorCircle();}
+    //touching sections modes gets a square cursor 
+    }else{//MODE_CREATE_B || MODE_RETOUCH
+      setCursorSquare();}}
 
   protected void mouseMovedFarFromVertex(double[] p){
-    setCursorSquare();
-    mousemode=MOUSEMODE_TOUCHSECTION;}
+    mousemove=MOUSEMOVE_VERTEXFAR;
+    if(GE.ge.editor_jig.mode==Editor_Jig.MODE_CREATE_A){
+      setCursorX();
+    }else{
+      setCursorSquare();}}
+  
+  /*
+   * ################################
+   * MOUSE CLICK
+   * ################################
+   */
+
+  //TODO clean up
+  protected void mouseTouched(double[] p,KVertex v){
+    if(GE.ge.editor_jig.mode==Editor_Jig.MODE_CREATE_A&&mousemove==MOUSEMOVE_VERTEXNEAR){
+      boolean valid=true;
+      if(GE.ge.editor_jig.connectedhead!=null&&v!=null&&!v.isColinear(GE.ge.editor_jig.connectedhead))
+        valid=false;
+      if(valid)GE.ge.editor_jig.touchVertex(v);
+    }else{
+      GE.ge.editor_jig.touchSection(getSection(p));}}
   
   private ProjectJigSection getSection(double[] p){
     Path2D path;

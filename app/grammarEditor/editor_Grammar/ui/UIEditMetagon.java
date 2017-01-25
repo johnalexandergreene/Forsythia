@@ -20,7 +20,7 @@ import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.util.ui.WrapLayout;
 
 @SuppressWarnings("serial")
-public class EG_UI extends JPanel{
+public class UIEditMetagon extends JPanel{
   
   public JLabel lblgrammarname;
 
@@ -47,7 +47,7 @@ public class EG_UI extends JPanel{
   
   public PanJigMenu panjigmenu;
   
-  public EG_UI(){
+  public UIEditMetagon(){
     GridBagLayout gridBagLayout = new GridBagLayout();
     gridBagLayout.columnWidths = new int[]{0, 0};
     gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};

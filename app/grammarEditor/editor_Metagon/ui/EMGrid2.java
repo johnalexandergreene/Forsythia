@@ -1,14 +1,15 @@
-package org.fleen.forsythia.app.grammarEditor.editor_Metagon;
+package org.fleen.forsythia.app.grammarEditor.editor_Metagon.ui;
 
 import java.awt.Graphics2D;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
+import org.fleen.forsythia.app.grammarEditor.editor_Metagon.overlayPainter.EMGridOverlayPainter;
 import org.fleen.forsythia.app.grammarEditor.util.grid.Grid;
 import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KVertex;
 
 @SuppressWarnings("serial")
-public class EMGrid extends Grid{
+public class EMGrid2 extends Grid{
   
   private EMGridOverlayPainter overlaypainter=new EMGridOverlayPainter();
 

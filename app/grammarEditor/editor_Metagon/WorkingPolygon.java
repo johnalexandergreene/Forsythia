@@ -29,7 +29,7 @@ public class WorkingPolygon extends KPolygon{
   
   private static final int ESTIMATED_MAX_SIZE=200;
   
-  boolean 
+  public boolean 
     finished=false,
     invalid=false;
   

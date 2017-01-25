@@ -9,12 +9,10 @@ import org.fleen.forsythia.app.grammarEditor.util.ElementMenuItem;
 import org.fleen.forsythia.app.grammarEditor.util.UI;
 
 
-@SuppressWarnings("serial")
 public class PanMetagonMenu extends ElementMenu{
 
-  /**
-   * Create the panel.
-   */
+  private static final long serialVersionUID=-1137924043100782395L;
+
   public PanMetagonMenu(){
     super(UI.ELEMENTMENU_OVERVIEWMETAGONSROWS);}
 

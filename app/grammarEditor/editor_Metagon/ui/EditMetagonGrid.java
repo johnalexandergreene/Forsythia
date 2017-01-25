@@ -1,13 +1,10 @@
-package org.fleen.forsythia.app.grammarEditor.editor_Jig.ui;
+package org.fleen.forsythia.app.grammarEditor.editor_Metagon.ui;
 
 import java.awt.Graphics2D;
-import java.awt.geom.Path2D;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.Editor_Jig;
-import org.fleen.forsythia.app.grammarEditor.editor_Jig.gridOverlayPainter.GridOverlayPainter;
-import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJig;
-import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJigSection;
+import org.fleen.forsythia.app.grammarEditor.editor_Metagon.overlayPainter.EMGridOverlayPainter;
+import org.fleen.forsythia.app.grammarEditor.editor_Metagon.Editor_Metagon;
 import org.fleen.forsythia.app.grammarEditor.util.grid.Grid;
 import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KVertex;
@@ -23,11 +20,11 @@ import org.fleen.geom_Kisrhombille.KVertex;
  * 
  */
 
-public class GridEditJig extends Grid{
+public class EditMetagonGrid extends Grid{
   
   private static final long serialVersionUID=-4286658320538693888L;
 
-  GridOverlayPainter overlaypainter=new GridOverlayPainter();
+  EMGridOverlayPainter overlaypainter=new EMGridOverlayPainter();
 
   protected void paintOverlay(Graphics2D g,int w,int h,double scale,double centerx,double centery){
     try{
@@ -41,10 +38,11 @@ public class GridEditJig extends Grid{
      }catch(Exception x){}}
 
   protected KPolygon getHostPolygon(){
-    int d=1;
-    ProjectJig jig=GE.ge.editor_jig.jig;
-    if(jig!=null)d=jig.griddensity;
-    return GE.ge.focusmetagon.kmetagon.getScaledPolygon(d);}
+//    int d=1;
+//    ProjectMetagon metagon=GE.ge.editor_metagon.editedmetagon;
+//    if(metagon!=null)d=jig.griddensity;
+//    return GE.ge.focusmetagon.kmetagon.getScaledPolygon(d);
+    return null;}
   
   /*
    * ################################
@@ -65,24 +63,21 @@ public class GridEditJig extends Grid{
    */
   protected void mouseMovedCloseToVertex(KVertex v){
     mousemove=MOUSEMOVE_VERTEXNEAR;
-    if(GE.ge.editor_jig.mode==Editor_Jig.MODE_CREATE_A){
+    if(GE.ge.editor_metagon.mode==Editor_Metagon.MODE_CREATE){
       //test the hovered vertex and connectedhead for colinearity
       //not colinear
-      if(GE.ge.editor_jig.connectedhead!=null&&v!=null&&!v.isColinear(GE.ge.editor_jig.connectedhead)){
+      if(GE.ge.editor_metagon.connectedhead!=null&&v!=null&&!v.isColinear(GE.ge.editor_metagon.connectedhead)){
         setCursorX();
       //colinear  
       }else{
         setCursorCircle();}
     //touching sections modes gets a square cursor 
     }else{//MODE_CREATE_B || MODE_RETOUCH
-      setCursorSquare();}}
+      setCursorX();}}
 
   protected void mouseMovedFarFromVertex(double[] p){
     mousemove=MOUSEMOVE_VERTEXFAR;
-    if(GE.ge.editor_jig.mode==Editor_Jig.MODE_CREATE_A){
-      setCursorX();
-    }else{
-      setCursorSquare();}}
+    setCursorX();}
   
   /*
    * ################################
@@ -92,20 +87,9 @@ public class GridEditJig extends Grid{
 
   //TODO clean up
   protected void mouseTouched(double[] p,KVertex v){
-    if(GE.ge.editor_jig.mode==Editor_Jig.MODE_CREATE_A&&mousemove==MOUSEMOVE_VERTEXNEAR){
-      boolean valid=true;
-      if(GE.ge.editor_jig.connectedhead!=null&&v!=null&&!v.isColinear(GE.ge.editor_jig.connectedhead))
-        valid=false;
-      if(valid)GE.ge.editor_jig.touchVertex(v);
-    }else{
-      GE.ge.editor_jig.touchSection(getSection(p));}}
-  
-  private ProjectJigSection getSection(double[] p){
-    Path2D path;
-    for(ProjectJigSection m:GE.ge.editor_jig.jig.sections){
-      path=GE.ge.editor_jig.jig.jigeditorgeometrycache.getPath(m.getPolygon());
-      if(path.contains(p[0],p[1]))
-        return m;}
-    return null;}
+    boolean valid=true;
+    if(GE.ge.editor_metagon.connectedhead!=null&&v!=null&&!v.isColinear(GE.ge.editor_metagon.connectedhead))
+      valid=false;
+    if(valid)GE.ge.editor_metagon.touchVertex(v);}
   
 }

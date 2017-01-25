@@ -7,7 +7,6 @@ import org.fleen.forsythia.app.grammarEditor.editor_Jig.ui.UIEditJig;
 import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJig;
 import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJigSection;
 import org.fleen.forsythia.app.grammarEditor.util.Editor;
-import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KVertex;
 import org.fleen.geom_Kisrhombille.graph.GEdge;
 
@@ -247,9 +246,6 @@ public class Editor_Jig extends Editor{
   /*
    * ################################
    * JIG EDITING OBJECTS
-   * The objects that we manipulate via this editor
-   *   that is, the jig editing model and associated convenient stuff
-   * Then, when we hit "save", the model gets converted into a project jig
    * ################################
    */
   
@@ -430,16 +426,5 @@ public class Editor_Jig extends Editor{
   public void setSectionTags(String a){
     System.out.println("set jig section tags "+a);
     focussection.tags=a;}
-  
-  /*
-   * ################################
-   * UTIL
-   * ################################
-   */
-  
-  public KPolygon getScaledHostPolygon(){
-    int d=1;
-    if(jig!=null)d=jig.griddensity;
-    return GE.ge.focusmetagon.kmetagon.getScaledPolygon(d);}
   
 }

@@ -3,7 +3,7 @@ package org.fleen.forsythia.app.grammarEditor.editor_Grammar;
 import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.app.grammarEditor.editor_Grammar.ui.EG_UI;
+import org.fleen.forsythia.app.grammarEditor.editor_Grammar.ui.UIEditMetagon;
 import org.fleen.forsythia.app.grammarEditor.project.GrammarImportExport;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectGrammar;
 import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJig;
@@ -14,7 +14,7 @@ public class Editor_Grammar extends Editor{
 
   private static final long serialVersionUID=1681991061348332454L;
   
-  public static final String NAME="Grammar";
+  public static final String NAME="GRAMMAR";
   
   /*
    * ################################
@@ -32,18 +32,18 @@ public class Editor_Grammar extends Editor{
    */
 
   protected JPanel createUI(){
-    return new EG_UI();}
+    return new UIEditMetagon();}
   
   public void refreshUI(){
-    EG_UI ui=(EG_UI)getUI();
+    UIEditMetagon ui=(UIEditMetagon)getUI();
     ui.panmetagonmenu.invalidateIconArrayMetrics();
     ui.panjigmenu.invalidateIconArrayMetrics();
     ui.repaint();
     refreshButtons();}
   
   private void refreshButtons(){
-    EG_UI ui=(EG_UI)getUI();
-    ui.lblgrammarname.setText("Grammar = "+GE.ge.focusgrammar.getName());
+    UIEditMetagon ui=(UIEditMetagon)getUI();
+    ui.lblgrammarname.setText("Grammar="+GE.ge.focusgrammar.getName());
     ui.lblmetagonscount.setText("Count="+GE.ge.focusgrammar.getMetagonCount());
     ui.lblmetagonjiglesscount.setText("Jigless="+GE.ge.focusgrammar.getJiglessMetagonsCount());
     ui.lblmetagonsisolatedcount.setText("Isolated="+GE.ge.focusgrammar.getIsolatedMetagonsCount());
@@ -89,7 +89,8 @@ public class Editor_Grammar extends Editor{
    */
   
   public void createMetagon(){
-    EG_UI ui=(EG_UI)getUI();
+    GE.ge.focusmetagon=null;
+    UIEditMetagon ui=(UIEditMetagon)getUI();
     ui.panmetagonmenu.invalidateIconArrayMetrics();
     GE.ge.setEditor(GE.ge.editor_metagon);
     refreshUI();}
@@ -99,7 +100,7 @@ public class Editor_Grammar extends Editor{
     refreshUI();}
   
   public void discardMetagon(){
-    EG_UI ui=(EG_UI)getUI();
+    UIEditMetagon ui=(UIEditMetagon)getUI();
     ui.panmetagonmenu.invalidateIconArrayMetrics();
     ui.panjigmenu.invalidateIconArrayMetrics();
     int a=GE.ge.focusgrammar.getIndex(GE.ge.focusmetagon)-1;
@@ -110,7 +111,7 @@ public class Editor_Grammar extends Editor{
   
   public void setFocusMetagon(final ProjectMetagon m){
     GE.ge.focusmetagon=m;
-    EG_UI ui=(EG_UI)getUI();
+    UIEditMetagon ui=(UIEditMetagon)getUI();
     ui.panjigmenu.invalidateIconArrayMetrics();
     refreshUI();}
   
@@ -123,17 +124,17 @@ public class Editor_Grammar extends Editor{
    */
   
   public void createJig(){
-    EG_UI ui=(EG_UI)getUI();
+    UIEditMetagon ui=(UIEditMetagon)getUI();
     ui.panmetagonmenu.invalidateIconArrayMetrics();
     GE.ge.focusjig=null;
     GE.ge.setEditor(GE.ge.editor_jig);}
   
   public void editJig(){
-    ((EG_UI)GE.ge.editor_grammar.getUI()).panmetagonmenu.invalidateIconArrayMetrics();
+    ((UIEditMetagon)GE.ge.editor_grammar.getUI()).panmetagonmenu.invalidateIconArrayMetrics();
     GE.ge.setEditor(GE.ge.editor_jig);}
   
   public void discardJig(){
-    ((EG_UI)GE.ge.editor_grammar.getUI()).panjigmenu.invalidateIconArrayMetrics();
+    ((UIEditMetagon)GE.ge.editor_grammar.getUI()).panjigmenu.invalidateIconArrayMetrics();
     int a=GE.ge.focusmetagon.getJigIndex(GE.ge.focusjig)-1;
     GE.ge.focusmetagon.discardJig(GE.ge.focusjig);
     if(a<0)a=0;
@@ -143,7 +144,7 @@ public class Editor_Grammar extends Editor{
   
   public void setFocusJig(final ProjectJig m){
     GE.ge.focusjig=m;
-    EG_UI ui=(EG_UI)getUI();
+    UIEditMetagon ui=(UIEditMetagon)getUI();
     refreshUI();
     ui.panjigmenu.repaint();}
   

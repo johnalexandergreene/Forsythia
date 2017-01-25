@@ -107,6 +107,7 @@ public class ProjectJig implements ElementMenuItem{
    * GRAPH
    * add, remove and connect vertices
    * interpret as disconnectedgraph
+   * used in jig editor
    * ################################
    */
   

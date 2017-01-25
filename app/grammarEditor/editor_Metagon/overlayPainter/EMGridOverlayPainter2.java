@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_Metagon;
+package org.fleen.forsythia.app.grammarEditor.editor_Metagon.overlayPainter;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Path2D;
@@ -8,7 +8,7 @@ import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.util.UI;
 import org.fleen.forsythia.app.grammarEditor.util.grid.UIGridUtil;
 
-public class EMGridOverlayPainter{
+public class EMGridOverlayPainter2{
   
   void paint(Graphics2D graphics,int w,int h,double scale,double centerx,double centery){
     graphics.setRenderingHints(UI.RENDERING_HINTS);
