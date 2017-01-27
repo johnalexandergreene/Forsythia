@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_Generator;
+package org.fleen.forsythia.app.grammarEditor.editor_Generator.ui;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,9 +13,9 @@ import org.fleen.forsythia.app.grammarEditor.GE;
  * It's just a jpanel with an overidden paint
  */
 @SuppressWarnings("serial")
-public class EGUI_Viewer extends JPanel{
+public class PanViewer extends JPanel{
   
-  public EGUI_Viewer(){
+  public PanViewer(){
     super();}
   
   public void paint(Graphics g){

@@ -17,18 +17,19 @@ import javax.swing.JPanel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
+import org.fleen.forsythia.app.grammarEditor.editor_Generator.ui.PanViewer;
 
 @SuppressWarnings("serial")
 public class EGUI extends JPanel{
 
-  public EGUI_Viewer viewer;
+  public PanViewer viewer;
   JLabel lblgeneratorstateinfo;
   JButton btneditgrammar,btnstartstop,btnmode;
   EGUI_ConfigMenu popupconfigure=new EGUI_ConfigMenu();
   
   public EGUI(){
     
-    viewer = new EGUI_Viewer();
+    viewer = new PanViewer();
     viewer.setBackground(new Color(128,128,128));
     
     lblgeneratorstateinfo = new JLabel("fo ofoo foo fooo");

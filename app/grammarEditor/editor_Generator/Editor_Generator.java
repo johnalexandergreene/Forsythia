@@ -1,12 +1,12 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Generator;
 
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.app.grammarEditor.compositionExporter.CompositionRasterExporter;
-import org.fleen.forsythia.app.grammarEditor.generator.Generator;
+import org.fleen.forsythia.app.grammarEditor.editor_Generator.ui.UIEditorGenerator;
 import org.fleen.forsythia.app.grammarEditor.util.Editor;
-import org.fleen.forsythia.app.grammarEditor.util.HasViewer;
 
 /*
  * This is the front end for a forsythia composition generator
@@ -14,9 +14,11 @@ import org.fleen.forsythia.app.grammarEditor.util.HasViewer;
  * we also provide ui for exportcomposition and configure generator, exportcomposition and whatever
  * We use this for viewing art and testing grammars.
  */
-public class Editor_Generator extends Editor implements HasViewer{
+public class Editor_Generator extends Editor{
 
-  public static final String NAME="Generator";
+  private static final long serialVersionUID=2946066354233444754L;
+
+  public static final String NAME="GENERATOR";
   
   /*
    * ################################
@@ -25,8 +27,7 @@ public class Editor_Generator extends Editor implements HasViewer{
    */
   
   public Editor_Generator(){
-    super(NAME);
-    generator=new Generator();}
+    super(NAME);}
   
   /*
    * ################################
@@ -35,11 +36,19 @@ public class Editor_Generator extends Editor implements HasViewer{
    */
   
   protected JPanel createUI(){
-    return new EGUI();}
+    return new UIEditorGenerator();}
   
-  public JPanel getViewer(){
-    EGUI a=(EGUI)getUI();
-    return a.viewer;}
+  public void refreshUI(){
+    refreshViewer();
+    refreshButtons();}
+  
+  private void refreshButtons(){
+    
+  }
+  
+  void refreshViewer(){
+    EGUI ui=(EGUI)getUI();
+    ui.viewer.repaint();}
   
   /*
    * ################################
@@ -52,108 +61,73 @@ public class Editor_Generator extends Editor implements HasViewer{
   
   public void configureForClose(){
     generator.stop();}
-
-  /*
-   * ################################
-   * REFRESH
-   * ################################
-   */
-  
-  //update center and fit params
-  public void refreshUI(){
-    refreshViewer();
-    refreshGeneratorModeButtonImage();
-    refreshGeneratorStartStopButtonImage();
-    refreshGeneratorStateInfoLabelText();}
-  
-  void refreshViewer(){
-    EGUI ui=(EGUI)getUI();
-    ui.viewer.repaint();}
-  
-  void refreshGeneratorModeButtonImage(){
-    EGUI ui=(EGUI)getUI();
-    if(generatormode==GENERATORMODE_CONTINUOUS){
-      ui.btnmode.setText("+CONTINUOUS+");
-    }else{//generatormode==GENERATORMODE_INTERMITTANT
-      ui.btnmode.setText("INTERMITTANT");}}
-  
-  //if the generator is stopped then indicate the option to start.
-  //if the generator is running then indicate the option to stop.
-  void refreshGeneratorStartStopButtonImage(){
-    EGUI ui=(EGUI)getUI();
-    if(!generator.isRunning()){
-      ui.btnstartstop.setText(">>");
-    }else{
-      ui.btnstartstop.setText("||");}}
-  
-  public void refreshGeneratorStateInfoLabelText(){
-    EGUI ui=(EGUI)getUI();
-    ui.lblgeneratorstateinfo.setText(generator.getStateInfo());}
   
   /*
    * ################################
-   * GENERATOR
+   * COMPOSITION GENERATOR
    * ################################
    */
 
-  static final int 
-    GENERATORMODE_CONTINUOUS=0,
-    GENERATORMODE_INTERMITTANT=1;
-  
-  public Generator generator;
-  int generatormode=GENERATORMODE_CONTINUOUS;  
+  public Generator generator=new Generator(); 
   
   /*
    * ################################
-   * CONTROL
+   * IMAGE EXPORTER
+   * ################################
+   */
+
+  public ImageExporter imageexporter=new ImageExporter(); 
+  
+  /*
+   * ################################
+   * COMMAND
    * ################################
    */
   
-  void toggleMode(){
-    if(generatormode==GENERATORMODE_CONTINUOUS){
-      generatormode=GENERATORMODE_INTERMITTANT;
-      generator.stop();
-    }else{
-      generatormode=GENERATORMODE_CONTINUOUS;
-      generator.stop();}
-    refreshGeneratorModeButtonImage();}
+  public void toggleStopGo(){
+    generator.toggleStopGo();
+    refreshButtons();}
   
-  void generatorStartStop(){
-    
-    System.out.println("generator is running = "+generator.isRunning());
-    System.out.println("generator.stop = "+generator.stop);
-    
-    if(generator.isRunning()){
-      System.out.println("generator stop---");
-      generator.stop();
-    }else{
-      System.out.println("generator start+++");
-      if(generatormode==GENERATORMODE_CONTINUOUS){
-        generator.startContinuous();
-      }else{
-        generator.startIntermittant();}}
-    refreshGeneratorStartStopButtonImage();}
+  public void toggleMode(){
+    generator.toggleMode();
+    refreshButtons();}
   
-  void exportComposition(){
-    CompositionRasterExporter.export();}
+  public void setInterval(String interval){ 
+    try{
+      long a=Long.valueOf(interval);
+      generator.setInterval(a);
+    }catch(Exception x){}
+    refreshButtons();}
   
-  void openGeneratorConfigurator(){
-    
-  }
+  public void setDetailFloor(String detailfloor){ 
+    try{
+      double a=Double.valueOf(detailfloor);
+      generator.setDetailFloor(a);
+    }catch(Exception x){}
+    refreshButtons();}
   
-  void openCompositionExporterConfigurator(){
-//    GE.setEditor(ge.editor_compositionexportconfig);
-  }
+  public void setExportDir(){
+    JFileChooser fc=new JFileChooser();
+    fc.setCurrentDirectory(GE.getLocalDir());
+    fc.setDialogTitle("Specify the image export directory.");
+    fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+    fc.setAcceptAllFileFilterUsed(false);
+    int r=fc.showOpenDialog(GE.ge.uimain);
+    if(r==JFileChooser.APPROVE_OPTION){
+      imageexporter.setExportDirectory(fc.getSelectedFile());
+      refreshButtons();}}
   
-  void openGrammarEditor(){
+  public void setExportImageSize(String size){  
+    try{
+      int a=Integer.valueOf(size);
+      generator.setInterval(a);
+    }catch(Exception x){}
+    refreshButtons();}
+  
+  public void openGrammarEditor(){
     GE.ge.setEditor(GE.ge.editor_grammar);}
   
-  public void startForQInit(){
-//    generatormode=GENERATORMODE_CONTINUOUS;
-//    generator.startContinuous();
-    
-    
-    refreshUI();
-    System.out.println("start for Q init");}
+  public void openAboutPopup(){
+    JOptionPane.showMessageDialog(GE.ge.uimain,GE.ABOUT,"About this app",JOptionPane.PLAIN_MESSAGE);}
   
 }

@@ -49,6 +49,8 @@ public class GE implements Serializable{
 
   public static final String APPNAME="Fleen Forsythia Grammar Editor 0.2A";
   
+  public static final String ABOUT=APPNAME+"\n by John Greene. \n fleen.org";
+  
   /*
    * ################################
    * INIT
