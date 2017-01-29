@@ -1,5 +1,7 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Generator;
 
+import java.awt.image.BufferedImage;
+
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -81,9 +83,9 @@ public class Editor_Generator extends Editor{
   private void refreshModeButton(){
     UI_Generator ui=(UI_Generator)getUI();
     if(generator.isContinuous())
-      ui.btngeneratemode.setText("Mode=Continuous");
+      ui.btngeneratemode.setText("Mode = Continuous");
     else
-      ui.btngeneratemode.setText("Mode=Intermittant");}
+      ui.btngeneratemode.setText("Mode = Intermittant");}
   
   private void refreshIntervalButton(){
     UI_Generator ui=(UI_Generator)getUI();
@@ -95,7 +97,7 @@ public class Editor_Generator extends Editor{
   
   private void refreshExportDirButton(){
     UI_Generator ui=(UI_Generator)getUI();
-    ui.btnexportdir.setText(imageexporter.getExportDirectory().getAbsolutePath());}
+    ui.btnexportdir.setText("Export Image Dir = "+imageexporter.getExportDirectory().getAbsolutePath());}
   
   private void refreshExportSizeButton(){
     UI_Generator ui=(UI_Generator)getUI();
@@ -146,8 +148,9 @@ public class Editor_Generator extends Editor{
     refreshButtons();}
   
   public void exportImage(){
-    
-  }
+    System.out.println("export image");
+    BufferedImage i=generator.renderCompositionForImageExport(imageexporter.getImageSize());
+    imageexporter.writePNGImageFile(i);}
   
   public void setExportDir(){
     JFileChooser fc=new JFileChooser();

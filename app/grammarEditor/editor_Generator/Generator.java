@@ -1,5 +1,6 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Generator;
 
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
@@ -87,7 +88,6 @@ public class Generator{
   
   private long interval=INTERVAL_DEFAULT;
   
-
   void setInterval(long i){
     interval=i;}
   
@@ -127,7 +127,7 @@ public class Generator{
    * ################################
    */
   
-  private static final long CONTROLCHECKINTERVAL=250;
+  private static final long CONTROLCHECKINTERVAL=200;
   private boolean 
     runcontrolthread,
     requestgeneratecomposition=false;
@@ -194,5 +194,28 @@ public class Generator{
     renderer=new Renderer();
     viewerimage=renderer.getImage(viewer.getWidth(),viewer.getHeight(),composition);
     viewer.repaint();}
+  
+  /*
+   * ################################
+   * RENDER COMPOSITION FOR EXPORT
+   * ################################
+   */
+  
+  public BufferedImage renderCompositionForImageExport(int imagesize){
+    int 
+      iwidth,
+      iheight;
+    Rectangle2D.Double bounds=composition.getRootPolygon().getDPolygon().getBounds();
+    double
+      cwidth=bounds.getWidth(),
+      cheight=bounds.getHeight();
+    if(cwidth>cheight){
+      iwidth=imagesize;
+      iheight=(int)((cheight/cwidth)*imagesize);
+    }else{
+      iheight=imagesize;
+      iwidth=(int)((cwidth/cheight)*imagesize);}
+    //
+    return renderer.getImage(iwidth,iheight,composition);}
   
 }

@@ -77,7 +77,7 @@ public class Renderer{
   
   private AffineTransform getTransform(int imagewidth,int imageheight,ForsythiaComposition composition){
     //get all the relevant metrics
-    Rectangle2D.Double compositionbounds=getPolygonBoundingRect(composition.getRootPolygon());
+    Rectangle2D.Double compositionbounds=composition.getRootPolygon().getDPolygon().getBounds();
     double
       dmargin=MARGIN,
       cbwidth=compositionbounds.getWidth(),
@@ -183,18 +183,7 @@ public class Renderer{
   
   Map<FPolygon,Path2D> pathbypolygon=new Hashtable<FPolygon,Path2D>();
   
-  //returns the bounding rectangle2d of the specified NPolygon
-  protected Rectangle2D.Double getPolygonBoundingRect(FPolygon polygon){
-    List<DPoint> points=polygon.getDPolygon();
-    double maxx=Double.MIN_VALUE,maxy=maxx,minx=Double.MAX_VALUE,miny=minx;
-    for(DPoint p:points){
-      if(minx>p.x)minx=p.x;
-      if(miny>p.y)miny=p.y;
-      if(maxx<p.x)maxx=p.x;
-      if(maxy<p.y)maxy=p.y;}
-    return new Rectangle2D.Double(minx,miny,maxx-minx,maxy-miny);}
-  
-  protected Path2D getPath2D(FPolygon polygon){
+  private Path2D getPath2D(FPolygon polygon){
     Path2D path=pathbypolygon.get(polygon);
     if(path==null){
       path=createPath2D(polygon);

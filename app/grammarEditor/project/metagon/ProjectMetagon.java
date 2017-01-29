@@ -9,7 +9,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.project.ProjectGrammar;
-import org.fleen.forsythia.app.grammarEditor.project.jig.JigEditorGeometryCache;
 import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJig;
 import org.fleen.forsythia.app.grammarEditor.util.ElementMenuItem;
 import org.fleen.forsythia.app.grammarEditor.util.UI;

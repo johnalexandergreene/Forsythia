@@ -77,7 +77,7 @@ public class UI_Generator extends JPanel{
     Component horizontalStrut_1 = Box.createHorizontalStrut(12);
     pantop.add(horizontalStrut_1);
     
-    JButton btnexport = new JButton("Export");
+    JButton btnexport = new JButton("Export Image");
     btnexport.setBackground(UI.BUTTON_ORANGE);
     btnexport.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {

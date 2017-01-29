@@ -28,7 +28,7 @@ public class PanExportImageSize extends JPanel{
     Component horizontalStrut = Box.createHorizontalStrut(8);
     add(horizontalStrut);
     
-    JLabel lbljigtag = new JLabel("ExportSize=");
+    JLabel lbljigtag = new JLabel("Export Image Size =");
     add(lbljigtag);
     lbljigtag.setFont(new Font("Dialog", Font.BOLD, 14));
     
