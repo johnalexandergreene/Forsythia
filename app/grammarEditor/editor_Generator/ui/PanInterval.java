@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
+import org.fleen.forsythia.app.grammarEditor.util.UI;
 
 public class PanInterval extends JPanel{
   
@@ -22,7 +23,7 @@ public class PanInterval extends JPanel{
 
   public PanInterval(){
     
-    setBackground(new Color(255, 204, 255));
+    setBackground(UI.BUTTON_PURPLE);
     setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
     
     Component horizontalStrut = Box.createHorizontalStrut(8);
@@ -36,6 +37,7 @@ public class PanInterval extends JPanel{
     add(horizontalStrut_3);
     
     txtinterval = new JTextField("1234",6);
+    txtinterval.setBackground(UI.BUTTON_YELLOW);
     add(txtinterval);
     txtinterval.setFont(new Font("DejaVu Sans Mono", Font.PLAIN, 18));
     txtinterval.setBorder(null);

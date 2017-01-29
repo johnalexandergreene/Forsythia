@@ -1,6 +1,5 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Generator.ui;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
@@ -13,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
+import org.fleen.forsythia.app.grammarEditor.util.UI;
 
 public class PanDetailFloor extends JPanel{
   
@@ -22,7 +22,7 @@ public class PanDetailFloor extends JPanel{
 
   public PanDetailFloor(){
     
-    setBackground(new Color(255, 204, 255));
+    setBackground(UI.BUTTON_BLUE);
     setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
     
     Component horizontalStrut = Box.createHorizontalStrut(8);
@@ -36,6 +36,7 @@ public class PanDetailFloor extends JPanel{
     add(horizontalStrut_3);
     
     txtfloor = new JTextField("12.34",8);
+    txtfloor.setBackground(UI.BUTTON_YELLOW);
     add(txtfloor);
     txtfloor.setFont(new Font("DejaVu Sans Mono", Font.PLAIN, 18));
     txtfloor.setBorder(null);

@@ -145,6 +145,10 @@ public class Editor_Generator extends Editor{
     }catch(Exception x){}
     refreshButtons();}
   
+  public void exportImage(){
+    
+  }
+  
   public void setExportDir(){
     JFileChooser fc=new JFileChooser();
     fc.setCurrentDirectory(GE.getLocalDir());

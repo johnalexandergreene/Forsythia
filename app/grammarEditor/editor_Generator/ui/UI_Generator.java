@@ -15,6 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
+import org.fleen.forsythia.app.grammarEditor.util.UI;
 import org.fleen.util.ui.WrapLayout;
 
 public class UI_Generator extends JPanel{
@@ -50,12 +51,14 @@ public class UI_Generator extends JPanel{
     add(pantop, gbc_pantop);
     
     btngeneratestopgo = new JButton("stopgo foo");
+    btngeneratestopgo.setBackground(UI.BUTTON_PURPLE);
     btngeneratestopgo.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         GE.ge.editor_generator.toggleStopGo();}});
     pantop.add(btngeneratestopgo);
     
     btngeneratemode = new JButton("mode foo");
+    btngeneratemode.setBackground(UI.BUTTON_PURPLE);
     btngeneratemode.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         GE.ge.editor_generator.toggleMode();
@@ -65,40 +68,47 @@ public class UI_Generator extends JPanel{
     pangenerateinterval = new PanInterval();
     pantop.add(pangenerateinterval);
     
-    Component horizontalStrut = Box.createHorizontalStrut(8);
+    Component horizontalStrut = Box.createHorizontalStrut(12);
     pantop.add(horizontalStrut);
     
     pandetailfloor = new PanDetailFloor();
     pantop.add(pandetailfloor);
     
-    Component horizontalStrut_1 = Box.createHorizontalStrut(8);
+    Component horizontalStrut_1 = Box.createHorizontalStrut(12);
     pantop.add(horizontalStrut_1);
     
+    JButton btnexport = new JButton("Export");
+    btnexport.setBackground(UI.BUTTON_ORANGE);
+    btnexport.addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent e) {
+        GE.ge.editor_generator.exportImage();}});
+    pantop.add(btnexport);
+    
     btnexportdir = new JButton("ExportDir=~/fleen/export");
+    btnexportdir.setBackground(UI.BUTTON_ORANGE);
     btnexportdir.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         GE.ge.editor_generator.setExportDir();}});
     pantop.add(btnexportdir);
     
-    Component horizontalStrut_2 = Box.createHorizontalStrut(8);
-    pantop.add(horizontalStrut_2);
-    
-    JButton btngrammar = new JButton("Grammar");
-    btngrammar.addMouseListener(new MouseAdapter() {
-      public void mouseClicked(MouseEvent e) {
-        GE.ge.editor_generator.openGrammarEditor();}});
-    
     panexportsize = new PanExportImageSize();
     pantop.add(panexportsize);
     
-    Component horizontalStrut_4 = Box.createHorizontalStrut(8);
+    Component horizontalStrut_4 = Box.createHorizontalStrut(12);
     pantop.add(horizontalStrut_4);
+    
+    JButton btngrammar = new JButton("Grammar");
+    btngrammar.setBackground(UI.BUTTON_RED);
+    btngrammar.addMouseListener(new MouseAdapter() {
+      public void mouseClicked(MouseEvent e) {
+        GE.ge.editor_generator.openGrammarEditor();}});    
     pantop.add(btngrammar);
     
-    Component horizontalStrut_3 = Box.createHorizontalStrut(8);
+    Component horizontalStrut_3 = Box.createHorizontalStrut(12);
     pantop.add(horizontalStrut_3);
     
     JButton btnabout = new JButton("About");
+    btnabout.setBackground(UI.BUTTON_GREEN);
     btnabout.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         GE.ge.editor_generator.openAboutPopup();}});

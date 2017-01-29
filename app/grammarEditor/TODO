@@ -1,6 +1,12 @@
 
 redo generator editor ui
 
+finish hooking up generator 
+
+create samplegrammars package
+  a class and 3 grammars
+  triangly, boxy, mixy
+
 grid : make sturctures and lines line up better. It isn't quite perfect when the structures get big.
 
 make grammar editor jig icons just like section view in jig editor, with colors and glyphs

@@ -21,16 +21,6 @@ import org.fleen.geom_2D.DPolygon;
  */
 public class UI{
   
-  /*
-   * ################################
-   * #  #  #  #  #  #  #  #  #  #  #
-   * ################################
-   * UTILITIES
-   * ################################
-   * #  #  #  #  #  #  #  #  #  #  #
-   * ################################
-   */
-  
   //--------------------------------
   //RENDERING HINTS
   
@@ -55,6 +45,24 @@ public class UI{
   
   public static final double VERTEX_CLOSENESS_MARGIN=22;
   
+  /*
+   * ################################
+   * @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+   * ################################
+   * BUTTON COLORS
+   * ################################
+   * @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+   * ################################
+   */
+  
+  public static final Color 
+    BUTTON_RED=new Color(255,128,128),
+    BUTTON_ORANGE=new Color(255,178,0),
+    BUTTON_YELLOW=new Color(255,255,0),
+    BUTTON_GREEN=new Color(0,255,0),
+    BUTTON_BLUE=new Color(144,144,255),
+    BUTTON_PURPLE=new Color(255,0,255);
+    
   /*
    * ################################
    * DISTINGUISHABLE RAINBOW COLOR SEQUENCE

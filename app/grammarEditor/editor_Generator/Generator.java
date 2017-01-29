@@ -103,11 +103,16 @@ public class Generator{
    * ################################  
    */
   
-  private static final double DETAILFLOOR=0.5;
+  private static final double 
+    DETAILFLOOR=0.03,
+    DETAILFLOORMIN=0.006,
+    DETAILFLOORMAX=0.8;
   
   private double detailfloor=DETAILFLOOR;
   
   void setDetailFloor(double f){
+    if(f<DETAILFLOORMIN)f=DETAILFLOORMIN;
+    if(f>DETAILFLOORMAX)f=DETAILFLOORMAX;
     detailfloor=f;}
   
   double getDetailFloor(){
@@ -172,7 +177,7 @@ public class Generator{
   private void generateComposition(){
     System.out.println("generate composition");
     composer=new Composer();
-    composition=composer.compose(GE.ge.focusgrammar.getForsythiaGrammar());}
+    composition=composer.compose(GE.ge.focusgrammar.getForsythiaGrammar(),detailfloor);}
   
   /*
    * ################################

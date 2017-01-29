@@ -24,7 +24,8 @@ public class Composer{
    * ################################
    */
   
-  public ForsythiaComposition compose(ForsythiaGrammar grammar){
+  public ForsythiaComposition compose(ForsythiaGrammar grammar,double detailfloor){
+    this.detailfloor=detailfloor;
     ForsythiaComposition composition=initComposition(grammar);
     build(composition);
     return composition;}
@@ -55,8 +56,7 @@ public class Composer{
    * ################################
    */
   
-  public static final double DETAILSIZEFLOOR_DEFAULT=0.03;//TODO use generator param
-  private double detailsizefloor=DETAILSIZEFLOOR_DEFAULT;
+  private double detailfloor;
   
   /*
    * ################################
@@ -111,7 +111,7 @@ public class Composer{
       return j;}}
   
   private Jig getRandomJig(ForsythiaGrammar fg,FPolygon target){
-    List<Jig> jigs=fg.getJigsAboveDetailSizeFloor(target,detailsizefloor);
+    List<Jig> jigs=fg.getJigsAboveDetailSizeFloor(target,detailfloor);
     if(jigs.isEmpty())return null;
     Jig jig=jigs.get(new Random().nextInt(jigs.size()));
     return jig;}
