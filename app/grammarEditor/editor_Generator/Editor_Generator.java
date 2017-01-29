@@ -5,7 +5,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
-import org.fleen.forsythia.app.grammarEditor.editor_Generator.ui.UIEditorGenerator;
+import org.fleen.forsythia.app.grammarEditor.editor_Generator.ui.UI_Generator;
 import org.fleen.forsythia.app.grammarEditor.util.Editor;
 
 /*
@@ -31,36 +31,75 @@ public class Editor_Generator extends Editor{
   
   /*
    * ################################
-   * UI
-   * ################################
-   */
-  
-  protected JPanel createUI(){
-    return new UIEditorGenerator();}
-  
-  public void refreshUI(){
-    refreshViewer();
-    refreshButtons();}
-  
-  private void refreshButtons(){
-    
-  }
-  
-  void refreshViewer(){
-    EGUI ui=(EGUI)getUI();
-    ui.viewer.repaint();}
-  
-  /*
-   * ################################
    * CONFIGURE
    * ################################
    */
 
   public void configureForOpen(){
+    generator.startControlThread();
     refreshUI();}
   
   public void configureForClose(){
-    generator.stop();}
+    generator.stopControlThread();}
+  
+  /*
+   * ################################
+   * UI
+   * ################################
+   */
+  
+  protected JPanel createUI(){
+    return new UI_Generator();}
+  
+  public void refreshUI(){
+    refreshViewer();
+    refreshButtons();}
+
+  void refreshViewer(){
+    UI_Generator ui=(UI_Generator)getUI();
+    ui.panviewer.repaint();}
+  
+  private void refreshButtons(){
+    refreshStopGoButton();
+    refreshModeButton();
+    refreshIntervalButton();
+    refreshDetailFloorButton();
+    refreshExportDirButton();
+    refreshExportSizeButton();}
+  
+  /*
+   * if we are presently stopped then offer the option to go
+   * if we are presently going then offer the option to stop
+   */
+  private void refreshStopGoButton(){
+    UI_Generator ui=(UI_Generator)getUI();
+    if(generator.isStop())
+      ui.btngeneratestopgo.setText("Go");
+    else
+      ui.btngeneratestopgo.setText("Stop");}
+  
+  private void refreshModeButton(){
+    UI_Generator ui=(UI_Generator)getUI();
+    if(generator.isContinuous())
+      ui.btngeneratemode.setText("Mode=Continuous");
+    else
+      ui.btngeneratemode.setText("Mode=Intermittant");}
+  
+  private void refreshIntervalButton(){
+    UI_Generator ui=(UI_Generator)getUI();
+    ui.pangenerateinterval.txtinterval.setText(String.valueOf(generator.getInterval()));}
+  
+  private void refreshDetailFloorButton(){
+    UI_Generator ui=(UI_Generator)getUI();
+    ui.pandetailfloor.txtfloor.setText(String.valueOf(generator.getDetailFloor()));}
+  
+  private void refreshExportDirButton(){
+    UI_Generator ui=(UI_Generator)getUI();
+    ui.btnexportdir.setText(imageexporter.getExportDirectory().getAbsolutePath());}
+  
+  private void refreshExportSizeButton(){
+    UI_Generator ui=(UI_Generator)getUI();
+    ui.panexportsize.txtsize.setText(String.valueOf(imageexporter.getImageSize()));}
   
   /*
    * ################################
@@ -117,10 +156,10 @@ public class Editor_Generator extends Editor{
       imageexporter.setExportDirectory(fc.getSelectedFile());
       refreshButtons();}}
   
-  public void setExportImageSize(String size){  
+  public void setExportSize(String size){  
     try{
       int a=Integer.valueOf(size);
-      generator.setInterval(a);
+      imageexporter.setImageSize(a);
     }catch(Exception x){}
     refreshButtons();}
   

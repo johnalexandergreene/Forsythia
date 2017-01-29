@@ -2,6 +2,11 @@ package org.fleen.forsythia.app.grammarEditor.editor_Generator;
 
 import java.awt.image.BufferedImage;
 
+import org.fleen.forsythia.app.grammarEditor.GE;
+import org.fleen.forsythia.app.grammarEditor.editor_Generator.ui.PanViewer;
+import org.fleen.forsythia.app.grammarEditor.editor_Generator.ui.UI_Generator;
+import org.fleen.forsythia.core.composition.ForsythiaComposition;
+
 public class Generator{
   
   /*
@@ -19,13 +24,17 @@ public class Generator{
   private boolean stopgo=STOPGO_STOP;
   
   void toggleStopGo(){
-    stopgo=!stopgo;}
+    if(isStop())
+      go();
+    else
+      stop();}
   
   void stop(){
     stopgo=STOPGO_STOP;}
   
   void go(){
-    stopgo=STOPGO_GO;}
+    stopgo=STOPGO_GO;
+    requestgeneratecomposition=true;}
   
   boolean isStop(){
     return stopgo==STOPGO_STOP;}
@@ -61,10 +70,10 @@ public class Generator{
     mode=MODE_CONTINUOUS;}
   
   boolean isIntermittant(){
-    return mode=MODE_INTERMITTANT;}
+    return mode==MODE_INTERMITTANT;}
   
   boolean isContinuous(){
-    return mode=MODE_CONTINUOUS;}
+    return mode==MODE_CONTINUOUS;}
   
   /*
    * ################################
@@ -106,18 +115,79 @@ public class Generator{
   
   /*
    * ################################
-   * GENERATION
+   * CONTROL THREAD
+   * every CONTROLCHECKINTERVAL ms
+   *   check everything
+   *   do something if necessary
    * ################################
    */
   
-  public BufferedImage getViewerImage(){
-    return null;
-  }
+  private static final long CONTROLCHECKINTERVAL=250;
+  private boolean 
+    runcontrolthread,
+    requestgeneratecomposition=false;
+  private long compositiongenerationtime=-1;
   
+  public void startControlThread(){
+    runcontrolthread=true;
+    new Thread(){
+      public void run(){
+        while(runcontrolthread){
+          //
+          if(isGo()){
+            if(isIntermittant()){
+              if(requestgeneratecomposition){
+                requestgeneratecomposition=false;
+                generateComposition();
+                renderCompositionForViewer();
+                stopgo=STOPGO_STOP;
+                GE.ge.editor_generator.refreshUI();}
+            }else{//isContinuous()
+              if(timeToGenerateAnotherCompositionForContinuous()){
+                compositiongenerationtime=System.currentTimeMillis();
+                generateComposition();
+                renderCompositionForViewer();}}}
+          //sleep periodically
+          try{
+            Thread.sleep(CONTROLCHECKINTERVAL,0);
+          }catch(Exception x){
+            x.printStackTrace();}}}}.start();}
   
+  public void stopControlThread(){
+    runcontrolthread=false;}
   
+  private boolean timeToGenerateAnotherCompositionForContinuous(){
+    long t=System.currentTimeMillis();
+    return (t-compositiongenerationtime)>interval;}
   
+  /*
+   * ################################
+   * GENERATE COMPOSITION
+   * ################################
+   */
   
+  public Composer composer=null;
+  public ForsythiaComposition composition=null;
   
-
+  private void generateComposition(){
+    System.out.println("generate composition");
+    composer=new Composer();
+    composition=composer.compose(GE.ge.focusgrammar.getForsythiaGrammar());}
+  
+  /*
+   * ################################
+   * RENDER COMPOSITION FOR VIEWER
+   * ################################
+   */
+  
+  public BufferedImage viewerimage=null;
+  public Renderer renderer;
+  
+  private void renderCompositionForViewer(){
+    System.out.println("render composition for viewer");
+    PanViewer viewer=((UI_Generator)GE.ge.editor_generator.getUI()).panviewer;
+    renderer=new Renderer();
+    viewerimage=renderer.getImage(viewer.getWidth(),viewer.getHeight(),composition);
+    viewer.repaint();}
+  
 }

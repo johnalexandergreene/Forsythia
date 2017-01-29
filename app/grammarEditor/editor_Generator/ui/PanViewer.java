@@ -21,12 +21,10 @@ public class PanViewer extends JPanel{
   public void paint(Graphics g){
     try{
       Graphics2D g2d=(Graphics2D)g;
-      BufferedImage i=GE.ge.editor_generator.generator.getViewerImage();
-      System.out.println("image @ viewer.paint="+i);
+      BufferedImage i=GE.ge.editor_generator.generator.viewerimage;
       if(i!=null)
         g2d.drawImage(i,null,null);
     }catch(Exception x){
-      System.out.println("PAINT FAILED");
       x.printStackTrace();}}
   
 }

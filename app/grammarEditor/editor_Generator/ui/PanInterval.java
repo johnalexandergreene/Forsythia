@@ -18,7 +18,7 @@ public class PanInterval extends JPanel{
   
   private static final long serialVersionUID=-1484832312439244645L;
   
-  public JTextField txtjigtag;
+  public JTextField txtinterval;
 
   public PanInterval(){
     
@@ -35,16 +35,16 @@ public class PanInterval extends JPanel{
     Component horizontalStrut_3 = Box.createHorizontalStrut(8);
     add(horizontalStrut_3);
     
-    txtjigtag = new JTextField("1234",6);
-    add(txtjigtag);
-    txtjigtag.setFont(new Font("DejaVu Sans Mono", Font.PLAIN, 18));
-    txtjigtag.setBorder(null);
+    txtinterval = new JTextField("1234",6);
+    add(txtinterval);
+    txtinterval.setFont(new Font("DejaVu Sans Mono", Font.PLAIN, 18));
+    txtinterval.setBorder(null);
     
     Component horizontalStrut_1 = Box.createHorizontalStrut(8);
     add(horizontalStrut_1);
-    txtjigtag.addKeyListener(new KeyAdapter(){
+    txtinterval.addKeyListener(new KeyAdapter(){
       public void keyReleased(KeyEvent e){
-        GE.ge.editor_generator.setInterval(txtjigtag.getText());}});
+        GE.ge.editor_generator.setInterval(txtinterval.getText());}});
     
   }
 }

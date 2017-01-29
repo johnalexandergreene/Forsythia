@@ -14,13 +14,13 @@ import javax.swing.JTextField;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 
-public class PanDetailFloor extends JPanel{
+public class PanExportImageSize extends JPanel{
   
   private static final long serialVersionUID=-1484832312439244645L;
   
-  public JTextField txtfloor;
+  public JTextField txtsize;
 
-  public PanDetailFloor(){
+  public PanExportImageSize(){
     
     setBackground(new Color(255, 204, 255));
     setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
@@ -28,23 +28,23 @@ public class PanDetailFloor extends JPanel{
     Component horizontalStrut = Box.createHorizontalStrut(8);
     add(horizontalStrut);
     
-    JLabel lbljigtag = new JLabel("DetailFloor=");
+    JLabel lbljigtag = new JLabel("ExportSize=");
     add(lbljigtag);
     lbljigtag.setFont(new Font("Dialog", Font.BOLD, 14));
     
     Component horizontalStrut_3 = Box.createHorizontalStrut(8);
     add(horizontalStrut_3);
     
-    txtfloor = new JTextField("12.34",8);
-    add(txtfloor);
-    txtfloor.setFont(new Font("DejaVu Sans Mono", Font.PLAIN, 18));
-    txtfloor.setBorder(null);
+    txtsize = new JTextField("1234",6);
+    add(txtsize);
+    txtsize.setFont(new Font("DejaVu Sans Mono", Font.PLAIN, 18));
+    txtsize.setBorder(null);
     
     Component horizontalStrut_1 = Box.createHorizontalStrut(8);
     add(horizontalStrut_1);
-    txtfloor.addKeyListener(new KeyAdapter(){
+    txtsize.addKeyListener(new KeyAdapter(){
       public void keyReleased(KeyEvent e){
-        GE.ge.editor_generator.setDetailFloor(txtfloor.getText());}});
+        GE.ge.editor_generator.setExportSize(txtsize.getText());}});
     
   }
 }

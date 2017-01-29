@@ -1,31 +1,36 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Generator.ui;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.util.ui.WrapLayout;
-import java.awt.Component;
-import javax.swing.Box;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
-public class UIEditorGenerator extends JPanel{
+public class UI_Generator extends JPanel{
 
   private static final long serialVersionUID=-7926505214597124551L;
 
+  public JButton 
+    btngeneratestopgo,
+    btngeneratemode;
   public PanInterval pangenerateinterval;
   public PanDetailFloor pandetailfloor;
   public PanViewer panviewer;
+  public JButton btnexportdir;
+  public PanExportImageSize panexportsize;
   
-  public UIEditorGenerator(){
+  public UI_Generator(){
     GridBagLayout gridBagLayout = new GridBagLayout();
     gridBagLayout.columnWidths = new int[]{0, 0};
     gridBagLayout.rowHeights = new int[]{0, 0, 0, 0};
@@ -44,16 +49,17 @@ public class UIEditorGenerator extends JPanel{
     gbc_pantop.gridy = 0;
     add(pantop, gbc_pantop);
     
-    JButton btngeneratestopgo = new JButton("Stop");
+    btngeneratestopgo = new JButton("stopgo foo");
     btngeneratestopgo.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         GE.ge.editor_generator.toggleStopGo();}});
     pantop.add(btngeneratestopgo);
     
-    JButton btngeneratemode = new JButton("Continuous");
+    btngeneratemode = new JButton("mode foo");
     btngeneratemode.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
-        GE.ge.editor_generator.toggleMode();}});
+        GE.ge.editor_generator.toggleMode();
+        }});
     pantop.add(btngeneratemode);
     
     pangenerateinterval = new PanInterval();
@@ -68,7 +74,7 @@ public class UIEditorGenerator extends JPanel{
     Component horizontalStrut_1 = Box.createHorizontalStrut(8);
     pantop.add(horizontalStrut_1);
     
-    JButton btnexportdir = new JButton("ExportDir=~/fleen/export");
+    btnexportdir = new JButton("ExportDir=~/fleen/export");
     btnexportdir.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         GE.ge.editor_generator.setExportDir();}});
@@ -81,6 +87,12 @@ public class UIEditorGenerator extends JPanel{
     btngrammar.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         GE.ge.editor_generator.openGrammarEditor();}});
+    
+    panexportsize = new PanExportImageSize();
+    pantop.add(panexportsize);
+    
+    Component horizontalStrut_4 = Box.createHorizontalStrut(8);
+    pantop.add(horizontalStrut_4);
     pantop.add(btngrammar);
     
     Component horizontalStrut_3 = Box.createHorizontalStrut(8);
