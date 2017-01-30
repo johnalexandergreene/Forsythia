@@ -28,7 +28,7 @@ public class PanDetailFloor extends JPanel{
     Component horizontalStrut = Box.createHorizontalStrut(8);
     add(horizontalStrut);
     
-    JLabel lbljigtag = new JLabel("DetailFloor=");
+    JLabel lbljigtag = new JLabel("DetailFloor = ");
     add(lbljigtag);
     lbljigtag.setFont(new Font("Dialog", Font.BOLD, 14));
     

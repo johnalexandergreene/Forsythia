@@ -67,7 +67,8 @@ public class Editor_Generator extends Editor{
     refreshIntervalButton();
     refreshDetailFloorButton();
     refreshExportDirButton();
-    refreshExportSizeButton();}
+    refreshExportSizeButton();
+    refreshInfo();}
   
   /*
    * if we are presently stopped then offer the option to go
@@ -102,6 +103,13 @@ public class Editor_Generator extends Editor{
   private void refreshExportSizeButton(){
     UI_Generator ui=(UI_Generator)getUI();
     ui.panexportsize.txtsize.setText(String.valueOf(imageexporter.getImageSize()));}
+  
+  private void refreshInfo(){
+    UI_Generator ui=(UI_Generator)getUI();
+    if(generator.composition==null){
+      ui.lblinfo.setText("---");
+    }else{
+      ui.lblinfo.setText("Leaf Polygon Count = "+generator.composition.getLeafPolygons().size());}}
   
   /*
    * ################################

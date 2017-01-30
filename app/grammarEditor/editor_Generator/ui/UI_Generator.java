@@ -30,6 +30,7 @@ public class UI_Generator extends JPanel{
   public PanViewer panviewer;
   public JButton btnexportdir;
   public PanExportImageSize panexportsize;
+  public JLabel lblinfo;
   
   public UI_Generator(){
     GridBagLayout gridBagLayout = new GridBagLayout();
@@ -130,7 +131,7 @@ public class UI_Generator extends JPanel{
     gbc_paninfo.gridy = 2;
     add(paninfo, gbc_paninfo);
     
-    JLabel lblinfo = new JLabel("info");
+    lblinfo = new JLabel("info");
     paninfo.add(lblinfo);
 
   }

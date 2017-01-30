@@ -4,7 +4,6 @@ import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Grammar.ui.UIEditMetagon;
-import org.fleen.forsythia.app.grammarEditor.project.GrammarImportExport;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectGrammar;
 import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJig;
 import org.fleen.forsythia.app.grammarEditor.project.metagon.ProjectMetagon;
@@ -25,6 +24,27 @@ public class Editor_Grammar extends Editor{
   public Editor_Grammar(){
     super(NAME);}
 
+  /*
+   * ################################
+   * CONFIGURE
+   * ################################
+   */
+
+  public void configureForOpen(){
+    //if focus metagon is null then try to make it nonnull
+    if(GE.ge.focusmetagon==null)
+      if(GE.ge.focusgrammar.hasMetagons())
+        GE.ge.focusmetagon=GE.ge.focusgrammar.getMetagon(0);
+    //if focus metagon is nonnull and jig is null 
+    //then try to make focus jig nonnull
+    if(GE.ge.focusmetagon!=null&&GE.ge.focusjig==null)
+      if(GE.ge.focusmetagon.hasJigs())
+        GE.ge.focusjig=GE.ge.focusmetagon.getJig(0);
+    //
+    refreshUI();}
+
+  public void configureForClose(){}
+  
   /*
    * ################################
    * UI
@@ -57,24 +77,11 @@ public class Editor_Grammar extends Editor{
   
   /*
    * ################################
-   * CONFIGURE
+   * GRAMMAR IMPORT EXPORT
    * ################################
    */
-
-  public void configureForOpen(){
-    //if focus metagon is null then try to make it nonnull
-    if(GE.ge.focusmetagon==null)
-      if(GE.ge.focusgrammar.hasMetagons())
-        GE.ge.focusmetagon=GE.ge.focusgrammar.getMetagon(0);
-    //if focus metagon is nonnull and jig is null 
-    //then try to make focus jig nonnull
-    if(GE.ge.focusmetagon!=null&&GE.ge.focusjig==null)
-      if(GE.ge.focusmetagon.hasJigs())
-        GE.ge.focusjig=GE.ge.focusmetagon.getJig(0);
-    //
-    refreshUI();}
-
-  public void configureForClose(){}
+  
+  private GrammarImportExport importexport=new GrammarImportExport();
   
   /*
    * ################################
@@ -161,10 +168,10 @@ public class Editor_Grammar extends Editor{
     refreshUI();}
   
   public void exportGrammar(){
-    GrammarImportExport.exportGrammar();}
+    importexport.exportGrammar();}
   
   public void importGrammar(){
-    GrammarImportExport.importGrammar();
+    importexport.importGrammar();
     refreshUI();}
   
   /*

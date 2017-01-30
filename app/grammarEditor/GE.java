@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -19,8 +18,8 @@ import org.fleen.forsythia.app.grammarEditor.editor_Metagon.Editor_Metagon;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectGrammar;
 import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJig;
 import org.fleen.forsythia.app.grammarEditor.project.metagon.ProjectMetagon;
+import org.fleen.forsythia.app.grammarEditor.sampleGrammars.SampleGrammars;
 import org.fleen.forsythia.app.grammarEditor.util.Editor;
-import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 
 /*
  * ################################
@@ -142,26 +141,7 @@ public class GE implements Serializable{
    */
   private void initFocusGrammar(){
     if(focusgrammar==null)
-      loadDefaultSampleGrammar();}
-  
-  /*
-   * ################################
-   * SAMPLE GRAMMARS
-   * ################################
-   */
-  
-  static final String DEFAULTSAMPLEGRAMMARNAME="samplegrammar0000";
-  
-  private void loadDefaultSampleGrammar(){
-    try{
-      InputStream a=GE.class.getResourceAsStream(DEFAULTSAMPLEGRAMMARNAME);
-      System.out.println("resourcestream="+a);
-      ObjectInputStream b=new ObjectInputStream(a);
-      focusgrammar=new ProjectGrammar((ForsythiaGrammar)b.readObject(),null);
-      b.close();
-    }catch(Exception e){
-      System.out.println("Load default sample grammar failed.");
-      e.printStackTrace();}}
+      focusgrammar=SampleGrammars.getPreferredGrammar();}
   
   /*
    * ################################

@@ -28,7 +28,7 @@ public class PanInterval extends JPanel{
     Component horizontalStrut = Box.createHorizontalStrut(8);
     add(horizontalStrut);
     
-    JLabel lbljigtag = new JLabel("Interval=");
+    JLabel lbljigtag = new JLabel("Interval = ");
     add(lbljigtag);
     lbljigtag.setFont(new Font("Dialog", Font.BOLD, 14));
     

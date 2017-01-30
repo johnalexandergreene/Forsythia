@@ -151,7 +151,8 @@ public class Generator{
               if(timeToGenerateAnotherCompositionForContinuous()){
                 compositiongenerationtime=System.currentTimeMillis();
                 generateComposition();
-                renderCompositionForViewer();}}}
+                renderCompositionForViewer();
+                GE.ge.editor_generator.refreshUI();}}}
           //sleep periodically
           try{
             Thread.sleep(CONTROLCHECKINTERVAL,0);
@@ -192,8 +193,7 @@ public class Generator{
     System.out.println("render composition for viewer");
     PanViewer viewer=((UI_Generator)GE.ge.editor_generator.getUI()).panviewer;
     renderer=new Renderer();
-    viewerimage=renderer.getImage(viewer.getWidth(),viewer.getHeight(),composition);
-    viewer.repaint();}
+    viewerimage=renderer.getImage(viewer.getWidth(),viewer.getHeight(),composition);}
   
   /*
    * ################################

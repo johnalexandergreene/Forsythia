@@ -1,9 +1,6 @@
 
-get generator editor info bar working
-
-create samplegrammars package
-  a class and 3 grammars
-  triangly, boxy, mixy
+at grammar import put the sample grammars at top of import list in special color with dummy paths
+  or something
 
 grid : make sturctures and lines line up better. It isn't quite perfect when the grid gets dense and/or the structures get big.
 
@@ -20,3 +17,5 @@ do colored buttons for all of the editors
 generator editor numeric text boxes. fix them 
 
 make app open in generator. use focus grammar. do continuous mode
+
+fatten up the generator stroke
