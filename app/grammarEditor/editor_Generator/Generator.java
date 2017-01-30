@@ -104,7 +104,7 @@ public class Generator{
    */
   
   private static final double 
-    DETAILFLOOR=0.03,
+    DETAILFLOOR=0.05,
     DETAILFLOORMIN=0.006,
     DETAILFLOORMAX=0.8;
   

@@ -168,7 +168,7 @@ public class Renderer{
    * ################################
    */
   
-  private static final float STROKEWIDTH=0.002f;
+  private static final float STROKEWIDTH=0.008f;
   
   Stroke stroke;
   
