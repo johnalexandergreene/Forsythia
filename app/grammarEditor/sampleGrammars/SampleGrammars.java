@@ -1,46 +1,53 @@
 package org.fleen.forsythia.app.grammarEditor.sampleGrammars;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
-import java.util.ArrayList;
-import java.util.List;
 
+import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectGrammar;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 
 public class SampleGrammars{
   
+  /*
+   * these are the names of our serialized sample grammars in the samplegrammars package
+   * yes, we don't just get a list. That's difficult apparently.
+   */
   private static final String[] GRAMMARNAMES={
     "triangley.grammar",
     "triangley2.grammar",
     "boxy.grammar",
     "mixy.grammar"};
   
-  private static List<ProjectGrammar> grammars;
+  /*
+   * load each of our sample grammars from resource
+   * export to local directory
+   * import the nicest one
+   */
+  public void init(){
+    for(String name:GRAMMARNAMES)
+      loadAndExportResourceGrammar(name);
+    File path=GE.getLocalDir();
+    path=new File(path.getAbsolutePath()+"/"+GRAMMARNAMES[3]);
+    GE.ge.grammarimportexport.importGrammar(path);}
   
-  private static ProjectGrammar loadGrammar(String name){
-    ProjectGrammar g=null;  
+  private ForsythiaGrammar loadAndExportResourceGrammar(String name){
+    ForsythiaGrammar g=null;
+    //load it from resource
     try{
       InputStream a=SampleGrammars.class.getResourceAsStream(name);
       ObjectInputStream b=new ObjectInputStream(a);
-      g=new ProjectGrammar((ForsythiaGrammar)b.readObject(),null);
+      g=(ForsythiaGrammar)b.readObject();
       b.close();
     }catch(Exception e){
       System.out.println("Load sample grammar failed.");
       e.printStackTrace();}
-    return g;}
-  
-  static{
-    grammars=new ArrayList<ProjectGrammar>(GRAMMARNAMES.length);
-    for(String name:GRAMMARNAMES)
-      grammars.add(loadGrammar(name));}
-  
-  public static final List<ProjectGrammar> getGrammars(){
-    return grammars;}
-
-  public static ProjectGrammar getPreferredGrammar(){
-//    Random r=new Random();
-    ProjectGrammar g=grammars.get(3);
+    //create project grammar and export it to local dir
+    ProjectGrammar pg=new ProjectGrammar(g,name);
+    File path=GE.getLocalDir();
+    path=new File(path.getAbsolutePath()+"/"+pg.name);
+    GE.ge.grammarimportexport.exportGrammar(pg,path);
     return g;}
 
 }

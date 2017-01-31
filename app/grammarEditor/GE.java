@@ -13,6 +13,7 @@ import java.net.URLDecoder;
 
 import org.fleen.forsythia.app.grammarEditor.editor_Generator.Editor_Generator;
 import org.fleen.forsythia.app.grammarEditor.editor_Grammar.Editor_Grammar;
+import org.fleen.forsythia.app.grammarEditor.editor_Grammar.GrammarImportExport;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.Editor_Jig;
 import org.fleen.forsythia.app.grammarEditor.editor_Metagon.Editor_Metagon;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectGrammar;
@@ -125,8 +126,9 @@ public class GE implements Serializable{
   
   /*
    * ################################
-   * FOCUS GRAMMAR ELEMENTS
-   * these are the grammar elements that we are focussing upon at any particular moment
+   * GRAMMAR ELEMENTS
+   * The focus stuff is the grammar elements that we are focussing upon at any particular moment
+   *   they are basically ez to edit versions of the Forsythia classes + misc editor-related services
    * grammar is never null
    * metagon and jig might be null
    * ################################
@@ -135,13 +137,20 @@ public class GE implements Serializable{
   public ProjectGrammar focusgrammar=null;
   public ProjectMetagon focusmetagon=null;
   public ProjectJig focusjig=null;
+  public GrammarImportExport grammarimportexport=new GrammarImportExport();
   
   /*
-   * the focus grammar may never be null
+   * the focus grammar will be null at first init, thereafter it will never be null
+   * if it's null then we init samplegrammars and get one
+   *   that means 
+   *     load them from resource, 
+   *     export them to the local directory 
+   *     import one. That's our focus grammar 
    */
   private void initFocusGrammar(){
-    if(focusgrammar==null)
-      focusgrammar=SampleGrammars.getPreferredGrammar();}
+    if(focusgrammar==null){
+      SampleGrammars sg=new SampleGrammars();
+      sg.init();}}
   
   /*
    * ################################

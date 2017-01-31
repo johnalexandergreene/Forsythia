@@ -14,7 +14,6 @@ import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectGrammar;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 
-
 public class GrammarImportExport{
   
   /*
@@ -48,7 +47,7 @@ public class GrammarImportExport{
       fg=extractForsythiaGrammarFromFile(path);
     }catch(Exception x){
       x.printStackTrace();}
-    GE.ge.focusgrammar=new ProjectGrammar(fg,path);
+    GE.ge.focusgrammar=new ProjectGrammar(fg,path.getName());
     initFocusElementsForNewGrammar();}
   
   private void initFocusElementsForNewGrammar(){
@@ -92,19 +91,25 @@ public class GrammarImportExport{
    */
   
   public void exportGrammar(){
-    File f=getExportFile();
-    if(f==null)return;
-    ForsythiaGrammar g=GE.ge.focusgrammar.getForsythiaGrammar();
+    exportGrammar(GE.ge.focusgrammar);}
+  
+  public void exportGrammar(ProjectGrammar grammar){
+    File path=getExportFile();
+    if(path==null)return;
+    exportGrammar(grammar,path);}
+  
+  public void exportGrammar(ProjectGrammar grammar,File path){
+    ForsythiaGrammar g=grammar.getForsythiaGrammar();
     if(g==null)return;
-    writeExportFile(g,f);}
+    writeExportFile(g,path);}
   
   private File getExportFile(){
     JFileChooser fc=new JFileChooser();
     fc.setCurrentDirectory(getImportExportDir());
     if(fc.showSaveDialog(GE.ge.uimain)!=JFileChooser.APPROVE_OPTION)return null;
-    GE.ge.focusgrammar.grammarfilepath=fc.getSelectedFile();
+    File path=fc.getSelectedFile();
     importexportdir=fc.getCurrentDirectory();
-    return GE.ge.focusgrammar.grammarfilepath;}
+    return path;}
   
   private void writeExportFile(Serializable grammar,File file){
     FileOutputStream fos;

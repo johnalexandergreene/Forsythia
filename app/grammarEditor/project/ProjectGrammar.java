@@ -1,6 +1,5 @@
 package org.fleen.forsythia.app.grammarEditor.project;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -45,28 +44,17 @@ public class ProjectGrammar{
   
   //for import
   //convert forsythia grammar to project grammar
-  public ProjectGrammar(ForsythiaGrammar fg,File path){
-    grammarfilepath=path;
+  public ProjectGrammar(ForsythiaGrammar fg,String name){
+    this.name=name;
     init(this,fg);}
   
   /*
    * ################################
-   * GRAMMAR FILE PATH AND NAME
-   * The path to the serialized ForsythiaGrammar class object file that 
-   * this ProjectGrammar file is saved to and/or loaded from.
-   * It can be null
+   * NAME
    * ################################
    */
   
-  public static final String DEFAULTNAME="fgrammar";
-  
-  public File grammarfilepath=null;
-  
-  public String getName(){
-    if(grammarfilepath!=null)
-      return grammarfilepath.getName();
-    else
-      return DEFAULTNAME;}
+  public String name;
   
   /*
    * ################################

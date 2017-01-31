@@ -63,7 +63,7 @@ public class Editor_Grammar extends Editor{
   
   private void refreshButtons(){
     UIEditMetagon ui=(UIEditMetagon)getUI();
-    ui.lblgrammarname.setText("Grammar="+GE.ge.focusgrammar.getName());
+    ui.lblgrammarname.setText("Grammar="+GE.ge.focusgrammar.name);
     ui.lblmetagonscount.setText("Count="+GE.ge.focusgrammar.getMetagonCount());
     ui.lblmetagonjiglesscount.setText("Jigless="+GE.ge.focusgrammar.getJiglessMetagonsCount());
     ui.lblmetagonsisolatedcount.setText("Isolated="+GE.ge.focusgrammar.getIsolatedMetagonsCount());
@@ -75,14 +75,7 @@ public class Editor_Grammar extends Editor{
     else
       return GE.ge.focusmetagon.getJigCount();}
   
-  /*
-   * ################################
-   * GRAMMAR IMPORT EXPORT
-   * ################################
-   */
-  
-  private GrammarImportExport importexport=new GrammarImportExport();
-  
+
   /*
    * ################################
    * COMMAND
@@ -168,10 +161,10 @@ public class Editor_Grammar extends Editor{
     refreshUI();}
   
   public void exportGrammar(){
-    importexport.exportGrammar();}
+    GE.ge.grammarimportexport.exportGrammar();}
   
   public void importGrammar(){
-    importexport.importGrammar();
+    GE.ge.grammarimportexport.importGrammar();
     refreshUI();}
   
   /*
