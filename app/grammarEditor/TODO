@@ -1,7 +1,5 @@
 
-grid : make sturctures and lines line up better. It isn't quite perfect when the grid gets dense and/or the structures get big.
 
-make grammar editor jig icons just like section view in jig editor, with colors and glyphs
 
 polish the generator about button
 
@@ -18,3 +16,7 @@ in generator make renderer use a mix of generated and nice preset palettes, not 
   make those images look nice
   
 make a really nice image-making grammar. 
+
+Make grammar editor icons resize on window resize
+
+grid : make structures and lines align better. It isn't quite perfect when the grid gets dense and/or the structures get big, stuff gets misaligned.

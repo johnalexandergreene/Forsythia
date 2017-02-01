@@ -80,7 +80,6 @@ public abstract class Editor implements Serializable{
   @SuppressWarnings("rawtypes")
   ScheduledFuture scheduledresizerefresh=null;
   
-  
   /*
    * on resize event
    * if a refreshall is scheduled then cancel it

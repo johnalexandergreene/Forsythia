@@ -1,6 +1,7 @@
 package org.fleen.forsythia.app.grammarEditor.project.jig;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
@@ -42,8 +43,8 @@ class GrammarEditorIconImage extends BufferedImage{
     t.translate(xoffset,yoffset);
     g.transform(t);
     //render host metagon area
-    g.setPaint(UI.ELEMENTMENU_ICON_FILL);
-    g.fill(hostmetagonpath);
+//    g.setPaint(UI.ELEMENTMENU_ICON_FILL);
+//    g.fill(hostmetagonpath);
     //render section strokes
     BasicStroke stroke=new BasicStroke(
       (float)(UI.ELEMENTMENU_ICONPATHSTROKETHICKNESS/scale),
@@ -75,10 +76,15 @@ class GrammarEditorIconImage extends BufferedImage{
     for(ProjectJigSection section:pj.sections){
       p=section.metagon.kmetagon.getPolygon(section.getAnchor());
       points=p.getDefaultPolygon2D();
-      renderSectionPolygon(g,points);}}
+      renderSectionPolygon(g,points,section);}}
   
-  private void renderSectionPolygon(Graphics2D g,DPolygon points){
+  private void renderSectionPolygon(Graphics2D g,DPolygon points,ProjectJigSection section){
+    int i=section.chorusindex%UI.EDITJIG_EDITSECTIONS_SECTIONFILL.length;
+    Color fill=UI.EDITJIG_EDITSECTIONS_SECTIONFILL[i];
     Path2D.Double path=UI.getClosedPath(points);
+    g.setPaint(fill);
+//    g.setPaint(UI.ELEMENTMENU_ICON_FILL);
+    g.fill(path);
     g.setPaint(UI.ELEMENTMENU_ICON_STROKE);
     g.draw(path);}
   
