@@ -7,6 +7,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.util.UI;
@@ -18,8 +19,10 @@ import org.fleen.geom_Kisrhombille.KPolygon;
  * a large square icon image rendering a project jig 
  * TODO if the jig is invalid then show it. render all the strokes in red or something.
  */
-class GrammarEditorIconImage extends BufferedImage{
+class GrammarEditorIconImage extends BufferedImage implements Serializable{
   
+  private static final long serialVersionUID=-5631766971442231210L;
+
   GrammarEditorIconImage(ProjectJig pj,int span){
     super(span,span,BufferedImage.TYPE_INT_RGB);
     //init graphics

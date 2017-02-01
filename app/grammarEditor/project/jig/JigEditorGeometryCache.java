@@ -1,6 +1,7 @@
 package org.fleen.forsythia.app.grammarEditor.project.jig;
 
 import java.awt.geom.Path2D;
+import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -17,7 +18,9 @@ import org.fleen.geom_Kisrhombille.KVertex;
  * 
  * we cache vertices, segs and polygons
  */
-public class JigEditorGeometryCache{
+public class JigEditorGeometryCache implements Serializable{
+  
+  private static final long serialVersionUID=7609812601916413185L;
   
   /*
    * ################################

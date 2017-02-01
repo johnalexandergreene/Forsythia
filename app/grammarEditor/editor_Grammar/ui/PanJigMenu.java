@@ -8,8 +8,9 @@ import org.fleen.forsythia.app.grammarEditor.util.ElementMenu;
 import org.fleen.forsythia.app.grammarEditor.util.ElementMenuItem;
 import org.fleen.forsythia.app.grammarEditor.util.UI;
 
-@SuppressWarnings("serial")
 public class PanJigMenu extends ElementMenu{
+
+  private static final long serialVersionUID=3987915843219850992L;
 
   public PanJigMenu(){
     super(UI.ELEMENTMENU_OVERVIEWJIGSROWS);}

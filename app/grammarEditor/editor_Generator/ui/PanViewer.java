@@ -12,9 +12,10 @@ import org.fleen.forsythia.app.grammarEditor.GE;
 /*
  * It's just a jpanel with an overidden paint
  */
-@SuppressWarnings("serial")
 public class PanViewer extends JPanel{
   
+  private static final long serialVersionUID=1186533064411024017L;
+
   public PanViewer(){
     super();}
   

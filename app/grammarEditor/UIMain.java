@@ -14,10 +14,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-
-@SuppressWarnings("serial")
 public class UIMain extends JFrame{
   
+  private static final long serialVersionUID=-8290517235964873539L;
+
   private static final int 
     DEFAULTWIDTH=1024,
     DEFAULTHEIGHT=768;

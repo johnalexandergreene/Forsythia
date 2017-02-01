@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.RenderingHints;
 import java.awt.Stroke;
 import java.awt.geom.Path2D;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 
@@ -19,8 +20,10 @@ import org.fleen.geom_2D.DPolygon;
  * graphics utilities? 
  * misc utilities
  */
-public class UI{
+public class UI implements Serializable{
   
+  private static final long serialVersionUID=8554677034789624933L;
+
   //--------------------------------
   //RENDERING HINTS
   

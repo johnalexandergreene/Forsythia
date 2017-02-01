@@ -1,5 +1,6 @@
 package org.fleen.forsythia.core.composition;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,9 @@ import org.fleen.util.tree.TreeNodeIterator;
  * 
  * we init the tree, build it, access it
  */
-public class ForsythiaComposition implements Forsythia{
+public class ForsythiaComposition implements Forsythia,Serializable{
+  
+  private static final long serialVersionUID=8710335928675291405L;
   
   /*
    * ################################

@@ -6,10 +6,10 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JMenuItem;
 
-
-@SuppressWarnings("serial")
 public abstract class PopupMenuItem extends JMenuItem{
   
+  private static final long serialVersionUID=-1131176675047120902L;
+
   public PopupMenuItem(String s,boolean enabled){
     super(s);
     setBackground(Color.orange);

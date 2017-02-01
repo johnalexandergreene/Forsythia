@@ -19,9 +19,10 @@ import javax.swing.JPanel;
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.util.ui.WrapLayout;
 
-@SuppressWarnings("serial")
 public class UIEditMetagon extends JPanel{
   
+  private static final long serialVersionUID=-2823752807780069865L;
+
   public JLabel lblgrammarname;
 
   private JButton btngrammarimport;

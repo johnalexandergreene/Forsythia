@@ -14,8 +14,9 @@ import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 
-@SuppressWarnings("serial")
 public class PanGridDensity extends JPanel{
+  
+  private static final long serialVersionUID=617916980288078402L;
   
   public JLabel lblgriddensity;
   JButton btngriddensityincrement,btngriddensitydecrement;

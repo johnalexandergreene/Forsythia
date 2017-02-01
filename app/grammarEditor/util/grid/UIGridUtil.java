@@ -1,6 +1,7 @@
 package org.fleen.forsythia.app.grammarEditor.util.grid;
 
 import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Hashtable;
@@ -13,8 +14,10 @@ import org.fleen.geom_Kisrhombille.GK;
 import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.KVertex;
 
-public class UIGridUtil{
+public class UIGridUtil implements Serializable{
   
+  private static final long serialVersionUID=-8363625515185944702L;
+
   /*
    * ################################
    * CONVERT PORT COORDINATES TO VIEW COORDINATES

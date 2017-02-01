@@ -20,8 +20,8 @@ import org.fleen.util.ui.WrapLayout;
 
 public class UI_Generator extends JPanel{
 
-  private static final long serialVersionUID=-7926505214597124551L;
-
+  private static final long serialVersionUID=-4764589355634085547L;
+  
   public JButton 
     btngeneratestopgo,
     btngeneratemode;

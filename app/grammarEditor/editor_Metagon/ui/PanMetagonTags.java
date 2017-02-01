@@ -16,7 +16,7 @@ import org.fleen.forsythia.app.grammarEditor.GE;
 
 public class PanMetagonTags extends JPanel{
   
-  private static final long serialVersionUID=-1484832312439244645L;
+  private static final long serialVersionUID=1080948326559731578L;
   
   public JTextField txtmetagontags;
 

@@ -14,8 +14,9 @@ import javax.swing.JTextField;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 
-@SuppressWarnings("serial")
 public class PanSectionTags extends JPanel{
+  
+  private static final long serialVersionUID=3262174629447498277L;
   
   public JTextField txttag;
 

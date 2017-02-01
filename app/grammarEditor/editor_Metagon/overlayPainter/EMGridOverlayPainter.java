@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
+import java.io.Serializable;
 import java.util.Iterator;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
@@ -12,8 +13,10 @@ import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.graph.GEdge;
 import org.fleen.geom_Kisrhombille.graph.GVertex;
 
-public class EMGridOverlayPainter{
+public class EMGridOverlayPainter implements Serializable{
   
+  private static final long serialVersionUID=-3499620952397298974L;
+
   public void paint(Graphics2D graphics,int w,int h,double scale,double centerx,double centery){
     graphics.setRenderingHints(UI.RENDERING_HINTS);
     GE.ge.editor_metagon.editedmetagon.metagoneditorgeometrycache.update(w,h,scale,centerx,centery);

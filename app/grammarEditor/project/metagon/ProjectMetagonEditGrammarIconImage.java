@@ -6,14 +6,17 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 import org.fleen.forsythia.app.grammarEditor.util.UI;
 
 /*
  * a large square icon image rendering a project jig 
  */
-class ProjectMetagonEditGrammarIconImage extends BufferedImage{
+class ProjectMetagonEditGrammarIconImage extends BufferedImage implements Serializable{
   
+  private static final long serialVersionUID=5867193485788399162L;
+
   ProjectMetagonEditGrammarIconImage(ProjectMetagon pm,int span){
     super(span,span,BufferedImage.TYPE_INT_RGB);
     //init image

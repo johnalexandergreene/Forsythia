@@ -25,7 +25,7 @@ import org.fleen.geom_Kisrhombille.KVertex;
 
 public class GridEditJig extends Grid{
   
-  private static final long serialVersionUID=-4286658320538693888L;
+  private static final long serialVersionUID=-7764660690948024911L;
 
   GridOverlayPainter overlaypainter=new GridOverlayPainter();
 

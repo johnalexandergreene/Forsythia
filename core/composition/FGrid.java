@@ -1,15 +1,17 @@
 package org.fleen.forsythia.core.composition;
 
+import java.io.Serializable;
+
 import org.fleen.geom_Kisrhombille.KGrid;
 
 /*
  * forsythia grid node
  * comes in 2 flavors : root and transform
  */
-public abstract class FGrid extends ForsythiaTreeNode{
+public abstract class FGrid extends ForsythiaTreeNode implements Serializable{
   
-  private static final long serialVersionUID=-2082766167662596276L;
-
+  private static final long serialVersionUID=3593560887876552589L;
+  
   /*
    * ################################
    * LOCAL KGRID

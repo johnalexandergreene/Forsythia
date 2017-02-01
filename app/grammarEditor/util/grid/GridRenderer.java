@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 import org.fleen.forsythia.app.grammarEditor.util.UI;
 import org.fleen.geom_2D.GD;
@@ -25,8 +26,10 @@ import org.fleen.geom_2D.GD;
  * 
  * 
  */
-public class GridRenderer{
+public class GridRenderer implements Serializable{
   
+  private static final long serialVersionUID=2408218887813661894L;
+
   public void render(
     Graphics2D graphics,double viewwidth,double viewheight,double viewscale,
     double viewoffsetx,double viewoffsety){

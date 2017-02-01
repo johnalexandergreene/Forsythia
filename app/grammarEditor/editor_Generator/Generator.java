@@ -2,14 +2,17 @@ package org.fleen.forsythia.app.grammarEditor.editor_Generator;
 
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Generator.ui.PanViewer;
 import org.fleen.forsythia.app.grammarEditor.editor_Generator.ui.UI_Generator;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 
-public class Generator{
+public class Generator implements Serializable{
   
+  private static final long serialVersionUID=-4830057832022895569L;
+
   /*
    * ################################
    * STOP AND GO

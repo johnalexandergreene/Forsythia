@@ -1,5 +1,6 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Generator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -16,8 +17,10 @@ import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 import org.fleen.forsythia.core.grammar.Jig;
 import org.fleen.util.tree.TreeNodeIterator;
 
-public class Composer{
+public class Composer implements Serializable{
   
+  private static final long serialVersionUID=3399571378455322265L;
+
   /*
    * ################################
    * COMPOSE

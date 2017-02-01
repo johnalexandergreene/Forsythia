@@ -3,12 +3,15 @@ package org.fleen.forsythia.app.grammarEditor.sampleGrammars;
 import java.io.File;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.Serializable;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectGrammar;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 
-public class SampleGrammars{
+public class SampleGrammars implements Serializable{
+  
+  private static final long serialVersionUID=-5614469697980598416L;
   
   /*
    * these are the names of our serialized sample grammars in the samplegrammars package

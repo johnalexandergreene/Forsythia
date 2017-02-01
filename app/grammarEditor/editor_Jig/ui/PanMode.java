@@ -15,8 +15,9 @@ import javax.swing.JPanel;
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.Editor_Jig;
 
-@SuppressWarnings("serial")
 public class PanMode extends JPanel{
+  
+  private static final long serialVersionUID=-1790032330974577808L;
   
   public JButton btnmode;
 

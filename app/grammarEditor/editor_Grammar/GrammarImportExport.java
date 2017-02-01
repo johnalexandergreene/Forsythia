@@ -14,7 +14,9 @@ import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectGrammar;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 
-public class GrammarImportExport{
+public class GrammarImportExport implements Serializable{
+  
+  private static final long serialVersionUID=796695767401225914L;
   
   /*
    * ################################

@@ -25,7 +25,7 @@ import org.fleen.geom_Kisrhombille.KVertex;
 
 public class GridEditMetagon extends Grid{
   
-  private static final long serialVersionUID=-4286658320538693888L;
+  private static final long serialVersionUID=5154407826012214745L;
 
   GridOverlayPainter overlaypainter=new GridOverlayPainter();
 

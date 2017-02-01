@@ -1,6 +1,7 @@
 package org.fleen.forsythia.app.grammarEditor.project.jig;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,8 +24,10 @@ import org.fleen.geom_Kisrhombille.graph.Graph;
  * cached geometry for rendering in jig editor
  * stuff for import and export
  */
-public class ProjectJig implements ElementMenuItem{
+public class ProjectJig implements ElementMenuItem,Serializable{
   
+  private static final long serialVersionUID=-8487660919916811634L;
+
   /*
    * ################################
    * CONSTRUCTORS

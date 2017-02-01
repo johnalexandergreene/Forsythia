@@ -27,7 +27,7 @@ public abstract class Editor implements Serializable{
   public Editor(String name){
     this.name=name;
     ui=createUI();
-    ui.addHierarchyBoundsListener(hbl0);}
+    ui.addHierarchyBoundsListener(new HBL0());}
 
   /*
    * ################################
@@ -84,8 +84,10 @@ public abstract class Editor implements Serializable{
    * on resize event
    * if a refreshall is scheduled then cancel it
    * schedule a refreshall at refreshdelay time in the future 
-   */
-  private HierarchyBoundsListener hbl0=new HierarchyBoundsListener(){
+   */  
+  private class HBL0 implements HierarchyBoundsListener,Serializable{
+    
+    private static final long serialVersionUID=6250653239681551733L;
 
     public void ancestorMoved(HierarchyEvent e){}
     
@@ -94,9 +96,12 @@ public abstract class Editor implements Serializable{
         if(scheduledresizerefresh!=null)
           scheduledresizerefresh.cancel(false);
         scheduledresizerefresh=SCHEDULEDEXECUTOR.schedule(
-          new ScheduleResizeRefresh(),RESIZE_REFRESH_DELAY,TimeUnit.MILLISECONDS);}}};
+          new ScheduleResizeRefresh(),RESIZE_REFRESH_DELAY,TimeUnit.MILLISECONDS);}}}
     
-  private class ScheduleResizeRefresh extends Thread{
+  private class ScheduleResizeRefresh extends Thread implements Serializable{
+ 
+    private static final long serialVersionUID=-7548194239693359381L;
+
     public void run(){
       refreshUI();
       scheduledresizerefresh=null;}}

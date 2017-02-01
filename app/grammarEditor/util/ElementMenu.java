@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.Serializable;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -30,8 +31,8 @@ public abstract class ElementMenu extends JPanel{
   public ElementMenu(int rowcount){
     super();
     this.rowcount=rowcount;
-    addMouseListener(ML0);
-    addMouseMotionListener(ML0);}
+    addMouseListener(new ML0());
+    addMouseMotionListener(new ML0());}
   
   /*
    * ################################
@@ -44,7 +45,9 @@ public abstract class ElementMenu extends JPanel{
   private boolean mousedragging=false;
   private long oldtime=-1,newtime,timediff;
   
-  private MouseAdapter ML0=new MouseAdapter(){
+  private class ML0 extends MouseAdapter implements Serializable{
+
+    private static final long serialVersionUID=2524868473914370627L;
 
     public void mousePressed(MouseEvent e){
       mousesamplex=e.getX();}

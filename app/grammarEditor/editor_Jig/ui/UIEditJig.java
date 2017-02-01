@@ -16,7 +16,7 @@ import javax.swing.Box;
 
 public class UIEditJig extends JPanel{
   
-  private static final long serialVersionUID=-8825258503202494056L;
+  private static final long serialVersionUID=8375171748091392216L;
   
   public JPanel pantop;
   public GridEditJig pangrid;

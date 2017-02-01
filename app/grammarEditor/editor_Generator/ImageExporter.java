@@ -2,6 +2,7 @@ package org.fleen.forsythia.app.grammarEditor.editor_Generator;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.Serializable;
 import java.util.Iterator;
 
 import javax.imageio.IIOImage;
@@ -14,8 +15,10 @@ import org.fleen.forsythia.app.grammarEditor.GE;
 
 import com.sun.imageio.plugins.png.PNGMetadata;
 
-public class ImageExporter{
+public class ImageExporter implements Serializable{
   
+  private static final long serialVersionUID=-5177659741259613723L;
+
   /*
    * ################################
    * EXPORT DIRECTORY

@@ -16,7 +16,7 @@ import javax.swing.Box;
 
 public class EditMetagonUI extends JPanel{
   
-  private static final long serialVersionUID=-8825258503202494056L;
+  private static final long serialVersionUID=3242479197632226748L;
   
   public JPanel pantop;
   public EditMetagonGrid pangrid;

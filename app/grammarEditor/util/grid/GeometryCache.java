@@ -1,6 +1,7 @@
 package org.fleen.forsythia.app.grammarEditor.util.grid;
 
 import java.awt.geom.Path2D;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
@@ -23,8 +24,10 @@ import org.fleen.geom_Kisrhombille.KVertex;
  * also makes things faster
  *   
  */
-public class GeometryCache{
+public class GeometryCache implements Serializable{
   
+  private static final long serialVersionUID=2104701982735798049L;
+
   GeometryCache(Grid grid){
     this.grid=grid;}
   

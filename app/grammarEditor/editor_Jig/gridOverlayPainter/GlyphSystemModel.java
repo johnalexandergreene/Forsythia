@@ -1,5 +1,6 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Jig.gridOverlayPainter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +18,10 @@ import org.fleen.geom_2D.GD;
  * we use the first side that is long enough, going backwards from the last side
  *  
  */
-public class GlyphSystemModel{
+public class GlyphSystemModel implements Serializable{
   
+  private static final long serialVersionUID=1958965206775431418L;
+
   /*
    * ################################
    * CONSTRUCTOR

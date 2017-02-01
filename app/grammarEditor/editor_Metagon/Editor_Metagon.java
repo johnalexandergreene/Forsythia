@@ -24,7 +24,7 @@ import org.fleen.geom_Kisrhombille.graph.GEdge;
  */
 public class Editor_Metagon extends Editor{
   
-  private static final long serialVersionUID=-7639109793852882162L;
+  private static final long serialVersionUID=8128638341406087342L;
 
   private static final String NAME="METAGON";
   

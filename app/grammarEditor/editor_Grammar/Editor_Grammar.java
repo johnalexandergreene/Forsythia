@@ -11,7 +11,7 @@ import org.fleen.forsythia.app.grammarEditor.util.Editor;
 
 public class Editor_Grammar extends Editor{
 
-  private static final long serialVersionUID=1681991061348332454L;
+  private static final long serialVersionUID=171251086665175422L;
   
   public static final String NAME="GRAMMAR";
   

@@ -9,6 +9,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
@@ -21,9 +22,9 @@ import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.util.tree.TreeNode;
 
-public class Renderer{
+public class Renderer implements Serializable{
   
-
+  private static final long serialVersionUID=1885473221116487499L;
   
   private static final Color BACKGROUNDCOLOR=new Color(128,128,128);
   private static final int MARGIN=10;

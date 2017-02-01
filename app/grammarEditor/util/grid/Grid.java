@@ -8,6 +8,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
 import javax.swing.JPanel;
 
@@ -49,9 +50,11 @@ import org.fleen.geom_Kisrhombille.KVertex;
   coarse, minimal rendering of grid panning, zooming ??
  
  */
-@SuppressWarnings("serial")
+
 public abstract class Grid extends JPanel{
   
+  private static final long serialVersionUID=-9047391457848367846L;
+
   public GridRenderer gridrenderer=new GridRenderer();
   
   /*
@@ -63,8 +66,8 @@ public abstract class Grid extends JPanel{
   public Grid(){
     super();
     setDoubleBuffered(true);
-    addMouseListener(ML0);
-    addMouseMotionListener(ML0);
+    addMouseListener(new ML0());
+    addMouseMotionListener(new ML0());
     setFocusable(true);
     initGeometryCache();}
   
@@ -289,8 +292,10 @@ public abstract class Grid extends JPanel{
   private static final int MINDRAGDIST=10; 
   private int mousedownx,mousedowny;
   
-  private MouseAdapter ML0=new MouseAdapter(){
+  private class ML0 extends MouseAdapter implements Serializable{
     
+    private static final long serialVersionUID=4153888926854789467L;
+
     public void mousePressed(MouseEvent e){
       requestFocusInWindow();
       mousedownx=e.getX();

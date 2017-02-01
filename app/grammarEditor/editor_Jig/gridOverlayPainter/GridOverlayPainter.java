@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Path2D;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -19,8 +20,10 @@ import org.fleen.geom_Kisrhombille.KPolygon;
 import org.fleen.geom_Kisrhombille.graph.GEdge;
 import org.fleen.geom_Kisrhombille.graph.GVertex;
 
-public class GridOverlayPainter{
+public class GridOverlayPainter implements Serializable{
   
+  private static final long serialVersionUID=5607779324837953808L;
+
   public void paint(Graphics2D graphics,int w,int h,double scale,double centerx,double centery){
     graphics.setRenderingHints(UI.RENDERING_HINTS);
     GE.ge.editor_jig.editedjig.jigeditorgeometrycache.update(w,h,scale,centerx,centery);

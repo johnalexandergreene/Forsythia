@@ -18,7 +18,7 @@ import org.fleen.forsythia.app.grammarEditor.util.Editor;
  */
 public class Editor_Generator extends Editor{
 
-  private static final long serialVersionUID=2946066354233444754L;
+  private static final long serialVersionUID=7503985176169949671L;
 
   public static final String NAME="GENERATOR";
   
@@ -182,6 +182,6 @@ public class Editor_Generator extends Editor{
     GE.ge.setEditor(GE.ge.editor_grammar);}
   
   public void openAboutPopup(){
-    JOptionPane.showMessageDialog(GE.ge.uimain,GE.ABOUT,"About this app",JOptionPane.PLAIN_MESSAGE);}
+    JOptionPane.showMessageDialog(GE.ge.uimain,GE.ABOUT,"About FFGE",JOptionPane.PLAIN_MESSAGE);}
   
 }

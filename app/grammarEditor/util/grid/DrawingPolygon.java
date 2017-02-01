@@ -14,8 +14,10 @@ import org.fleen.geom_Kisrhombille.KVertex;
  * It is created by drawing
  * We have a tests for validity and completeness 
  */
-@SuppressWarnings("serial")
+
 public class DrawingPolygon extends KPolygon{
+  
+  private static final long serialVersionUID=-3518968791640299457L;
   
   public boolean closed=false;
   

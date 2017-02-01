@@ -16,7 +16,7 @@ import org.fleen.forsythia.app.grammarEditor.util.UI;
 
 public class PanDetailFloor extends JPanel{
   
-  private static final long serialVersionUID=-1484832312439244645L;
+  private static final long serialVersionUID=4200492407974666454L;
   
   public JTextField txtfloor;
 

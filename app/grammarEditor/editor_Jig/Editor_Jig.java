@@ -42,7 +42,7 @@ import org.fleen.geom_Kisrhombille.graph.GEdge;
  */
 public class Editor_Jig extends Editor{
   
-  private static final long serialVersionUID=5782373205247413080L;
+  private static final long serialVersionUID=-8986352947770948434L;
 
   private static final String NAME="JIG";
   

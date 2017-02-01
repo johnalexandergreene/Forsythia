@@ -32,8 +32,8 @@ import org.fleen.geom_Kisrhombille.graph.Graph;
  */
 public class ProjectMetagon implements Serializable,ElementMenuItem{
   
-  private static final long serialVersionUID=-238762044761078848L;
-  
+  private static final long serialVersionUID=-1143710212336234939L;
+
   /*
    * ################################
    * CONSTRUCTORS
@@ -163,7 +163,10 @@ public class ProjectMetagon implements Serializable,ElementMenuItem{
   
   public List<ProjectJig> jigs=new ArrayList<ProjectJig>();
   
-  Comparator<ProjectJig> ProjectJigComparator=new Comparator<ProjectJig>(){
+  class ProjectJigComparator implements Comparator<ProjectJig>,Serializable{
+
+    private static final long serialVersionUID=8299780665610819376L;
+
     public int compare(ProjectJig j0,ProjectJig j1){
       int h0=j0.hashCode(),h1=j1.hashCode();
       if(h0==h1){
@@ -182,7 +185,7 @@ public class ProjectMetagon implements Serializable,ElementMenuItem{
   public boolean addJig(ProjectJig j){
     if(jigs.contains(j))return false;
     jigs.add(j);
-    Collections.sort(jigs,ProjectJigComparator);
+    Collections.sort(jigs,new ProjectJigComparator());
     return true;}
   
   public boolean discardJig(ProjectJig j){

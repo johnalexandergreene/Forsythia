@@ -9,8 +9,8 @@ import org.fleen.geom_Kisrhombille.KGrid;
  */
 public class FGridRoot extends FGrid{
   
-  private static final long serialVersionUID=-6976402647903611804L;
-  
+  private static final long serialVersionUID=-515164684907387061L;
+
   /*
    * ################################
    * CONSTRUCTOR

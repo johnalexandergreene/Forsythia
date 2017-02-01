@@ -16,7 +16,7 @@ import org.fleen.forsythia.app.grammarEditor.util.UI;
 
 public class PanExportImageSize extends JPanel{
   
-  private static final long serialVersionUID=-1484832312439244645L;
+  private static final long serialVersionUID=3549140254842605572L;
   
   public JTextField txtsize;
 

@@ -1,5 +1,6 @@
 package org.fleen.forsythia.app.grammarEditor.project;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -30,8 +31,10 @@ import org.fleen.geom_Kisrhombille.KMetagon;
  * each projectjig holds a list of projectprotojigsections
  *   
  */
-public class ProjectGrammar{
+public class ProjectGrammar implements Serializable{
   
+  private static final long serialVersionUID=-8136928537083671983L;
+
   /*
    * ################################
    * CONSTRUCTORS
@@ -64,8 +67,11 @@ public class ProjectGrammar{
   
   //projectmetagons ordered by hashcode. TODO something better
   public List<ProjectMetagon> metagons=new ArrayList<ProjectMetagon>();
+  
+  private class MetagonComparator implements Comparator<ProjectMetagon>,Serializable{
     
-  private Comparator<ProjectMetagon> MetagonComparator=new Comparator<ProjectMetagon>(){
+    private static final long serialVersionUID=-529984029519619386L;
+
     public int compare(ProjectMetagon pm0,ProjectMetagon pm1){
       int h0=pm0.hashCode(),h1=pm1.hashCode();
       if(h0==h1){
@@ -114,7 +120,7 @@ public class ProjectGrammar{
     //fail if specified metagon is null or dupe
     if(m==null||metagons.contains(m))return;
     metagons.add(m);
-    Collections.sort(metagons,MetagonComparator);}
+    Collections.sort(metagons,new MetagonComparator());}
   
   public void addMetagons(Collection<ProjectMetagon> m){
     for(ProjectMetagon pm:m)

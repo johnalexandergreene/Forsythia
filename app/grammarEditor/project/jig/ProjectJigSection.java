@@ -1,6 +1,7 @@
 package org.fleen.forsythia.app.grammarEditor.project.jig;
 
 import java.awt.geom.Path2D;
+import java.io.Serializable;
 import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
@@ -13,8 +14,10 @@ import org.fleen.geom_Kisrhombille.KAnchor;
 import org.fleen.geom_Kisrhombille.KMetagon;
 import org.fleen.geom_Kisrhombille.KPolygon;
 
-public class ProjectJigSection{
+public class ProjectJigSection implements Serializable{
   
+  private static final long serialVersionUID=-654455489262628496L;
+
   /*
    * ################################
    * INIT

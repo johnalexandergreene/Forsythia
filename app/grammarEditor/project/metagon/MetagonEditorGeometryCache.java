@@ -1,6 +1,7 @@
 package org.fleen.forsythia.app.grammarEditor.project.metagon;
 
 import java.awt.geom.Path2D;
+import java.io.Serializable;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -17,7 +18,9 @@ import org.fleen.geom_Kisrhombille.KVertex;
  * 
  * we cache vertices, segs and polygons
  */
-public class MetagonEditorGeometryCache{
+public class MetagonEditorGeometryCache implements Serializable{
+  
+  private static final long serialVersionUID=-1760731649711575167L;
   
   /*
    * ################################

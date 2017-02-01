@@ -45,11 +45,32 @@ import org.fleen.forsythia.app.grammarEditor.util.Editor;
  */
 public class GE implements Serializable{
   
-  private static final long serialVersionUID=-2575411536818952885L;
+  private static final long serialVersionUID=4971596440965502787L;
 
-  public static final String APPNAME="Fleen Forsythia Grammar Editor 0.2A";
+  public static final String APPNAME="FFGE20170131";
   
-  public static final String ABOUT=APPNAME+"\n by John Greene. \n fleen.org";
+  public static final String ABOUT=
+    "Fleen Forsythia Grammar Editor Version 2017_01_31\n"+
+    "\n"+
+    "Create shape grammars for use in Forsythia geometry production processes.\n"+
+    "Sample compositions based on grammars.\n"+
+    "Export pretty images.\n"+
+    "\n"+
+    "Author : John Greene\n"+
+    "Project : fleen.org\n"+
+    "\n"+
+    "This program is free software: you can redistribute it and/or modify\n"+
+    "it under the terms of the GNU General Public License as published by\n"+
+    "the Free Software Foundation, either version 3 of the License, or\n"+
+    "(at your option) any later version.\n"+
+    "\n"+
+    "This program is distributed in the hope that it will be useful,\n"+
+    "but WITHOUT ANY WARRANTY; without even the implied warranty of\n"+
+    "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the\n"+
+    "GNU General Public License for more details.\n"+
+    "\n"+
+    "You should have received a copy of the GNU General Public License\n"+
+    "along with this program.  If not, see <http://www.gnu.org/licenses/>.";
   
   /*
    * ################################
