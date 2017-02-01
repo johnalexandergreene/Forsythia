@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.grammarEditor.editor_Grammar;
+package org.fleen.forsythia.app.grammarEditor;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,7 +10,6 @@ import java.io.Serializable;
 
 import javax.swing.JFileChooser;
 
-import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectGrammar;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 
@@ -64,7 +63,7 @@ public class GrammarImportExport implements Serializable{
   private File getGrammarFile(){
     JFileChooser fc=new JFileChooser();
     fc.setCurrentDirectory(getImportExportDir());
-    int r=fc.showOpenDialog(GE.ge.uimain);
+    int r=fc.showOpenDialog(GE.ge.getUIMain());
     if(r!=JFileChooser.APPROVE_OPTION)
       return null;
     File selectedfile=fc.getSelectedFile();
@@ -108,7 +107,7 @@ public class GrammarImportExport implements Serializable{
   private File getExportFile(){
     JFileChooser fc=new JFileChooser();
     fc.setCurrentDirectory(getImportExportDir());
-    if(fc.showSaveDialog(GE.ge.uimain)!=JFileChooser.APPROVE_OPTION)return null;
+    if(fc.showSaveDialog(GE.ge.getUIMain())!=JFileChooser.APPROVE_OPTION)return null;
     File path=fc.getSelectedFile();
     importexportdir=fc.getCurrentDirectory();
     return path;}

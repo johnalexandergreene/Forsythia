@@ -213,7 +213,7 @@ public class ProjectJig implements ElementMenuItem,Serializable{
    * ################################
    */
   
-  BufferedImage grammareditoriconimage=null;
+  transient BufferedImage grammareditoriconimage=null;
   
   //implementation of UIElementMenuElement interface
   public BufferedImage getGrammarEditorIconImage(int span){

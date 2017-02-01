@@ -25,9 +25,7 @@ public abstract class Editor implements Serializable{
    * ################################
    */
   public Editor(String name){
-    this.name=name;
-    ui=createUI();
-    ui.addHierarchyBoundsListener(new HBL0());}
+    this.name=name;}
 
   /*
    * ################################
@@ -36,7 +34,7 @@ public abstract class Editor implements Serializable{
    */
   
   private String name;
-  private JPanel ui;
+  transient private JPanel ui;
   private boolean isopen=false;
   
   public String getName(){
@@ -46,17 +44,20 @@ public abstract class Editor implements Serializable{
     return isopen;}
   
   public JPanel getUI(){
+    if(ui==null){
+      ui=createUI();
+      ui.addHierarchyBoundsListener(new HBL0());}
     return ui;}
   
   protected abstract JPanel createUI();
   
   public void open(){
-    ui.setVisible(true);
+    getUI().setVisible(true);
     configureForOpen();
     isopen=true;}
   
   public void close(){
-    ui.setVisible(false);
+    getUI().setVisible(false);
     configureForClose();
     isopen=false;}
   

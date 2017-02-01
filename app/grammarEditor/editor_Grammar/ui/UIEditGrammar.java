@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.util.ui.WrapLayout;
 
-public class UIEditMetagon extends JPanel{
+public class UIEditGrammar extends JPanel{
   
   private static final long serialVersionUID=-2823752807780069865L;
 
@@ -48,7 +48,7 @@ public class UIEditMetagon extends JPanel{
   
   public PanJigMenu panjigmenu;
   
-  public UIEditMetagon(){
+  public UIEditGrammar(){
     GridBagLayout gridBagLayout = new GridBagLayout();
     gridBagLayout.columnWidths = new int[]{0, 0};
     gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};

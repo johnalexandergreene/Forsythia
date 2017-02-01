@@ -13,6 +13,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import java.awt.FlowLayout;
 
 public class UIMain extends JFrame{
   
@@ -50,7 +51,7 @@ public class UIMain extends JFrame{
         GE.ge.term();}});
     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     //
-    setTitle(GE.APPNAME);
+//    setTitle(GE.APPNAME);
     Dimension ss=Toolkit.getDefaultToolkit().getScreenSize();
     setBounds(new Rectangle(
       (ss.width-DEFAULTWIDTH)/2,
@@ -59,23 +60,11 @@ public class UIMain extends JFrame{
       DEFAULTHEIGHT));
 //    setExtendedState(UIMain.MAXIMIZED_BOTH);
     setVisible(true);
-    
-    JPanel contentPane=new JPanel();
-    contentPane.setBorder(new EmptyBorder(5,5,5,5));
-    setContentPane(contentPane);
-    
+
     paneditor = new JPanel();
-    GroupLayout gl_contentPane = new GroupLayout(contentPane);
-    gl_contentPane.setHorizontalGroup(
-      gl_contentPane.createParallelGroup(Alignment.LEADING)
-        .addComponent(paneditor, GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
-    );
-    gl_contentPane.setVerticalGroup(
-      gl_contentPane.createParallelGroup(Alignment.LEADING)
-        .addComponent(paneditor, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
-    );
     paneditor.setLayout(new CardLayout(0, 0));
-    contentPane.setLayout(gl_contentPane);
+    paneditor.setBorder(new EmptyBorder(5,5,5,5));
+    setContentPane(paneditor);
     
   }
 }

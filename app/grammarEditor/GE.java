@@ -13,7 +13,6 @@ import java.net.URLDecoder;
 
 import org.fleen.forsythia.app.grammarEditor.editor_Generator.Editor_Generator;
 import org.fleen.forsythia.app.grammarEditor.editor_Grammar.Editor_Grammar;
-import org.fleen.forsythia.app.grammarEditor.editor_Grammar.GrammarImportExport;
 import org.fleen.forsythia.app.grammarEditor.editor_Jig.Editor_Jig;
 import org.fleen.forsythia.app.grammarEditor.editor_Metagon.Editor_Metagon;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectGrammar;
@@ -28,7 +27,7 @@ import org.fleen.forsythia.app.grammarEditor.util.Editor;
  * ################################
  * 
  * FLEEN FORSYTHIA GRAMMAR EDITOR
- * Create and edit grammars for use in Forsythia production process
+ * Create and edit grammars for use in Forsythia geometry production process
  * Generate sample Forsythia compostions
  * 
  * The app is an instance of GE
@@ -46,11 +45,13 @@ import org.fleen.forsythia.app.grammarEditor.util.Editor;
 public class GE implements Serializable{
   
   private static final long serialVersionUID=4971596440965502787L;
+  
+  public static final String VERSIONNAME="V2017_02_01";
 
-  public static final String APPNAME="FFGE20170131";
+  public static final String APPNAME="Grammar Editor "+VERSIONNAME;
   
   public static final String ABOUT=
-    "Fleen Forsythia Grammar Editor Version 2017_01_31\n"+
+    "Fleen Forsythia Grammar Editor "+VERSIONNAME+"\n"+
     "\n"+
     "Create shape grammars for use in Forsythia geometry production processes.\n"+
     "Sample compositions based on grammars.\n"+
@@ -80,6 +81,7 @@ public class GE implements Serializable{
  
   private void init(){
     initFocusGrammar();
+    initEditors();
     initUI();}
   
   /*
@@ -89,36 +91,25 @@ public class GE implements Serializable{
    */
 
   //main ui. A frame. Holds editor uis
-  public UIMain uimain;
+  private transient UIMain uimain=null;
   
-  private boolean uiinitialized;
+  public UIMain getUIMain(){
+    if(uimain==null)
+      createUI();
+    return uimain;}
   
+  /*
+   * ok the prob is that having the unserialized ui is not the same as running it
+   */
   private void initUI(){
-    System.out.println("#### Q INIT ####");
-    //init ui
-    uiinitialized=false;
-    EventQueue.invokeLater(new Runnable(){
-      public void run(){
-        try{
-          uimain=new UIMain();
-          editor_grammar=new Editor_Grammar();
-          editor_metagon=new Editor_Metagon();
-          editor_jig=new Editor_Jig();
-          editor_generator=new Editor_Generator();
-          editors=new Editor[]{editor_grammar,editor_metagon,editor_jig,editor_generator};
-          for(Editor a:editors)
-            uimain.paneditor.add(a.getUI(),a.getName());
-          uiinitialized=true;
-        }catch(Exception e){
-          e.printStackTrace();}}});
-    //wait a sec for the ui to finish initing
-    while(!uiinitialized){
-     try{ 
-       Thread.sleep(1000,0);
-     }catch(Exception x){
-       x.printStackTrace();}}
-    //open an editor
+    UIMain uimain=getUIMain();
+    uimain.setVisible(true);
     setEditor(editor_grammar);}
+  
+  private void createUI(){
+    uimain=new UIMain();
+    for(Editor a:editors)
+      uimain.paneditor.add(a.getUI(),a.getName());}
   
   /*
    * ################################
@@ -135,6 +126,13 @@ public class GE implements Serializable{
   public Editor_Jig editor_jig;
   public Editor_Generator editor_generator;
   public Editor[] editors;
+  
+  private void initEditors(){
+    editor_grammar=new Editor_Grammar();
+    editor_metagon=new Editor_Metagon();
+    editor_jig=new Editor_Jig();
+    editor_generator=new Editor_Generator();
+    editors=new Editor[]{editor_grammar,editor_metagon,editor_jig,editor_generator};}
   
   public void setEditor(final Editor editor){
     if(presenteditor!=null)presenteditor.close();
@@ -175,7 +173,7 @@ public class GE implements Serializable{
   
   /*
    * ################################
-   * TERMINATE APP
+   * TERMINATE
    * write serialized instance of this class to local dir then exit
    * ################################
    */
@@ -249,8 +247,11 @@ public class GE implements Serializable{
    */
   public static final void main(String[] a){
     ge=loadInstance();
-    if(ge==null){
-      System.out.println("constructing instance of GE");
+    if(ge!=null){
+      System.out.println("loaded serialized instance of GE");
+      ge.init();
+    }else{
+      System.out.println("constructed instance of GE");
       ge=new GE();
       ge.init();}}
   

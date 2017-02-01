@@ -166,7 +166,7 @@ public class Editor_Generator extends Editor{
     fc.setDialogTitle("Specify the image export directory.");
     fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
     fc.setAcceptAllFileFilterUsed(false);
-    int r=fc.showOpenDialog(GE.ge.uimain);
+    int r=fc.showOpenDialog(GE.ge.getUIMain());
     if(r==JFileChooser.APPROVE_OPTION){
       imageexporter.setExportDirectory(fc.getSelectedFile());
       refreshButtons();}}
@@ -182,6 +182,6 @@ public class Editor_Generator extends Editor{
     GE.ge.setEditor(GE.ge.editor_grammar);}
   
   public void openAboutPopup(){
-    JOptionPane.showMessageDialog(GE.ge.uimain,GE.ABOUT,"About FFGE",JOptionPane.PLAIN_MESSAGE);}
+    JOptionPane.showMessageDialog(GE.ge.getUIMain(),GE.ABOUT,"About this application",JOptionPane.PLAIN_MESSAGE);}
   
 }

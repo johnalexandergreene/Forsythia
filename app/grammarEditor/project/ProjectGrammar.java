@@ -242,10 +242,10 @@ public class ProjectGrammar implements Serializable{
     //
     ForsythiaGrammar fg=new ForsythiaGrammar(metagonjigs);
     //DEBUG
-    System.out.println("########################");
-    System.out.println("### CREATED FGRAMMAR ###");
-    System.out.println(fg);
-    System.out.println("########################");
+//    System.out.println("########################");
+//    System.out.println("### CREATED FGRAMMAR ###");
+//    System.out.println(fg);
+//    System.out.println("########################");
     //
     return fg;}
   

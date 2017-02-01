@@ -238,7 +238,7 @@ public class ProjectMetagon implements Serializable,ElementMenuItem{
   //It describes a metagon well enough.
   Path2D.Double imagepath;
   //this is the metagon icon in the top menu
-  BufferedImage iconimage=null;
+  transient BufferedImage iconimage=null;
   
   public Path2D.Double getImagePath(){
     if(imagepath==null)
