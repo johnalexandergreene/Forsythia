@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
+import org.fleen.forsythia.app.grammarEditor.util.UI;
 import org.fleen.util.ui.WrapLayout;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
@@ -37,12 +38,14 @@ public class EditMetagonUI extends JPanel{
     pantop.setLayout(layouttop);
     
     btnquit = new JButton("Quit");
+    btnquit.setBackground(UI.BUTTON_GREEN);
     btnquit.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
         GE.ge.editor_metagon.quit();}});
     pantop.add(btnquit);
     
     btnsave = new JButton("Save");
+    btnsave.setBackground(UI.BUTTON_GREEN);
     btnsave.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
         GE.ge.editor_metagon.save();}});

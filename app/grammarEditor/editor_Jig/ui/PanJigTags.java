@@ -1,6 +1,5 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Jig.ui;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
@@ -13,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
+import org.fleen.forsythia.app.grammarEditor.util.UI;
 
 public class PanJigTags extends JPanel{
   
@@ -22,7 +22,7 @@ public class PanJigTags extends JPanel{
 
   public PanJigTags(){
     
-    setBackground(new Color(255, 204, 255));
+    setBackground(UI.BUTTON_PURPLE);
     setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
     
     Component horizontalStrut = Box.createHorizontalStrut(4);
@@ -36,6 +36,7 @@ public class PanJigTags extends JPanel{
     add(horizontalStrut_3);
     
     txtjigtag = new JTextField("foo",20);
+    txtjigtag.setBackground(UI.BUTTON_YELLOW);
     add(txtjigtag);
     txtjigtag.setFont(new Font("DejaVu Sans Mono", Font.PLAIN, 18));
     txtjigtag.setBorder(null);

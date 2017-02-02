@@ -17,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
+import org.fleen.forsythia.app.grammarEditor.util.UI;
 import org.fleen.util.ui.WrapLayout;
 
 public class UIEditGrammar extends JPanel{
@@ -76,18 +77,21 @@ public class UIEditGrammar extends JPanel{
     pantop.add(horizontalStrut_1);
     
     btngrammarimport = new JButton("Import");
+    btngrammarimport.setBackground(UI.BUTTON_BLUE);
     btngrammarimport.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         GE.ge.editor_grammar.importGrammar();}});
     pantop.add(btngrammarimport);
     
     btngrammarexport = new JButton("Export");
+    btngrammarexport.setBackground(UI.BUTTON_BLUE);
     btngrammarexport.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         GE.ge.editor_grammar.exportGrammar();}});
     pantop.add(btngrammarexport);
     
     btngrammarnew = new JButton("New");
+    btngrammarnew.setBackground(UI.BUTTON_BLUE);
     btngrammarnew.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         GE.ge.editor_grammar.createNewGrammar();}});
@@ -97,6 +101,7 @@ public class UIEditGrammar extends JPanel{
     pantop.add(horizontalStrut);
     
     btngenerate = new JButton("Generate");
+    btngenerate.setBackground(UI.BUTTON_YELLOW);
     btngenerate.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         GE.ge.editor_grammar.generate();}});
@@ -136,6 +141,7 @@ public class UIEditGrammar extends JPanel{
     panmetagonbuttons.add(horizontalStrut_4);
     
     btnmetagonscreate = new JButton("Create");
+    btnmetagonscreate.setBackground(UI.BUTTON_ORANGE);
     btnmetagonscreate.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         GE.ge.editor_grammar.createMetagon();}});
@@ -149,12 +155,14 @@ public class UIEditGrammar extends JPanel{
     panmetagonbuttons.add(btnmetagonscreate);
     
     btnmetagonsedit = new JButton("Edit");
+    btnmetagonsedit.setBackground(UI.BUTTON_ORANGE);
     btnmetagonsedit.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         GE.ge.editor_grammar.editMetagon();}});
     panmetagonbuttons.add(btnmetagonsedit);
     
     btnmetagonsdiscard = new JButton("Discard");
+    btnmetagonsdiscard.setBackground(UI.BUTTON_ORANGE);
     btnmetagonsdiscard.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         GE.ge.editor_grammar.discardMetagon();}});
@@ -199,18 +207,21 @@ public class UIEditGrammar extends JPanel{
     panjigbuttons.add(horizontalStrut_6);
     
     btnjigscreate = new JButton("Create");
+    btnjigscreate.setBackground(UI.BUTTON_GREEN);
     btnjigscreate.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         GE.ge.editor_grammar.createJig();}});
     panjigbuttons.add(btnjigscreate);
     
     btnjigsedit = new JButton("Edit");
+    btnjigsedit.setBackground(UI.BUTTON_GREEN);
     btnjigsedit.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         GE.ge.editor_grammar.editJig();}});
     panjigbuttons.add(btnjigsedit);
     
     btnjigsdiscard = new JButton("Discard");
+    btnjigsdiscard.setBackground(UI.BUTTON_GREEN);
     btnjigsdiscard.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         GE.ge.editor_grammar.discardJig();}});

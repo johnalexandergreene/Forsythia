@@ -114,7 +114,12 @@ public class ProjectJig implements ElementMenuItem,Serializable{
    * ################################
    */
   
-  public Graph graph;
+  private transient Graph graph;
+  
+  public Graph getGraph(){
+    if(graph==null)
+      initGraph();
+    return graph;}
   
   void initGraph(){
     graph=new Graph(jiggedmetagon.kmetagon.getPolygon(griddensity,true));}

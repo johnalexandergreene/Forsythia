@@ -1,6 +1,5 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Jig.ui;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
@@ -13,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
+import org.fleen.forsythia.app.grammarEditor.util.UI;
 
 public class PanGridDensity extends JPanel{
   
@@ -23,20 +23,20 @@ public class PanGridDensity extends JPanel{
 
   public PanGridDensity(){
     
-    setBackground(new Color(204, 153, 255));
+    setBackground(UI.BUTTON_PURPLE);
     setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
     
     lblgriddensity = new JLabel("Grid Density = 000");
     add(lblgriddensity);
-    lblgriddensity.setFont(new Font("Dialog", Font.BOLD, 16));
+    lblgriddensity.setFont(new Font("Dialog", Font.BOLD, 12));
     
     Component horizontalStrut = Box.createHorizontalStrut(8);
     add(horizontalStrut);
     
     btngriddensityincrement = new JButton("+");
+    btngriddensityincrement.setBackground(UI.BUTTON_GREEN);
     add(btngriddensityincrement);
-    btngriddensityincrement.setFont(new Font("Dialog", Font.BOLD, 16));
-    btngriddensityincrement.setBackground(new Color(255, 204, 255));
+    btngriddensityincrement.setFont(new Font("Dialog", Font.BOLD, 12));
     btngriddensityincrement.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
         if(btngriddensityincrement.isEnabled())
@@ -46,9 +46,9 @@ public class PanGridDensity extends JPanel{
     add(horizontalStrut_1);
     
     btngriddensitydecrement = new JButton("-");
+    btngriddensitydecrement.setBackground(UI.BUTTON_GREEN);
     add(btngriddensitydecrement);
-    btngriddensitydecrement.setBackground(new Color(255, 204, 255));
-    btngriddensitydecrement.setFont(new Font("Dialog", Font.BOLD, 16));
+    btngriddensitydecrement.setFont(new Font("Dialog", Font.BOLD, 12));
     btngriddensitydecrement.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
         if(btngriddensitydecrement.isEnabled())

@@ -238,7 +238,7 @@ public class GE implements Serializable{
    * ################################
    */
   
-  public static final boolean DEBUG=true;
+  public static final boolean DEBUG=false;
   public static GE ge=null;
   
   /*

@@ -1,6 +1,5 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Metagon.ui;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
@@ -13,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
+import org.fleen.forsythia.app.grammarEditor.util.UI;
 
 public class PanMetagonTags extends JPanel{
   
@@ -22,7 +22,7 @@ public class PanMetagonTags extends JPanel{
 
   public PanMetagonTags(){
     
-    setBackground(new Color(255, 204, 255));
+    setBackground(UI.BUTTON_RED);
     setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
     
     Component horizontalStrut = Box.createHorizontalStrut(4);
@@ -36,6 +36,7 @@ public class PanMetagonTags extends JPanel{
     add(horizontalStrut_3);
     
     txtmetagontags = new JTextField("foo",20);
+    txtmetagontags.setBackground(UI.BUTTON_YELLOW);
     add(txtmetagontags);
     txtmetagontags.setFont(new Font("DejaVu Sans Mono", Font.PLAIN, 18));
     txtmetagontags.setBorder(null);

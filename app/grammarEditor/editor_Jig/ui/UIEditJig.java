@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
+import org.fleen.forsythia.app.grammarEditor.util.UI;
 import org.fleen.util.ui.WrapLayout;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
@@ -31,6 +32,7 @@ public class UIEditJig extends JPanel{
   public PanSectionTags pansectiontags;
   public JButton btnsectionchorus;
   public JButton btnsectionanchor;
+  private Component horizontalStrut_1;
   
   public UIEditJig(){
     setLayout(new BorderLayout(0, 0));
@@ -42,12 +44,14 @@ public class UIEditJig extends JPanel{
     pantop.setLayout(layouttop);
     
     btnquit = new JButton("Quit");
+    btnquit.setBackground(UI.BUTTON_RED);
     btnquit.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
         GE.ge.editor_jig.quit();}});
     pantop.add(btnquit);
     
     btnsave = new JButton("Save");
+    btnsave.setBackground(UI.BUTTON_RED);
     btnsave.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
         GE.ge.editor_jig.save();}});
@@ -57,10 +61,14 @@ public class UIEditJig extends JPanel{
     pantop.add(horizontalStrut);
     
     btnmode = new JButton("Mode=foo");
+    btnmode.setBackground(UI.BUTTON_ORANGE);
     btnmode.addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e){
         GE.ge.editor_jig.toggleMode();}});
     pantop.add(btnmode);
+    
+    horizontalStrut_1 = Box.createHorizontalStrut(20);
+    pantop.add(horizontalStrut_1);
     
     pangriddensity = new PanGridDensity();
     pantop.add(pangriddensity);
@@ -69,12 +77,14 @@ public class UIEditJig extends JPanel{
     pantop.add(panjigtag);
     
     btnsectionchorus = new JButton("SectionChorus=000");
+    btnsectionchorus.setBackground(UI.BUTTON_GREEN);
     btnsectionchorus.addMouseListener(new MouseAdapter(){
       public void mouseClicked(MouseEvent e){
         GE.ge.editor_jig.incrementSectionChorus();}});
     pantop.add(btnsectionchorus);
     
     btnsectionanchor = new JButton("SectionAnchor=000");
+    btnsectionanchor.setBackground(UI.BUTTON_GREEN);
     btnsectionanchor.addMouseListener(new MouseAdapter(){
       public void mouseClicked(MouseEvent e){
         GE.ge.editor_jig.incrementSectionAnchor();}});

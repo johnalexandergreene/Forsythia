@@ -9,6 +9,7 @@ import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJigSection;
 import org.fleen.forsythia.app.grammarEditor.util.Editor;
 import org.fleen.geom_Kisrhombille.KVertex;
 import org.fleen.geom_Kisrhombille.graph.GEdge;
+import org.fleen.geom_Kisrhombille.graph.Graph;
 
 /*
  * A jig is defined by it's grid density, graph, jig tags, jigsections, jigsection tags, jigsection anchors and jigsection chorus indices
@@ -235,9 +236,10 @@ public class Editor_Jig extends Editor{
   
   private String getInfoString(){
     if(mode==MODE_CREATE_A){
+      Graph graph=editedjig.getGraph();
       int 
-        opensequencecount=editedjig.graph.getDisconnectedGraph().getOpenKVertexSequences().size(),
-        undividedpolygoncount=editedjig.graph.getDisconnectedGraph().getUndividedPolygons().size();
+        opensequencecount=graph.getDisconnectedGraph().getOpenKVertexSequences().size(),
+        undividedpolygoncount=graph.getDisconnectedGraph().getUndividedPolygons().size();
       return "opensequences="+opensequencecount+" polygons="+undividedpolygoncount;
     }else{//mode==MODE_CREATE_B || mode==MODE_RETOUCH
       int sectioncount=editedjig.sections.size();
@@ -305,45 +307,46 @@ public class Editor_Jig extends Editor{
       connectedhead=null;  
     //if we touch the unconnectedhead then delete unconnectedhead
     }else if(unconnectedhead!=null&&v.equals(unconnectedhead)){
-      editedjig.graph.removeVertex(v);
+      editedjig.getGraph().removeVertex(v);
       connectedhead=null;
       unconnectedhead=null;
     //if we touch a vertex that's already in the graph
-    }else if(editedjig.graph.contains(v)){
+    }else if(editedjig.getGraph().contains(v)){
       //if connectedhead is nonnull then connect connectedhead to v
       if(connectedhead!=null)
-        editedjig.graph.connect(v,connectedhead);
+        editedjig.getGraph().connect(v,connectedhead);
       //v becomes connectedhead. unconnectedhead is nulled.
       connectedhead=v;
       unconnectedhead=null;
     //at this point we know that we touched an unused vertex
     //did we touch a vertex on an existing graph edge (between but not on the edge's vertices)?
     }else{
-      GEdge edge=editedjig.graph.getCrossingEdge(v);
+      GEdge edge=editedjig.getGraph().getCrossingEdge(v);
       //## Yes, we are on an edge
       if(edge!=null){
         //add v, inserting it between the edge vertices. adjust connections appropriately
-        editedjig.graph.disconnect(edge.v0.kvertex,edge.v1.kvertex);
-        editedjig.graph.addVertex(v);
-        editedjig.graph.connect(edge.v0.kvertex,v);
-        editedjig.graph.connect(edge.v1.kvertex,v);
+        Graph graph=editedjig.getGraph();
+        graph.disconnect(edge.v0.kvertex,edge.v1.kvertex);
+        graph.addVertex(v);
+        graph.connect(edge.v0.kvertex,v);
+        graph.connect(edge.v1.kvertex,v);
         //if connectedhead is nonnull then connect that too
         if(connectedhead!=null)
-          editedjig.graph.connect(connectedhead,v);
+          editedjig.getGraph().connect(connectedhead,v);
         //v is new connectedhead
         connectedhead=v;
         unconnectedhead=null;
       //## No, we are not on an edge
       //add the vertex to the graph. maybe connect.
       }else{
-        editedjig.graph.addVertex(v);
+        editedjig.getGraph().addVertex(v);
         if(connectedhead!=null)
-          editedjig.graph.connect(v,connectedhead);
+          editedjig.getGraph().connect(v,connectedhead);
         connectedhead=v;
         unconnectedhead=null;
       }}
     //
-    editedjig.graph.invalidateDisconnectedGraph();
+    editedjig.getGraph().invalidateDisconnectedGraph();
     refreshUI();}
   
   public void touchSection(ProjectJigSection m){
@@ -365,7 +368,7 @@ public class Editor_Jig extends Editor{
   public void save(){
     //if we are in create mode then create the jig
     if(mode!=MODE_RETOUCH){
-      editedjig.graph=null;//discard that. TODO what else can we discard?
+//      editedjig.=null;//discard that. TODO what else can we discard?
       GE.ge.focusgrammar.addMetagons(editedjig.localsectionmetagons);
       GE.ge.focusmetagon.invalidateOverviewIconImage();
       GE.ge.focusmetagon.addJig(editedjig);

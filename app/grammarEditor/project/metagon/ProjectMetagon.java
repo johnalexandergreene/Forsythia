@@ -92,7 +92,7 @@ public class ProjectMetagon implements Serializable,ElementMenuItem{
    * ################################
    */
   
-  private Graph graph=null;
+  private transient Graph graph=null;
   
   private void initGraph(){
     graph=new Graph();}

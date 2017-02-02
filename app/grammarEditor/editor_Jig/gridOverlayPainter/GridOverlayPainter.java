@@ -49,7 +49,7 @@ public class GridOverlayPainter implements Serializable{
   private void fillSections_EditGeometry(Graphics2D graphics){
     Color color;
     Path2D path;
-    for(KPolygon m:GE.ge.editor_jig.editedjig.graph.getDisconnectedGraph().getUndividedPolygons()){
+    for(KPolygon m:GE.ge.editor_jig.editedjig.getGraph().getDisconnectedGraph().getUndividedPolygons()){
       color=UI.EDITJIG_EDITGEOMETRY_HOSTMETAGONFILLCOLOR;
       path=GE.ge.editor_jig.editedjig.getJigEditorGeometryCache().getPath(m);
       graphics.setPaint(color);
@@ -58,7 +58,7 @@ public class GridOverlayPainter implements Serializable{
   private void strokeGraphEdges_EditGeometry(Graphics2D graphics){
     graphics.setStroke(UI.GRID_DRAWINGSTROKE);
     graphics.setPaint(UI.EDITJIG_EDITGEOMETRY_STROKECOLOR);
-    Iterator<GEdge> i=GE.ge.editor_jig.editedjig.graph.edges.iterator();
+    Iterator<GEdge> i=GE.ge.editor_jig.editedjig.getGraph().edges.iterator();
     GEdge e;
     double[] p0,p1;
     Path2D path=new Path2D.Double();
@@ -86,7 +86,7 @@ public class GridOverlayPainter implements Serializable{
     float span=UI.GRID_DEFAULTVERTEXSPAN;
     double[] p;
     Ellipse2D dot=new Ellipse2D.Double();
-    for(GVertex v:GE.ge.editor_jig.editedjig.graph.vertices){
+    for(GVertex v:GE.ge.editor_jig.editedjig.getGraph().vertices){
       p=GE.ge.editor_jig.editedjig.getJigEditorGeometryCache().getPoint(v.kvertex);
       dot.setFrame(p[0]-span/2,p[1]-span/2,span,span);
       graphics.fill(dot);}}

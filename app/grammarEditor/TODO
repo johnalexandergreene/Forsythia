@@ -1,8 +1,5 @@
 
 
-tweak the colors. organize color stuff
-do colored buttons for all of the editors
-
 generator editor numeric text boxes. fix them 
 
 make app open in generator. use focus grammar. do continuous mode
@@ -12,6 +9,10 @@ in generator make renderer use a mix of generated and nice preset palettes, not 
   
 make a really nice image-making grammar. 
 
+---
+
 Make grammar editor icons resize on window resize
+
+tweak the colors. organize color stuff
 
 grid : make structures and lines align better. It isn't quite perfect when the grid gets dense and/or the structures get big, stuff gets misaligned.
