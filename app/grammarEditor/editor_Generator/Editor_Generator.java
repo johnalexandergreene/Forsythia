@@ -117,7 +117,7 @@ public class Editor_Generator extends Editor{
    * ################################
    */
 
-  public Generator generator=new Generator(); 
+  public Generator generator=new Generator();
   
   /*
    * ################################

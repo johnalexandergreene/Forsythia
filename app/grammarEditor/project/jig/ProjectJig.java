@@ -232,7 +232,12 @@ public class ProjectJig implements ElementMenuItem,Serializable{
    * ################################
    */
   
-  public JigEditorGeometryCache jigeditorgeometrycache=new JigEditorGeometryCache();
+  private transient JigEditorGeometryCache jigeditorgeometrycache=null;
+  
+  public JigEditorGeometryCache getJigEditorGeometryCache(){
+    if(jigeditorgeometrycache==null)
+      jigeditorgeometrycache=new JigEditorGeometryCache();
+    return jigeditorgeometrycache;}
   
   void invalidateJigEditorGeometryCache(){
     jigeditorgeometrycache.invalidate();}

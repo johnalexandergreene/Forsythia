@@ -171,17 +171,48 @@ public class Generator implements Serializable{
   
   /*
    * ################################
+   * COMPOSER
+   * ################################
+   */
+  
+  private transient Composer composer=null;
+  
+  public Composer getComposer(){
+    if(composer==null)
+      composer=new Composer();
+    return composer;}
+  
+  private void resetComposer(){
+    composer=new Composer();}
+  
+  /*
+   * ################################
+   * RENDERER
+   * ################################
+   */
+  
+  private transient Renderer renderer=null;
+  
+  public Renderer getRenderer(){
+    if(renderer==null)
+      renderer=new Renderer();
+    return renderer;}
+  
+  private void resetRenderer(){
+    renderer=new Renderer();}
+  
+  /*
+   * ################################
    * GENERATE COMPOSITION
    * ################################
    */
   
-  public Composer composer=null;
-  public ForsythiaComposition composition=null;
+  public transient ForsythiaComposition composition=null;
   
   private void generateComposition(){
     System.out.println("generate composition");
-    composer=new Composer();
-    composition=composer.compose(GE.ge.focusgrammar.getForsythiaGrammar(),detailfloor);}
+    resetComposer();
+    composition=getComposer().compose(GE.ge.focusgrammar.getForsythiaGrammar(),detailfloor);}
   
   /*
    * ################################
@@ -189,14 +220,13 @@ public class Generator implements Serializable{
    * ################################
    */
   
-  public BufferedImage viewerimage=null;
-  public Renderer renderer;
+  public transient BufferedImage viewerimage=null;
   
   private void renderCompositionForViewer(){
     System.out.println("render composition for viewer");
     PanViewer viewer=((UI_Generator)GE.ge.editor_generator.getUI()).panviewer;
-    renderer=new Renderer();
-    viewerimage=renderer.getImage(viewer.getWidth(),viewer.getHeight(),composition);}
+    resetRenderer();
+    viewerimage=getRenderer().getImage(viewer.getWidth(),viewer.getHeight(),composition);}
   
   /*
    * ################################
@@ -219,6 +249,6 @@ public class Generator implements Serializable{
       iheight=imagesize;
       iwidth=(int)((cwidth/cheight)*imagesize);}
     //
-    return renderer.getImage(iwidth,iheight,composition);}
+    return getRenderer().getImage(iwidth,iheight,composition);}
   
 }

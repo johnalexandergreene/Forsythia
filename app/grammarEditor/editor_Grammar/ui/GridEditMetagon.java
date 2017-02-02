@@ -103,7 +103,7 @@ public class GridEditMetagon extends Grid{
   private ProjectJigSection getSection(double[] p){
     Path2D path;
     for(ProjectJigSection m:GE.ge.editor_jig.editedjig.sections){
-      path=GE.ge.editor_jig.editedjig.jigeditorgeometrycache.getPath(m.getPolygon());
+      path=GE.ge.editor_jig.editedjig.getJigEditorGeometryCache().getPath(m.getPolygon());
       if(path.contains(p[0],p[1]))
         return m;}
     return null;}

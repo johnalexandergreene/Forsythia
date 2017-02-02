@@ -65,7 +65,12 @@ public class ProjectMetagon implements Serializable,ElementMenuItem{
    * ################################
    */
   
-  public MetagonEditorGeometryCache metagoneditorgeometrycache=new MetagonEditorGeometryCache();
+  private transient MetagonEditorGeometryCache metagoneditorgeometrycache=null;
+  
+  public MetagonEditorGeometryCache getMetagonEditorGeometryCache(){
+    if(metagoneditorgeometrycache==null)
+      metagoneditorgeometrycache=new MetagonEditorGeometryCache();
+    return metagoneditorgeometrycache;}
   
   void invalidateJigEditorGeometryCache(){
     metagoneditorgeometrycache.invalidate();}

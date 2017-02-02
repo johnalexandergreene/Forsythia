@@ -1,10 +1,5 @@
 
 
-
-make it so it serializes properly at exit
-  make all the generated graphics transient, because it's ppintless to serializae all that and besides BufferedImage is not Serializable
-
-
 tweak the colors. organize color stuff
 do colored buttons for all of the editors
 

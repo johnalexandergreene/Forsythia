@@ -19,7 +19,7 @@ public class EMGridOverlayPainter implements Serializable{
 
   public void paint(Graphics2D graphics,int w,int h,double scale,double centerx,double centery){
     graphics.setRenderingHints(UI.RENDERING_HINTS);
-    GE.ge.editor_metagon.editedmetagon.metagoneditorgeometrycache.update(w,h,scale,centerx,centery);
+    GE.ge.editor_metagon.editedmetagon.getMetagonEditorGeometryCache().update(w,h,scale,centerx,centery);
     renderGraph(graphics);}
   
   /*
@@ -41,7 +41,7 @@ public class EMGridOverlayPainter implements Serializable{
     Path2D path;
     for(KPolygon m:GE.ge.editor_metagon.editedmetagon.getGraph().getDisconnectedGraph().getUndividedPolygons()){
       color=UI.EDITJIG_EDITGEOMETRY_HOSTMETAGONFILLCOLOR;
-      path=GE.ge.editor_metagon.editedmetagon.metagoneditorgeometrycache.getPath(m);
+      path=GE.ge.editor_metagon.editedmetagon.getMetagonEditorGeometryCache().getPath(m);
       graphics.setPaint(color);
       graphics.fill(path);}}
   
@@ -54,8 +54,8 @@ public class EMGridOverlayPainter implements Serializable{
     Path2D path=new Path2D.Double();
     while(i.hasNext()){
       e=i.next();
-      p0=GE.ge.editor_metagon.editedmetagon.metagoneditorgeometrycache.getPoint(e.v0.kvertex);
-      p1=GE.ge.editor_metagon.editedmetagon.metagoneditorgeometrycache.getPoint(e.v1.kvertex);
+      p0=GE.ge.editor_metagon.editedmetagon.getMetagonEditorGeometryCache().getPoint(e.v0.kvertex);
+      p1=GE.ge.editor_metagon.editedmetagon.getMetagonEditorGeometryCache().getPoint(e.v1.kvertex);
       path.reset();
       path.moveTo(p0[0],p0[1]);
       path.lineTo(p1[0],p1[1]);
@@ -77,7 +77,7 @@ public class EMGridOverlayPainter implements Serializable{
     double[] p;
     Ellipse2D dot=new Ellipse2D.Double();
     for(GVertex v:GE.ge.editor_metagon.editedmetagon.getGraph().vertices){
-      p=GE.ge.editor_metagon.editedmetagon.metagoneditorgeometrycache.getPoint(v.kvertex);
+      p=GE.ge.editor_metagon.editedmetagon.getMetagonEditorGeometryCache().getPoint(v.kvertex);
       dot.setFrame(p[0]-span/2,p[1]-span/2,span,span);
       graphics.fill(dot);}}
   
@@ -86,11 +86,11 @@ public class EMGridOverlayPainter implements Serializable{
     int span=UI.EDITJIG_EDITGEOMETRY_HEADVERTEXDECORATIONSPAN;
     double[] p;
     if(GE.ge.editor_metagon.connectedhead!=null){
-      p=GE.ge.editor_metagon.editedmetagon.metagoneditorgeometrycache.getPoint(GE.ge.editor_metagon.connectedhead);
+      p=GE.ge.editor_metagon.editedmetagon.getMetagonEditorGeometryCache().getPoint(GE.ge.editor_metagon.connectedhead);
       graphics.setPaint(UI.EDITJIG_EDITGEOMETRY_CONNECTEDHEADVERTEXDECORATIONCOLOR);
       graphics.drawOval(((int)p[0])-span/2,((int)p[1])-span/2,span,span);
     }else if(GE.ge.editor_metagon.unconnectedhead!=null){
-      p=GE.ge.editor_metagon.editedmetagon.metagoneditorgeometrycache.getPoint(GE.ge.editor_metagon.unconnectedhead);
+      p=GE.ge.editor_metagon.editedmetagon.getMetagonEditorGeometryCache().getPoint(GE.ge.editor_metagon.unconnectedhead);
       graphics.setPaint(UI.EDITJIG_EDITGEOMETRY_UNCONNECTEDHEADVERTEXDECORATIONCOLOR);
       graphics.drawOval(((int)p[0])-span/2,((int)p[1])-span/2,span,span);}}
   

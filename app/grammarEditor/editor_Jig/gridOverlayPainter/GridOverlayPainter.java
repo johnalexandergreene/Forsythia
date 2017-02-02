@@ -26,7 +26,7 @@ public class GridOverlayPainter implements Serializable{
 
   public void paint(Graphics2D graphics,int w,int h,double scale,double centerx,double centery){
     graphics.setRenderingHints(UI.RENDERING_HINTS);
-    GE.ge.editor_jig.editedjig.jigeditorgeometrycache.update(w,h,scale,centerx,centery);
+    GE.ge.editor_jig.editedjig.getJigEditorGeometryCache().update(w,h,scale,centerx,centery);
     if(GE.ge.editor_jig.mode==Editor_Jig.MODE_CREATE_B||GE.ge.editor_jig.mode==Editor_Jig.MODE_RETOUCH){
       renderJigModel_EditSections(graphics);
     }else{//GE.editor_jig.mode==Editor_Jig.MODE_EDITGEOMETRY
@@ -51,7 +51,7 @@ public class GridOverlayPainter implements Serializable{
     Path2D path;
     for(KPolygon m:GE.ge.editor_jig.editedjig.graph.getDisconnectedGraph().getUndividedPolygons()){
       color=UI.EDITJIG_EDITGEOMETRY_HOSTMETAGONFILLCOLOR;
-      path=GE.ge.editor_jig.editedjig.jigeditorgeometrycache.getPath(m);
+      path=GE.ge.editor_jig.editedjig.getJigEditorGeometryCache().getPath(m);
       graphics.setPaint(color);
       graphics.fill(path);}}
   
@@ -64,8 +64,8 @@ public class GridOverlayPainter implements Serializable{
     Path2D path=new Path2D.Double();
     while(i.hasNext()){
       e=i.next();
-      p0=GE.ge.editor_jig.editedjig.jigeditorgeometrycache.getPoint(e.v0.kvertex);
-      p1=GE.ge.editor_jig.editedjig.jigeditorgeometrycache.getPoint(e.v1.kvertex);
+      p0=GE.ge.editor_jig.editedjig.getJigEditorGeometryCache().getPoint(e.v0.kvertex);
+      p1=GE.ge.editor_jig.editedjig.getJigEditorGeometryCache().getPoint(e.v1.kvertex);
       path.reset();
       path.moveTo(p0[0],p0[1]);
       path.lineTo(p1[0],p1[1]);
@@ -87,7 +87,7 @@ public class GridOverlayPainter implements Serializable{
     double[] p;
     Ellipse2D dot=new Ellipse2D.Double();
     for(GVertex v:GE.ge.editor_jig.editedjig.graph.vertices){
-      p=GE.ge.editor_jig.editedjig.jigeditorgeometrycache.getPoint(v.kvertex);
+      p=GE.ge.editor_jig.editedjig.getJigEditorGeometryCache().getPoint(v.kvertex);
       dot.setFrame(p[0]-span/2,p[1]-span/2,span,span);
       graphics.fill(dot);}}
   
@@ -96,11 +96,11 @@ public class GridOverlayPainter implements Serializable{
     int span=UI.EDITJIG_EDITGEOMETRY_HEADVERTEXDECORATIONSPAN;
     double[] p;
     if(GE.ge.editor_jig.connectedhead!=null){
-      p=GE.ge.editor_jig.editedjig.jigeditorgeometrycache.getPoint(GE.ge.editor_jig.connectedhead);
+      p=GE.ge.editor_jig.editedjig.getJigEditorGeometryCache().getPoint(GE.ge.editor_jig.connectedhead);
       graphics.setPaint(UI.EDITJIG_EDITGEOMETRY_CONNECTEDHEADVERTEXDECORATIONCOLOR);
       graphics.drawOval(((int)p[0])-span/2,((int)p[1])-span/2,span,span);
     }else if(GE.ge.editor_jig.unconnectedhead!=null){
-      p=GE.ge.editor_jig.editedjig.jigeditorgeometrycache.getPoint(GE.ge.editor_jig.unconnectedhead);
+      p=GE.ge.editor_jig.editedjig.getJigEditorGeometryCache().getPoint(GE.ge.editor_jig.unconnectedhead);
       graphics.setPaint(UI.EDITJIG_EDITGEOMETRY_UNCONNECTEDHEADVERTEXDECORATIONCOLOR);
       graphics.drawOval(((int)p[0])-span/2,((int)p[1])-span/2,span,span);}}
   
@@ -126,7 +126,7 @@ public class GridOverlayPainter implements Serializable{
     for(ProjectJigSection m:GE.ge.editor_jig.editedjig.sections){
       colorindex=m.chorusindex;
       color=UI.EDITJIG_EDITSECTIONS_SECTIONFILL[colorindex%UI.EDITJIG_EDITSECTIONS_SECTIONFILL.length];
-      path=GE.ge.editor_jig.editedjig.jigeditorgeometrycache.getPath(m.getPolygon());
+      path=GE.ge.editor_jig.editedjig.getJigEditorGeometryCache().getPath(m.getPolygon());
       graphics.setPaint(color);
       graphics.fill(path);}}
   
@@ -140,11 +140,11 @@ public class GridOverlayPainter implements Serializable{
     Path2D path;
     for(ProjectJigSection m:GE.ge.editor_jig.editedjig.sections){
       if(m==GE.ge.editor_jig.focussection)continue;
-      path=GE.ge.editor_jig.editedjig.jigeditorgeometrycache.getPath(m.getPolygon());
+      path=GE.ge.editor_jig.editedjig.getJigEditorGeometryCache().getPath(m.getPolygon());
       graphics.draw(path);}
     //focus
     graphics.setPaint(UI.EDITJIG_EDITSECTIONS_FOCUSSTROKECOLOR);
-    path=GE.ge.editor_jig.editedjig.jigeditorgeometrycache.getPath(GE.ge.editor_jig.focussection.getPolygon());
+    path=GE.ge.editor_jig.editedjig.getJigEditorGeometryCache().getPath(GE.ge.editor_jig.focussection.getPolygon());
     graphics.draw(path);}
   
   /*
@@ -162,9 +162,9 @@ public class GridOverlayPainter implements Serializable{
     List<DPolygon> nonfocussections=new ArrayList<DPolygon>();
     for(ProjectJigSection section:GE.ge.editor_jig.editedjig.sections)
       if(section!=GE.ge.editor_jig.focussection)
-        nonfocussections.add(GE.ge.editor_jig.editedjig.jigeditorgeometrycache.getDPolygon(section.getPolygon()));
+        nonfocussections.add(GE.ge.editor_jig.editedjig.getJigEditorGeometryCache().getDPolygon(section.getPolygon()));
     //get focus section polygon
-    DPolygon focussection=GE.ge.editor_jig.editedjig.jigeditorgeometrycache.getDPolygon(GE.ge.editor_jig.focussection.getPolygon());
+    DPolygon focussection=GE.ge.editor_jig.editedjig.getJigEditorGeometryCache().getDPolygon(GE.ge.editor_jig.focussection.getPolygon());
     //render non-focus section polygons
     for(DPolygon nonfocussection:nonfocussections)
       renderGlyphs(graphics,nonfocussection,UI.EDITJIG_EDITSECTIONS_UNFOCUSSTROKECOLOR);

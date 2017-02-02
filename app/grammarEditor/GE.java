@@ -1,7 +1,6 @@
 package org.fleen.forsythia.app.grammarEditor;
 
 import java.awt.CardLayout;
-import java.awt.EventQueue;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -125,14 +124,15 @@ public class GE implements Serializable{
   public Editor_Metagon editor_metagon;
   public Editor_Jig editor_jig;
   public Editor_Generator editor_generator;
-  public Editor[] editors;
+  public Editor[] editors=null;
   
   private void initEditors(){
-    editor_grammar=new Editor_Grammar();
-    editor_metagon=new Editor_Metagon();
-    editor_jig=new Editor_Jig();
-    editor_generator=new Editor_Generator();
-    editors=new Editor[]{editor_grammar,editor_metagon,editor_jig,editor_generator};}
+    if(editors==null){
+      editor_grammar=new Editor_Grammar();
+      editor_metagon=new Editor_Metagon();
+      editor_jig=new Editor_Jig();
+      editor_generator=new Editor_Generator();
+      editors=new Editor[]{editor_grammar,editor_metagon,editor_jig,editor_generator};}}
   
   public void setEditor(final Editor editor){
     if(presenteditor!=null)presenteditor.close();
@@ -219,7 +219,7 @@ public class GE implements Serializable{
   //save instance of this class to local dir
   private static final void saveInstance(GE instance){
     String pathtoconfig=GE.getLocalDir().getPath()+"/"+GEINSTANCEFILENAME;
-    System.out.println("saving instance : "+pathtoconfig);
+    System.out.println("Saving instance : "+pathtoconfig);
     FileOutputStream fos;
     ObjectOutputStream oos;
     File file=new File(pathtoconfig);
@@ -238,7 +238,8 @@ public class GE implements Serializable{
    * ################################
    */
   
-  public static GE ge;
+  public static final boolean DEBUG=true;
+  public static GE ge=null;
   
   /*
    * get local dir
@@ -246,7 +247,8 @@ public class GE implements Serializable{
    * if serialized instance fails to load then create a new one
    */
   public static final void main(String[] a){
-    ge=loadInstance();
+    if(!DEBUG)
+      ge=loadInstance();
     if(ge!=null){
       System.out.println("loaded serialized instance of GE");
       ge.init();

@@ -26,10 +26,11 @@ public class JigList extends ArrayList<Jig> implements Forsythia{
   
   public JigList(Collection<Jig> jigs){
     super(jigs.size());
-    System.out.println("CREATING JIG LIST");
-    System.out.println("param jigs size:"+jigs.size());
+//    System.out.println("CREATING JIG LIST");
+//    System.out.println("param jigs size:"+jigs.size());
     init(jigs);
-    System.out.println("post init size:"+size());}
+//    System.out.println("post init size:"+size());
+    }
   
   /*
    * ################################
