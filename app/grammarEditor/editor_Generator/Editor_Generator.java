@@ -1,6 +1,11 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Generator;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -112,6 +117,41 @@ public class Editor_Generator extends Editor{
       ui.lblinfo.setText("Leaf Polygon Count = "+generator.composition.getLeafPolygons().size());}}
   
   /*
+   * ++++++++++++++++++++++++++++++++
+   * REQUEST NUMERIC TEXTBOX BUTTONS REFRESH
+   * clever for numeric text boxes so we can edit them easily while shit is running
+   * at every characterrelease set the appropriate generator param
+   * if the specified param is invalid (out of range or nonnumeric) then the param is not set (handled down there in the commands section)
+   * 2 seconds after the last characterrelease we refresh the character box with the param value
+   * if the param is the same then no change is evident
+   * if it is different then the characterbox text is changed to the param
+   * ++++++++++++++++++++++++++++++++
+   */
+  
+  private static final long NUMERICTEXTBOXBUTTONREFRESHDELAY=2000;
+  private static final ScheduledExecutorService SCHEDULEDEXECUTOR=Executors.newSingleThreadScheduledExecutor();
+  @SuppressWarnings("rawtypes")
+  private transient ScheduledFuture scheduledrefresh=null;
+  
+  private void requestNumericTextboxButtonsRefresh(){
+    if(scheduledrefresh!=null)scheduledrefresh.cancel(false);
+    scheduledrefresh=SCHEDULEDEXECUTOR.schedule(
+        new NumericTextboxButtonsRefresh(),NUMERICTEXTBOXBUTTONREFRESHDELAY,TimeUnit.MILLISECONDS);}
+  
+  private class NumericTextboxButtonsRefresh extends Thread implements Serializable{
+    
+    private static final long serialVersionUID=7803848373595383644L;
+
+    public void run(){
+      UI_Generator ui=(UI_Generator)getUI();
+      ui.pangenerateinterval.txtinterval.setText(String.valueOf(generator.getInterval()));
+      ui.pangenerateinterval.txtinterval.setCaretPosition(ui.pangenerateinterval.txtinterval.getText().length());
+      ui.pandetailfloor.txtfloor.setText(String.valueOf(generator.getDetailFloor()));
+      ui.pandetailfloor.txtfloor.setCaretPosition(ui.pandetailfloor.txtfloor.getText().length());
+      ui.panexportsize.txtsize.setText(String.valueOf(imageexporter.getImageSize()));
+      ui.panexportsize.txtsize.setCaretPosition(ui.panexportsize.txtsize.getText().length());}}
+  
+  /*
    * ################################
    * COMPOSITION GENERATOR
    * ################################
@@ -146,14 +186,14 @@ public class Editor_Generator extends Editor{
       long a=Long.valueOf(interval);
       generator.setInterval(a);
     }catch(Exception x){}
-    refreshButtons();}
+    requestNumericTextboxButtonsRefresh();}
   
   public void setDetailFloor(String detailfloor){ 
     try{
       double a=Double.valueOf(detailfloor);
       generator.setDetailFloor(a);
     }catch(Exception x){}
-    refreshButtons();}
+    requestNumericTextboxButtonsRefresh();}
   
   public void exportImage(){
     System.out.println("export image");
@@ -176,7 +216,7 @@ public class Editor_Generator extends Editor{
       int a=Integer.valueOf(size);
       imageexporter.setImageSize(a);
     }catch(Exception x){}
-    refreshButtons();}
+    requestNumericTextboxButtonsRefresh();}
   
   public void openGrammarEditor(){
     GE.ge.setEditor(GE.ge.editor_grammar);}

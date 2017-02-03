@@ -42,11 +42,16 @@ public class ImageExporter implements Serializable{
    * ################################
    */
   
-  private static final int IMAGESIZE_DEFAULT=1000;
+  private static final int 
+    IMAGESIZE_MIN=100,
+    IMAGESIZE_MAX=100000,
+    IMAGESIZE_DEFAULT=1000;
   
   private int imagesize=IMAGESIZE_DEFAULT;
   
   public void setImageSize(int s){
+    if(s<IMAGESIZE_MIN)s=IMAGESIZE_MIN;
+    if(s>IMAGESIZE_MAX)s=IMAGESIZE_MAX;
     imagesize=s;}
   
   public int getImageSize(){

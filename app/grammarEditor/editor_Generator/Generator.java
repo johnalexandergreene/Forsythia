@@ -86,12 +86,16 @@ public class Generator implements Serializable{
    * it's a number of milliseconds
    * ################################
    */
-  
-  private static final long INTERVAL_DEFAULT=1000;
+  private static final long 
+    INTERVAL_MAX=999999,
+    INTERVAL_MIN=100,
+    INTERVAL_DEFAULT=1000;
   
   private long interval=INTERVAL_DEFAULT;
   
   void setInterval(long i){
+    if(i<INTERVAL_MIN)i=INTERVAL_MIN;
+    if(i>INTERVAL_MAX)i=INTERVAL_MAX;
     interval=i;}
   
   long getInterval(){
@@ -107,15 +111,15 @@ public class Generator implements Serializable{
    */
   
   private static final double 
-    DETAILFLOOR=0.05,
-    DETAILFLOORMIN=0.006,
-    DETAILFLOORMAX=0.8;
+    DETAILFLOOR_DEFAULT=0.05,
+    DETAILFLOOR_MIN=0.006,
+    DETAILFLOOR_MAX=0.8;
   
-  private double detailfloor=DETAILFLOOR;
+  private double detailfloor=DETAILFLOOR_DEFAULT;
   
   void setDetailFloor(double f){
-    if(f<DETAILFLOORMIN)f=DETAILFLOORMIN;
-    if(f>DETAILFLOORMAX)f=DETAILFLOORMAX;
+    if(f<DETAILFLOOR_MIN)f=DETAILFLOOR_MIN;
+    if(f>DETAILFLOOR_MAX)f=DETAILFLOOR_MAX;
     detailfloor=f;}
   
   double getDetailFloor(){
@@ -155,7 +159,7 @@ public class Generator implements Serializable{
                 compositiongenerationtime=System.currentTimeMillis();
                 generateComposition();
                 renderCompositionForViewer();
-                GE.ge.editor_generator.refreshUI();}}}
+                GE.ge.editor_generator.refreshViewer();}}}
           //sleep periodically
           try{
             Thread.sleep(CONTROLCHECKINTERVAL,0);

@@ -1,8 +1,8 @@
 
 
-generator editor numeric text boxes. fix them 
 
-make app open in generator. use focus grammar. do continuous mode
+
+make app first open in generator. use focus grammar. do continuous mode
 
 in generator make renderer use a mix of generated and nice preset palettes, not just generated.
   make those images look nice
