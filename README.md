@@ -11,4 +11,6 @@ Export pretty images.
 
 [Fleen_Forsythia_Grammar_Editor_V2017_02_03.jar](https://github.com/johnalexandergreene/Forsythia/raw/master/bin/FleenForsythiaGrammarEditor_V2017_02_03.jar)
 
+Run it thusly : **java -jar FleenForsythiaGrammarEditor_V2017_02_03.jar**
+
 ![](/doc/zzz.png?raw=true)
