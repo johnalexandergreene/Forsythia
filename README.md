@@ -1,13 +1,6 @@
 # Forsythia
 Forsythia fractal
 
-2 apps
+**APPS**
 
-Grammar Editor and Simple Generator
-
-The Grammar Editor works but it's confusing. Some stuff is gonna be removed. Some noncentral stuff doesn't work. I'll redo it soon.
-
-The Simple Generator uses serialized grammar, composer and renderer. 
-You put the paths in there at the bottom. Hover to get button details.
-
-Get grammars, composers and renderers in the samples package.
+[Fleen_Forsythia_Grammar_Editor_V2017_02_03.jar](https://github.com/johnalexandergreene/Forsythia/blob/master/bin/FleenForsythiaGrammarEditor_V2017_02_03.jar)
