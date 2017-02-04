@@ -1,5 +1,5 @@
 # Forsythia
-Forsythia fractal
+Forsythia fractal technology libs, docs, tools and apps.
 
 **APPS**
 
