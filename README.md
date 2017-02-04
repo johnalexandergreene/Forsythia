@@ -1,8 +1,6 @@
 # Forsythia
 Forsythia fractal technology libs, docs, tools and apps.
 
-**APPS**
-
 ###Grammar Editor###
 
 Create shape grammars for use in Forsythia geometry production processes.
