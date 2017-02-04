@@ -33,10 +33,10 @@ public class Generator implements Serializable{
     else
       stop();}
   
-  void stop(){
+  public void stop(){
     stopgo=STOPGO_STOP;}
   
-  void go(){
+  public void go(){
     stopgo=STOPGO_GO;
     requestgeneratecomposition=true;}
   
@@ -159,6 +159,7 @@ public class Generator implements Serializable{
                 compositiongenerationtime=System.currentTimeMillis();
                 generateComposition();
                 renderCompositionForViewer();
+                GE.ge.editor_generator.refreshInfo();
                 GE.ge.editor_generator.refreshViewer();}}}
           //sleep periodically
           try{

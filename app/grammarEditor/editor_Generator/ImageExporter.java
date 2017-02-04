@@ -44,8 +44,8 @@ public class ImageExporter implements Serializable{
   
   private static final int 
     IMAGESIZE_MIN=100,
-    IMAGESIZE_MAX=100000,
-    IMAGESIZE_DEFAULT=1000;
+    IMAGESIZE_MAX=999000,
+    IMAGESIZE_DEFAULT=1800;
   
   private int imagesize=IMAGESIZE_DEFAULT;
   

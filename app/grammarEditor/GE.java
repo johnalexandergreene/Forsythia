@@ -45,9 +45,9 @@ public class GE implements Serializable{
   
   private static final long serialVersionUID=4971596440965502787L;
   
-  public static final String VERSIONNAME="V2017_02_01";
+  public static final String VERSIONNAME="V2017_02_03";
 
-  public static final String APPNAME="Grammar Editor "+VERSIONNAME;
+  public static final String APPNAME="Fleen Forsythia Grammar Editor ";
   
   public static final String ABOUT=
     "Fleen Forsythia Grammar Editor "+VERSIONNAME+"\n"+
@@ -56,8 +56,10 @@ public class GE implements Serializable{
     "Sample compositions based on grammars.\n"+
     "Export pretty images.\n"+
     "\n"+
-    "Author : John Greene\n"+
-    "Project : fleen.org\n"+
+    "Author : John Greene john@fleen.org\n"+
+    "Project (including docs and source for this app) : fleen.org\n"+
+    "\n"+
+    "Copyright 2016 John Greene\n"+
     "\n"+
     "This program is free software: you can redistribute it and/or modify\n"+
     "it under the terms of the GNU General Public License as published by\n"+
@@ -103,7 +105,8 @@ public class GE implements Serializable{
   private void initUI(){
     UIMain uimain=getUIMain();
     uimain.setVisible(true);
-    setEditor(editor_grammar);}
+    setEditor(editor_generator);
+    editor_generator.setForFirstInit();}
   
   private void createUI(){
     uimain=new UIMain();
@@ -140,7 +143,7 @@ public class GE implements Serializable{
       CardLayout a=(CardLayout)uimain.paneditor.getLayout();
       String n=editor.getName();
       a.show(uimain.paneditor,n);
-      uimain.setTitle(GE.APPNAME+" :: "+n);
+      uimain.setTitle(GE.APPNAME+" "+VERSIONNAME+" :: "+n);
       presenteditor.open();}
   
   /*

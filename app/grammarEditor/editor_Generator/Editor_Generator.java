@@ -109,7 +109,7 @@ public class Editor_Generator extends Editor{
     UI_Generator ui=(UI_Generator)getUI();
     ui.panexportsize.txtsize.setText(String.valueOf(imageexporter.getImageSize()));}
   
-  private void refreshInfo(){
+  public void refreshInfo(){
     UI_Generator ui=(UI_Generator)getUI();
     if(generator.composition==null){
       ui.lblinfo.setText("---");
@@ -172,6 +172,11 @@ public class Editor_Generator extends Editor{
    * COMMAND
    * ################################
    */
+  
+  public void setForFirstInit(){
+    generator.setModeContinuous();
+    generator.go();
+    refreshButtons();}
   
   public void toggleStopGo(){
     generator.toggleStopGo();
