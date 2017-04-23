@@ -9,7 +9,7 @@ import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;
 import org.fleen.geom_Kisrhombille.GK;
 import org.fleen.geom_Kisrhombille.KPolygon;
-import org.fleen.geom_Kisrhombille.KVertex;
+import org.fleen.geom_Kisrhombille.KPoint;
 
 /*
  * KGeometry elements converted to 2d elements for view and interaction
@@ -28,7 +28,7 @@ public class MetagonEditorGeometryCache implements Serializable{
    * ################################
    */
   
-  private Map<KVertex,double[]> p2dbykvertex=new Hashtable<KVertex,double[]>();
+  private Map<KPoint,double[]> p2dbykvertex=new Hashtable<KPoint,double[]>();
   private int 
     viewwidth=-1,
     viewheight=-1;
@@ -65,7 +65,7 @@ public class MetagonEditorGeometryCache implements Serializable{
    * ################################
    */
   
-  public double[] getPoint(KVertex v){
+  public double[] getPoint(KPoint v){
     double[] p=p2dbykvertex.get(v);
     if(p==null){
       p=convertGridVertexToViewPoint(v);
@@ -79,7 +79,7 @@ public class MetagonEditorGeometryCache implements Serializable{
       dpolygon.add(new DPoint(getPoint(polygon.get(i))));
     return dpolygon;}
   
-  private double[] convertGridVertexToViewPoint(KVertex vertex){
+  private double[] convertGridVertexToViewPoint(KPoint vertex){
     //get basic 2d point for the vertex
     double[] p=GK.getBasicPoint2D_Vertex(vertex.coors);
     //adjust vertex coors for for view center

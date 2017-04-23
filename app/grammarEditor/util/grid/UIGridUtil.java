@@ -12,7 +12,7 @@ import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;
 import org.fleen.geom_Kisrhombille.GK;
 import org.fleen.geom_Kisrhombille.KPolygon;
-import org.fleen.geom_Kisrhombille.KVertex;
+import org.fleen.geom_Kisrhombille.KPoint;
 
 public class UIGridUtil implements Serializable{
   
@@ -68,21 +68,21 @@ public class UIGridUtil implements Serializable{
    */
   
   public static final List<double[]> convertGridVerticesToViewPoints(
-    List<KVertex> vertices,int viewwidth,int viewheight,double viewscale,double viewcenterx,double viewcentery){
+    List<KPoint> vertices,int viewwidth,int viewheight,double viewscale,double viewcenterx,double viewcentery){
     List<double[]> a=new ArrayList<double[]>(vertices.size());
-    for(KVertex vertex:vertices)
+    for(KPoint vertex:vertices)
       a.add(convertGridVertexToViewPoint(vertex,viewwidth,viewheight,viewscale,viewcenterx,viewcentery));
     return a;}
   
-  public static final Map<KVertex,double[]> mapKVerticesToViewPoints(
-    Collection<KVertex> vertices,int viewwidth,int viewheight,double viewscale,double viewcenterx,double viewcentery){
-    Map<KVertex,double[]> a=new Hashtable<KVertex,double[]>();
-    for(KVertex kv:vertices)
+  public static final Map<KPoint,double[]> mapKVerticesToViewPoints(
+    Collection<KPoint> vertices,int viewwidth,int viewheight,double viewscale,double viewcenterx,double viewcentery){
+    Map<KPoint,double[]> a=new Hashtable<KPoint,double[]>();
+    for(KPoint kv:vertices)
       a.put(kv,convertGridVertexToViewPoint(kv,viewwidth,viewheight,viewscale,viewcenterx,viewcentery));
     return a;}
   
   public static final double[] convertGridVertexToViewPoint(
-    KVertex vertex,int viewwidth,int viewheight,double viewscale,double viewcenterx,double viewcentery){
+    KPoint vertex,int viewwidth,int viewheight,double viewscale,double viewcenterx,double viewcentery){
     //get basic 2d point for the vertex
     double[] p=GK.getBasicPoint2D_Vertex(vertex.coors);
     //adjust vertex coors for for view center

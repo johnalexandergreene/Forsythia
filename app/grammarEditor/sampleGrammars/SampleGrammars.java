@@ -18,13 +18,9 @@ public class SampleGrammars implements Serializable{
    * yes, we don't just get a list. That's difficult apparently.
    */
   private static final String[] GRAMMARNAMES={
+    "nice.grammar",
     "boxy.grammar",
-    "deterministic0.grammar",
-    "mixy.grammar",
-    "nice0.grammar",
-    "nice1.grammar",
-    "triangley.grammar",
-    "triangley2.grammar"};
+    "triangley.grammar"};
   
   /*
    * load each of our sample grammars from resource
@@ -35,7 +31,7 @@ public class SampleGrammars implements Serializable{
     for(String name:GRAMMARNAMES)
       loadAndExportResourceGrammar(name);
     File path=GE.getLocalDir();
-    path=new File(path.getAbsolutePath()+"/"+GRAMMARNAMES[4]);//nice1.grammar
+    path=new File(path.getAbsolutePath()+"/"+GRAMMARNAMES[0]);//nice1.grammar
     GE.ge.grammarimportexport.importGrammar(path);}
   
   private ForsythiaGrammar loadAndExportResourceGrammar(String name){

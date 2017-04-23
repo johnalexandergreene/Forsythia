@@ -6,7 +6,7 @@ import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;
 import org.fleen.geom_2D.GD;
 import org.fleen.geom_Kisrhombille.KPolygon;
-import org.fleen.geom_Kisrhombille.KVertex;
+import org.fleen.geom_Kisrhombille.KPoint;
 
 /*
  * This is a kpolygon with a bunch of validation stuff
@@ -54,7 +54,7 @@ public class DrawingPolygon extends KPolygon{
    * that the addition does not produce invalid geometry
    * If the polygon has at least 2 vertices and v equals vertex0 then close the polygon
    */
-  public void touchVertex(KVertex v){
+  public void touchVertex(KPoint v){
     if((!closed)&&(v!=null)&&isValid(v)){
       if(size()>=3&&v.equals(get(0))){
         closed=true;
@@ -77,7 +77,7 @@ public class DrawingPolygon extends KPolygon{
    * colinear with the prior vertex
    * does not create a line that intersect any other line
    */
-  boolean isValid(KVertex v){
+  boolean isValid(KPoint v){
     return true;
   }
   

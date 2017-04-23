@@ -12,7 +12,7 @@ import org.fleen.geom_Kisrhombille.GK;
 import org.fleen.geom_Kisrhombille.KAnchor;
 import org.fleen.geom_Kisrhombille.KGrid;
 import org.fleen.geom_Kisrhombille.KPolygon;
-import org.fleen.geom_Kisrhombille.KVertex;
+import org.fleen.geom_Kisrhombille.KPoint;
 import org.fleen.util.tag.TagManager;
 import org.fleen.util.tag.Tagged;
 import org.fleen.util.tree.TreeNode;
@@ -109,9 +109,9 @@ public class FPolygon extends ForsythiaTreeNode implements Tagged{
    * ++++++++++++++++++++++++++++++++
    */
   
-  private KVertex[] vertices;
+  private KPoint[] vertices;
   
-  public KVertex[] getVertices(){
+  public KPoint[] getVertices(){
     return vertices;}
   
   public int getVertexCount(){
@@ -124,7 +124,7 @@ public class FPolygon extends ForsythiaTreeNode implements Tagged{
    */
   private void initVertices(){
     int vectorcount=metagon.vectors.length;
-    vertices=new KVertex[vectorcount+2];
+    vertices=new KPoint[vectorcount+2];
     double localbaseinterval=getLocalBaseInterval(),distance;
     vertices[0]=anchor.v0;
     vertices[1]=anchor.v1;
@@ -134,7 +134,7 @@ public class FPolygon extends ForsythiaTreeNode implements Tagged{
       delta=metagon.vectors[i].directiondelta;
       if(!anchor.twist)delta*=-1;
       direction=(direction+delta+12)%12;
-      vertices[i+2]=new KVertex(GK.getVertex_VertexVector(vertices[i+1].coors,direction,distance));
+      vertices[i+2]=new KPoint(GK.getVertex_VertexVector(vertices[i+1].coors,direction,distance));
       if(vertices[i+2].coors[3]==-1)
         throw new IllegalArgumentException(
           "BAD GEOMETRY. "+vertices[i+1]+" , direction:"+direction+" distance:"+distance);}}
@@ -168,7 +168,7 @@ public class FPolygon extends ForsythiaTreeNode implements Tagged{
     return dpolygon;}
   
   private void initDPolygon(){
-    KVertex[] v=getVertices();
+    KPoint[] v=getVertices();
     int s=v.length;
     dpolygon=new DPolygon(s);
     //get the local kgrid

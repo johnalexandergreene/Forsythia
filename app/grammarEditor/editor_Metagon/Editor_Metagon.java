@@ -6,7 +6,7 @@ import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.editor_Metagon.ui.EditMetagonUI;
 import org.fleen.forsythia.app.grammarEditor.project.metagon.ProjectMetagon;
 import org.fleen.forsythia.app.grammarEditor.util.Editor;
-import org.fleen.geom_Kisrhombille.KVertex;
+import org.fleen.geom_Kisrhombille.KPoint;
 import org.fleen.geom_Kisrhombille.graph.GEdge;
 
 /*
@@ -162,7 +162,7 @@ public class Editor_Metagon extends Editor{
   public ProjectMetagon editedmetagon;
   //in the course of defining our geometry we have a "last vertex indicated"
   //if we click it once it is connected, twice and it is unconnected
-  public KVertex connectedhead,unconnectedhead;
+  public KPoint connectedhead,unconnectedhead;
   //this is for if we are doing MODE_RETOUCH and we quit
   //it's so we can reset the tags.
   private String tagsbackup;
@@ -201,7 +201,7 @@ public class Editor_Metagon extends Editor{
    * ++++++++++++++++++++++++++++++++
    */
   
-  public void touchVertex(KVertex v){
+  public void touchVertex(KPoint v){
     //if we are in the wrong mode for vertex-touching the we're done
     //probably already handled further up the logic tree? TODO
     if(mode==MODE_RETOUCH)return;

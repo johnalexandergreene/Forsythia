@@ -11,7 +11,7 @@ import java.util.Map;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_Kisrhombille.GK;
 import org.fleen.geom_Kisrhombille.KPolygon;
-import org.fleen.geom_Kisrhombille.KVertex;
+import org.fleen.geom_Kisrhombille.KPoint;
 
 /*
  * 2D Geometry Cache for use with the grid
@@ -56,31 +56,31 @@ public class GeometryCache implements Serializable{
    * ################################
    */
   
-  private Map<KVertex,DPoint> p2dbykvertex=new Hashtable<KVertex,DPoint>();
+  private Map<KPoint,DPoint> p2dbykvertex=new Hashtable<KPoint,DPoint>();
   
   public Iterator<DPoint> getPoint2DIterator(){
     return p2dbykvertex.values().iterator();}
   
   public List<DPoint> getPoint2Ds(KPolygon p){
     List<DPoint> points=new ArrayList<DPoint>();
-    for(KVertex v:p)
+    for(KPoint v:p)
       points.add(getPoint2D(v));
     return points;}
   
-  public List<DPoint> getPoint2Ds(List<KVertex> vertices){
+  public List<DPoint> getPoint2Ds(List<KPoint> vertices){
     List<DPoint> points=new ArrayList<DPoint>();
-    for(KVertex v:vertices)
+    for(KPoint v:vertices)
       points.add(getPoint2D(v));
     return points;}
   
-  public DPoint getPoint2D(KVertex v){
+  public DPoint getPoint2D(KPoint v){
     DPoint p=p2dbykvertex.get(v);
     if(p==null){
       p=createPoint2D(v);
       p2dbykvertex.put(v,p);}
     return p;}
   
-  private DPoint createPoint2D(KVertex vertex){
+  private DPoint createPoint2D(KPoint vertex){
     double 
       viewwidth=grid.getWidth(),
       viewheight=grid.getHeight();

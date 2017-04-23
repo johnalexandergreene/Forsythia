@@ -16,7 +16,7 @@ import org.fleen.forsythia.core.grammar.FMetagon;
 import org.fleen.geom_2D.DPolygon;
 import org.fleen.geom_Kisrhombille.KMetagon;
 import org.fleen.geom_Kisrhombille.KPolygon;
-import org.fleen.geom_Kisrhombille.KVertex;
+import org.fleen.geom_Kisrhombille.KPoint;
 import org.fleen.geom_Kisrhombille.graph.Graph;
 
 /*
@@ -46,7 +46,7 @@ public class ProjectMetagon implements Serializable,ElementMenuItem{
     initGraph();}
   
   //create in jig editor section creation 
-  public ProjectMetagon(ProjectGrammar grammar,List<KVertex> vertices,String tags){
+  public ProjectMetagon(ProjectGrammar grammar,List<KPoint> vertices,String tags){
     this.grammar=grammar;
     initGeometry(vertices);
     this.tags=tags;}
@@ -123,7 +123,7 @@ public class ProjectMetagon implements Serializable,ElementMenuItem{
   public KPolygon kpolygon;
   public DPolygon polygon2d;
   
-  private void initGeometry(List<KVertex> vertices){
+  private void initGeometry(List<KPoint> vertices){
     kmetagon=new KMetagon(vertices);
     kpolygon=kmetagon.getPolygon();
     polygon2d=kpolygon.getDefaultPolygon2D();}

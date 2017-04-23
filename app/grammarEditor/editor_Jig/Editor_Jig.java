@@ -7,7 +7,7 @@ import org.fleen.forsythia.app.grammarEditor.editor_Jig.ui.UIEditJig;
 import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJig;
 import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJigSection;
 import org.fleen.forsythia.app.grammarEditor.util.Editor;
-import org.fleen.geom_Kisrhombille.KVertex;
+import org.fleen.geom_Kisrhombille.KPoint;
 import org.fleen.geom_Kisrhombille.graph.GEdge;
 import org.fleen.geom_Kisrhombille.graph.Graph;
 
@@ -257,7 +257,7 @@ public class Editor_Jig extends Editor{
   public ProjectJigSection focussection;
   //in the course of defining our geometry we have a "last vertex indicated"
   //if we click it once it is connected, twice and it is unconnected
-  public KVertex connectedhead,unconnectedhead;
+  public KPoint connectedhead,unconnectedhead;
   
   private void initEditingObjectsForCreate(){
     editedjig=new ProjectJig(GE.ge.focusmetagon);
@@ -296,7 +296,7 @@ public class Editor_Jig extends Editor{
    * ++++++++++++++++++++++++++++++++
    */
   
-  public void touchVertex(KVertex v){
+  public void touchVertex(KPoint v){
     //if we are in the wrong mode for vertex-touching the we're done
     //probably already handled further up the logic tree? TODO
     if(mode==MODE_CREATE_B||mode==MODE_RETOUCH)return;

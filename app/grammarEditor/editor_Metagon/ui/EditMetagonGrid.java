@@ -8,7 +8,7 @@ import org.fleen.forsythia.app.grammarEditor.editor_Metagon.Editor_Metagon;
 import org.fleen.forsythia.app.grammarEditor.editor_Metagon.overlayPainter.EMGridOverlayPainter;
 import org.fleen.forsythia.app.grammarEditor.util.grid.Grid;
 import org.fleen.geom_Kisrhombille.KPolygon;
-import org.fleen.geom_Kisrhombille.KVertex;
+import org.fleen.geom_Kisrhombille.KPoint;
 
 /*
  * GRID
@@ -60,7 +60,7 @@ public class EditMetagonGrid extends Grid{
    * if the vertex is not colinear with the vertex that we are connecting to (if the previous vertex isn't null) then we should 
    * indicate that with an invalid flag or something 
    */
-  protected void mouseMovedCloseToVertex(KVertex v){
+  protected void mouseMovedCloseToVertex(KPoint v){
     mousemove=MOUSEMOVE_VERTEXNEAR;
     if(GE.ge.editor_metagon.mode==Editor_Metagon.MODE_CREATE){
       //test the hovered vertex and connectedhead for colinearity
@@ -85,7 +85,7 @@ public class EditMetagonGrid extends Grid{
    */
 
   //TODO clean up
-  protected void mouseTouched(double[] p,KVertex v){
+  protected void mouseTouched(double[] p,KPoint v){
     boolean valid=true;
     if(GE.ge.editor_metagon.connectedhead!=null&&v!=null&&!v.isColinear(GE.ge.editor_metagon.connectedhead))
       valid=false;

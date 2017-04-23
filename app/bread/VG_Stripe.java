@@ -45,7 +45,7 @@ public class VG_Stripe implements Voice_Graphics2D{
     //
     
     FGrid parentgrid=(FGrid)polygon.getParent();
-    north=parentgrid.getLocalKGrid().getForeward();
+    north=parentgrid.getLocalKGrid().getNorth();
     initBoundingSquare(polygon);
     List<DPolygon> rawstripes=getRawStripes(polygon);
     List<Area> clippedstripes=getClippedStripes(polygon,rawstripes);

@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import org.fleen.forsythia.app.grammarEditor.util.UI;
 import org.fleen.geom_Kisrhombille.GK;
 import org.fleen.geom_Kisrhombille.KPolygon;
-import org.fleen.geom_Kisrhombille.KVertex;
+import org.fleen.geom_Kisrhombille.KPoint;
 
 /*
  * interactive ui with a kisrhombille grid
@@ -348,12 +348,12 @@ public abstract class Grid extends JPanel{
   
   private long lastsample=-1;
   private double[] latestsamplepoint;
-  private KVertex latestsamplevertex;
+  private KPoint latestsamplevertex;
   
   public double[] getLatestSamplePoint(){
     return latestsamplepoint;}
   
-  public KVertex getLatestSampleVertex(){
+  public KPoint getLatestSampleVertex(){
     return latestsamplevertex;}
   
   private void doConditionalSampleForMouseMoved(int x,int y){
@@ -376,9 +376,9 @@ public abstract class Grid extends JPanel{
    * ################################
    */
   
-  protected abstract void mouseTouched(double[] p,KVertex v);
+  protected abstract void mouseTouched(double[] p,KPoint v);
   
-  protected abstract void mouseMovedCloseToVertex(KVertex v);
+  protected abstract void mouseMovedCloseToVertex(KPoint v);
   
   protected abstract void mouseMovedFarFromVertex(double[] p);
   

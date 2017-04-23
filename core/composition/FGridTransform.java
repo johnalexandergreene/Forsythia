@@ -1,7 +1,7 @@
 package org.fleen.forsythia.core.composition;
 
 import org.fleen.geom_Kisrhombille.KGrid;
-import org.fleen.geom_Kisrhombille.KVertex;
+import org.fleen.geom_Kisrhombille.KPoint;
 
 /*
  * NODE GRID TRANSFORM
@@ -20,7 +20,7 @@ public class FGridTransform extends FGrid{
    */
   
   public FGridTransform(
-    KVertex origintransform,
+    KPoint origintransform,
     int forewardtransform,
     boolean twisttransform,
     double fishtransform){
@@ -36,7 +36,7 @@ public class FGridTransform extends FGrid{
    */
   
   //a kvertex relative to origin of the uptree kgrid 
-  public KVertex origintransform;
+  public KPoint origintransform;
   //a direction offset in terms of the foreward and twist of the uptree kgrid 
   public int forewardtransform;
   //twist relative to twist of uptree kgrid.

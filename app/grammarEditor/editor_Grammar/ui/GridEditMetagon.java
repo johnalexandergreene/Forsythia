@@ -10,7 +10,7 @@ import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJig;
 import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJigSection;
 import org.fleen.forsythia.app.grammarEditor.util.grid.Grid;
 import org.fleen.geom_Kisrhombille.KPolygon;
-import org.fleen.geom_Kisrhombille.KVertex;
+import org.fleen.geom_Kisrhombille.KPoint;
 
 /*
  * GRID
@@ -63,7 +63,7 @@ public class GridEditMetagon extends Grid{
    * if the vertex is not colinear with the vertex that we are connecting to (if the previous vertex isn't null) then we should 
    * indicate that with an invalid flag or something 
    */
-  protected void mouseMovedCloseToVertex(KVertex v){
+  protected void mouseMovedCloseToVertex(KPoint v){
     mousemove=MOUSEMOVE_VERTEXNEAR;
     if(GE.ge.editor_jig.mode==Editor_Jig.MODE_CREATE_A){
       //test the hovered vertex and connectedhead for colinearity
@@ -91,7 +91,7 @@ public class GridEditMetagon extends Grid{
    */
 
   //TODO clean up
-  protected void mouseTouched(double[] p,KVertex v){
+  protected void mouseTouched(double[] p,KPoint v){
     if(GE.ge.editor_jig.mode==Editor_Jig.MODE_CREATE_A&&mousemove==MOUSEMOVE_VERTEXNEAR){
       boolean valid=true;
       if(GE.ge.editor_jig.connectedhead!=null&&v!=null&&!v.isColinear(GE.ge.editor_jig.connectedhead))

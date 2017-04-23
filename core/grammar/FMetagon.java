@@ -7,7 +7,7 @@ import org.fleen.forsythia.core.Forsythia;
 import org.fleen.geom_Kisrhombille.KMetagon;
 import org.fleen.geom_Kisrhombille.KMetagonVector;
 import org.fleen.geom_Kisrhombille.KPolygon;
-import org.fleen.geom_Kisrhombille.KVertex;
+import org.fleen.geom_Kisrhombille.KPoint;
 import org.fleen.util.tag.TagManager;
 import org.fleen.util.tag.Tagged;
 
@@ -28,7 +28,7 @@ public class FMetagon extends KMetagon implements Serializable,Tagged,Forsythia{
   public FMetagon(double baseinterval,KMetagonVector[] vectors){
     super(baseinterval,vectors);}
   
-  public FMetagon(KVertex... vertices){
+  public FMetagon(KPoint... vertices){
     super(vertices);}
   
   public FMetagon(KPolygon polygon){

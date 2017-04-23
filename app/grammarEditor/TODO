@@ -1,5 +1,8 @@
 
-put jar in bin
+make it so that when you delete metagons or jigs the generator grammar changes
+  ie : stop caching the generator grammar
+  
+Rename KVertex : KPoint, because it is more accurate.
 
 ---
 

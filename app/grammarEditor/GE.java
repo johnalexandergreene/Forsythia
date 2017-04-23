@@ -45,7 +45,7 @@ public class GE implements Serializable{
   
   private static final long serialVersionUID=4971596440965502787L;
   
-  public static final String VERSIONNAME="V2017_02_03";
+  public static final String VERSIONNAME="V2017_04_22";
 
   public static final String APPNAME="Fleen Forsythia Grammar Editor ";
   
@@ -59,7 +59,7 @@ public class GE implements Serializable{
     "Author : John Greene john@fleen.org\n"+
     "Project (including docs and source for this app) : fleen.org\n"+
     "\n"+
-    "Copyright 2016 John Greene\n"+
+    "Copyright 2017 John Greene\n"+
     "\n"+
     "This program is free software: you can redistribute it and/or modify\n"+
     "it under the terms of the GNU General Public License as published by\n"+
