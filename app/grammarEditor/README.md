@@ -15,9 +15,15 @@ The idea is that you create a grammar and then load it into your own generation 
 
 ## UI
 
+![](/app/grammarEditor/doc/pix/GRAMMAR.png?raw=true)
 
+![](/app/grammarEditor/doc/pix/METAGON.png?raw=true)
 
+![](/app/grammarEditor/doc/pix/JIG_editgeometry.png?raw=true)
 
+![](/app/grammarEditor/doc/pix/JIG_editsections.png?raw=true)
+
+![](/app/grammarEditor/doc/pix/GENERATOR.png?raw=true)
 
 ## Tags
 
