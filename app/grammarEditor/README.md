@@ -1,3 +1,9 @@
+## Download a copy
+
+[Fleen_Forsythia_Grammar_Editor_V2017_04_22.jar](https://github.com/johnalexandergreene/Forsythia/raw/master/app/grammarEditor/bin/FleenForsythiaGrammarEditor_V2017_04_22.jar)
+
+Run it thusly : **java -jar FleenForsythiaGrammarEditor_V2017_04_22.jar**
+
 ## Overview
 
 This is a tool for creating Forsythia shape grammars.
