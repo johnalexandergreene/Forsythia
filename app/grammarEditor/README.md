@@ -1,7 +1,7 @@
 This is a tool for creating Forsythia shape grammars.
 
 It's basically a drawing tool. You draw simple polygons and polygon-diagrams, tweak various geometry params and assign tags. 
-This define the shapes and operators of the grammar. 
+This define the shapes and operators of the grammar (In the code these are Metagons and Jigs). 
 
 The behavior of the grammar can be examined too. The editor incorporates a simple Forsythia fractal generator and renderer 
 that uses the grammar. The resulting images can be exported as PNGs.
