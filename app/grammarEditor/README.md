@@ -15,7 +15,16 @@ The idea is that you create a grammar and then load it into your own generation 
 
 ## UI
 
+We have 5 windows in the editors user interface. I will address the buttons in each window, left-to-right, starting at the top left.
+
 ![](/app/grammarEditor/doc/pix/GRAMMAR.png?raw=true)
+
+**Grammar=nice.grammar** means that the grammar presently in use is a grammar called *nice.grammar*. 
+
+The 3 blue buttons **Import**, **Export** and **New** import a grammar from or export a grammar to the file system; or create a new grammar. 
+
+
+
 
 ![](/app/grammarEditor/doc/pix/METAGON.png?raw=true)
 
