@@ -89,6 +89,18 @@ We use two tags in the editor's generator.
 
 For your own purposes you can use whatever tags you like
 
+---
+---
+
+![](/app/grammarEditor/doc/pix/s00.png?raw=true)
+
+![](/app/grammarEditor/doc/pix/s01.png?raw=true)
+
+![](/app/grammarEditor/doc/pix/s02.png?raw=true)
+
+![](/app/grammarEditor/doc/pix/s03.png?raw=true)
+
+
 
 
 
