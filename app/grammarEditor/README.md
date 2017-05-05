@@ -103,7 +103,7 @@ The green **Section Tags** box specifies tags for a section. These are passed to
 
 ![](/app/grammarEditor/doc/pix/GENERATOR.png?raw=true)
 
-Generate Forsythia fractals and render them, so we can see how a grammar behaves. (This is a rather primitive stuff. For fancier stuff you write your own generator and renderer.)
+Generate Forsythia fractals and render them.
 
 The first purple button, **Go/Stop** toggle. Starts and stops the generation process.
 
