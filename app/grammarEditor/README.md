@@ -103,9 +103,23 @@ The green **Section Tags** box specifies tags for a section. These are passed to
 
 ![](/app/grammarEditor/doc/pix/GENERATOR.png?raw=true)
 
+Generate Forsythia fractals and render them, so we can see how a grammar behaves. (This is a rather primitive stuff. For fancier stuff you write your own generator and renderer.)
 
+The first purple button, **Go/Stop** toggle. Starts and stops the generation process.
 
+The second purple button, **Mode=Intermittant/Continuous** toggle. Controls the generation mode.
 
+The third purple button with the yellow box, **Interval=1000**. Controls the period between generation cycles in continuous generation mode. In milliseconds.
+
+The blue button, **DetailFloor**, controls the floor of the detail size. Smaller value means smaller detains and a denser pattern. Larger means coarser pattern.
+
+The orange button, **Export Image**, exports the create image to the specified export directory.
+
+The long orange button, **Export image dir...**, opens a directory section dialog. Select export dir.
+
+The orange button, **Export Image Size**, controls the dimensions of the exported PNG file.
+
+The red button, **Grammar**, returns us to the Grammar window.
 
 ## Tags
 
