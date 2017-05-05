@@ -27,6 +27,10 @@ We have 5 windows in the editors user interface. I will address the buttons in e
 
 **Grammar=nice.grammar** means that the grammar presently in use is a grammar called *nice.grammar*. 
 
+This is the top-level interface for editing Grammars. You create, remove and edit Metagons and Jigs.
+
+(A Metagon is a location, orientation, scale and chirality independent way of describing a polygon. A Jig is an operator in a shape grammar composed of metagons and jigs)
+
 The 3 blue buttons **Import**, **Export** and **New** import a grammar from or export a grammar to the file system; or create a new grammar.
 
 The yellow **Generate** button takes us to the Forsythia fractal image generating window.
@@ -43,11 +47,19 @@ The 3 orange buttons **Create, Edit, Discard** refer to the creation, editing an
 
 Next is the Jigs section.
 
-**Count=3** means that the Metagon presetly in focus (denoted by the white square outline) has 3 Jigs.
+**Count=3** means that the Metagon presetly in focus (indicated by the white square outline) has 3 Jigs.
 
 The 3 green buttons **Create, Edit, Discard** refer to the creation, editing and discarding of Jigs for the focus Metagon.
 
 ![](/app/grammarEditor/doc/pix/METAGON.png?raw=true)
+
+Draw a polygon on the grid with your mouse. Click connects a point to the last point you clicked. Click again to disconnect the autoconnecting fucction. Just mess with it. it's obvious. Onlt lines that align with the grid are valid.
+
+The green button **Quit** means discard whatever you've done here and go back to the Grammar window.
+
+The green button **Save** means save the metagon (if it's valid) and go back to the Grammar window.
+
+The **MetagonTags** box is where you specify the tags for the Metagon that you are making. They are space delimited. You can edit them later if you like but the geometry of the metagon is fixed. If you want to change that then you need to delete the metagon. 
 
 ![](/app/grammarEditor/doc/pix/JIG_editgeometry.png?raw=true)
 
