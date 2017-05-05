@@ -1,4 +1,4 @@
-# Download a copy
+# Download a copy of the executable Jar
 
 [Fleen_Forsythia_Grammar_Editor_V2017_04_22.jar](https://github.com/johnalexandergreene/Forsythia/raw/master/app/grammarEditor/bin/FleenForsythiaGrammarEditor_V2017_04_22.jar)
 
