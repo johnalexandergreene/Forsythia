@@ -33,11 +33,13 @@ We have 5 windows in the editors user interface. I will address the buttons in e
 
 ![](/app/grammarEditor/doc/pix/GRAMMAR.png?raw=true)
 
-**Grammar=nice.grammar** means that the grammar presently in use is a grammar called *nice.grammar*. 
-
 This is the top-level interface for editing Grammars. You create, remove and edit Metagons and Jigs.
 
 (A Metagon is a location, orientation, scale and chirality independent way of describing a polygon. A Jig is an operator in a shape grammar composed of metagons and jigs)
+
+Scroll through the Metagon and Jig lists by click-dragging left and right.
+
+**Grammar=nice.grammar** means that the grammar presently in use is a grammar called *nice.grammar*. 
 
 The 3 blue buttons **Import**, **Export** and **New** import a grammar from or export a grammar to the file system; or create a new grammar.
 
