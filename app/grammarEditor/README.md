@@ -57,6 +57,8 @@ The 3 green buttons **Create, Edit, Discard** refer to the creation, editing and
 
 ![](/app/grammarEditor/doc/pix/METAGON.png?raw=true)
 
+This is where we define a Metagon for a grammar.
+
 Draw a polygon on the grid with your mouse. Click connects a point to the last point you clicked. Click again to disconnect the autoconnecting fucction. Just mess with it. it's obvious. Onlt lines that align with the grid are valid.
 
 The green button **Quit** means discard whatever you've done here and go back to the Grammar window.
@@ -69,13 +71,41 @@ The **MetagonTags** box is where you specify the tags for the Metagon that you a
 
 ![](/app/grammarEditor/doc/pix/JIG_editgeometry.png?raw=true)
 
+Define a Jig for a Metagon for a grammar, part 1.
+
+Define geometry. Draw sections in the polygon. Chop the polygon up into pieces.
+
+The red **Quit** button discards what you've done and returns you the the Grammar window.
+
+The orange **Edit Sections** button locks the geometry and takes us part 2 of our Jig creation process where we edit the details of the sections we drew.
+
+The purple and green **Grid Density** buttons control the resolution of the grid that you are drawing on.
+
+The purple and yellow **Jig Tags** box specifies the tags for this Jig. Used by the generator for filtering Jigs. I have yet to use Jig tags for anything.
+
 ### JIG : EDIT SECTIONS
 
 ![](/app/grammarEditor/doc/pix/JIG_editsections.png?raw=true)
 
+Define a Jig for a Metagon for a grammar, part 2. Edit the details of the sections we drew. Click a section to select it.
+
+The red **Quit** and **Save** buttons do what you'd expect and return you to the Grammar window.
+
+The orange **Edit Geometry** button discards whateve rsection editing that you have done and returns you to the Jig Edit Geometry window.
+
+The green **Section Chorus** button specifies the section chorus id for a section. Sections with the same id get treated the same way in the generator's jig-selection logic. This is how we get symmetry.
+
+The green **Section Anchor** specifies the subgeometry of a section polygon. We can choose from 1 or more isomorphic polygons that differ in which point is the first point and which direction we go when we traverse the points. Note the arrow diagram. It indicates P0 and the direction of traversal. Symmetric diagrams produce symmetric results in the generator.
+
+The green **Section Tags** box specifies tags for a section. These are passed to the created polygon. Used by the generator for polygon filtering and id.
+
 ### GENERATOR
 
 ![](/app/grammarEditor/doc/pix/GENERATOR.png?raw=true)
+
+
+
+
 
 ## Tags
 
