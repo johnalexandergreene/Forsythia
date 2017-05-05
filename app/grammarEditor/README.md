@@ -23,6 +23,8 @@ The idea is that you create a grammar and then load it into your own generation 
 
 We have 5 windows in the editors user interface. I will address the buttons in each window, left-to-right, starting at the top left.
 
+### GRAMMAR
+
 ![](/app/grammarEditor/doc/pix/GRAMMAR.png?raw=true)
 
 **Grammar=nice.grammar** means that the grammar presently in use is a grammar called *nice.grammar*. 
@@ -51,6 +53,8 @@ Next is the Jigs section.
 
 The 3 green buttons **Create, Edit, Discard** refer to the creation, editing and discarding of Jigs for the focus Metagon.
 
+### METAGON
+
 ![](/app/grammarEditor/doc/pix/METAGON.png?raw=true)
 
 Draw a polygon on the grid with your mouse. Click connects a point to the last point you clicked. Click again to disconnect the autoconnecting fucction. Just mess with it. it's obvious. Onlt lines that align with the grid are valid.
@@ -61,9 +65,15 @@ The green button **Save** means save the metagon (if it's valid) and go back to 
 
 The **MetagonTags** box is where you specify the tags for the Metagon that you are making. They are space delimited. You can edit them later if you like but the geometry of the metagon is fixed. If you want to change that then you need to delete the metagon. 
 
+### JIG : EDIT GEOMETRY
+
 ![](/app/grammarEditor/doc/pix/JIG_editgeometry.png?raw=true)
 
+### JIG : EDIT SECTIONS
+
 ![](/app/grammarEditor/doc/pix/JIG_editsections.png?raw=true)
+
+### GENERATOR
 
 ![](/app/grammarEditor/doc/pix/GENERATOR.png?raw=true)
 
