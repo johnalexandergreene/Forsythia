@@ -8,7 +8,7 @@ Run it thusly : **java -jar FleenForsythiaGrammarEditor_V2017_05_12.jar**
 
 #### Download a video walkthorugh
 
-foo foo
+[how to make a simple grammar](https://github.com/johnalexandergreene/Forsythia/raw/master/bin/grammareditorwalkthrough_2017_05_12_how_to_make_a_simple_grammar.ogv)
 
 # Overview
 
