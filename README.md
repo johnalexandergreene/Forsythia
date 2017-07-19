@@ -3,6 +3,8 @@ Forsythia fractal technology libs, docs, tools and apps.
 
 ### Grammar Editor
 
+https://github.com/johnalexandergreene/Forsythia/tree/master/app/grammarEditor
+
 Create shape grammars for use in Forsythia geometry production processes.
 
 Sample compositions based on grammars.
