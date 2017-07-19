@@ -70,14 +70,19 @@ public class Bread{
 //  ForsythiaSimpleComposer composer=new Composer001_Coarse();
   ForsythiaSimpleComposer composer=new Composer000();
   
+//  static final Color[] 
+//      COLOR0={new Color(255,141,0),new Color(208,255,138)},
+//      COLOR1={new Color(255,13,219),new Color(232,197,12)};
+//    static final Color COLOR_STROKE=new Color(64,64,64);
+  
   static final Color[] 
-      COLOR0={new Color(255,141,0),new Color(208,255,138)},
-      COLOR1={new Color(255,13,219),new Color(232,197,12)};
-    static final Color COLOR_STROKE=new Color(64,64,64);
+      COLOR0={new Color(0,0,0),new Color(255,0,0)},
+      COLOR1={new Color(255,255,0),new Color(255,128,0)};
+    static final Color COLOR_STROKE=Color.black;
   
 //  ForsythiaSimpleRenderer renderer=new Renderer002_Stripetest(Color.white,20);
 //    ForsythiaSimpleRenderer renderer=new Renderer003_Stripetest(Color.white,50);
-    ForsythiaSimpleRenderer renderer=new Renderer004();
+    ForsythiaSimpleRenderer renderer=new Renderer000(COLOR0,COLOR1,COLOR_STROKE,0.015f);
   
   String exportdirpath="/home/john/Desktop/breadexport";
   
@@ -88,10 +93,7 @@ public class Bread{
    */
   
   private static final String GRAMMAR_FILE_PATH=
-      "/home/john/projects/code/Forsythia/src/org/fleen/forsythia/samples/grammars/2016_09_18/g000";
-  
-//  private static final String GRAMMAR_FILE_PATH=
-//      "/home/john/projects/code/Forsythia/src/org/fleen/forsythia/samples/grammars/2016_06_16/g001_simpletriangles_hexroot";
+      "/home/john/projects/graphics/stickers/2017_06_16/hex_sticker_006.grammar";
     
     private ForsythiaGrammar importGrammar(){
       ForsythiaGrammar grammar=null;
@@ -254,6 +256,8 @@ public class Bread{
   BufferedImage image=null;
   
   private Graphics2D initImageForError(){
+    System.out.println("ui="+ui);
+    
     int 
       w=ui.panimage.getWidth(),
       h=ui.panimage.getHeight();

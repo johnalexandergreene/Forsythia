@@ -59,6 +59,8 @@ public class Renderer000 extends ForsythiaSimpleRenderer_Abstract{
       int 
         eggdepth=getTagDepth(polygon,"egg"),
         colorindex;
+      System.out.println("eggdepth="+eggdepth);
+      
       //even level
       if(eggdepth%2==0){
         colorindex=rnd.nextInt(color0.length);

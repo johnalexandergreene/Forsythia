@@ -41,7 +41,7 @@ public class Composer000 extends ForsythiaSimpleComposer_Abstract{
    */
   
 //  public static final double DETAILSIZEFLOOR_DEFAULT=0.12;
-  public static final double DETAILSIZEFLOOR_DEFAULT=0.06;
+  public static final double DETAILSIZEFLOOR_DEFAULT=0.04;
   private double detailsizefloor;
   
   /*

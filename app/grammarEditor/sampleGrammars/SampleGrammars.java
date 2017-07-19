@@ -20,7 +20,8 @@ public class SampleGrammars implements Serializable{
   private static final String[] GRAMMARNAMES={
     "nice.grammar",
     "boxy.grammar",
-    "triangley.grammar"};
+    "triangley.grammar",
+    "fancy.grammar"};
   
   /*
    * load each of our sample grammars from resource

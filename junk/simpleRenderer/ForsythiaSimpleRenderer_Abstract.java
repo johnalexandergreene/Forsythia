@@ -203,16 +203,18 @@ public abstract class ForsythiaSimpleRenderer_Abstract implements ForsythiaSimpl
    */
   
   protected int getTagDepth(TreeNode node,String tag){
-    int c=0;
-    TreeNode n=node;
-    FPolygon p;
-    while(n!=null){
-      if(n instanceof FPolygon){
-        p=(FPolygon)n;
-        if(p.hasTags(tag))
-          c++;}
-      n=n.getParent();}
-    return c;}
+    return node.getDepth();
+//    int c=0;
+//    TreeNode n=node;
+//    FPolygon p;
+//    while(n!=null){
+//      if(n instanceof FPolygon){
+//        p=(FPolygon)n;
+//        if(p.hasTags(tag))
+//          c++;}
+//      n=n.getParent();}
+//    return c;
+    }
   
   /*
    * ################################
