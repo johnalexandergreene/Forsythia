@@ -21,7 +21,8 @@ public class SampleGrammars implements Serializable{
     "nice.grammar",
     "boxy.grammar",
     "triangley.grammar",
-    "fancy.grammar"};
+    "fancy.grammar",
+    "fancy2.grammar"};
   
   /*
    * load each of our sample grammars from resource
