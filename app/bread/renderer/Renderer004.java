@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.bread;
+package org.fleen.forsythia.app.bread.renderer;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -10,12 +10,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.fleen.forsythia.app.bread.VG_Null;
+import org.fleen.forsythia.app.bread.VG_Stroke;
+import org.fleen.forsythia.app.bread.Voice_Graphics2D;
 import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.junk.simpleRenderer.ForsythiaSimpleRenderer_Abstract;
 
-public class Renderer001 extends ForsythiaSimpleRenderer_Abstract{
+public class Renderer004 extends ForsythiaSimpleRenderer_Abstract{
   
   private static final long serialVersionUID=6251642864782975431L;
 
@@ -25,10 +28,10 @@ public class Renderer001 extends ForsythiaSimpleRenderer_Abstract{
    * ################################
    */
   
-  public Renderer001(Color backgroundcolor,int margin){
+  public Renderer004(Color backgroundcolor,int margin){
     super(backgroundcolor,margin);}
   
-  public Renderer001(){}
+  public Renderer004(){}
   
   /*
    * ################################
@@ -69,21 +72,12 @@ public class Renderer001 extends ForsythiaSimpleRenderer_Abstract{
   
   private Voice_Graphics2D createVoice(FPolygon polygon){
     Voice_Graphics2D voice;
-    int d=polygon.getDepth();
-    if(d<6){
-      int a=r.nextInt(5);
-      if(a==0||a==1){
-        voice=new VG_FatStroke();
-      }else if(a==2||a==3){
-        voice=new VG_Null();
-      }else{
-        voice=new VG_Fill();}
-    }else{
       int a=r.nextInt(2);
       if(a==0){
-        voice=new VG_Stroke();
+        voice=new VG_Null();
       }else{
-        voice=new VG_Null();}}
+        voice=new VG_Stroke();
+        }
     return voice;}
   
 }

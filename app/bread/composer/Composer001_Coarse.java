@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.bread;
+package org.fleen.forsythia.app.bread.composer;
 
 import java.util.Hashtable;
 import java.util.List;
@@ -10,13 +10,10 @@ import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 import org.fleen.forsythia.core.grammar.Jig;
-import org.fleen.forsythia.junk.simpleComposer.ForsythiaSimpleComposer_Abstract;
 import org.fleen.util.tree.TreeNodeIterator;
 
-public class Composer001_Coarse extends ForsythiaSimpleComposer_Abstract{
+public class Composer001_Coarse extends Composer_Abstract{
 
-  private static final long serialVersionUID=-1741279176329644604L;
-  
   /*
    * ################################
    * CONSTRUCTOR

@@ -11,10 +11,13 @@ import java.io.ObjectInputStream;
 
 import javax.swing.JTextField;
 
+import org.fleen.forsythia.app.bread.composer.Composer;
+import org.fleen.forsythia.app.bread.composer.Composer000;
+import org.fleen.forsythia.app.bread.renderer.Renderer;
+import org.fleen.forsythia.app.bread.renderer.Renderer003_Stripetest;
+import org.fleen.forsythia.app.bread.renderer.Renderer005;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
-import org.fleen.forsythia.junk.simpleComposer.ForsythiaSimpleComposer;
-import org.fleen.forsythia.junk.simpleRenderer.ForsythiaSimpleRenderer;
 
 /*
  * bread is a generator of forsythia compositions
@@ -34,6 +37,40 @@ public class Bread{
   
   public Bread(){
     initUI();}
+  
+  /*
+   * ################################
+   * MAIN PARAMS
+   *   GRAMMAR FILE PATH 
+   *   COMPOSER, 
+   *   RENDERER 
+   *   EXPORT DIR
+   * all static. this is how we control the thing
+   * ################################
+   */
+  
+  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/grammars/g008";
+  
+//  ForsythiaSimpleComposer composer=new Composer001_Coarse();
+  Composer composer=new Composer000();
+  
+//  static final Color[] 
+//      COLOR0={new Color(255,141,0),new Color(208,255,138)},
+//      COLOR1={new Color(255,13,219),new Color(232,197,12)};
+//    static final Color COLOR_STROKE=new Color(64,64,64);
+  
+  static final Color[] 
+      COLOR0={new Color(0,0,0),new Color(255,0,0)},
+      COLOR1={new Color(255,255,0),new Color(255,128,0)};
+    static final Color COLOR_STROKE=Color.black;
+  
+//  ForsythiaSimpleRenderer renderer=new Renderer002_Stripetest(Color.white,20);
+//    ForsythiaSimpleRenderer renderer=new Renderer003_Stripetest(Color.white,50);
+    Renderer renderer=new Renderer005();
+  
+  String exportdirpath="/home/john/Desktop/newstuff";
+  
+  
   
   /*
    * ################################
@@ -62,48 +99,27 @@ public class Bread{
 
   /*
    * ################################
-   * GRAMMAR, COMPOSER, RENDERER (?) AND EXPORT DIR
+   * GRAMMAR
    * ################################
    */
-  
-  ForsythiaGrammar grammar=importGrammar();
-//  ForsythiaSimpleComposer composer=new Composer001_Coarse();
-  ForsythiaSimpleComposer composer=new Composer000();
-  
-//  static final Color[] 
-//      COLOR0={new Color(255,141,0),new Color(208,255,138)},
-//      COLOR1={new Color(255,13,219),new Color(232,197,12)};
-//    static final Color COLOR_STROKE=new Color(64,64,64);
-  
-  static final Color[] 
-      COLOR0={new Color(0,0,0),new Color(255,0,0)},
-      COLOR1={new Color(255,255,0),new Color(255,128,0)};
-    static final Color COLOR_STROKE=Color.black;
-  
-//  ForsythiaSimpleRenderer renderer=new Renderer002_Stripetest(Color.white,20);
-//    ForsythiaSimpleRenderer renderer=new Renderer003_Stripetest(Color.white,50);
-    ForsythiaSimpleRenderer renderer=new Renderer000(COLOR0,COLOR1,COLOR_STROKE,0.015f);
-  
-  String exportdirpath="/home/john/Desktop/breadexport";
-  
-  /*
-   * ################################
-   * GRAMMAR IMPORT
-   * ################################
-   */
-  
-  private static final String GRAMMAR_FILE_PATH=
-      "/home/john/projects/graphics/stickers/2017_06_16/hex_sticker_006.grammar";
     
-    private ForsythiaGrammar importGrammar(){
-      ForsythiaGrammar grammar=null;
+    private ForsythiaGrammar grammar=null;
+    
+    public ForsythiaGrammar getGrammar(){
+      if(grammar==null)
+        initGrammar();
+      return grammar;}
+  
+    private void initGrammar(){
+      grammar=null;
       try{
         File f=new File(GRAMMAR_FILE_PATH);
         grammar=importGrammarFromFile(f);
-      }catch(Exception x){}
+      }catch(Exception x){
+        System.out.println("exception in grammar import");
+        x.printStackTrace();}
       if(grammar==null)
-        printGrammarImportFailed();
-      return grammar;}
+        printGrammarImportFailed();}
     
     private ForsythiaGrammar importGrammarFromFile(File file){
       FileInputStream fis;
@@ -123,8 +139,6 @@ public class Bread{
       g.setFont(ERRORMESSAGEFONT);
       g.drawString("GRAMMAR IMPORT FAILED!",20,60);
       ui.panimage.repaint();}
-  
-
   
   /*
    * ################################
@@ -203,7 +217,7 @@ public class Bread{
    */
   
   private void doIntermittantCreation(){
-    composition=composer.compose(grammar);
+    composition=composer.compose(getGrammar());
     image=renderer.getImage(ui.panimage.getWidth(),ui.panimage.getHeight(),composition);
     ui.panimage.repaint();
     //maybe export
@@ -297,9 +311,7 @@ public class Bread{
   
   //for movingstripes frames
   void export(){
-    for(int i=0;i<120;i++){
-      ((Renderer003_Stripetest)renderer).time=((double)i)/60;
-      export1();}}
+    export1();}
   
   void export1(){
     File exportdir=getExportDir();

@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.bread;
+package org.fleen.forsythia.app.bread.renderer;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -14,32 +14,9 @@ import java.util.Random;
 import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
-import org.fleen.forsythia.junk.simpleRenderer.ForsythiaSimpleRenderer_Abstract;
 import org.fleen.geom_2D.DPoint;
 
-public class Renderer000 extends ForsythiaSimpleRenderer_Abstract{
-  
-  private static final long serialVersionUID=6251642864782975431L;
-
-  /*
-   * ################################
-   * CONSTRUCTORS
-   * ################################
-   */
-  
-  public Renderer000(Color backgroundcolor,int margin,Color[] color0,Color[] color1,Color strokecolor,float strokewidth){
-    super(backgroundcolor,margin);
-    this.color0=color0;
-    this.color1=color1;
-    this.strokecolor=strokecolor;
-    this.strokewidth=strokewidth;}
-  
-  public Renderer000(Color[] color0,Color[] color1,Color strokecolor,float strokewidth){
-    super();
-    this.color0=color0;
-    this.color1=color1;
-    this.strokecolor=strokecolor;
-    this.strokewidth=strokewidth;}
+public class Renderer005 extends Renderer_Abstract{
   
   /*
    * ################################
@@ -47,28 +24,33 @@ public class Renderer000 extends ForsythiaSimpleRenderer_Abstract{
    * ################################
    */
   
-  private Color strokecolor;
-  private Color[] color0,color1;
+  private Color strokecolor=Color.black;
+  private Color[] 
+    color0={new Color(255,0,0),new Color(255,128,0)},
+    color1={new Color(255,255,0),new Color(128,255,0)},
+    color2={new Color(255,255,0),new Color(0,255,255)};
   
   private Map<FPolygonSignature,Color> polygoncolors=new Hashtable<FPolygonSignature,Color>();
   
   public Color getColor(FPolygon polygon){
     FPolygonSignature sig=polygon.getSignature();
     Color color=polygoncolors.get(sig);
+    int eggdepthmod;
     if(color==null){
       int 
         eggdepth=getTagDepth(polygon,"egg"),
         colorindex;
-      System.out.println("eggdepth="+eggdepth);
-      
-      //even level
-      if(eggdepth%2==0){
+//      System.out.println("eggdepth="+eggdepth);
+      eggdepthmod=eggdepth%3;
+      if(eggdepthmod==0){
         colorindex=rnd.nextInt(color0.length);
         color=color0[colorindex];
-      //odd level
-      }else{
+      }else if(eggdepthmod==1){
         colorindex=rnd.nextInt(color1.length);
-        color=color1[colorindex];}
+        color=color1[colorindex];
+      }else{
+        colorindex=rnd.nextInt(color2.length);
+        color=color2[colorindex];}
       polygoncolors.put(sig,color);}
     return color;}
   

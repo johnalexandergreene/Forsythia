@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.bread;
+package org.fleen.forsythia.app.bread.renderer;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -10,17 +10,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import org.fleen.forsythia.app.bread.VG_FatStroke;
+import org.fleen.forsythia.app.bread.VG_Fill;
+import org.fleen.forsythia.app.bread.VG_Null;
+import org.fleen.forsythia.app.bread.VG_Stroke;
+import org.fleen.forsythia.app.bread.Voice_Graphics2D;
 import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.junk.simpleRenderer.ForsythiaSimpleRenderer_Abstract;
 
-public class Renderer003_Stripetest extends ForsythiaSimpleRenderer_Abstract{
+public class Renderer001 extends Renderer_Abstract{
   
   private static final long serialVersionUID=6251642864782975431L;
-  
-  //TODO better
-  public double time;
 
   /*
    * ################################
@@ -28,10 +30,10 @@ public class Renderer003_Stripetest extends ForsythiaSimpleRenderer_Abstract{
    * ################################
    */
   
-  public Renderer003_Stripetest(Color backgroundcolor,int margin){
+  public Renderer001(Color backgroundcolor,int margin){
     super(backgroundcolor,margin);}
   
-  public Renderer003_Stripetest(){}
+  public Renderer001(){}
   
   /*
    * ################################
@@ -40,16 +42,15 @@ public class Renderer003_Stripetest extends ForsythiaSimpleRenderer_Abstract{
    */
   
   Random rnd=new Random();
-  static final Color[] COLORS={new Color(255,0,0,64),new Color(255,255,0,64),new Color(0,255,255,64)};
-  Map<FPolygonSignature,Voice_Graphics2D> voices=new HashMap<FPolygonSignature,Voice_Graphics2D>();
   
   protected void render(ForsythiaComposition forsythia,Graphics2D graphics,AffineTransform transform){
+    Map<FPolygonSignature,Voice_Graphics2D> voices=new HashMap<FPolygonSignature,Voice_Graphics2D>();
     List<FPolygon> polygons=forsythia.getPolygons();
     Collections.sort(polygons,PolygonDepthComparator);
     Voice_Graphics2D voice;
     for(FPolygon polygon:polygons){
-      voice=getVoice(polygon);
-      voice.paint(polygon,graphics,time);}}
+      voice=getVoice(polygon,voices);
+      voice.paint(polygon,graphics,0);}}
   
   private Comparator<FPolygon> PolygonDepthComparator=new Comparator<FPolygon>(){
     public int compare(FPolygon p0,FPolygon p1){
@@ -61,20 +62,33 @@ public class Renderer003_Stripetest extends ForsythiaSimpleRenderer_Abstract{
       }else{
         return -1;}}};
         
-  private Voice_Graphics2D getVoice(FPolygon polygon){
+  private Voice_Graphics2D getVoice(FPolygon polygon,Map<FPolygonSignature,Voice_Graphics2D> voices){
     FPolygonSignature signature=polygon.getSignature();
     Voice_Graphics2D voice=voices.get(signature);
     if(voice==null){
-      Color color=COLORS[rnd.nextInt(COLORS.length)];
-      voice=createVoice(polygon,color);
+      voice=createVoice(polygon);
       voices.put(signature,voice);}
     return voice;}
   
   Random r=new Random();
   
-  private Voice_Graphics2D createVoice(FPolygon polygon,Color color){
-    VG_Stripe voice=new VG_Stripe();
-    voice.color=color;
+  private Voice_Graphics2D createVoice(FPolygon polygon){
+    Voice_Graphics2D voice;
+    int d=polygon.getDepth();
+    if(d<6){
+      int a=r.nextInt(5);
+      if(a==0||a==1){
+        voice=new VG_FatStroke();
+      }else if(a==2||a==3){
+        voice=new VG_Null();
+      }else{
+        voice=new VG_Fill();}
+    }else{
+      int a=r.nextInt(2);
+      if(a==0){
+        voice=new VG_Stroke();
+      }else{
+        voice=new VG_Null();}}
     return voice;}
   
 }
