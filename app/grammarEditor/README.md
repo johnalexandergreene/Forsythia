@@ -2,9 +2,9 @@
 
 #### Download a copy of the executable Jar
 
-[Fleen_Forsythia_Grammar_Editor_V2017_05_12.jar](https://github.com/johnalexandergreene/Forsythia/raw/master/bin/FleenForsythiaGrammarEditor_V2017_05_12.jar)
+[Fleen_Forsythia_Grammar_Editor_V2017_08_21.jar](https://github.com/johnalexandergreene/Forsythia/raw/master/bin/FleenForsythiaGrammarEditor_V2017_08_21.jar)
 
-Run it thusly : **java -jar FleenForsythiaGrammarEditor_V2017_05_12.jar**
+Run it thusly : **java -jar FleenForsythiaGrammarEditor_V2017_08_21.jar**
 
 #### Download a video walkthorugh
 
