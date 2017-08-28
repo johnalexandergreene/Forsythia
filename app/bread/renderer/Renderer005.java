@@ -74,11 +74,29 @@ public class Renderer005 extends Renderer_Abstract{
   
   Random rnd=new Random();
   
+//  protected void render(ForsythiaComposition forsythia,Graphics2D graphics,AffineTransform transform){
+//    Path2D path;
+//    //FILL POLYGONS
+//    Color color;
+//    for(FPolygon polygon:forsythia.getLeafPolygons()){
+//      color=getColor(polygon);
+//      graphics.setPaint(color);
+//      path=getPath(polygon);
+//      graphics.fill(path);}
+//    //STROKE POLYGONS
+//    graphics.setPaint(strokecolor);
+//    graphics.setStroke(createStroke());
+//    for(FPolygon polygon:forsythia.getLeafPolygons()){
+//      path=getPath(polygon);
+//      graphics.draw(path);}
+//    //
+//    polygoncolors.clear();}
+  
   protected void render(ForsythiaComposition forsythia,Graphics2D graphics,AffineTransform transform){
     Path2D path;
     //FILL POLYGONS
     Color color;
-    for(FPolygon polygon:forsythia.getLeafPolygons()){
+    for(FPolygon polygon:forsythia.getPolygons()){
       color=getColor(polygon);
       graphics.setPaint(color);
       path=getPath(polygon);
@@ -86,7 +104,7 @@ public class Renderer005 extends Renderer_Abstract{
     //STROKE POLYGONS
     graphics.setPaint(strokecolor);
     graphics.setStroke(createStroke());
-    for(FPolygon polygon:forsythia.getLeafPolygons()){
+    for(FPolygon polygon:forsythia.getPolygons()){
       path=getPath(polygon);
       graphics.draw(path);}
     //

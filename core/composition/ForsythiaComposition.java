@@ -99,6 +99,7 @@ public class ForsythiaComposition implements Forsythia,Serializable{
   public TreeNodeIterator getGridIterator(){
     return new GridNodeIterator(root);}
   
+  @SuppressWarnings("serial")
   private class GridNodeIterator extends TreeNodeIterator{
 
     public GridNodeIterator(ForsythiaTreeNode root){
@@ -137,6 +138,7 @@ public class ForsythiaComposition implements Forsythia,Serializable{
       polygons.add((FPolygon)i.next());
     return polygons;}
   
+  @SuppressWarnings("serial")
   private class PolygonIterator extends TreeNodeIterator{
 
     public PolygonIterator(TreeNode root){
@@ -145,6 +147,7 @@ public class ForsythiaComposition implements Forsythia,Serializable{
     protected boolean skip(TreeNode node){
       return(!(node instanceof FPolygon));}}
  
+  @SuppressWarnings("serial")
   private class LeafPolygonIterator extends TreeNodeIterator{
 
     public LeafPolygonIterator(ForsythiaTreeNode root){

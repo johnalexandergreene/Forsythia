@@ -107,6 +107,14 @@ public class Jig implements Serializable,Tagged,Forsythia{
       newnode.setParent(newgrid);
       newnodes.add(newnode);}
     newgrid.setChildren(newnodes);
+    
+    System.out.println("################");
+    System.out.println("created "+newnodes.size()+" nodes for "+target);
+    for(ForsythiaTreeNode n:newnodes)
+      System.out.println(n);
+    System.out.println("################");
+    
+    
     return newnodes;}
 
   /*

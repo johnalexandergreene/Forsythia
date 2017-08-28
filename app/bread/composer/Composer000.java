@@ -63,6 +63,7 @@ public class Composer000 extends Composer_Abstract{
     Jig jig;
     boolean creatednodes=false;
     TreeNodeIterator i=composition.getLeafPolygonIterator();
+
     FPolygon leaf;
     ForsythiaGrammar grammar=composition.getGrammar();
     while(i.hasNext()){

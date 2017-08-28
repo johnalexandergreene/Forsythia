@@ -49,7 +49,8 @@ public class Bread{
    * ################################
    */
   
-  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/grammars/g008";
+//  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/grammars/g008";
+  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/ge/testboiler001.grammar";
   
 //  ForsythiaSimpleComposer composer=new Composer001_Coarse();
   Composer composer=new Composer000();
@@ -217,9 +218,13 @@ public class Bread{
    */
   
   private void doIntermittantCreation(){
+    System.out.println("f000");
     composition=composer.compose(getGrammar());
+    System.out.println("f001");
     image=renderer.getImage(ui.panimage.getWidth(),ui.panimage.getHeight(),composition);
+    System.out.println("f002");
     ui.panimage.repaint();
+    System.out.println("f003");
     //maybe export
     if(isExportModeAuto())
       export();}
