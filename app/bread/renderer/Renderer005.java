@@ -106,7 +106,8 @@ public class Renderer005 extends Renderer_Abstract{
     graphics.setStroke(createStroke());
     for(FPolygon polygon:forsythia.getPolygons()){
       path=getPath(polygon);
-      graphics.draw(path);}
+//      graphics.draw(path);
+      }
     //
     polygoncolors.clear();}
   

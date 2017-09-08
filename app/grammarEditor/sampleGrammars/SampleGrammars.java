@@ -23,7 +23,8 @@ public class SampleGrammars implements Serializable{
     "triangley.grammar",
     "fancy.grammar",
     "fancy2.grammar",
-    "fancy3.grammar"};
+    "fancy3.grammar",
+    "fancy4.grammar"};
   
   /*
    * load each of our sample grammars from resource
@@ -34,7 +35,7 @@ public class SampleGrammars implements Serializable{
     for(String name:GRAMMARNAMES)
       loadAndExportResourceGrammar(name);
     File path=GE.getLocalDir();
-    path=new File(path.getAbsolutePath()+"/"+GRAMMARNAMES[0]);
+    path=new File(path.getAbsolutePath()+"/"+GRAMMARNAMES[6]);
     GE.ge.grammarimportexport.importGrammar(path);}
   
   private ForsythiaGrammar loadAndExportResourceGrammar(String name){

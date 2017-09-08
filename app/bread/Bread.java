@@ -50,7 +50,7 @@ public class Bread{
    */
   
 //  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/grammars/g008";
-  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/ge/testboiler001.grammar";
+  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/ge/testboiler002.grammar";
   
 //  ForsythiaSimpleComposer composer=new Composer001_Coarse();
   Composer composer=new Composer000();
