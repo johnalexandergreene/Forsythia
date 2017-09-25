@@ -55,7 +55,7 @@ public class Bread{
   
 //  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/grammars/nice001.grammar";
   
-  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/ge/hexy002.grammar";
+  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/ge/nuther003.grammar";
   
   
   
