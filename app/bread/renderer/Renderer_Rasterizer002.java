@@ -36,7 +36,8 @@ public class Renderer_Rasterizer002 implements Renderer{
   
   public Renderer_Rasterizer002(Color[] color0,Color[] color1){
     this.color0=color0;
-    this.color1=color1;}
+    this.color1=color1;
+    }
   
   /*
    * ################################
@@ -118,9 +119,40 @@ public class Renderer_Rasterizer002 implements Renderer{
   /*
    * ################################
    * POLYGON COLOR
-   * a polygon's color is the color of its first ancestral egg.
-   * The color of the that first ancestral egg is determined by random selection, 
-   *   excluding the color of the second ancestral egg 
+   * 
+   * we init all of the polygon colors at once
+   * 
+   * start at root
+   * 
+   * put root in polygons0 list
+   * 
+   * for each polygon in polygons0
+   *   if isbase then set polygon.color=getNewPolygonColorForBase
+   *   otherwise get color from parent
+   *   put color in colorsbypolygon
+   *   add all polygon.getChildren to polygons1
+   *   
+   * for each polygon in polygons1, repeat and so on
+   * 
+   * after we're done, randomize a few of the base colors and reset their children, or something, because we need a little chaos
+   * 
+   * ---
+   * 
+   * isBase
+   *   if a polygon is rootpolygon
+   *   if a polygon is first gen child of root
+   *   if a polygon is first gen child of egg
+   *   if a polygon is leaf egg
+   *   
+   * ---
+   * 
+   * getNewPolygonColorForBase
+   *   check colorsbysig
+   *   if we have a color there then use that
+   *   get list of possible colors
+   *   remove from that list the color of the base's parent
+   *   from that list pick a color at random. that's our color.
+   * 
    * ################################
    */
   
@@ -132,26 +164,35 @@ public class Renderer_Rasterizer002 implements Renderer{
       new Color(83,119,122),
     };
   
-    Map<FPolygonSignature,Color> polygoncolorbysig=new HashMap<FPolygonSignature,Color>();
-    Map<FPolygon,Color> colorbyfpolygon=new HashMap<FPolygon,Color>();
+    Map<FPolygonSignature,Color> colorbysig=new HashMap<FPolygonSignature,Color>();
+    Map<FPolygon,Color> colorbypolygon=new HashMap<FPolygon,Color>();
     
-    /*
-     * note that this also inits the colors of a number of first and second ancestral eggs 
-     */
     private void initPolygonColors(){
-      polygoncolorbysig.clear();
-      colorbyfpolygon.clear();
-      for(FPolygon p:fpolygonsbydpolygons.values())
-        initPolygonColor(p);}
+      colorbysig.clear();
+      colorbypolygon.clear();
+      List<TreeNode> 
+        polygons0=new ArrayList<TreeNode>(),
+        polygons1=new ArrayList<TreeNode>();
+      polygons0.add(composition.getRootPolygon());
+      while(!polygons0.isEmpty()){
+        for(TreeNode polygon:polygons0){
+          if(isBase((FPolygon)polygon))
+            initColorForPolygon((FPolygon)polygon);
+          else
+            colorbypolygon.put((FPolygon)polygon,colorbypolygon.get(((FPolygon)polygon).getPolygonParent()));
+          polygons1.addAll(((FPolygon)polygon).getPolygonChildren());}
+        polygons0.clear();
+        polygons0.addAll(polygons1);
+        polygons1.clear();}}
     
     private void initPolygonColor(FPolygon polygon){
       Color c=selectColorForPolygon(polygon);
-      colorbyfpolygon.put(polygon,c);}
+      colorbypolygon.put(polygon,c);}
     
     private Color selectColorForPolygon(FPolygon polygon){
       //get the list of prospective colors
       List<Color> colors=new ArrayList<Color>(Arrays.asList(C2));
-      colors.remove(polygoncolorbysig.get(getSecondAncestralEgg(polygon).getSignature()));
+      colors.remove(colorbysig.get(getSecondAncestralEgg(polygon).getSignature()));
       //a little fine chaos
       //leaf color randomness, makes little thingies
       if(rnd.nextDouble()>0.97)return colors.get(rnd.nextInt(colors.size()));
@@ -163,11 +204,11 @@ public class Renderer_Rasterizer002 implements Renderer{
       FPolygonSignature sig=polygon.getSignature();
       Color color=null;
       //check the table, or not for another kind of chaos. Bigger Thingies
-      if(rnd.nextDouble()<0.98)color=polygoncolorbysig.get(sig);
+      if(rnd.nextDouble()<0.98)color=colorbysig.get(sig);
       //pick at random from remainder and store it
       if(color==null){
         color=C2[rnd.nextInt(C2.length)];
-        polygoncolorbysig.put(sig,color);}
+        colorbysig.put(sig,color);}
       return color;}
     
     private FPolygon getFirstChildOfFirstAncestralEgg(FPolygon p){
@@ -215,7 +256,7 @@ public class Renderer_Rasterizer002 implements Renderer{
     double normalized;
     for(Presence p:c.presences){
       normalized=(p.intensity)/intensitysum;
-      color=colorbyfpolygon.get((FPolygon)p.polygon.object);
+      color=colorbypolygon.get((FPolygon)p.polygon.object);
       r+=(int)(color.getRed()*normalized);
       g+=(int)(color.getGreen()*normalized);
       b+=(int)(color.getBlue()*normalized);}
