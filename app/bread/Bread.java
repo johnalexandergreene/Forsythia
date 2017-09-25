@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import org.fleen.forsythia.app.bread.composer.Composer;
 import org.fleen.forsythia.app.bread.composer.Composer001_SplitBoil;
 import org.fleen.forsythia.app.bread.renderer.Renderer;
-import org.fleen.forsythia.app.bread.renderer.Renderer_Rasterizer001;
+import org.fleen.forsythia.app.bread.renderer.Renderer_Rasterizer002;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 
@@ -51,16 +51,18 @@ public class Bread{
 //  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/grammars/g008";
 //  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/ge/testboiler002.grammar";
   
-  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/ge/precise008.grammar";
+//  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/ge/precise008.grammar";
   
 //  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/grammars/nice001.grammar";
+  
+  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/ge/hexy002.grammar";
   
   
   
 //  ForsythiaSimpleComposer composer=new Composer001_Coarse();
   Composer composer=new Composer001_SplitBoil();
   
-  public static final double DETAIL_SIZE_FLOOR=0.03;
+  public static final double DETAIL_SIZE_FLOOR=0.02;
   
 //  static final Color[] 
 //      COLOR0={new Color(255,141,0),new Color(208,255,138)},
@@ -78,7 +80,7 @@ public class Bread{
 //    ForsythiaSimpleRenderer renderer=new Renderer003_Stripetest(Color.white,50);
 //    Renderer renderer=new Renderer000(COLOR0,COLOR1,COLOR_STROKE,STROKEWIDTH);
     
-    Renderer renderer=new Renderer_Rasterizer001(COLOR0,COLOR1);
+    Renderer renderer=new Renderer_Rasterizer002(COLOR0,COLOR1);
     //meh
 //    Renderer renderer=new Renderer_Rasterizer002(COLOR0,COLOR1);
   

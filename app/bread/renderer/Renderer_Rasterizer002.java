@@ -185,6 +185,34 @@ public class Renderer_Rasterizer002 implements Renderer{
         polygons0.addAll(polygons1);
         polygons1.clear();}}
     
+    private boolean isBase(FPolygon polygon){
+      if(polygon.isRootPolygon())return true;
+      if(polygon.getPolygonParent().isRootPolygon())return true;
+      if(polygon.getPolygonParent().hasTags("egg"))return true;
+      if(polygon.isLeaf()&&polygon.hasTags("egg"))return true;
+      return false;}
+    
+    private void initColorForPolygon(FPolygon polygon){
+      FPolygonSignature sig=polygon.getSignature();
+      Color color=colorbysig.get(sig);
+      if(color==null){
+        List<Color> prospects=new ArrayList<Color>(Arrays.asList(C2));
+        FPolygon base=getBase(polygon);
+        if(base!=polygon)
+          prospects.remove(colorbypolygon.get(base));
+        color=prospects.get(rnd.nextInt(prospects.size()));}
+      colorbypolygon.put(polygon,color);
+      colorbysig.put(sig,color);
+      
+    }
+    
+    private FPolygon getBase(FPolygon polygon){
+      while(!isBase(polygon))
+        polygon=polygon.getPolygonParent();
+      return polygon;}
+    
+    
+    
     private void initPolygonColor(FPolygon polygon){
       Color c=selectColorForPolygon(polygon);
       colorbypolygon.put(polygon,c);}

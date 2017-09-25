@@ -77,8 +77,6 @@ public class Composer001_SplitBoil extends Composer_Abstract{
    * ++++++++++++++++++++++++++++++++
    */
   
-  Random random=new Random();
-  
   private List<Jig> 
     boilers=new ArrayList<Jig>(),
     splitters=new ArrayList<Jig>();
@@ -89,7 +87,7 @@ public class Composer001_SplitBoil extends Composer_Abstract{
     //
     createBoilersAndSplittersLists(jigs);
     Jig jig;
-    if(target.hasTags("egg")){//is egg
+    if(target.isRootPolygon()||(rnd.nextDouble()>0.5&&target.hasTags("egg"))){
       jig=getRandomSplitter();
       if(jig==null)jig=getRandomBoiler();
     }else{
@@ -100,12 +98,12 @@ public class Composer001_SplitBoil extends Composer_Abstract{
   
   private Jig getRandomBoiler(){
     if(boilers.isEmpty())return null;
-    Jig jig=boilers.get(random.nextInt(boilers.size()));
+    Jig jig=boilers.get(rnd.nextInt(boilers.size()));
     return jig;}
   
   private Jig getRandomSplitter(){
     if(splitters.isEmpty())return null;
-    Jig jig=splitters.get(random.nextInt(splitters.size()));
+    Jig jig=splitters.get(rnd.nextInt(splitters.size()));
     return jig;}
   
   private void createBoilersAndSplittersLists(List<Jig> jigs){
