@@ -12,10 +12,9 @@ import java.io.ObjectInputStream;
 import javax.swing.JTextField;
 
 import org.fleen.forsythia.app.bread.composer.Composer;
-import org.fleen.forsythia.app.bread.composer.Composer000;
+import org.fleen.forsythia.app.bread.composer.Composer001_SplitBoil;
 import org.fleen.forsythia.app.bread.renderer.Renderer;
-import org.fleen.forsythia.app.bread.renderer.Renderer003_Stripetest;
-import org.fleen.forsythia.app.bread.renderer.Renderer005;
+import org.fleen.forsythia.app.bread.renderer.Renderer_Rasterizer001;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 
@@ -50,24 +49,38 @@ public class Bread{
    */
   
 //  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/grammars/g008";
-  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/ge/testboiler002.grammar";
+//  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/ge/testboiler002.grammar";
+  
+  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/ge/precise008.grammar";
+  
+//  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/grammars/nice001.grammar";
+  
+  
   
 //  ForsythiaSimpleComposer composer=new Composer001_Coarse();
-  Composer composer=new Composer000();
+  Composer composer=new Composer001_SplitBoil();
+  
+  public static final double DETAIL_SIZE_FLOOR=0.03;
   
 //  static final Color[] 
 //      COLOR0={new Color(255,141,0),new Color(208,255,138)},
 //      COLOR1={new Color(255,13,219),new Color(232,197,12)};
 //    static final Color COLOR_STROKE=new Color(64,64,64);
   
+  public static final float STROKEWIDTH=0.001f;
+  
   static final Color[] 
       COLOR0={new Color(0,0,0),new Color(255,0,0)},
-      COLOR1={new Color(255,255,0),new Color(255,128,0)};
-    static final Color COLOR_STROKE=Color.black;
+      COLOR1={new Color(255,255,255),new Color(255,255,000)};
+    static final Color COLOR_STROKE=Color.gray;
   
 //  ForsythiaSimpleRenderer renderer=new Renderer002_Stripetest(Color.white,20);
 //    ForsythiaSimpleRenderer renderer=new Renderer003_Stripetest(Color.white,50);
-    Renderer renderer=new Renderer005();
+//    Renderer renderer=new Renderer000(COLOR0,COLOR1,COLOR_STROKE,STROKEWIDTH);
+    
+    Renderer renderer=new Renderer_Rasterizer001(COLOR0,COLOR1);
+    //meh
+//    Renderer renderer=new Renderer_Rasterizer002(COLOR0,COLOR1);
   
   String exportdirpath="/home/john/Desktop/newstuff";
   
@@ -218,13 +231,9 @@ public class Bread{
    */
   
   private void doIntermittantCreation(){
-    System.out.println("f000");
     composition=composer.compose(getGrammar());
-    System.out.println("f001");
     image=renderer.getImage(ui.panimage.getWidth(),ui.panimage.getHeight(),composition);
-    System.out.println("f002");
     ui.panimage.repaint();
-    System.out.println("f003");
     //maybe export
     if(isExportModeAuto())
       export();}

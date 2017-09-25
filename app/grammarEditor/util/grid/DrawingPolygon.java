@@ -135,7 +135,7 @@ public class DrawingPolygon extends KPolygon{
     return path;} 
   
   public boolean isClockwise(){
-    return GD.isClockwise(getPoints().getPointArrays());}
+    return GD.isClockwise(getPoints().getPointsAsDoubles());}
   
   /*
    * ################################

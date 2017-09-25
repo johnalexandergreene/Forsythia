@@ -56,7 +56,7 @@ public class GlyphSystemModel implements Serializable{
     return innerpolygon;}
   
   private void createInnerPolygon(DPolygon outerpolygon){
-    boolean clockwise=outerpolygon.getTwist();
+    boolean clockwise=outerpolygon.getChirality();
     int s=outerpolygon.size(),iprior,inext;
     innerpolygon=new DPolygon(s);
     DPoint p,pprior,pnext,pinner;
