@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import org.fleen.forsythia.app.bread.Bread;
 import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
@@ -23,17 +22,17 @@ public class Composer001_SplitBoil extends Composer_Abstract{
    * ################################
    */
   
-  protected boolean createNodes(ForsythiaComposition composition){
+  protected boolean createNodes(ForsythiaComposition composition,double detaillimit){
     Jig jig;
     boolean creatednodes=false;
     TreeNodeIterator i=composition.getLeafPolygonIterator();
-
+    //
     FPolygon leaf;
     ForsythiaGrammar grammar=composition.getGrammar();
     while(i.hasNext()){
       leaf=(FPolygon)i.next();
       if(isCapped(leaf))continue;
-      jig=selectJig(grammar,leaf);
+      jig=selectJig(grammar,leaf,detaillimit);
       if(jig==null){
         cap(leaf);
       }else{
@@ -51,7 +50,7 @@ public class Composer001_SplitBoil extends Composer_Abstract{
   Map<FPolygonSignature,Jig> jigbypolygonsig=new Hashtable<FPolygonSignature,Jig>();
   Random rnd=new Random();
   
-  private Jig selectJig(ForsythiaGrammar forsythiagrammar,FPolygon polygon){
+  private Jig selectJig(ForsythiaGrammar forsythiagrammar,FPolygon polygon,double detaillimit){
     //get a jig by signature
     //polygons with the same sig get the same jig
     Jig j=jigbypolygonsig.get(polygon.getSignature());
@@ -60,7 +59,7 @@ public class Composer001_SplitBoil extends Composer_Abstract{
     //no jig found keyed by that signature
     //so get one from the grammar using various random selection techniques
     }else{
-      j=getRandomJigUsingSplitBoilLogic(forsythiagrammar,polygon);
+      j=getRandomJigUsingSplitBoilLogic(forsythiagrammar,polygon,detaillimit);
       if(j==null)return null;
       jigbypolygonsig.put(polygon.getSignature(),j);
       return j;}}
@@ -81,13 +80,14 @@ public class Composer001_SplitBoil extends Composer_Abstract{
     boilers=new ArrayList<Jig>(),
     splitters=new ArrayList<Jig>();
   
-  private Jig getRandomJigUsingSplitBoilLogic(ForsythiaGrammar fg,FPolygon target){
-    List<Jig> jigs=fg.getJigsAboveDetailSizeFloor(target,Bread.DETAIL_SIZE_FLOOR);
+  private Jig getRandomJigUsingSplitBoilLogic(ForsythiaGrammar fg,FPolygon target,double detaillimit){
+    List<Jig> jigs=fg.getJigsAboveDetailSizeFloor(target,detaillimit);
     if(jigs.isEmpty())return null;
     //
     createBoilersAndSplittersLists(jigs);
     Jig jig;
-    if(target.isRootPolygon()||(rnd.nextDouble()>0.5&&target.hasTags("egg"))){
+//    if(target.isRootPolygon()||(rnd.nextDouble()>0.5&&target.hasTags("egg"))){
+    if(target.isRootPolygon()||target.hasTags("egg")){
       jig=getRandomSplitter();
       if(jig==null)jig=getRandomBoiler();
     }else{

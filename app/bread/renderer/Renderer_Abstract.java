@@ -92,7 +92,7 @@ public abstract class Renderer_Abstract implements Renderer{
     graphics.setRenderingHints(RENDERING_HINTS);
     render(composition,graphics,transform);
     //reset renderer, clear everything
-    pathbypolygon.clear();
+//    pathbypolygon.clear();
     //
     return image;}
   
@@ -154,55 +154,24 @@ public abstract class Renderer_Abstract implements Renderer{
       if(maxy<p.y)maxy=p.y;}
     return new Rectangle2D.Double(minx,miny,maxx-minx,maxy-miny);}
   
-  Map<FPolygon,Path2D> pathbypolygon=new Hashtable<FPolygon,Path2D>();
-  
-  protected Path2D getPath2D(FPolygon polygon){
-    Path2D path=pathbypolygon.get(polygon);
-    if(path==null){
-      path=createPath2D(polygon);
-      pathbypolygon.put(polygon,path);}
-    return path;}
-  
-  private Path2D createPath2D(FPolygon polygon){
-    Path2D.Double path=new Path2D.Double();
-    List<DPoint> points=polygon.getDPolygon();
-    DPoint p=points.get(0);
-    path.moveTo(p.x,p.y);
-    for(int i=1;i<points.size();i++){
-      p=points.get(i);
-      path.lineTo(p.x,p.y);}
-    path.closePath();
-    return path;}
-  
-  /*
-   * ================================
-   * TAG LEVEL
-   * 
-   * returns the number of times the specified tag is encountered in this polygon's ancestry, including this polygon
-   * examples :
-   *   if the tag exists only once in the ancestry then the tagdepth is 1
-   *   if the tag exists in this polygon and its grandparent's polygon then the tagdepth is 2
-   *   if the tag exists nowhere in this polygon's ancestry then the tagdepth is 0
-   *   
-   * for example we sometimes use it to get "egg" level.
-   * An egg is a polygon that has been completely divorced from its paren't polygon's edge.
-   *   That is to say, an interior shape.
-   *   
-   * ================================
-   */
-  
-  protected int getTagDepth(TreeNode node,String tag){
-    return node.getDepth();
-//    int c=0;
-//    TreeNode n=node;
-//    FPolygon p;
-//    while(n!=null){
-//      if(n instanceof FPolygon){
-//        p=(FPolygon)n;
-//        if(p.hasTags(tag))
-//          c++;}
-//      n=n.getParent();}
-//    return c;
-    }
+//  Map<FPolygon,Path2D> pathbypolygon=new Hashtable<FPolygon,Path2D>();
+//  
+//  protected Path2D getPath2D(FPolygon polygon){
+//    Path2D path=pathbypolygon.get(polygon);
+//    if(path==null){
+//      path=createPath2D(polygon);
+//      pathbypolygon.put(polygon,path);}
+//    return path;}
+//  
+//  private Path2D createPath2D(FPolygon polygon){
+//    Path2D.Double path=new Path2D.Double();
+//    List<DPoint> points=polygon.getDPolygon();
+//    DPoint p=points.get(0);
+//    path.moveTo(p.x,p.y);
+//    for(int i=1;i<points.size();i++){
+//      p=points.get(i);
+//      path.lineTo(p.x,p.y);}
+//    path.closePath();
+//    return path;}
   
 }

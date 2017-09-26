@@ -2,8 +2,6 @@ package org.fleen.forsythia.app.bread;
 
 import java.awt.Color;
 import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -26,7 +24,7 @@ import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
  */
 public class Bread{
   
-  int bullshit;
+//  int bullshit;
   
   /*
    * ################################
@@ -39,66 +37,97 @@ public class Bread{
   
   /*
    * ################################
-   * MAIN PARAMS
-   *   GRAMMAR FILE PATH 
-   *   COMPOSER, 
-   *   RENDERER 
-   *   EXPORT DIR
-   * all static. this is how we control the thing
+   * ################################
+   * ################################
+   * PARAMS
+   * ################################
+   * ################################
    * ################################
    */
   
-//  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/grammars/g008";
-//  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/ge/testboiler002.grammar";
-  
-//  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/ge/precise008.grammar";
-  
-//  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/grammars/nice001.grammar";
-  
-  private static final String GRAMMAR_FILE_PATH="/home/john/Desktop/ge/nuther003.grammar";
-  
-  
-  
-//  ForsythiaSimpleComposer composer=new Composer001_Coarse();
+  Color[] palette=P_WANDERLUST_GLAMPING;
+  String grammar_file_path="/home/john/Desktop/ge/nuther003.grammar";
   Composer composer=new Composer001_SplitBoil();
-  
-  public static final double DETAIL_SIZE_FLOOR=0.02;
-  
-//  static final Color[] 
-//      COLOR0={new Color(255,141,0),new Color(208,255,138)},
-//      COLOR1={new Color(255,13,219),new Color(232,197,12)};
-//    static final Color COLOR_STROKE=new Color(64,64,64);
-  
-  public static final float STROKEWIDTH=0.001f;
-  
-  static final Color[] 
-      COLOR0={new Color(0,0,0),new Color(255,0,0)},
-      COLOR1={new Color(255,255,255),new Color(255,255,000)};
-    static final Color COLOR_STROKE=Color.gray;
-  
-//  ForsythiaSimpleRenderer renderer=new Renderer002_Stripetest(Color.white,20);
-//    ForsythiaSimpleRenderer renderer=new Renderer003_Stripetest(Color.white,50);
-//    Renderer renderer=new Renderer000(COLOR0,COLOR1,COLOR_STROKE,STROKEWIDTH);
-    
-    Renderer renderer=new Renderer_Rasterizer002(COLOR0,COLOR1);
-    //meh
-//    Renderer renderer=new Renderer_Rasterizer002(COLOR0,COLOR1);
-  
+  static final double DETAIL_LIMIT=0.02;
+  Renderer renderer=new Renderer_Rasterizer002();
   String exportdirpath="/home/john/Desktop/newstuff";
   
-  
+  /*
+   * ++++++++++++++++++++++++++++++++
+   * COLOR
+   * ++++++++++++++++++++++++++++++++
+   */
   
   /*
+   * THOUGHT PROVOKING
+   * down palette. rich, earthy
+   * beth dislikes it
+   */
+  static final Color[] P_THOUGHT_PROVOKING=new Color[]{
+      new Color(236,208,120),
+      new Color(217,91,67),
+      new Color(192,41,66),
+      new Color(84,36,55),
+      new Color(83,119,122),
+    };
+
+  /*
+   * WANDERLUST GLAMPING
+   * really juicy, bright, candy. 
+   * Beth gives it a big thumbs up.
+   */
+  static final Color[] P_WANDERLUST_GLAMPING=new Color[]{
+    new Color(1,24,107),
+    new Color(64,203,200),
+    new Color(203,54,166),
+    new Color(199,203,54),
+    new Color(224,135,48),};
+  
+  /*
+   * ++++++++++++++++++++++++++++++++
+   * GRAMMAR
+   * ++++++++++++++++++++++++++++++++
+   */
+    
+  private ForsythiaGrammar grammar=null;
+  
+  public ForsythiaGrammar getGrammar(){
+    if(grammar==null)
+      initGrammar();
+    return grammar;}
+
+  private void initGrammar(){
+    grammar=null;
+    try{
+      File f=new File(grammar_file_path);
+      grammar=importGrammarFromFile(f);
+    }catch(Exception x){
+      System.out.println("exception in grammar import");
+      x.printStackTrace();}}
+    
+  private ForsythiaGrammar importGrammarFromFile(File file){
+    FileInputStream fis;
+    ObjectInputStream ois;
+    ForsythiaGrammar g=null;
+    try{
+      fis=new FileInputStream(file);
+      ois=new ObjectInputStream(fis);
+      g=(ForsythiaGrammar)ois.readObject();
+      ois.close();
+    }catch(Exception x){}
+    return g;}
+
+  /*
+   * ################################
+   * ################################
    * ################################
    * UI
    * ################################
+   * ################################
+   * ################################
    */
   
-  private static final String TITLE="Fleen Bread 0.1";
-  
-  private static final int ERRORMESSAGEFONTSIZE=24;
-  private static final Font ERRORMESSAGEFONT=new Font("Sans",Font.PLAIN,ERRORMESSAGEFONTSIZE);
-  
+  private static final String TITLE="Fleen Bread 0.3";
   public UI ui;
   
   private void initUI(){
@@ -112,55 +141,25 @@ public class Bread{
           ui.txtinterval.setText(String.valueOf(CREATION_INTERVAL_DEFAULT));
          }catch(Exception e){
            e.printStackTrace();}}});}
-
+  
   /*
    * ################################
-   * GRAMMAR
+   * ################################
+   * ################################
+   * PRODUCTION
+   * ################################
+   * ################################
    * ################################
    */
-    
-    private ForsythiaGrammar grammar=null;
-    
-    public ForsythiaGrammar getGrammar(){
-      if(grammar==null)
-        initGrammar();
-      return grammar;}
   
-    private void initGrammar(){
-      grammar=null;
-      try{
-        File f=new File(GRAMMAR_FILE_PATH);
-        grammar=importGrammarFromFile(f);
-      }catch(Exception x){
-        System.out.println("exception in grammar import");
-        x.printStackTrace();}
-      if(grammar==null)
-        printGrammarImportFailed();}
-    
-    private ForsythiaGrammar importGrammarFromFile(File file){
-      FileInputStream fis;
-      ObjectInputStream ois;
-      ForsythiaGrammar g=null;
-      try{
-        fis=new FileInputStream(file);
-        ois=new ObjectInputStream(fis);
-        g=(ForsythiaGrammar)ois.readObject();
-        ois.close();
-      }catch(Exception x){}
-      return g;}
-    
-    private void printGrammarImportFailed(){
-      Graphics2D g=initImageForError();
-      g.setPaint(Color.white);
-      g.setFont(ERRORMESSAGEFONT);
-      g.drawString("GRAMMAR IMPORT FAILED!",20,60);
-      ui.panimage.repaint();}
+  ForsythiaComposition composition;
+  BufferedImage image=null;
   
   /*
-   * ################################
+   * ++++++++++++++++++++++++++++++++
    * CREATION MODE
    * continuous or intermittant
-   * ################################
+   * ++++++++++++++++++++++++++++++++
    */
   
   static final boolean MODE_CONTINUOUS=false,MODE_INTERMITTANT=true; 
@@ -175,9 +174,9 @@ public class Bread{
       ui.lblmode.setText("INT");}}
   
   /*
-   * ################################
+   * ++++++++++++++++++++++++++++++++
    * START-STOP CREATION
-   * ################################
+   * ++++++++++++++++++++++++++++++++
    */
   
   private boolean creating=false;
@@ -199,10 +198,10 @@ public class Bread{
         creating=true;}}}
   
   /*
-   * ################################
+   * ++++++++++++++++++++++++++++++++
    * CREATION INTERVAL
    * minimum interval between images in continuous creation mode
-   * ################################
+   * ++++++++++++++++++++++++++++++++
    */
   
   private static final long CREATION_INTERVAL_DEFAULT=1000;
@@ -218,23 +217,14 @@ public class Bread{
       t.setText(String.valueOf(creationinterval));}}
   
   /*
-   * ################################
-   * COMPOSITION CONTROL
-   * ################################
-   */
-  
-  ForsythiaComposition composition;
-  
-  
-  /*
    * ++++++++++++++++++++++++++++++++
-   * INTERMITTANT
+   * INTERMITTANT CREATION
    * ++++++++++++++++++++++++++++++++
    */
   
   private void doIntermittantCreation(){
-    composition=composer.compose(getGrammar());
-    image=renderer.getImage(ui.panimage.getWidth(),ui.panimage.getHeight(),composition);
+    composition=composer.compose(getGrammar(),DETAIL_LIMIT);
+    image=renderer.createImage(ui.panimage.getWidth(),ui.panimage.getHeight(),composition,palette,true);
     ui.panimage.repaint();
     //maybe export
     if(isExportModeAuto())
@@ -242,7 +232,7 @@ public class Bread{
   
   /*
    * ++++++++++++++++++++++++++++++++
-   * CONTINUOUS
+   * CONTINUOUS CREATION
    * ++++++++++++++++++++++++++++++++
    */
   
@@ -259,8 +249,8 @@ public class Bread{
         while(!stopcontinuouscreation){
           starttime=System.currentTimeMillis();
           //compose and render
-          composition=composer.compose(grammar);
-          image=renderer.getImage(ui.panimage.getWidth(),ui.panimage.getHeight(),composition);
+          composition=composer.compose(grammar,DETAIL_LIMIT);
+          image=renderer.createImage(ui.panimage.getWidth(),ui.panimage.getHeight(),composition,palette,true);
           //pause if necessary
           elapsedtime=System.currentTimeMillis()-starttime;
           pausetime=creationinterval-elapsedtime;
@@ -279,29 +269,13 @@ public class Bread{
   
   /*
    * ################################
-   * IMAGE
    * ################################
-   */
-  
-  BufferedImage image=null;
-  
-  private Graphics2D initImageForError(){
-    System.out.println("ui="+ui);
-    
-    int 
-      w=ui.panimage.getWidth(),
-      h=ui.panimage.getHeight();
-    image=new BufferedImage(w,h,BufferedImage.TYPE_INT_ARGB);
-    Graphics2D graphics=image.createGraphics();
-    graphics.setPaint(Color.red);
-    graphics.fillRect(0,0,w,h);
-    return graphics;}
-  
-  /*
    * ################################
    * EXPORT
    * render the current composition using the current composer and renderer
-   * use the image size specified in the ui
+   * use the image size specified in the ui as a guide for that
+   * ################################
+   * ################################
    * ################################
    */
   
@@ -325,15 +299,8 @@ public class Bread{
   boolean isExportModeAuto(){
     return getExportMode()==EXPORTMODE_AUTO;}
   
-  //for movingstripes frames
   void export(){
-    export1();}
-  
-  void export1(){
     File exportdir=getExportDir();
-    if(exportdir==null||!exportdir.isDirectory()){
-      printGetExportDirFailed();
-      return;}
     //
     int w=EXPORT_DEFAULT_WIDTH,h=EXPORT_DEFAULT_HEIGHT;
     try{
@@ -342,25 +309,9 @@ public class Bread{
       w=Integer.valueOf(b[0]);
       h=Integer.valueOf(b[1]);
     }catch(Exception x){
-      printGetExportImageSizeFailed();}
+      x.printStackTrace();}
     //
     export(exportdir,w,h);}
-  
-  private void printGetExportDirFailed(){
-    Graphics2D g=initImageForError();
-    g.setPaint(Color.white);
-    g.setFont(ERRORMESSAGEFONT);
-    g.drawString("GET EXPORT DIR FAILED!",20,60);
-    ui.panimage.repaint();}
-  
-  private void printGetExportImageSizeFailed(){
-    Graphics2D g=initImageForError();
-    g.setPaint(Color.white);
-    g.setFont(ERRORMESSAGEFONT);
-    g.drawString("%^&$ EXPORT IMAGE SIZE GARBLED!",20,ERRORMESSAGEFONTSIZE*2);
-    g.drawString("Proper format is 123x456",20,ERRORMESSAGEFONTSIZE*4);
-    g.drawString("Using default size : "+EXPORT_DEFAULT_WIDTH+"x"+EXPORT_DEFAULT_HEIGHT,20,ERRORMESSAGEFONTSIZE*6);
-    ui.panimage.repaint();}
   
   private File getExportDir(){
     File exportdir=null;
@@ -372,8 +323,8 @@ public class Bread{
   RasterExporter rasterexporter=new RasterExporter();
   
   private void export(File exportdir,int w,int h){
-    System.out.println("export");
-    BufferedImage exportimage=renderer.getImage(w,h,composition);
+    System.out.println(">>>EXPORT<<<");
+    BufferedImage exportimage=renderer.createImage(w,h,composition,palette,false);
     rasterexporter.setExportDir(exportdir);
     rasterexporter.export(exportimage);}
   

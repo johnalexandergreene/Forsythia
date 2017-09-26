@@ -33,16 +33,9 @@ public abstract class Composer_Abstract implements Composer{
    * ################################
    */
   
-  public ForsythiaComposition compose(ForsythiaGrammar grammar){
-    System.out.println("g000");
+  public ForsythiaComposition compose(ForsythiaGrammar grammar,double detaillimit){
     ForsythiaComposition composition=initComposition(grammar);
-    System.out.println("g001");
-    build(composition);
-    System.out.println("g002");
-    return composition;}
-  
-  public ForsythiaComposition compose(ForsythiaComposition composition){
-    build(composition);
+    build(composition,detaillimit);
     return composition;}
   
   /*
@@ -54,20 +47,20 @@ public abstract class Composer_Abstract implements Composer{
   //handy reference
   protected int buildcycleindex;
   
-  private void build(ForsythiaComposition composition){
+  private void build(ForsythiaComposition composition,double detaillimit){
     boolean creatednodes=true;
     buildcycleindex=0;
-    while(creatednodes&&buildcycleindex<9){//TEST
+    while(creatednodes){
       System.out.println("buildcycleindex="+buildcycleindex);
       buildcycleindex++;
-      creatednodes=createNodes(composition);}}
+      creatednodes=createNodes(composition,detaillimit);}}
     
   /*
    * try to create nodes.
    * if nodes were created then return true
    * if nodes were not created then return false
    */
-  protected abstract boolean createNodes(ForsythiaComposition composition);
+  protected abstract boolean createNodes(ForsythiaComposition composition,double detaillimit);
   
   /*
    * ################################

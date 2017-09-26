@@ -5,10 +5,7 @@ import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 
 public interface Composer{
   
-  //create new composition
-  ForsythiaComposition compose(ForsythiaGrammar grammar);
-  
-  //modify existing composition
-  ForsythiaComposition compose(ForsythiaComposition composition);
+  //create a new composition
+  ForsythiaComposition compose(ForsythiaGrammar grammar,double detaillimit);
   
 }
