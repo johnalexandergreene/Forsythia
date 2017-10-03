@@ -12,6 +12,9 @@ import org.fleen.forsythia.core.grammar.FMetagon;
  * We consider the polygon's metagon and it's chorus index.
  * We consider those for it's ancestor polygon
  * and so on, all the way to the root.
+ * 
+ * TODO we can do this with just chorus indices. It would simplify and speed things
+ * 
  */
 public class FPolygonSignature implements Serializable{
   

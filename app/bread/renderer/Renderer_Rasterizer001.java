@@ -7,8 +7,6 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -21,22 +19,11 @@ import org.fleen.geom_2D.DPolygon;
 import org.fleen.geom_2D.rasterMap.Cell;
 import org.fleen.geom_2D.rasterMap.Presence;
 import org.fleen.geom_2D.rasterMap.RasterMap;
-import org.fleen.util.tree.TreeNode;
 
 /*
  * this renders first egg in ancestry
  */
 public class Renderer_Rasterizer001 implements Renderer{
-  
-  /*
-   * ################################
-   * CONSTRUCTOR
-   * ################################
-   */
-  
-  public Renderer_Rasterizer001(Color[] color0,Color[] color1){
-    this.color0=color0;
-    this.color1=color1;}
   
   /*
    * ################################
@@ -52,7 +39,7 @@ public class Renderer_Rasterizer001 implements Renderer{
   
   Map<DPolygon,FPolygon> fpolygonsbydpolygons=new HashMap<DPolygon,FPolygon>();
   
-  public BufferedImage getImage(int width,int height,ForsythiaComposition composition){
+  public BufferedImage createImage(int width,int height,ForsythiaComposition composition,Color[] palette,boolean regeneratecolormap){
     System.out.println("---RENDERING---");
     this.composition=composition;
     initFPolygonsByDPolygons();

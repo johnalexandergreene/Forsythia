@@ -131,6 +131,7 @@ public abstract class ForsythiaTreeNode implements TreeNode,Serializable,Forsyth
   /**
    * @return Leaves of the branch rooted at this node
    */
+  @SuppressWarnings("serial")
   public TreeNodeIterator getLeafPolygonIterator(){
     return new TreeNodeIterator(this){
       //if it isn't a leaf AND a polygon then skip it

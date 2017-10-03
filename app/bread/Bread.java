@@ -45,8 +45,11 @@ public class Bread{
    * ################################
    */
   
-  Color[] palette=P_WANDERLUST_GLAMPING;
+  Color[] palette=P_TOY_STORY;
+  
   String grammar_file_path="/home/john/Desktop/ge/nuther003.grammar";
+//  String grammar_file_path="/home/john/Desktop/ge/aa004.grammar";
+  
   Composer composer=new Composer001_SplitBoil();
   static final double DETAIL_LIMIT=0.02;
   Renderer renderer=new Renderer_Rasterizer002();
@@ -82,6 +85,36 @@ public class Bread{
     new Color(203,54,166),
     new Color(199,203,54),
     new Color(224,135,48),};
+  
+  /*
+   * THOR MOVIE POSTER
+   */
+  static final Color[] P_THOR_MOVIE_POSTER=new Color[]{
+    new Color(186,137,132),
+    new Color(43,44,38),
+    new Color(241,240,196),
+    new Color(55,62,70),
+    new Color(119,39,32),
+    new Color(133,133,133),
+    new Color(136,120,68),
+    new Color(232,170,59),
+    new Color(94,89,85),
+    new Color(66,48,36)};
+  
+  /*
+   * TOY STORY MOVIE
+   */
+  static final Color[] P_TOY_STORY=new Color[]{
+    new Color(168,67,39),
+    new Color(250,200,147),
+    new Color(163,187,75),
+    new Color(154,94,154),
+    new Color(232,62,65),
+    new Color(249,212,1),
+    new Color(249,139,90),
+    new Color(236,77,74),
+    new Color(0,146,231),
+    new Color(251,206,221)};
   
   /*
    * ++++++++++++++++++++++++++++++++
