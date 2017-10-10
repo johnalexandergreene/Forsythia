@@ -4,18 +4,14 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Path2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
-import java.util.Map;
 
 import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.geom_2D.DPoint;
-import org.fleen.util.tree.TreeNode;
 
 public abstract class Renderer_Abstract implements Renderer{
   
@@ -41,7 +37,8 @@ public abstract class Renderer_Abstract implements Renderer{
    * ################################
    */
   
-  public static final int MARGIN_DEFAULT=20;
+//  public static final int MARGIN_DEFAULT=20;
+  public static final int MARGIN_DEFAULT=0;
   
   protected int margin=MARGIN_DEFAULT;
   
@@ -84,21 +81,18 @@ public abstract class Renderer_Abstract implements Renderer{
   
   BufferedImage image;
   
-  public BufferedImage getImage(int width,int height,ForsythiaComposition composition){
+  public BufferedImage createImage(int width,int height,ForsythiaComposition composition,Color[] palette,boolean rebuildcolormap){
     image=getInitImage(width,height);
     AffineTransform transform=getTransform(width,height,composition);
     Graphics2D graphics=(Graphics2D)image.getGraphics();
     graphics.setTransform(transform);
     graphics.setRenderingHints(RENDERING_HINTS);
-    render(composition,graphics,transform);
-    //reset renderer, clear everything
-//    pathbypolygon.clear();
-    //
+    render(composition,palette,graphics,transform);
     return image;}
   
   //render the specified composition to the specified graphics
   //pass transform too because it's handy sometimes, like for stroking
-  protected abstract void render(ForsythiaComposition composition,Graphics2D graphics,AffineTransform transform);
+  protected abstract void render(ForsythiaComposition composition,Color[] palette,Graphics2D graphics,AffineTransform transform);
   
   private BufferedImage getInitImage(int w,int h){
     BufferedImage image=new BufferedImage(w,h,BufferedImage.TYPE_INT_ARGB);

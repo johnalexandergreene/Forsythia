@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 import org.fleen.forsythia.app.bread.composer.Composer;
 import org.fleen.forsythia.app.bread.composer.Composer001_SplitBoil;
 import org.fleen.forsythia.app.bread.renderer.Renderer;
-import org.fleen.forsythia.app.bread.renderer.Renderer_Rasterizer002;
+import org.fleen.forsythia.app.bread.renderer.Renderer000;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 
@@ -47,12 +47,14 @@ public class Bread{
   
   Color[] palette=P_TOY_STORY;
   
-  String grammar_file_path="/home/john/Desktop/ge/nuther003.grammar";
+  String grammar_file_path="/home/john/Desktop/stripegrammar/s003.grammar";
+//  String grammar_file_path="/home/john/Desktop/ge/nuther003.grammar";
 //  String grammar_file_path="/home/john/Desktop/ge/aa004.grammar";
   
   Composer composer=new Composer001_SplitBoil();
-  static final double DETAIL_LIMIT=0.02;
-  Renderer renderer=new Renderer_Rasterizer002();
+  static final double DETAIL_LIMIT=0.03;
+//  Renderer renderer=new Renderer_Rasterizer004();
+  Renderer renderer=new Renderer000();
   String exportdirpath="/home/john/Desktop/newstuff";
   
   /*

@@ -78,20 +78,16 @@ public class Renderer_Rasterizer000 implements Renderer{
     return color;}
   
   protected int getTagDepth(TreeNode node,String tag){
-//  return node.getDepth();
-  int c=0;
-  TreeNode n=node;
-  FPolygon p;
-  while(n!=null){
-    if(n instanceof FPolygon){
-      p=(FPolygon)n;
-      if(p.hasTags(tag))
-        c++;}
-    n=n.getParent();}
-  return c;
-  }
-  
-  
+    int c=0;
+    TreeNode n=node;
+    FPolygon p;
+    while(n!=null){
+      if(n instanceof FPolygon){
+        p=(FPolygon)n;
+        if(p.hasTags(tag))
+          c++;}
+      n=n.getParent();}
+    return c;}
   
   private void initFPolygonsByDPolygons(){
     fpolygonsbydpolygons.clear();
@@ -167,6 +163,13 @@ public class Renderer_Rasterizer000 implements Renderer{
     if(b>255)b=255;
     //
     return new Color(r,g,b);}
+
+  @Override
+  public BufferedImage createImage(int width,int height,
+      ForsythiaComposition composition,Color[] palette,boolean rebuildcolormap){
+    // TODO Auto-generated method stub
+    return null;
+  }
   
   
 }

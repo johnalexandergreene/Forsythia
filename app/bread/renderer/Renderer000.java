@@ -14,8 +14,8 @@ import java.util.Random;
 import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
-import org.fleen.forsythia.junk.simpleRenderer.ForsythiaSimpleRenderer_Abstract;
 import org.fleen.geom_2D.DPoint;
+import org.fleen.util.tree.TreeNode;
 
 public class Renderer000 extends Renderer_Abstract{
   
@@ -37,8 +37,6 @@ public class Renderer000 extends Renderer_Abstract{
       int 
         eggdepth=getTagDepth(polygon,"egg"),
         colorindex;
-//      System.out.println("eggdepth="+eggdepth);
-      
       //even level
       if(eggdepth%2==0){
         colorindex=rnd.nextInt(color0.length);
@@ -49,6 +47,16 @@ public class Renderer000 extends Renderer_Abstract{
         color=color1[colorindex];}
       polygoncolors.put(sig,color);}
     return color;}
+  
+  private void initColors(Color[] palette){
+    strokecolor=Color.black;
+    int a=palette.length/2;
+    color0=new Color[a];
+    color1=new Color[palette.length-a];
+    for(int i=0;i<a;i++)
+      color0[i]=palette[i];
+    for(int i=a;i<palette.length;i++)
+      color1[i-a]=palette[i];}
   
   /*
    * ################################
@@ -70,7 +78,8 @@ public class Renderer000 extends Renderer_Abstract{
   
   Random rnd=new Random();
   
-  protected void render(ForsythiaComposition forsythia,Graphics2D graphics,AffineTransform transform){
+  protected void render(ForsythiaComposition forsythia,Color[] palette,Graphics2D graphics,AffineTransform transform){
+    initColors(palette);
     Path2D path;
     //FILL POLYGONS
     Color color;
@@ -98,5 +107,17 @@ public class Renderer000 extends Renderer_Abstract{
       path.lineTo(p.x,p.y);}
     path.closePath();
     return path;}
+  
+  protected int getTagDepth(TreeNode node,String tag){
+    int c=0;
+    TreeNode n=node;
+    FPolygon p;
+    while(n!=null){
+      if(n instanceof FPolygon){
+        p=(FPolygon)n;
+        if(p.hasTags(tag))
+          c++;}
+      n=n.getParent();}
+    return c;}
   
 }

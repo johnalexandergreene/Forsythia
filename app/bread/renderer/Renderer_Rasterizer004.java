@@ -22,14 +22,14 @@ import org.fleen.geom_2D.rasterMap.RasterMap;
 import org.fleen.util.tree.TreeNode;
 
 /*
- * a little more color differentiation at root 
+ * messing with strokes
  */
-public class Renderer_Rasterizer003 implements Renderer{
+public class Renderer_Rasterizer004 implements Renderer{
   
   /*
    * it controls the fatness of the blend between polygonal areas of cells/pixels
    */
-  private static final double GLOWSPAN=1.5;
+  private static final double GLOWSPAN=1.1;
   
   /*
    * the space between the edge of the image and the edge of the pixel array
@@ -175,9 +175,6 @@ public class Renderer_Rasterizer003 implements Renderer{
   
   private boolean isBase(FPolygon polygon){
     if(polygon.isRootPolygon())return true;
-    
-    if(polygon.getPolygonDepth()==2)return true;
-    
     if(polygon.getPolygonParent().isRootPolygon())return true;
     if(polygon.getPolygonParent().hasTags("egg"))return true;
     if(polygon.isLeaf()&&polygon.hasTags("egg"))return true;
@@ -210,11 +207,21 @@ public class Renderer_Rasterizer003 implements Renderer{
    * ################################
    */
   
+  static final double ISUMFACTOR=1.05;
+  
   private Color getPixelColor(Cell c){
     //get intensity sum
     double intensitysum=0;
+    
+    double x;
+    
     for(Presence p:c.presences){
-      intensitysum+=(p.intensity);}
+      x=p.intensity;
+      if(x<1)x*=ISUMFACTOR;
+      intensitysum+=x;
+//      intensitysum+=(p.intensity);
+      
+    }
     int r=0,g=0,b=0;
     Color color;
     double normalized;
