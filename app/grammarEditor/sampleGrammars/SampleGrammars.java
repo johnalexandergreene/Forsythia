@@ -24,7 +24,9 @@ public class SampleGrammars implements Serializable{
     "fancy.grammar",
     "fancy2.grammar",
     "fancy3.grammar",
-    "fancy4.grammar"};
+    "fancy4.grammar",
+    "nuther003.grammar",
+    "precise009.grammar"};
   
   /*
    * load each of our sample grammars from resource

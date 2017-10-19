@@ -45,7 +45,7 @@ public class GE implements Serializable{
   
   private static final long serialVersionUID=4971596440965502787L;
   
-  public static final String VERSIONNAME="V2017_07_19";
+  public static final String VERSIONNAME="V2017_10_19";
 
   public static final String APPNAME="Fleen Forsythia Grammar Editor ";
   

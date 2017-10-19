@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project Forsythia">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <!--define folder properties-->
+    <property name="dir.buildfile" value="."/>
+    <property name="dir.workspace" value="${dir.buildfile}/../../../../../../.."/>
+    <property name="dir.jarfile" value="/home/john/Desktop/gex"/>
+    <target name="create_run_jar">
+        <jar destfile="${dir.jarfile}/FleenForsythiaGrammarEditor_V2017_10_19.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="org.fleen.forsythia.app.grammarEditor.GE"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+        	
+            <fileset dir="${dir.workspace}/Forsythia/bin">
+            	<exclude name="org/fleen/forsythia/app/compositionGenerator/**"/>
+        	    <exclude name="org/fleen/forsythia/app/drifter/**"/>
+            	<exclude name="org/fleen/forsythia/app/strobe/**"/>
+            	<exclude name="org/fleen/forsythia/app/grammarEditor/bin/**"/>
+            	<exclude name="org/fleen/forsythia/app/grammarEditor/doc/**"/>
+            	<exclude name="org/fleen/forsythia/junk/**"/>
+              <exclude name="org/fleen/forsythia/doc/**"/>
+            	<exclude name="org/fleen/forsythia/moreGrammars/**"/>
+            </fileset>
+        	
+            <fileset dir="${dir.workspace}/Geom_2D/bin"/>
+            <fileset dir="${dir.workspace}/Geom_Kisrhombille/bin"/>
+            <fileset dir="${dir.workspace}/Util/bin"/>
+        </jar>
+    </target>
+</project>
