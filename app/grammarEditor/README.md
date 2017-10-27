@@ -2,7 +2,7 @@
 
 #### Download a copy of the executable Jar
 
-[Fleen_Forsythia_Grammar_Editor_V2017_08_21.jar](https://github.com/johnalexandergreene/Forsythia/raw/master/bin/FleenForsythiaGrammarEditor_V2017_08_21.jar)
+[Fleen_Forsythia_Grammar_Editor_V2017_10_19.jar](https://github.com/johnalexandergreene/Forsythia/raw/master/app/grammarEditor/bin/FleenForsythiaGrammarEditor_V2017_10_19.jar)
 
 Run it thusly : **java -jar FleenForsythiaGrammarEditor_V2017_08_21.jar**
 
