@@ -4,7 +4,7 @@
 
 [Fleen_Forsythia_Grammar_Editor_V2017_10_19.jar](https://github.com/johnalexandergreene/Forsythia/raw/master/app/grammarEditor/bin/FleenForsythiaGrammarEditor_V2017_10_19.jar)
 
-Run it thusly : **java -jar FleenForsythiaGrammarEditor_V2017_08_21.jar**
+Run it thusly : **java -jar FleenForsythiaGrammarEditor_V2017_10_19.jar**
 
 #### Download a video walkthorugh
 
