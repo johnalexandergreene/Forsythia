@@ -155,5 +155,16 @@ public class ForsythiaComposition implements Forsythia,Serializable{
 
     protected boolean skip(TreeNode node){
       return !(node instanceof FPolygon&&node.isLeaf());}}
+  
+  /*
+   * ################################
+   * OBJECT
+   * ################################
+   */
+  
+  public String toString(){
+    String a="FC["+getPolygons().size()+"]";
+    return a;
+  }
  
 }

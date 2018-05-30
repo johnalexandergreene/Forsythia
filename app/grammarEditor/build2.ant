@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project Forsythia">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <!--define folder properties-->
+    <property name="dir.buildfile" value="."/>
+    <property name="dir.workspace" value="${dir.buildfile}/../../../../../../.."/>
+    <property name="dir.jarfile" value="/home/john/Desktop"/>
+    <target name="create_run_jar">
+        <jar destfile="${dir.jarfile}/sp.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="org.fleen.forsythia.app.grammarEditor.GE"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="${dir.workspace}/Forsythia/bin"/>
+            <fileset dir="${dir.workspace}/Geom_2D/bin"/>
+            <fileset dir="${dir.workspace}/Geom_Kisrhombille/bin"/>
+            <fileset dir="${dir.workspace}/Util/bin"/>
+        </jar>
+    </target>
+</project>

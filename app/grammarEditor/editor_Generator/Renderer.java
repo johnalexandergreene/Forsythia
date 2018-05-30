@@ -155,13 +155,34 @@ public class Renderer implements Serializable{
       polygoncolors.put(sig,color);}
     return color;}
   
-  private void initColorPairs(){
-    color0=new Color[]{getRandomGoodColor(),getRandomGoodColor()};
-    color1=new Color[]{getRandomGoodColor(),getRandomGoodColor()};}
+//  private void initColorPairs(){
+//    color0=new Color[]{getRandomGoodColor(),getRandomGoodColor()};
+//    color1=new Color[]{getRandomGoodColor(),getRandomGoodColor()};}
+//  
+//  private Color getRandomGoodColor(){
+//    Color c=new Color(64+rnd.nextInt(12)*16,64+rnd.nextInt(12)*16,64+rnd.nextInt(12)*16);
+//    return c;}
   
-  private Color getRandomGoodColor(){
-    Color c=new Color(64+rnd.nextInt(12)*16,64+rnd.nextInt(12)*16,64+rnd.nextInt(12)*16);
-    return c;}
+  public static final Color[] P_TOY_STORY_ADJUSTED2=new Color[]{
+      new Color(168,67,39),
+      new Color(251,206,89),
+      new Color(88,184,121),
+      new Color(154,94,154),
+      new Color(234,61,65),
+      new Color(248,237,23),
+      new Color(249,139,90),
+      new Color(0,146,232),
+      new Color(254,178,213)};
+  
+  private void initColorPairs(){
+    int a=P_TOY_STORY_ADJUSTED2.length/2;
+    color0=new Color[a];
+    for(int i=0;i<a;i++)
+      color0[i]=P_TOY_STORY_ADJUSTED2[i];
+    color1=new Color[P_TOY_STORY_ADJUSTED2.length-a];
+    for(int i=a;i<P_TOY_STORY_ADJUSTED2.length;i++)
+      color1[i-a]=P_TOY_STORY_ADJUSTED2[i];
+    System.out.println("foo");}
   
   /*
    * ################################
@@ -169,7 +190,7 @@ public class Renderer implements Serializable{
    * ################################
    */
   
-  private static final float STROKEWIDTH=0.008f;
+  private static final float STROKEWIDTH=0.01f;
   
   Stroke stroke;
   

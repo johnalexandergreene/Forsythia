@@ -242,11 +242,12 @@ public class FPolygon extends ForsythiaTreeNode implements Tagged{
    * ################################
    */
   
-  private FPolygonSignature signature=null;
+//  private FPolygonSignature signature=null;
   private FPolygonSignature.SigComponent signaturecomponent=null;
   
   public FPolygonSignature getSignature(){
-    if(signature==null)signature=new FPolygonSignature(this);
+//    if(signature==null)
+    FPolygonSignature signature=new FPolygonSignature(this);
     return signature;}
   
   public FPolygonSignature.SigComponent getSignatureComponent(){
