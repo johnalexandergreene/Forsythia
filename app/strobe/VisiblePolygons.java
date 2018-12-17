@@ -8,7 +8,7 @@ import java.util.Random;
 
 import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.FPolygonSignature;
-import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
+import org.fleen.forsythia.core.grammar.ForsythiaGrammar0;
 import org.fleen.forsythia.core.grammar.Jig;
 import org.fleen.geom_2D.DPolygon;
 
@@ -47,7 +47,7 @@ public class VisiblePolygons extends ArrayList<FPolygon>{
       prospects=new ArrayList<FPolygon>(PROSPECTS_LIST_SIZE_INIT);
     FPolygon polygon;
     prospects.add(composition.getRootPolygon());
-    ForsythiaGrammar grammar=composition.getGrammar();
+    ForsythiaGrammar0 grammar=composition.getGrammar();
     int testedpolygons=0;
     while(!prospects.isEmpty()){
       polygon=prospects.remove(0);
@@ -64,7 +64,7 @@ public class VisiblePolygons extends ArrayList<FPolygon>{
    * get the children of the specified polygon
    * if it doesn't have children then create some
    */
-  private List<FPolygon> getPolygonChildren(FPolygon polygon,ForsythiaGrammar grammar){
+  private List<FPolygon> getPolygonChildren(FPolygon polygon,ForsythiaGrammar0 grammar){
     if(!polygon.hasChildren())
       cultivateOnce(polygon,grammar);
     List<FPolygon> children=polygon.getPolygonChildren();
@@ -80,11 +80,11 @@ public class VisiblePolygons extends ArrayList<FPolygon>{
   Map<FPolygonSignature,Jig> jigbypolygonsig=new HashMap<FPolygonSignature,Jig>();
   Random rnd=new Random();
   
-  private void cultivateOnce(FPolygon polygon,ForsythiaGrammar grammar){
+  private void cultivateOnce(FPolygon polygon,ForsythiaGrammar0 grammar){
     Jig jig=selectJig(polygon,grammar);
     jig.createNodes(polygon);}
   
-  private Jig selectJig(FPolygon polygon,ForsythiaGrammar grammar){
+  private Jig selectJig(FPolygon polygon,ForsythiaGrammar0 grammar){
     //get a jig by signature
     //polygons with the same sig get the same jig
     Jig j=jigbypolygonsig.get(polygon.getSignature());
@@ -98,7 +98,7 @@ public class VisiblePolygons extends ArrayList<FPolygon>{
       jigbypolygonsig.put(polygon.getSignature(),j);
       return j;}}
   
-  private Jig getRandomJig(ForsythiaGrammar fg,FPolygon target){
+  private Jig getRandomJig(ForsythiaGrammar0 fg,FPolygon target){
     List<Jig> jigs=fg.getJigs(target);
     if(jigs.isEmpty())return null;
     Jig jig=jigs.get(rnd.nextInt(jigs.size()));

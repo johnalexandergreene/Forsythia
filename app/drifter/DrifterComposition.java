@@ -10,7 +10,7 @@ import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.core.grammar.FMetagon;
-import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
+import org.fleen.forsythia.core.grammar.ForsythiaGrammar0;
 import org.fleen.forsythia.core.grammar.Jig;
 import org.fleen.geom_2D.DPolygon;
 
@@ -25,7 +25,7 @@ public class DrifterComposition extends ForsythiaComposition{
    * ################################
    */
   
-  public DrifterComposition(Drifter drifter,ForsythiaGrammar grammar){
+  public DrifterComposition(Drifter drifter,ForsythiaGrammar0 grammar){
     this.drifter=drifter;
     setGrammar(grammar);
     initRoot();}
@@ -139,7 +139,7 @@ public class DrifterComposition extends ForsythiaComposition{
       jigbypolygonsig.put(polygon.getSignature(),j);
       return j;}}
   
-  private Jig getRandomJig(ForsythiaGrammar fg,FPolygon target){
+  private Jig getRandomJig(ForsythiaGrammar0 fg,FPolygon target){
     List<Jig> jigs=fg.getJigs(target);
     if(jigs.isEmpty())return null;
     Jig jig=jigs.get(rnd.nextInt(jigs.size()));

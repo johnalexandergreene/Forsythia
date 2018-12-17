@@ -8,7 +8,7 @@ import java.util.Random;
 import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
-import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
+import org.fleen.forsythia.core.grammar.ForsythiaGrammar0;
 import org.fleen.forsythia.core.grammar.Jig;
 import org.fleen.util.tree.TreeNodeIterator;
 
@@ -78,7 +78,7 @@ public class FSC_ChorusedVaryingDetailAreas extends ForsythiaSimpleComposer_Abst
     
     
     //actual create nodes thing
-    ForsythiaGrammar grammar=composition.getGrammar();
+    ForsythiaGrammar0 grammar=composition.getGrammar();
     i=composition.getLeafPolygonIterator();
     while(i.hasNext()){
       leaf=(FPolygon)i.next();
@@ -101,7 +101,7 @@ public class FSC_ChorusedVaryingDetailAreas extends ForsythiaSimpleComposer_Abst
   Map<FPolygonSignature,Jig> jigbypolygonsig=new Hashtable<FPolygonSignature,Jig>();
   Random rnd=new Random();
   
-  private Jig selectJig(ForsythiaGrammar forsythiagrammar,FPolygon polygon){
+  private Jig selectJig(ForsythiaGrammar0 forsythiagrammar,FPolygon polygon){
     //get a jig by signature
     //polygons with the same sig get the same jig
     Jig j=jigbypolygonsig.get(polygon.getSignature());
@@ -119,7 +119,7 @@ public class FSC_ChorusedVaryingDetailAreas extends ForsythiaSimpleComposer_Abst
       jigbypolygonsig.put(polygon.getSignature(),j);
       return j;}}
   
-  private Jig getRandomJig(ForsythiaGrammar fg,FPolygon target){
+  private Jig getRandomJig(ForsythiaGrammar0 fg,FPolygon target){
     List<Jig> jigs=fg.getJigsAboveDetailSizeFloor(target,detailsizefloor);
     if(jigs.isEmpty())return null;
     Jig jig=jigs.get(new Random().nextInt(jigs.size()));

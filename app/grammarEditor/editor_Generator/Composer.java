@@ -13,7 +13,7 @@ import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.core.grammar.FMetagon;
-import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
+import org.fleen.forsythia.core.grammar.ForsythiaGrammar0;
 import org.fleen.forsythia.core.grammar.Jig;
 import org.fleen.util.tree.TreeNodeIterator;
 
@@ -27,7 +27,7 @@ public class Composer implements Serializable{
    * ################################
    */
   
-  public ForsythiaComposition compose(ForsythiaGrammar grammar,double detailfloor){
+  public ForsythiaComposition compose(ForsythiaGrammar0 grammar,double detailfloor){
     this.detailfloor=detailfloor;
     ForsythiaComposition composition=initComposition(grammar);
     build(composition);
@@ -77,7 +77,7 @@ public class Composer implements Serializable{
     boolean creatednodes=false;
     TreeNodeIterator i=composition.getLeafPolygonIterator();
     FPolygon leaf;
-    ForsythiaGrammar grammar=composition.getGrammar();
+    ForsythiaGrammar0 grammar=composition.getGrammar();
     while(i.hasNext()){
       leaf=(FPolygon)i.next();
       if(isCapped(leaf))continue;
@@ -99,7 +99,7 @@ public class Composer implements Serializable{
   Map<FPolygonSignature,Jig> jigbypolygonsig=new Hashtable<FPolygonSignature,Jig>();
   Random rnd=new Random();
   
-  private Jig selectJig(ForsythiaGrammar forsythiagrammar,FPolygon polygon){
+  private Jig selectJig(ForsythiaGrammar0 forsythiagrammar,FPolygon polygon){
     //get a jig by signature
     //polygons with the same sig get the same jig
     Jig j=jigbypolygonsig.get(polygon.getSignature());
@@ -113,7 +113,7 @@ public class Composer implements Serializable{
       jigbypolygonsig.put(polygon.getSignature(),j);
       return j;}}
   
-  private Jig getRandomJig(ForsythiaGrammar fg,FPolygon target){
+  private Jig getRandomJig(ForsythiaGrammar0 fg,FPolygon target){
     List<Jig> jigs=fg.getJigsAboveDetailSizeFloor(target,detailfloor);
     if(jigs.isEmpty())return null;
     Jig jig=jigs.get(new Random().nextInt(jigs.size()));
@@ -126,7 +126,7 @@ public class Composer implements Serializable{
    * ################################
    */
   
-  private ForsythiaComposition initComposition(ForsythiaGrammar grammar){
+  private ForsythiaComposition initComposition(ForsythiaGrammar0 grammar){
     ForsythiaComposition composition=new ForsythiaComposition();
     composition.setGrammar(grammar);
     FPolygon rootpolygon=createRootPolygon(grammar);
@@ -137,7 +137,7 @@ public class Composer implements Serializable{
    * look for metagons tagged root
    * if we can't find one then pick any metagon
    */
-  private FPolygon createRootPolygon(ForsythiaGrammar grammar){
+  private FPolygon createRootPolygon(ForsythiaGrammar0 grammar){
     List<FMetagon> metagons=grammar.getMetagons();
     if(metagons.isEmpty())
       throw new IllegalArgumentException("this grammar has no metagons");

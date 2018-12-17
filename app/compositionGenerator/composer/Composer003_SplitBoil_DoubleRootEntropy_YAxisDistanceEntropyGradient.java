@@ -10,7 +10,7 @@ import java.util.Random;
 import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
-import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
+import org.fleen.forsythia.core.grammar.ForsythiaGrammar0;
 import org.fleen.forsythia.core.grammar.Jig;
 import org.fleen.forsythia.core.grammar.JigSection;
 import org.fleen.geom_2D.DPoint;
@@ -71,7 +71,7 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
     TreeNodeIterator i=composition.getLeafPolygonIterator();
     //
     FPolygon leaf;
-    ForsythiaGrammar grammar=composition.getGrammar();
+    ForsythiaGrammar0 grammar=composition.getGrammar();
     while(i.hasNext()){
       leaf=(FPolygon)i.next();
       doArbitraryEntropy(leaf);
@@ -117,7 +117,7 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
   
   Map<FPolygonSignature,Jig> jigbypolygonsig=new Hashtable<FPolygonSignature,Jig>();
   
-  private Jig selectJig(ForsythiaGrammar forsythiagrammar,FPolygon polygon,double detaillimit){
+  private Jig selectJig(ForsythiaGrammar0 forsythiagrammar,FPolygon polygon,double detaillimit){
     //get a jig by signature
     //polygons with the same sig get the same jig
     Jig j=jigbypolygonsig.get(polygon.getSignature());
@@ -147,7 +147,7 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
     boilers=new ArrayList<Jig>(),
     splitters=new ArrayList<Jig>();
   
-  private Jig getRandomJigUsingSplitBoilLogic(ForsythiaGrammar fg,FPolygon target,double detaillimit){
+  private Jig getRandomJigUsingSplitBoilLogic(ForsythiaGrammar0 fg,FPolygon target,double detaillimit){
     List<Jig> jigs=fg.getJigsAboveDetailSizeFloor(target,detaillimit);
     if(jigs.isEmpty())return null;
     //

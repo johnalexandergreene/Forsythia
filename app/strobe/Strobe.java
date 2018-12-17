@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.fleen.forsythia.core.composition.FPolygon;
-import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
+import org.fleen.forsythia.core.grammar.ForsythiaGrammar0;
 import org.fleen.geom_2D.DHexagon;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;
@@ -96,18 +96,18 @@ public class Strobe{
   private Composition composition;
   
   private void initComposition(){
-    ForsythiaGrammar grammar=importGrammar(GRAMMARPATH);
+    ForsythiaGrammar0 grammar=importGrammar(GRAMMARPATH);
     composition=new Composition(this,grammar);}
   
-  private ForsythiaGrammar importGrammar(String grammarpath){
+  private ForsythiaGrammar0 importGrammar(String grammarpath){
     File file=new File(grammarpath);
     FileInputStream fis;
     ObjectInputStream ois;
-    ForsythiaGrammar fg=null;
+    ForsythiaGrammar0 fg=null;
     try{
       fis=new FileInputStream(file);
       ois=new ObjectInputStream(fis);
-      fg=(ForsythiaGrammar)ois.readObject();
+      fg=(ForsythiaGrammar0)ois.readObject();
       ois.close();
     }catch(Exception e){
       System.out.println("#^#^# EXCEPTION IN GRAMMAR FILE IMPORT #^#^#");

@@ -15,7 +15,7 @@ import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.core.grammar.FMetagon;
-import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
+import org.fleen.forsythia.core.grammar.ForsythiaGrammar0;
 import org.fleen.forsythia.core.grammar.Jig;
 import org.fleen.forsythia.core.grammar.JigSection;
 import org.fleen.util.tree.TreeNodeIterator;
@@ -38,13 +38,13 @@ public class FCGen003_SplitBoil_TotalSymmetry implements ForsythiaCompositionGen
    */
   
   private static final String GRAMMARNAME="hexmandala001.grammar";
-  ForsythiaGrammar grammar;
+  ForsythiaGrammar0 grammar;
   
   private void initGrammar(){
     try{
       InputStream a=FCGen003_SplitBoil_TotalSymmetry.class.getResourceAsStream(GRAMMARNAME);
       ObjectInputStream b=new ObjectInputStream(a);
-      grammar=(ForsythiaGrammar)b.readObject();
+      grammar=(ForsythiaGrammar0)b.readObject();
       b.close();
     }catch(Exception e){
       System.out.println("Load grammar failed.");
@@ -91,7 +91,7 @@ public class FCGen003_SplitBoil_TotalSymmetry implements ForsythiaCompositionGen
     TreeNodeIterator i=composition.getLeafPolygonIterator();
     //
     FPolygon leaf;
-    ForsythiaGrammar grammar=composition.getGrammar();
+    ForsythiaGrammar0 grammar=composition.getGrammar();
     while(i.hasNext()){
       leaf=(FPolygon)i.next();
       if(isCapped(leaf))continue;
@@ -112,7 +112,7 @@ public class FCGen003_SplitBoil_TotalSymmetry implements ForsythiaCompositionGen
   
   Map<FPolygonSignature,Jig> jigbypolygonsig=new Hashtable<FPolygonSignature,Jig>();
   
-  private Jig selectJig(ForsythiaGrammar forsythiagrammar,FPolygon polygon,double detaillimit){
+  private Jig selectJig(ForsythiaGrammar0 forsythiagrammar,FPolygon polygon,double detaillimit){
     //get a jig by signature
     //polygons with the same sig get the same jig
     Jig j=jigbypolygonsig.get(polygon.getSignature());
@@ -142,7 +142,7 @@ public class FCGen003_SplitBoil_TotalSymmetry implements ForsythiaCompositionGen
     boilers=new ArrayList<Jig>(),
     splitters=new ArrayList<Jig>();
   
-  private Jig getRandomJigUsingSplitBoilLogic(ForsythiaGrammar fg,FPolygon target,double detaillimit){
+  private Jig getRandomJigUsingSplitBoilLogic(ForsythiaGrammar0 fg,FPolygon target,double detaillimit){
     List<Jig> jigs=fg.getJigsAboveDetailSizeFloor(target,detaillimit);
     if(jigs.isEmpty())return null;
     //
@@ -204,7 +204,7 @@ public class FCGen003_SplitBoil_TotalSymmetry implements ForsythiaCompositionGen
    * look for metagons tagged root
    * if we can't find one then pick any metagon
    */
-  private FPolygon createRootPolygon(ForsythiaGrammar grammar){
+  private FPolygon createRootPolygon(ForsythiaGrammar0 grammar){
     List<FMetagon> metagons=grammar.getMetagons();
     if(metagons.isEmpty())
       throw new IllegalArgumentException("this grammar has no metagons");

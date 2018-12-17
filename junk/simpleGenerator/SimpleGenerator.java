@@ -12,7 +12,7 @@ import java.io.ObjectInputStream;
 import javax.swing.JTextField;
 
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
-import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
+import org.fleen.forsythia.core.grammar.ForsythiaGrammar0;
 import org.fleen.forsythia.junk.simpleComposer.ForsythiaSimpleComposer;
 import org.fleen.forsythia.junk.simpleRenderer.ForsythiaSimpleRenderer;
 
@@ -65,8 +65,8 @@ public class SimpleGenerator{
   private static final String GRAMMAR_FILE_PATH_DEFAULT=
     "/home/john/projects/code/Forsythia/src/org/fleen/forsythia/samples/grammars/2016_06_05/g000_hexroot_kindasimple";
   
-  private ForsythiaGrammar getGrammar(){
-    ForsythiaGrammar grammar=null;
+  private ForsythiaGrammar0 getGrammar(){
+    ForsythiaGrammar0 grammar=null;
     try{
       File f=new File(ui.txtgrammar.getText());
       grammar=importGrammarFromFile(f);
@@ -75,14 +75,14 @@ public class SimpleGenerator{
       printGrammarImportFailed();
     return grammar;}
   
-  private ForsythiaGrammar importGrammarFromFile(File file){
+  private ForsythiaGrammar0 importGrammarFromFile(File file){
     FileInputStream fis;
     ObjectInputStream ois;
-    ForsythiaGrammar g=null;
+    ForsythiaGrammar0 g=null;
     try{
       fis=new FileInputStream(file);
       ois=new ObjectInputStream(fis);
-      g=(ForsythiaGrammar)ois.readObject();
+      g=(ForsythiaGrammar0)ois.readObject();
       ois.close();
     }catch(Exception x){}
     return g;}
@@ -238,7 +238,7 @@ public class SimpleGenerator{
    */
   
   //keep this stuff class-level because it's useful
-  ForsythiaGrammar grammar;
+  ForsythiaGrammar0 grammar;
   ForsythiaSimpleComposer composer;
   //TODO renderer needs to persist the colors
   //we should deal with the strokewidth in a nonabsolute way too, so it isn't skinny for big images
