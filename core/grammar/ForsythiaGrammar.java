@@ -13,7 +13,7 @@ import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.geom_Kisrhombille.KMetagon;
 
 /*
- * Collection of Metagons and Jigs
+ * A library of Metagons and Jigs
  * For each Metagon we have 0..n associated Jigs. 
  * Each Jig is associated with 1 Metagon
  */
@@ -106,8 +106,8 @@ public class ForsythiaGrammar implements Forsythia,Serializable{
   public String toString(){
     StringBuffer a=new StringBuffer();
     a.append("\n\n");
-    a.append("################\n");
-    a.append("### FGRAMMAR ###\n\n");
+    a.append("#########################\n");
+    a.append("### FORSYTHIA GRAMMAR ###\n\n");
     a.append("metagoncount="+getMetagonCount()+"\n\n");
     JigList jiglist;
     for(FMetagon m:metagonjigs.keySet()){
@@ -118,8 +118,8 @@ public class ForsythiaGrammar implements Forsythia,Serializable{
       a.append("jigcount="+jiglist.size()+"\n");
       for(Jig jig:jiglist)
         a.append(jig.toString()+"\n");}
-    a.append("### FGRAMMAR ###\n");
-    a.append("################\n");
+    a.append("### FORSYTHIA GRAMMAR ###\n");
+    a.append("#########################\n");
     return a.toString();}
  
 }

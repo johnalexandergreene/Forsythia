@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project default="create_run_jar" name="Create Runnable Jar for Project Forsythia">
+<project default="create_run_jar" name="Create Runnable Jar for Project Bread">
     <!--this file was created by Eclipse Runnable JAR Export Wizard-->
     <!--ANT 1.7 is required                                        -->
     <!--define folder properties-->
@@ -7,11 +7,12 @@
     <property name="dir.workspace" value="${dir.buildfile}/../../../../../../.."/>
     <property name="dir.jarfile" value="/home/john/Desktop"/>
     <target name="create_run_jar">
-        <jar destfile="${dir.jarfile}/sp.jar" filesetmanifest="mergewithoutmain">
+        <jar destfile="${dir.jarfile}/forsythia_composition_gen_000.jar" filesetmanifest="mergewithoutmain">
             <manifest>
-                <attribute name="Main-Class" value="org.fleen.forsythia.app.grammarEditor.GE"/>
+                <attribute name="Main-Class" value="org.fleen.bread.app.forsythiaCompositionGenerator.fc0000_poster_18x30.Head"/>
                 <attribute name="Class-Path" value="."/>
             </manifest>
+            <fileset dir="${dir.workspace}/Bread/bin"/>
             <fileset dir="${dir.workspace}/Forsythia/bin"/>
             <fileset dir="${dir.workspace}/Geom_2D/bin"/>
             <fileset dir="${dir.workspace}/Geom_Kisrhombille/bin"/>

@@ -1,0 +1,102 @@
+Try some new color selection algs
+vary selection over 
+  distance from center
+    change palette
+    change entropy
+  X or Y axis
+    palette
+    entropy
+    
+Get some contrast. Less field of noise.
+
+Instead of constantly switching around the params on our main class, 
+  create a few composition-genre-specific classes. Run THIS to get THESE.
+  or param-sets
+  or packages
+  or something
+  
+Do a better stroked renderer
+  Instead of stroking each leaf polygon, thus stroking many segs multiple times, thus getting some rather thickened strokes
+  gather all segs into a set, cull coincident segs,  and draw each one only once
+  thus we get more uniform drawing.
+  
+################################
+AN ENTROPY CONTROL STRATEGY
+################################
+
+L0 : maybe entropize 100%, maybe 50, maybe 0
+
+L1 : entropize 100%
+
+L2 : Entropize proportionally by distance from y-center-axis and/or center
+
+—-also
+
+Keep scale slightly coarse
+
+Maybe paste a bitmap or 3. Flies, skulls, etc
+  
+################################
+NEW ORGANIZATION
+################################
+
+interface CompositionGenerator
+
+  generateComposition
+  
+  getImage(w,h,border,backgroundcolor,bordercolor)
+  
+  setComposer
+
+  setColorMapper 
+  
+  getSample
+
+abstract CompositionGenerator_Basic 
+  concrete instances of interface methods
+  import grammar 
+  export image
+  export whatever. Shapetree? 
+
+A front end
+
+Provides UI and whatever for a single compositon generator
+
+---
+
+We will have a number of composition generators
+each composition generator gets its own package
+in package
+  the CompositionGenerator instance, probably a subclass of CompositionGenerator_Basic
+  a PNG image, the sample image
+  all relevant classes. 
+    composer, renderer, etc
+    maybe subclasses that share stuff, maybe just local classes for max stability yet tweakability
+    maybe we just have a bunch of interfaces in the root package and all concrete 
+      instances in these composition generator packages  
+
+1 or more front ends
+
+################################
+generated raster image name format
+################################
+
+FC1234_20180204_0012 FLEEN.ORG
+
+FC = forsythia composition
+1234 is alg index
+20180204 is date created
+0012 is index within series
+
+-- put the name (and fleen.org) at the bottom of the composition automatically
+
+###############################
+
+do big areas. ie, cap polygons at some level, just short of the leaf
+OR, delete some polygons post-build
+
+ 
+
+
+
+
