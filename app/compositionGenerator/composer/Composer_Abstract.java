@@ -10,7 +10,7 @@ import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.core.grammar.FMetagon;
-import org.fleen.forsythia.core.grammar.ForsythiaGrammar0;
+import org.fleen.forsythia.core.grammar.forsythiaGrammar_Basic.ForsythiaGrammar_Basic;
 
 /*
  * given a grammar and a listener, compose forsythia structure.
@@ -33,7 +33,7 @@ public abstract class Composer_Abstract implements ForsythiaCompositionGen{
    * ################################
    */
   
-  public ForsythiaComposition compose(ForsythiaGrammar0 grammar,double detaillimit){
+  public ForsythiaComposition compose(ForsythiaGrammar_Basic grammar,double detaillimit){
     ForsythiaComposition composition=initComposition(grammar);
     build(composition,detaillimit);
     return composition;}
@@ -71,7 +71,7 @@ public abstract class Composer_Abstract implements ForsythiaCompositionGen{
    * ################################
    */
   
-  private ForsythiaComposition initComposition(ForsythiaGrammar0 grammar){
+  private ForsythiaComposition initComposition(ForsythiaGrammar_Basic grammar){
     ForsythiaComposition composition=new ForsythiaComposition();
     composition.setGrammar(grammar);
     FPolygon rootpolygon=createRootPolygon(grammar);
@@ -82,7 +82,7 @@ public abstract class Composer_Abstract implements ForsythiaCompositionGen{
    * look for metagons tagged root
    * if we can't find one then pick any metagon
    */
-  private FPolygon createRootPolygon(ForsythiaGrammar0 grammar){
+  private FPolygon createRootPolygon(ForsythiaGrammar_Basic grammar){
     List<FMetagon> metagons=grammar.getMetagons();
     if(metagons.isEmpty())
       throw new IllegalArgumentException("this grammar has no metagons");

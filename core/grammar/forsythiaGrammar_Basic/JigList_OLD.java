@@ -1,4 +1,4 @@
-package org.fleen.forsythia.core.grammar;
+package org.fleen.forsythia.core.grammar.forsythiaGrammar_Basic;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,13 +8,14 @@ import java.util.List;
 
 import org.fleen.forsythia.core.Forsythia;
 import org.fleen.forsythia.core.composition.FPolygon;
+import org.fleen.forsythia.core.grammar.Jig;
 
 /*
  * a list of Jigs
  * sorted in ascending order by detail size preview value
  * with handy access methods
  */
-public class JigList extends ArrayList<Jig> implements Forsythia{
+public class JigList_OLD extends ArrayList<Jig> implements Forsythia{
 
   private static final long serialVersionUID=866462351907868545L;
   
@@ -24,13 +25,9 @@ public class JigList extends ArrayList<Jig> implements Forsythia{
    * ################################
    */
   
-  public JigList(Collection<Jig> jigs){
+  public JigList_OLD(Collection<Jig> jigs){
     super(jigs.size());
-//    System.out.println("CREATING JIG LIST");
-//    System.out.println("param jigs size:"+jigs.size());
-    init(jigs);
-//    System.out.println("post init size:"+size());
-    }
+    init(jigs);}
   
   /*
    * ################################
@@ -45,8 +42,8 @@ public class JigList extends ArrayList<Jig> implements Forsythia{
   private class DetailSizeComparator implements Comparator<Jig>{
     public int compare(Jig j0,Jig j1){
       double 
-        bds0=j0.getDetailSizePreviewBaseDetailSize(),
-        bds1=j1.getDetailSizePreviewBaseDetailSize();
+        bds0=j0.getDetailSize(),
+        bds1=j1.getDetailSize();
       if(bds0==bds1){
         return 0;
       }else if(bds0>bds1){

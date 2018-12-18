@@ -127,34 +127,47 @@ public class Jig implements Serializable,Tagged,Forsythia{
    * The detail size of this jig can be described as a ratio (basedetailsize) of the target fish value.
    * basedetailsize is constant throughout the lifetime of this jig
    * so we need only calculate it once. 
+   * 
+   * TODO
+   * surely we could use the unscaled default detail size and simply scale it to whatever grid
+   * 
    * ################################
    */
   
-  private Double detailsizepreviewbasedetailsize=null;
+  private Double detailsize=null;
   
+  /*
+   * TODO ##########
+   * this is our normal detail size
+   * it's gotten from the default polygon
+   */
+  public double getDetailSize(){
+    if(detailsize==null)
+      initDetailSize();
+    return detailsize;}
+  
+  /*
+   * TODO ############
+   * This is our normal detail size, scaled to the context to the specified polygon
+   */
   public double getDetailSizePreview(FPolygon target){
-    double bds=getDetailSizePreviewBaseDetailSize();
+    double bds=getDetailSize();
     double fish=
       target.getFirstAncestorGrid().getLocalKGrid().getFish()*
       getFishFactor()*target.getLocalBaseInterval()/target.metagon.baseinterval;
     double detailsize=bds*fish;
     return detailsize;}
   
-  public double getDetailSizePreviewBaseDetailSize(){
-    if(detailsizepreviewbasedetailsize==null)
-      initDetailSizePreviewBaseDetailSize();
-    return detailsizepreviewbasedetailsize;}
-  
   //get the incircle radius of all generated polygons at default scale (fish==1.0)
   //we double the smallest incircle radius to get our base detail size
-  void initDetailSizePreviewBaseDetailSize(){
+  void initDetailSize(){
     List<KPolygon> polygons=getDSPTestPolygons();
     double testradius,minradius=Double.MAX_VALUE;
     for(KPolygon p:polygons){
       testradius=IncircleCalculator.getIncircle(p.getDefaultPolygon2D()).r;
       if(testradius<minradius)
         minradius=testradius;}
-    detailsizepreviewbasedetailsize=minradius*2.0;}
+    detailsize=minradius*2.0;}
   
   private List<KPolygon> getDSPTestPolygons(){
     List<KPolygon> polygons=new ArrayList<KPolygon>(sections.size());

@@ -1,7 +1,7 @@
 package org.fleen.forsythia.app.compositionGenerator.composer;
 
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
-import org.fleen.forsythia.core.grammar.ForsythiaGrammar0;
+import org.fleen.forsythia.core.grammar.forsythiaGrammar_Basic.ForsythiaGrammar_Basic;
 
 /*
  * creates a tree of forsythia composition nodes

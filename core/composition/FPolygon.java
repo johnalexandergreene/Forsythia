@@ -49,7 +49,7 @@ public class FPolygon extends ForsythiaTreeNode implements Tagged{
     initVertices();}
   
   /*
-   * returns a default form for use in the Quasar editing tool or whatever
+   * returns a default form for use in the grammar editing tool or whatever
    */
   public FPolygon(FMetagon metagon){
     this.metagon=metagon;
@@ -198,7 +198,7 @@ public class FPolygon extends ForsythiaTreeNode implements Tagged{
    * ++++++++++++++++++++++++++++++++
    * DETAIL SIZE
    * The diameter of the incircle
-   * TODO this chould be in DPolygon
+   * TODO this should be in DPolygon
    * ++++++++++++++++++++++++++++++++
    */
   
@@ -212,7 +212,7 @@ public class FPolygon extends ForsythiaTreeNode implements Tagged{
   /*
    * ++++++++++++++++++++++++++++++++
    * PERIMETER AND AREA
-   * TODO this chould be in DPolygon
+   * TODO this should be in DPolygon
    * ++++++++++++++++++++++++++++++++
    */
   

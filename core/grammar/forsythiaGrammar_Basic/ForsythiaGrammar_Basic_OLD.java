@@ -1,4 +1,4 @@
-package org.fleen.forsythia.core.grammar;
+package org.fleen.forsythia.core.grammar.forsythiaGrammar_Basic;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,6 +10,9 @@ import java.util.Map;
 
 import org.fleen.forsythia.core.Forsythia;
 import org.fleen.forsythia.core.composition.FPolygon;
+import org.fleen.forsythia.core.grammar.FMetagon;
+import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
+import org.fleen.forsythia.core.grammar.Jig;
 import org.fleen.geom_Kisrhombille.KMetagon;
 
 /*
@@ -19,7 +22,7 @@ import org.fleen.geom_Kisrhombille.KMetagon;
  * For each Metagon we have 0..n associated Jigs. 
  * Each Jig is associated with 1 Metagon
  */
-public class ForsythiaGrammar0 implements ForsythiaGrammar,Serializable{
+public class ForsythiaGrammar_Basic_OLD implements ForsythiaGrammar,Serializable{
   
   private static final long serialVersionUID=3018836034565752313L;
 
@@ -32,7 +35,7 @@ public class ForsythiaGrammar0 implements ForsythiaGrammar,Serializable{
    * ################################
    */
   
-  public ForsythiaGrammar0(Map<FMetagon,? extends Collection<Jig>> metagonjigs){
+  public ForsythiaGrammar_Basic_OLD(Map<FMetagon,? extends Collection<Jig>> metagonjigs){
     Collection<Jig> c;
     for(FMetagon a:metagonjigs.keySet()){
       c=metagonjigs.get(a);

@@ -1,12 +1,14 @@
 package org.fleen.forsythia.app.grammarEditor.editor_Generator;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
-import org.fleen.forsythia.core.composition.FGrid;
 import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
@@ -15,7 +17,7 @@ import org.fleen.forsythia.core.grammar.Jig;
 import org.fleen.forsythia.core.grammar.forsythiaGrammar_Basic.ForsythiaGrammar_Basic;
 import org.fleen.util.tree.TreeNodeIterator;
 
-public class Composer implements Serializable{
+public class Composer_OLD implements Serializable{
   
   private static final long serialVersionUID=3399571378455322265L;
 
@@ -95,9 +97,9 @@ public class Composer implements Serializable{
    */
   
   Map<FPolygonSignature,Jig> jigbypolygonsig=new Hashtable<FPolygonSignature,Jig>();
-//  Random rnd=new Random();
+  Random rnd=new Random();
   
-  private Jig selectJig(ForsythiaGrammar_Basic fg,FPolygon polygon){
+  private Jig selectJig(ForsythiaGrammar_Basic forsythiagrammar,FPolygon polygon){
     //get a jig by signature
     //polygons with the same sig get the same jig
     Jig j=jigbypolygonsig.get(polygon.getSignature());
@@ -106,14 +108,17 @@ public class Composer implements Serializable{
     //no jig found keyed by that signature
     //so get one from the grammar using various random selection techniques
     }else{
-      //
-      FGrid g=(FGrid)polygon.getFirstAncestorGrid();
-      double normalizeddetialfloor=detailfloor/g.getLocalKGrid().getFish();//TODO ?? does this work?? Apparently it does.
-      //
-      j=fg.getRandomJig(polygon.metagon,null,normalizeddetialfloor);
+      j=getRandomJig(forsythiagrammar,polygon);
       if(j==null)return null;
       jigbypolygonsig.put(polygon.getSignature(),j);
       return j;}}
+  
+  private Jig getRandomJig(ForsythiaGrammar_Basic fg,FPolygon target){
+    List<Jig> jigs=fg.getJigsAboveDetailSizeFloor(target,detailfloor);
+    if(jigs.isEmpty())return null;
+    Jig jig=jigs.get(new Random().nextInt(jigs.size()));
+    return jig;}
+  
   
   /*
    * ################################
@@ -121,28 +126,30 @@ public class Composer implements Serializable{
    * ################################
    */
   
-  private ForsythiaComposition initComposition(ForsythiaGrammar_Basic fg){
+  private ForsythiaComposition initComposition(ForsythiaGrammar_Basic grammar){
     ForsythiaComposition composition=new ForsythiaComposition();
-    composition.setGrammar(fg);
-    FPolygon rootpolygon=createRootPolygon(fg);
+    composition.setGrammar(grammar);
+    FPolygon rootpolygon=createRootPolygon(grammar);
     composition.initTree(rootpolygon);
     return composition;}
   
   /*
    * look for metagons tagged root
    * if we can't find one then pick any metagon
-   * if there are no metagons then exception
    */
-  private FPolygon createRootPolygon(ForsythiaGrammar_Basic fg){
-    //try root tag
-    FMetagon m=fg.getRandomMetagon(new String[]{"root"});
-    //if nope then try no tag
-    if(m==null)
-      m=fg.getRandomMetagon(null);
-    //if still nope then
-    if(m==null)
+  private FPolygon createRootPolygon(ForsythiaGrammar_Basic grammar){
+    List<FMetagon> metagons=grammar.getMetagons();
+    if(metagons.isEmpty())
       throw new IllegalArgumentException("this grammar has no metagons");
-    //
+    List<FMetagon> rootmetagons=new ArrayList<FMetagon>();
+    for(FMetagon m:metagons)
+      if(m.hasTags("root"))
+        rootmetagons.add(m);
+    FMetagon m;
+    if(!rootmetagons.isEmpty())
+      m=rootmetagons.get(new Random().nextInt(rootmetagons.size()));
+    else
+      m=metagons.get(new Random().nextInt(metagons.size()));
     FPolygon p=new FPolygon(m);
     return p;}
   
