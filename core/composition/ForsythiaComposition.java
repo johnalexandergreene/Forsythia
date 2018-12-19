@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.fleen.forsythia.core.Forsythia;
 import org.fleen.forsythia.core.grammar.FMetagon;
-import org.fleen.forsythia.core.grammar.forsythiaGrammar_Basic.ForsythiaGrammar_Basic;
+import org.fleen.forsythia.core.grammar.forsythiaGrammar_Simple.ForsythiaGrammar_Simple;
 import org.fleen.util.tree.TreeNode;
 import org.fleen.util.tree.TreeNodeIterator;
 
@@ -29,12 +29,12 @@ public class ForsythiaComposition implements Forsythia,Serializable{
    * ################################
    */
   
-  protected ForsythiaGrammar_Basic grammar=null;
+  protected ForsythiaGrammar_Simple grammar=null;
   
-  public void setGrammar(ForsythiaGrammar_Basic grammar){
+  public void setGrammar(ForsythiaGrammar_Simple grammar){
     this.grammar=grammar;}
   
-  public ForsythiaGrammar_Basic getGrammar(){
+  public ForsythiaGrammar_Simple getGrammar(){
     return grammar;}
   
   /*

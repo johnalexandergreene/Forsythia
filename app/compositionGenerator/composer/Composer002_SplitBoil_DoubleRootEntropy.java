@@ -11,7 +11,7 @@ import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.core.grammar.Jig;
 import org.fleen.forsythia.core.grammar.JigSection;
-import org.fleen.forsythia.core.grammar.forsythiaGrammar_Basic.ForsythiaGrammar_Basic;
+import org.fleen.forsythia.core.grammar.forsythiaGrammar_Simple.ForsythiaGrammar_Simple;
 import org.fleen.util.tree.TreeNodeIterator;
 
 public class Composer002_SplitBoil_DoubleRootEntropy extends Composer_Abstract{
@@ -57,7 +57,7 @@ public class Composer002_SplitBoil_DoubleRootEntropy extends Composer_Abstract{
     TreeNodeIterator i=composition.getLeafPolygonIterator();
     //
     FPolygon leaf;
-    ForsythiaGrammar_Basic grammar=composition.getGrammar();
+    ForsythiaGrammar_Simple grammar=composition.getGrammar();
     while(i.hasNext()){
       leaf=(FPolygon)i.next();
       if(isCapped(leaf))continue;
@@ -78,7 +78,7 @@ public class Composer002_SplitBoil_DoubleRootEntropy extends Composer_Abstract{
   
   Map<FPolygonSignature,Jig> jigbypolygonsig=new Hashtable<FPolygonSignature,Jig>();
   
-  private Jig selectJig(ForsythiaGrammar_Basic forsythiagrammar,FPolygon polygon,double detaillimit){
+  private Jig selectJig(ForsythiaGrammar_Simple forsythiagrammar,FPolygon polygon,double detaillimit){
     //get a jig by signature
     //polygons with the same sig get the same jig
     Jig j=jigbypolygonsig.get(polygon.getSignature());
@@ -108,7 +108,7 @@ public class Composer002_SplitBoil_DoubleRootEntropy extends Composer_Abstract{
     boilers=new ArrayList<Jig>(),
     splitters=new ArrayList<Jig>();
   
-  private Jig getRandomJigUsingSplitBoilLogic(ForsythiaGrammar_Basic fg,FPolygon target,double detaillimit){
+  private Jig getRandomJigUsingSplitBoilLogic(ForsythiaGrammar_Simple fg,FPolygon target,double detaillimit){
     List<Jig> jigs=fg.getJigsAboveDetailSizeFloor(target,detaillimit);
     if(jigs.isEmpty())return null;
     //

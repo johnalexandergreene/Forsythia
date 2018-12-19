@@ -94,6 +94,9 @@ public class FPolygon extends ForsythiaTreeNode implements Tagged{
       polygons.add((FPolygon)n);
     return polygons;}
   
+  public FGrid getGrid(){
+    return (FGrid)getFirstAncestorGrid();}
+  
   /*
    * ################################
    * GEOM

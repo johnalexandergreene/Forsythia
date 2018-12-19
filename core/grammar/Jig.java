@@ -146,17 +146,17 @@ public class Jig implements Serializable,Tagged,Forsythia{
       initDetailSize();
     return detailsize;}
   
-  /*
-   * TODO ############
-   * This is our normal detail size, scaled to the context to the specified polygon
-   */
-  public double getDetailSizePreview(FPolygon target){
-    double bds=getDetailSize();
-    double fish=
-      target.getFirstAncestorGrid().getLocalKGrid().getFish()*
-      getFishFactor()*target.getLocalBaseInterval()/target.metagon.baseinterval;
-    double detailsize=bds*fish;
-    return detailsize;}
+//  /*
+//   * TODO ############
+//   * This is our normal detail size, scaled to the context to the specified polygon
+//   */
+//  public double getDetailSizePreview(FPolygon target){
+//    double bds=getDetailSize();
+//    double fish=
+//      target.getFirstAncestorGrid().getLocalKGrid().getFish()*
+//      getFishFactor()*target.getLocalBaseInterval()/target.metagon.baseinterval;
+//    double detailsize=bds*fish;
+//    return detailsize;}
   
   //get the incircle radius of all generated polygons at default scale (fish==1.0)
   //we double the smallest incircle radius to get our base detail size

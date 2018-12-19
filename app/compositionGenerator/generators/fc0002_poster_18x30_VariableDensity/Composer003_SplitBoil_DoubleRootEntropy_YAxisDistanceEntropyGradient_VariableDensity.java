@@ -18,7 +18,7 @@ import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.core.grammar.FMetagon;
 import org.fleen.forsythia.core.grammar.Jig;
 import org.fleen.forsythia.core.grammar.JigSection;
-import org.fleen.forsythia.core.grammar.forsythiaGrammar_Basic.ForsythiaGrammar_Basic;
+import org.fleen.forsythia.core.grammar.forsythiaGrammar_Simple.ForsythiaGrammar_Simple;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.GD;
 import org.fleen.util.tree.TreeNodeIterator;
@@ -41,14 +41,14 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
    */
   
   private static final String GRAMMARNAME="b.grammar";
-  ForsythiaGrammar_Basic grammar;
+  ForsythiaGrammar_Simple grammar;
   
   private void initGrammar(){
     System.out.println("LOAD GRAMMAR : "+GRAMMARNAME);
     try{
       InputStream a=Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradient_VariableDensity.class.getResourceAsStream(GRAMMARNAME);
       ObjectInputStream b=new ObjectInputStream(a);
-      grammar=(ForsythiaGrammar_Basic)b.readObject();
+      grammar=(ForsythiaGrammar_Simple)b.readObject();
       b.close();
     }catch(Exception e){
       System.out.println("Load grammar failed.");
@@ -120,7 +120,7 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
     TreeNodeIterator i=composition.getLeafPolygonIterator();
     //
     FPolygon leaf;
-    ForsythiaGrammar_Basic grammar=composition.getGrammar();
+    ForsythiaGrammar_Simple grammar=composition.getGrammar();
     while(i.hasNext()){
       leaf=(FPolygon)i.next();
       
@@ -178,7 +178,7 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
   
   Map<FPolygonSignature,Jig> jigbypolygonsig=new Hashtable<FPolygonSignature,Jig>();
   
-  private Jig selectJig(ForsythiaGrammar_Basic forsythiagrammar,FPolygon polygon,double detaillimit){
+  private Jig selectJig(ForsythiaGrammar_Simple forsythiagrammar,FPolygon polygon,double detaillimit){
     //get a jig by signature
     //polygons with the same sig get the same jig
     Jig j=jigbypolygonsig.get(polygon.getSignature());
@@ -208,7 +208,7 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
     boilers=new ArrayList<Jig>(),
     splitters=new ArrayList<Jig>();
   
-  private Jig getRandomJigUsingSplitBoilLogic(ForsythiaGrammar_Basic fg,FPolygon target,double detaillimit){
+  private Jig getRandomJigUsingSplitBoilLogic(ForsythiaGrammar_Simple fg,FPolygon target,double detaillimit){
     List<Jig> jigs=fg.getJigsAboveDetailSizeFloor(target,detaillimit);
     if(jigs.isEmpty())return null;
     //
@@ -270,7 +270,7 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
    * look for metagons tagged root
    * if we can't find one then pick any metagon
    */
-  private FPolygon createRootPolygon(ForsythiaGrammar_Basic grammar){
+  private FPolygon createRootPolygon(ForsythiaGrammar_Simple grammar){
     List<FMetagon> metagons=grammar.getMetagons();
     if(metagons.isEmpty())
       throw new IllegalArgumentException("this grammar has no metagons");

@@ -11,7 +11,7 @@ import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.core.grammar.FMetagon;
 import org.fleen.forsythia.core.grammar.Jig;
-import org.fleen.forsythia.core.grammar.forsythiaGrammar_Basic.ForsythiaGrammar_Basic;
+import org.fleen.forsythia.core.grammar.forsythiaGrammar_Simple.ForsythiaGrammar_Simple;
 import org.fleen.geom_2D.DPolygon;
 
 public class Composition extends ForsythiaComposition{
@@ -22,7 +22,7 @@ public class Composition extends ForsythiaComposition{
    * ################################
    */
   
-  public Composition(Strobe strobe,ForsythiaGrammar_Basic grammar){
+  public Composition(Strobe strobe,ForsythiaGrammar_Simple grammar){
     this.strobe=strobe;
     setGrammar(grammar);
     initRoot();}
@@ -136,7 +136,7 @@ public class Composition extends ForsythiaComposition{
       jigbypolygonsig.put(polygon.getSignature(),j);
       return j;}}
   
-  private Jig getRandomJig(ForsythiaGrammar_Basic fg,FPolygon target){
+  private Jig getRandomJig(ForsythiaGrammar_Simple fg,FPolygon target){
     List<Jig> jigs=fg.getJigs(target);
     if(jigs.isEmpty())return null;
     Jig jig=jigs.get(rnd.nextInt(jigs.size()));

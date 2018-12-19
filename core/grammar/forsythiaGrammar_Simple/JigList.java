@@ -1,4 +1,4 @@
-package org.fleen.forsythia.core.grammar.forsythiaGrammar_Basic;
+package org.fleen.forsythia.core.grammar.forsythiaGrammar_Simple;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,15 +7,18 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.fleen.forsythia.core.Forsythia;
-import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.grammar.Jig;
 
 /*
  * a list of Jigs
  * sorted in ascending order by detail size preview value
+ * 
+ * so when we're gathering the list of all jigs that are above the detailsizelimit 
+ *   we start big and go down the list until we hit the limit.  
+ * 
  * with handy access methods
  */
-public class JigList_OLD extends ArrayList<Jig> implements Forsythia{
+public class JigList extends ArrayList<Jig> implements Forsythia{
 
   private static final long serialVersionUID=866462351907868545L;
   
@@ -25,7 +28,7 @@ public class JigList_OLD extends ArrayList<Jig> implements Forsythia{
    * ################################
    */
   
-  public JigList_OLD(Collection<Jig> jigs){
+  public JigList(Collection<Jig> jigs){
     super(jigs.size());
     init(jigs);}
   
@@ -57,32 +60,32 @@ public class JigList_OLD extends ArrayList<Jig> implements Forsythia{
    * ################################
    */
   
-  /*
-   * Return a sublist of this list containing all jigs that return a 
-   *   detailsizepreview above a specified floor
-   * we start at the end of the list (where the biggest detail sizes are) and 
-   *   move backewards until we hit one beneath the floor, at which point we stop.
-   * If all of the jigs in the jist have a detail size beneath the floor then 
-   *   we return an empty list 
-   */
-  public List<Jig> getJigsAboveDetailSizeFloor(FPolygon target,double floor){
-    List<Jig> jigs=new ArrayList<Jig>();
-    Jig jig;
-    SEEK:for(int i=size()-1;i>-1;i--){
-      jig=get(i);
-      if(jig.getDetailSizePreview(target)<floor)
-        break SEEK;
-      jigs.add(jig);}
-    return jigs;}
-  
-  public List<Jig> getJigsAboveDetailSizeFloorWithTags(FPolygon target,double floor,String[] tags){
+  List<Jig> getJigsAboveFloorWithTags(String[] tags,double floor){
     List<Jig> 
-      a=getJigsAboveDetailSizeFloor(target,floor),
+      a=getJigsAboveDetailSizeFloor(floor),
       b=new ArrayList<Jig>();
     for(Jig j:a)
       if(j.hasTags(tags))
         b.add(j);
     return b;}
+  
+  /*
+   * Return a sublist of this list containing all jigs that return a 
+   *   detailsize above a specified floor
+   * we start at the end of the list (where the biggest detail sizes are) and 
+   *   move backewards until we hit one beneath the floor, at which point we stop.
+   * If all of the jigs in the jist have a detail size beneath the floor then 
+   *   we return an empty list 
+   */
+  private List<Jig> getJigsAboveDetailSizeFloor(double floor){
+    List<Jig> jigs=new ArrayList<Jig>();
+    Jig jig;
+    SEEK:for(int i=size()-1;i>-1;i--){
+      jig=get(i);
+      if(jig.getDetailSize()<floor)
+        break SEEK;
+      jigs.add(jig);}
+    return jigs;}
   
   /*
    * ################################

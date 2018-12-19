@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.compositionGenerator.generators.fc0004_poster_18x30_Stamp;
+package org.fleen.forsythia.app.compositionGenerator.generators.fc0021_newstuff;
 
 import java.awt.geom.Rectangle2D;
 import java.io.InputStream;
@@ -40,7 +40,7 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
    * ################################
    */
   
-  private static final String GRAMMARNAME="a.grammar";
+  private static final String GRAMMARNAME="a002.grammar";
   ForsythiaGrammar_Simple grammar;
   
   private void initGrammar(){
@@ -60,7 +60,8 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
    * ################################
    */
   
-  private static final double DETAILLIMIT=0.047;
+//  private static final double DETAILLIMIT=0.047;
+  private static final double DETAILLIMIT=0.09;
   
   /*
    * ################################
@@ -119,9 +120,8 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
     while(i.hasNext()){
       leaf=(FPolygon)i.next();
       doArbitraryEntropy(leaf);
-      doArbitraryStampCap(leaf,detaillimit);
       if(isCapped(leaf))continue;
-      jig=selectJig(grammar,leaf,detaillimit);
+      jig=selectJig(grammar,leaf,detaillimit/leaf.getGrid().getLocalKGrid().getFish());
       if(jig==null){
         cap(leaf);
       }else{
@@ -129,24 +129,6 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
         creatednodes=true;}}
     jigbypolygonsig.clear();
     return creatednodes;}
-  
-  private Set<FPolygonSignature> stampcapped=new HashSet<FPolygonSignature>();
-  static final double STAMPCAPLIMITFACTOR=5.0;
-  private void doArbitraryStampCap(FPolygon leaf,double detaillimit){
-    //chorus
-    if(stampcapped.contains(leaf.getSignature()))
-      doStampCap(leaf);
-    //test
-    double limit=detaillimit*STAMPCAPLIMITFACTOR;
-    if(leaf.getDetailSize()<limit)return;
-    if(leaf.hasTags("hexagon")){
-      if(rnd.nextDouble()<0.5){
-        stampcapped.add(leaf.getSignature());
-        doStampCap(leaf);}}}
-  
-  private void doStampCap(FPolygon leaf){
-    cap(leaf);
-    leaf.addTags("stamp");}
   
   /*
    * do entropy at probability proportional to distance from yaxis
@@ -211,19 +193,8 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
     splitters=new ArrayList<Jig>();
   
   private Jig getRandomJigUsingSplitBoilLogic(ForsythiaGrammar_Simple fg,FPolygon target,double detaillimit){
-    List<Jig> jigs=fg.getJigsAboveDetailSizeFloor(target,detaillimit);
-    if(jigs.isEmpty())return null;
-    //
-    createBoilersAndSplittersLists(jigs);
-    Jig jig;
-//    if(target.isRootPolygon()||(rnd.nextDouble()>0.5&&target.hasTags("egg"))){
-    if(target.isRootPolygon()||target.hasTags("egg")){
-      jig=getRandomSplitter();
-      if(jig==null)jig=getRandomBoiler();
-    }else{
-      jig=getRandomBoiler();
-      if(jig==null)jig=getRandomSplitter();}
-    return jig;}
+    Jig j=fg.getRandomJig(target.metagon,null,detaillimit);
+    return j;}
   
   
   private Jig getRandomBoiler(){
