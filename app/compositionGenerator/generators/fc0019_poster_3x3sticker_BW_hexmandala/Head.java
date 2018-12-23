@@ -1,8 +1,8 @@
 package org.fleen.forsythia.app.compositionGenerator.generators.fc0019_poster_3x3sticker_BW_hexmandala;
 
-import org.fleen.forsythia.app.compositionGenerator.head.Head_Single;
+import org.fleen.forsythia.app.compositionGenerator.HeadAbstract;
 
-public class Head extends Head_Single{
+public class Head extends HeadAbstract{
   
   static final String EXPORTDIR="/home/john/Desktop/newstuff";
   static final int 

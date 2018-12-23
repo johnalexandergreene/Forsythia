@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.compositionGenerator.generators.fc0021_newstuff;
+package org.fleen.forsythia.app.compositionGenerator.generators.fc0023_testConeflower;
 
 import java.awt.BasicStroke;
 import java.awt.Color;

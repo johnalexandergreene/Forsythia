@@ -75,7 +75,7 @@ public class Composer implements Serializable{
     boolean creatednodes=false;
     TreeNodeIterator i=composition.getLeafPolygonIterator();
     FPolygon leaf;
-    ForsythiaGrammar_Simple grammar=composition.getGrammar();
+    ForsythiaGrammar_Simple grammar=(ForsythiaGrammar_Simple)composition.getGrammar();
     while(i.hasNext()){
       leaf=(FPolygon)i.next();
       if(isCapped(leaf))continue;

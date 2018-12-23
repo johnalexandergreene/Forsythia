@@ -201,17 +201,26 @@ public class Jig implements Serializable,Tagged,Forsythia{
   public List<String> getTags(){
     return tagmanager.getTags();}
   
+  public boolean hasTag(String tag){
+    return tagmanager.hasTag(tag);}
+  
   public boolean hasTags(String... tags){
     return tagmanager.hasTags(tags);}
   
   public boolean hasTags(List<String> tags){
     return tagmanager.hasTags(tags);}
   
+  public void addTag(String tag){
+    tagmanager.addTags(tag);}
+  
   public void addTags(String... tags){
     tagmanager.addTags(tags);}
   
   public void addTags(List<String> tags){
     tagmanager.addTags(tags);}
+  
+  public void removeTag(String tag){
+    tagmanager.removeTags(tag);}
   
   public void removeTags(String... tags){
     tagmanager.removeTags(tags);}

@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.compositionGenerator.generators.fc0021_newstuff;
+package org.fleen.forsythia.app.compositionGenerator.generators.fc0022_testConeflower000_JustWrapper;
 
 import java.awt.geom.Rectangle2D;
 import java.io.InputStream;
@@ -16,6 +16,7 @@ import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.core.grammar.FMetagon;
+import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 import org.fleen.forsythia.core.grammar.Jig;
 import org.fleen.forsythia.core.grammar.JigSection;
 import org.fleen.forsythia.core.grammar.forsythiaGrammar_Simple.ForsythiaGrammar_Simple;
@@ -36,32 +37,38 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
   
   /*
    * ################################
+   * GAP
+   * detail limit, boiler fat span, foambubblegap
+   * different specific functions but all amount to the same. An optimal span
+   * ################################
+   */
+  
+//  static final double GAP=0.047;
+  static final double GAP=0.09;
+  
+  /*
+   * ################################
    * GRAMMAR
    * ################################
    */
   
-  private static final String GRAMMARNAME="a002.grammar";
-  ForsythiaGrammar_Simple grammar;
+  private static final String FORSYTHIAGRAMMARSIMPLENAME="a002.grammar";
+  Coneflower_Test coneflowertestgrammar;
   
   private void initGrammar(){
-    System.out.println("LOAD GRAMMAR : "+GRAMMARNAME);
+    //get the forsythia grammar
+    ForsythiaGrammar_Simple fgs=null;
+    System.out.println("LOAD FORSYTHIA GRAMMAR : "+FORSYTHIAGRAMMARSIMPLENAME);
     try{
-      InputStream a=Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradient.class.getResourceAsStream(GRAMMARNAME);
+      InputStream a=Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradient.class.getResourceAsStream(FORSYTHIAGRAMMARSIMPLENAME);
       ObjectInputStream b=new ObjectInputStream(a);
-      grammar=(ForsythiaGrammar_Simple)b.readObject();
+      fgs=(ForsythiaGrammar_Simple)b.readObject();
       b.close();
     }catch(Exception e){
-      System.out.println("Load grammar failed.");
-      e.printStackTrace();}}
-  
-  /*
-   * ################################
-   * DETAIL LIMIT
-   * ################################
-   */
-  
-//  private static final double DETAILLIMIT=0.047;
-  private static final double DETAILLIMIT=0.09;
+      System.out.println("LOAD FORSYTHIA GRAMMAR failed.");
+      e.printStackTrace();}
+    //create coneflower
+    coneflowertestgrammar=new Coneflower_Test(fgs);}
   
   /*
    * ################################
@@ -85,7 +92,7 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
       if(buildcycleindex==1)entropize(composition);
       if(buildcycleindex==2)entropize(composition);
       buildcycleindex++;
-      creatednodes=createNodes(composition,DETAILLIMIT);}
+      creatednodes=createNodes(composition,GAP);}
     return composition;}
   
   private void entropize(ForsythiaComposition composition){
@@ -116,7 +123,7 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
     TreeNodeIterator i=composition.getLeafPolygonIterator();
     //
     FPolygon leaf;
-    ForsythiaGrammar_Simple grammar=composition.getGrammar();
+    ForsythiaGrammar grammar=composition.getGrammar();
     while(i.hasNext()){
       leaf=(FPolygon)i.next();
       doArbitraryEntropy(leaf);
@@ -162,7 +169,7 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
   
   Map<FPolygonSignature,Jig> jigbypolygonsig=new Hashtable<FPolygonSignature,Jig>();
   
-  private Jig selectJig(ForsythiaGrammar_Simple forsythiagrammar,FPolygon polygon,double detaillimit){
+  private Jig selectJig(ForsythiaGrammar grammar,FPolygon polygon,double detaillimit){
     //get a jig by signature
     //polygons with the same sig get the same jig
     Jig j=jigbypolygonsig.get(polygon.getSignature());
@@ -171,7 +178,7 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
     //no jig found keyed by that signature
     //so get one from the grammar using various random selection techniques
     }else{
-      j=getRandomJigUsingSplitBoilLogic(forsythiagrammar,polygon,detaillimit);
+      j=getRandomJigUsingSplitBoilLogic(grammar,polygon,detaillimit);
       if(j==null)return null;
       jigbypolygonsig.put(polygon.getSignature(),j);
       return j;}}
@@ -192,10 +199,10 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
     boilers=new ArrayList<Jig>(),
     splitters=new ArrayList<Jig>();
   
-  private Jig getRandomJigUsingSplitBoilLogic(ForsythiaGrammar_Simple fg,FPolygon target,double detaillimit){
+  private Jig getRandomJigUsingSplitBoilLogic(ForsythiaGrammar fg,FPolygon target,double detaillimit){
     Jig j=fg.getRandomJig(target.metagon,null,detaillimit);
+    //TODO proper split boil logic
     return j;}
-  
   
   private Jig getRandomBoiler(){
     if(boilers.isEmpty())return null;
@@ -234,8 +241,8 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
   
   private ForsythiaComposition initComposition(){
     ForsythiaComposition composition=new ForsythiaComposition();
-    composition.setGrammar(grammar);
-    FPolygon rootpolygon=createRootPolygon(grammar);
+    composition.setGrammar(coneflowertestgrammar);
+    FPolygon rootpolygon=createRootPolygon(coneflowertestgrammar);
     composition.initTree(rootpolygon);
     return composition;}
   
@@ -243,19 +250,10 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
    * look for metagons tagged root
    * if we can't find one then pick any metagon
    */
-  private FPolygon createRootPolygon(ForsythiaGrammar_Simple grammar){
-    List<FMetagon> metagons=grammar.getMetagons();
-    if(metagons.isEmpty())
-      throw new IllegalArgumentException("this grammar has no metagons");
-    List<FMetagon> rootmetagons=new ArrayList<FMetagon>();
-    for(FMetagon m:metagons)
-      if(m.hasTags("root"))
-        rootmetagons.add(m);
-    FMetagon m;
-    if(!rootmetagons.isEmpty())
-      m=rootmetagons.get(new Random().nextInt(rootmetagons.size()));
-    else
-      m=metagons.get(new Random().nextInt(metagons.size()));
+  private FPolygon createRootPolygon(ForsythiaGrammar grammar){
+    FMetagon m=grammar.getRandomMetagon(new String[]{"root"});
+    if(m==null)
+      m=grammar.getRandomMetagon(null);
     FPolygon p=new FPolygon(m);
     return p;}
   

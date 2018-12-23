@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.compositionGenerator.head;
+package org.fleen.forsythia.app.compositionGenerator;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -6,7 +6,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-public class Viewer extends JPanel{
+public class HeadViewer extends JPanel{
 
   private static final long serialVersionUID=581500866418502553L;
   
@@ -16,7 +16,7 @@ public class Viewer extends JPanel{
    * ################################
    */
   
-  Viewer(Head_Single head){
+  HeadViewer(HeadAbstract head){
     this.head=head;}
   
   /*
@@ -25,7 +25,7 @@ public class Viewer extends JPanel{
    * ################################
    */
   
-  Head_Single head;
+  HeadAbstract head;
   
   /*
    * ################################

@@ -1,14 +1,11 @@
-package org.fleen.forsythia.coneflower;
-
-import java.util.Map;
+package org.fleen.forsythia.app.compositionGenerator.generators.fc0022_testConeflower000_JustWrapper;
 
 import org.fleen.forsythia.core.grammar.FMetagon;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 import org.fleen.forsythia.core.grammar.Jig;
 import org.fleen.forsythia.core.grammar.forsythiaGrammar_Simple.ForsythiaGrammar_Simple;
-import org.fleen.forsythia.core.grammar.forsythiaGrammar_Simple.JigList;
 
-public class Coneflower implements ForsythiaGrammar{
+public class Coneflower_Test implements ForsythiaGrammar{
   
   /*
    * ################################
@@ -16,19 +13,19 @@ public class Coneflower implements ForsythiaGrammar{
    * ################################
    */
   
-  public Coneflower(ForsythiaGrammar_Simple fgs){
-    metagonjigs=fgs.getMetagonJigsMap();}
+  public Coneflower_Test(ForsythiaGrammar_Simple fgs){
+    this.fgs=fgs;}
 
   /*
    * ################################
-   * METAGON JIGS MAP
+   * FORSYTHIA GRAMMAR, WRAPPED
    * At init this gets passed from the ForsythiaGrammar_Simple
    * Also, when we create we generally cache too
    * so it expands
    * ################################
    */
   
-  private Map<FMetagon,JigList> metagonjigs;
+  ForsythiaGrammar_Simple fgs;
   
   /*
    * ################################
@@ -36,11 +33,8 @@ public class Coneflower implements ForsythiaGrammar{
    * ################################
    */
   
-  @Override
   public FMetagon getRandomMetagon(String[] tags){
-    // TODO Auto-generated method stub
-    return null;
-  }
+    return fgs.getRandomMetagon(tags);}
 
   /*
    * ################################
@@ -60,9 +54,7 @@ public class Coneflower implements ForsythiaGrammar{
    * TODO maybe some renaming refactoring is called for. Or maybe a new param. Leave it for now.
    */
   public Jig getRandomJig(FMetagon m,String[] tags,double gap){
-    // TODO Auto-generated method stub
-    return null;
-  }
+    return fgs.getRandomJig(m,tags,gap);}
   
   /*
    * ################################

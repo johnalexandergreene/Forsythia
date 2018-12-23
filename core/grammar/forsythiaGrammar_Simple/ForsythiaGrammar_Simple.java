@@ -46,8 +46,6 @@ public class ForsythiaGrammar_Simple implements ForsythiaGrammar,Serializable{
 
   private Map<FMetagon,JigList> metagonjigs=new Hashtable<FMetagon,JigList>();
   
-  private Random random=new Random();
-  
   public FMetagon getRandomMetagon(String[] tags){
     List<FMetagon> a=new ArrayList<FMetagon>();
     if(tags!=null&&tags.length!=0){
@@ -57,10 +55,13 @@ public class ForsythiaGrammar_Simple implements ForsythiaGrammar,Serializable{
     }else{
       a.addAll(metagonjigs.keySet());}
     if(a.isEmpty())return null;
+    Random random=new Random();
     FMetagon b=a.get(random.nextInt(a.size()));
     return b;}
   
   public Jig getRandomJig(FMetagon m,String[] tags,double detailfloor){
+    Random random=new Random();//randomm was spitting out seros. Bug?
+    //so we're instantiating it in method instead of class
     JigList a=metagonjigs.get(m);
     List<Jig> b=a.getJigsAboveFloorWithTags(tags,detailfloor);
     if(b.isEmpty())return null;
@@ -74,6 +75,13 @@ public class ForsythiaGrammar_Simple implements ForsythiaGrammar,Serializable{
    * used in the grammar editor
    * ################################
    */
+  
+  /*
+   * returns the map upon which this grammar is based
+   * used for wrapping and extending, like with coneflower
+   */
+  public Map<FMetagon,JigList> getMetagonJigsMap(){
+    return metagonjigs;}
   
   public int getMetagonCount(){
     return metagonjigs.keySet().size();}

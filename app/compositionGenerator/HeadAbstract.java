@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.compositionGenerator.head;
+package org.fleen.forsythia.app.compositionGenerator;
 
 import java.awt.EventQueue;
 import java.awt.image.BufferedImage;
@@ -7,15 +7,13 @@ import java.net.URLDecoder;
 
 import javax.swing.JTextField;
 
-import org.fleen.forsythia.app.compositionGenerator.ForsythiaCompositionRasterImageGenerator;
-import org.fleen.forsythia.app.compositionGenerator.RasterExporter;
 import org.fleen.forsythia.app.grammarEditor.GE;
 
 /*
  * runs a UI and composition generator
  * provides automation and bitmap export services 
  */
-public class Head_Single{
+public class HeadAbstract{
   
   private static final String NAME="Fleen Bread 0.3";
   
@@ -25,7 +23,7 @@ public class Head_Single{
    * ################################
    */
   
-  public Head_Single(ForsythiaCompositionRasterImageGenerator g){
+  public HeadAbstract(ForsythiaCompositionRasterImageGenerator g){
     gen=g;
     initExport();
     initUI();}
@@ -36,14 +34,14 @@ public class Head_Single{
    * ################################
    */
   
-  public UI ui;
+  public HeadUI ui;
   BufferedImage uiviewerimage=null;
   
   protected void initUI(){
     EventQueue.invokeLater(new Runnable(){
       public void run(){
         try{
-          ui=new UI(Head_Single.this);
+          ui=new HeadUI(HeadAbstract.this);
           ui.setDefaultWindowBounds();
           ui.setVisible(true);
           ui.setTitle(NAME);

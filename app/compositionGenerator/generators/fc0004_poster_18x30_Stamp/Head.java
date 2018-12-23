@@ -1,6 +1,6 @@
 package org.fleen.forsythia.app.compositionGenerator.generators.fc0004_poster_18x30_Stamp;
 
-import org.fleen.forsythia.app.compositionGenerator.head.Head_Single;
+import org.fleen.forsythia.app.compositionGenerator.HeadAbstract;
 
 /*
  * STAMP
@@ -36,7 +36,7 @@ import org.fleen.forsythia.app.compositionGenerator.head.Head_Single;
  * 
  * 
  */
-public class Head extends Head_Single{
+public class Head extends HeadAbstract{
   
   static final String EXPORTDIR="/home/john/Desktop/newstuff";
   static final int 

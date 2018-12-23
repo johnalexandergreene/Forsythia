@@ -1,6 +1,6 @@
 package org.fleen.forsythia.app.compositionGenerator.generators.fc0007_5ishHexStainedGlass;
 
-import org.fleen.forsythia.app.compositionGenerator.head.Head_Single;
+import org.fleen.forsythia.app.compositionGenerator.HeadAbstract;
 
 /*
  * A simple hexagon
@@ -9,7 +9,7 @@ import org.fleen.forsythia.app.compositionGenerator.head.Head_Single;
  * for windowcling
  * a hexagon about 6" across
  */
-public class Head extends Head_Single{
+public class Head extends HeadAbstract{
   
   static final String EXPORTDIR="/home/john/Desktop/newstuff";
   static final int 

@@ -1,14 +1,14 @@
-package org.fleen.forsythia.coneflower;
+package org.fleen.forsythia.app.compositionGenerator.generators.fc0023_testConeflower;
 
-import java.util.Map;
+import java.util.Collection;
 
 import org.fleen.forsythia.core.grammar.FMetagon;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 import org.fleen.forsythia.core.grammar.Jig;
+import org.fleen.forsythia.core.grammar.JigSection;
 import org.fleen.forsythia.core.grammar.forsythiaGrammar_Simple.ForsythiaGrammar_Simple;
-import org.fleen.forsythia.core.grammar.forsythiaGrammar_Simple.JigList;
 
-public class Coneflower implements ForsythiaGrammar{
+public class Coneflower_Test implements ForsythiaGrammar{
   
   /*
    * ################################
@@ -16,19 +16,43 @@ public class Coneflower implements ForsythiaGrammar{
    * ################################
    */
   
-  public Coneflower(ForsythiaGrammar_Simple fgs){
-    metagonjigs=fgs.getMetagonJigsMap();}
+  public Coneflower_Test(ForsythiaGrammar_Simple fgs){
+    this.fgs=fgs;
+    initTags();}
+  
+  /*
+   * for all jigs in fgs
+   * if jig does not have tag "boil"
+   *   if jig has 1 section with tag "egg" then tag jig with "boil"
+   *   else tag jig with "split"  
+   */
+  void initTags(){
+    for(Collection<Jig> jigs:fgs.getMetagonJigsMap().values()){
+      for(Jig jig:jigs){
+        if(!jig.hasTag("boil")){
+          if(hasEggSection(jig)){
+            jig.addTag("boil");
+          }else{
+            jig.addTag("split");}}}}}
+  
+  private boolean hasEggSection(Jig jig){
+    for(JigSection s:jig.sections)
+      if(s.tags.hasTag("egg"))
+        return true;
+    return false;}
 
   /*
    * ################################
-   * METAGON JIGS MAP
+   * FORSYTHIA GRAMMAR, WRAPPED
    * At init this gets passed from the ForsythiaGrammar_Simple
    * Also, when we create we generally cache too
    * so it expands
+   * 
+   *    
    * ################################
    */
   
-  private Map<FMetagon,JigList> metagonjigs;
+  ForsythiaGrammar_Simple fgs;
   
   /*
    * ################################
@@ -36,11 +60,8 @@ public class Coneflower implements ForsythiaGrammar{
    * ################################
    */
   
-  @Override
   public FMetagon getRandomMetagon(String[] tags){
-    // TODO Auto-generated method stub
-    return null;
-  }
+    return fgs.getRandomMetagon(tags);}
 
   /*
    * ################################
@@ -60,9 +81,7 @@ public class Coneflower implements ForsythiaGrammar{
    * TODO maybe some renaming refactoring is called for. Or maybe a new param. Leave it for now.
    */
   public Jig getRandomJig(FMetagon m,String[] tags,double gap){
-    // TODO Auto-generated method stub
-    return null;
-  }
+    return fgs.getRandomJig(m,tags,gap);}
   
   /*
    * ################################
