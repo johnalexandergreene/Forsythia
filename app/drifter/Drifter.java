@@ -7,7 +7,7 @@ import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.util.Random;
 
-import org.fleen.forsythia.core.grammar.forsythiaGrammar_Simple.ForsythiaGrammar_Simple;
+import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;
 import org.fleen.geom_2D.GD;
@@ -108,17 +108,17 @@ public class Drifter{
   DrifterComposition composition;
   
   public void initComposition(String grammarpath){
-    ForsythiaGrammar_Simple grammar=importForsythiaGrammarFromFile(new File(grammarpath));
+    ForsythiaGrammar grammar=importForsythiaGrammarFromFile(new File(grammarpath));
     composition=new DrifterComposition(this,grammar);}
   
-  private ForsythiaGrammar_Simple importForsythiaGrammarFromFile(File file){
+  private ForsythiaGrammar importForsythiaGrammarFromFile(File file){
     FileInputStream fis;
     ObjectInputStream ois;
-    ForsythiaGrammar_Simple fg=null;
+    ForsythiaGrammar fg=null;
     try{
       fis=new FileInputStream(file);
       ois=new ObjectInputStream(fis);
-      fg=(ForsythiaGrammar_Simple)ois.readObject();
+      fg=(ForsythiaGrammar)ois.readObject();
       ois.close();
     }catch(Exception e){
       System.out.println("#^#^# EXCEPTION IN GRAMMAR FILE IMPORT #^#^#");

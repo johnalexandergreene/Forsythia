@@ -12,8 +12,8 @@ import java.util.Random;
 import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
+import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 import org.fleen.forsythia.core.grammar.Jig;
-import org.fleen.forsythia.core.grammar.forsythiaGrammar_Simple.ForsythiaGrammar_Simple;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;
 import org.fleen.geom_2D.GD;
@@ -263,7 +263,7 @@ public class DRC1_rasterizer implements DrifterRendererComposer{
       jigbypolygonsig.put(polygon.getSignature(),j);
       return j;}}
   
-  private Jig getRandomJig(ForsythiaGrammar_Simple fg,FPolygon target){
+  private Jig getRandomJig(ForsythiaGrammar fg,FPolygon target){
     List<Jig> jigs=fg.getJigs(target);
     if(jigs.isEmpty())return null;
     Jig jig=jigs.get(rnd.nextInt(jigs.size()));

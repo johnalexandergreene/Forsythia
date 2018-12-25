@@ -1,34 +1,140 @@
 package org.fleen.forsythia.core.grammar;
 
-import org.fleen.forsythia.core.Forsythia;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import org.fleen.forsythia.core.composition.FPolygon;
+import org.fleen.geom_Kisrhombille.KMetagon;
 
 /*
- * Access interface for a library of metagons and jigs
- * 
- * For each Metagon we have a space of 0..n associated Jigs. 
- * Each Jig is associated with 1 Metagon
- * 
- * the jig may have been selected from a pre-existing repository of jigs
- * or it may have been created (and possibly saved) on the fly.
- * it doesn't matter
- * 
- * So this can be a dynamic data thing too. Growing after construction. It might get big. 
+ * A simple forsythia grammar
+ * By simple we mean that all the metagons and jigs are specified in the constructor
+ * There is no intelligence here. Just storage.
  */
-public interface ForsythiaGrammar extends Forsythia{
+public class ForsythiaGrammar implements Serializable{
   
-  FMetagon getRandomMetagon(String[] tags);
+  private static final long serialVersionUID=3018836034565752313L;
+
+  /*
+   * ################################
+   * CONSTRUCTOR
+   * init with a map of metagons and jig collections
+   * ################################
+   */
+  
+  public ForsythiaGrammar(Map<FMetagon,? extends Collection<Jig>> metagonjigs){
+    Collection<Jig> c;
+    for(FMetagon a:metagonjigs.keySet()){
+      c=metagonjigs.get(a);
+      this.metagonjigs.put(a,new ForsythiaGrammarJigList(c));}}
+ 
+  /*
+   * ################################
+   * METAGONS AND JIGS
+   * Implementation of ForsythiaGrammar interface
+   * ################################
+   */
+
+  private Map<FMetagon,ForsythiaGrammarJigList> metagonjigs=new Hashtable<FMetagon,ForsythiaGrammarJigList>();
+  
+  public FMetagon getRandomMetagon(String[] tags){
+    List<FMetagon> a=new ArrayList<FMetagon>();
+    if(tags!=null&&tags.length!=0){
+      for(FMetagon m:metagonjigs.keySet())
+        if(m.hasTags(tags))
+          a.add(m);
+    }else{
+      a.addAll(metagonjigs.keySet());}
+    if(a.isEmpty())return null;
+    Random random=new Random();
+    FMetagon b=a.get(random.nextInt(a.size()));
+    return b;}
+  
+  public Jig getRandomJig(FMetagon m,String[] tags,double detailfloor){
+    Random random=new Random();//randomm was spitting out seros. Bug?
+    //so we're instantiating it in method instead of class
+    ForsythiaGrammarJigList a=metagonjigs.get(m);
+    List<Jig> b=a.getJigsAboveFloorWithTags(tags,detailfloor);
+    if(b.isEmpty())return null;
+    Jig j=b.get(random.nextInt(b.size()));
+    return j;}
   
   /*
-   * we get a jig
-   * the jig fits the metagon, has the tags, has detail size >= detailfloor
-   * 
-   * TODO Our detail limit value should be normalized somehow
-   * I mean, we'll be using the detail size gotten from the unscaled metagon default polygon.
-   * Presently we refer to the polygon within the composition structure. 
-   *   We shouldn't do that. We should normalize it first. This should be doable.
-   * 
-   * By random we mean arbitrary. Our selection has no necessary relationship with the space from which the selection is drawn. 
+   * ################################
+   * MORE ACCESS METHODS
+   * not part of ForsythiaGrammar interface
+   * used in the grammar editor
+   * ################################
    */
-  Jig getRandomJig(FMetagon m,String[] tags, double detailfloor);
+  
+  /*
+   * returns the map upon which this grammar is based
+   * used for wrapping and extending, like with coneflower
+   */
+  public Map<FMetagon,ForsythiaGrammarJigList> getMetagonJigsMap(){
+    return metagonjigs;}
+  
+  public int getMetagonCount(){
+    return metagonjigs.keySet().size();}
+  
+  public Iterator<FMetagon> getMetagonIterator(){
+    return metagonjigs.keySet().iterator();}
+  
+  public List<FMetagon> getMetagons(){
+    List<FMetagon> m=new ArrayList<FMetagon>(metagonjigs.keySet());
+    return m;}
+  
+  public List<Jig> getJigs(FMetagon metagon){
+    List<Jig> a=new ArrayList<Jig>(metagonjigs.get(metagon));
+    return a;}
+  
+  public List<Jig> getJigs(FPolygon polygon){
+    List<Jig> a=new ArrayList<Jig>(metagonjigs.get(polygon.metagon));
+    return a;}
 
+  public List<Jig> getJigs(KMetagon kmetagon){
+    FMetagon fm=null;
+    SEEK:for(FMetagon sm:metagonjigs.keySet())
+      if(sm.equals(kmetagon)){
+        fm=sm;
+        break SEEK;}
+    if(fm==null)return new ArrayList<Jig>(0);
+    return getJigs(fm);}
+  
+  public List<Jig> getJigsAboveDetailSizeFloor(FPolygon target,double detailsizefloor){
+    ForsythiaGrammarJigList a=metagonjigs.get(target.metagon);
+    List<Jig> b=a.getJigsAboveDetailSizeFloor(detailsizefloor);
+     return b;}
+  
+  /*
+   * ################################
+   * OBJECT
+   * ################################
+   */
+  
+  public String toString(){
+    StringBuffer a=new StringBuffer();
+    a.append("\n\n");
+    a.append("#########################\n");
+    a.append("### FORSYTHIA GRAMMAR ###\n\n");
+    a.append("metagoncount="+metagonjigs.keySet().size()+"\n\n");
+    ForsythiaGrammarJigList jiglist;
+    for(FMetagon m:metagonjigs.keySet()){
+      a.append("+++ METAGON +++\n");
+      a.append(m.toString()+"\n");
+      a.append("+++ JIGS +++\n");
+      jiglist=metagonjigs.get(m);
+      a.append("jigcount="+jiglist.size()+"\n");
+      for(Jig jig:jiglist)
+        a.append(jig.toString()+"\n");}
+    a.append("### FORSYTHIA GRAMMAR ###\n");
+    a.append("#########################\n");
+    return a.toString();}
+ 
 }

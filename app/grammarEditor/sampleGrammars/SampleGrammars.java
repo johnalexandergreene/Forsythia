@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.project.ProjectGrammar;
-import org.fleen.forsythia.core.grammar.forsythiaGrammar_Simple.ForsythiaGrammar_Simple;
+import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 
 public class SampleGrammars implements Serializable{
   
@@ -40,13 +40,13 @@ public class SampleGrammars implements Serializable{
     path=new File(path.getAbsolutePath()+"/"+GRAMMARNAMES[6]);
     GE.ge.grammarimportexport.importGrammar(path);}
   
-  private ForsythiaGrammar_Simple loadAndExportResourceGrammar(String name){
-    ForsythiaGrammar_Simple g=null;
+  private ForsythiaGrammar loadAndExportResourceGrammar(String name){
+    ForsythiaGrammar g=null;
     //load it from resource
     try{
       InputStream a=SampleGrammars.class.getResourceAsStream(name);
       ObjectInputStream b=new ObjectInputStream(a);
-      g=(ForsythiaGrammar_Simple)b.readObject();
+      g=(ForsythiaGrammar)b.readObject();
       b.close();
     }catch(Exception e){
       System.out.println("Load sample grammar failed.");

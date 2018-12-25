@@ -11,7 +11,7 @@ import java.io.Serializable;
 import javax.swing.JFileChooser;
 
 import org.fleen.forsythia.app.grammarEditor.project.ProjectGrammar;
-import org.fleen.forsythia.core.grammar.forsythiaGrammar_Simple.ForsythiaGrammar_Simple;
+import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 
 public class GrammarImportExport implements Serializable{
   
@@ -43,7 +43,7 @@ public class GrammarImportExport implements Serializable{
   public void importGrammar(File path){
     System.out.println("importing grammar from file:"+path);
     if(path==null)return;
-    ForsythiaGrammar_Simple fg=null;
+    ForsythiaGrammar fg=null;
     try{
       fg=extractForsythiaGrammarFromFile(path);
     }catch(Exception x){
@@ -70,14 +70,14 @@ public class GrammarImportExport implements Serializable{
     importexportdir=fc.getCurrentDirectory();
     return selectedfile;}
   
-  private ForsythiaGrammar_Simple extractForsythiaGrammarFromFile(File file){
+  private ForsythiaGrammar extractForsythiaGrammarFromFile(File file){
     FileInputStream fis;
     ObjectInputStream ois;
-    ForsythiaGrammar_Simple fg=null;
+    ForsythiaGrammar fg=null;
     try{
       fis=new FileInputStream(file);
       ois=new ObjectInputStream(fis);
-      fg=(ForsythiaGrammar_Simple)ois.readObject();
+      fg=(ForsythiaGrammar)ois.readObject();
       ois.close();
     }catch(Exception e){
       System.out.println("#^#^# EXCEPTION IN EXTRACT GRAMMAR FROM FILE FOR IMPORT #^#^#");
@@ -100,7 +100,7 @@ public class GrammarImportExport implements Serializable{
     exportGrammar(grammar,path);}
   
   public void exportGrammar(ProjectGrammar grammar,File path){
-    ForsythiaGrammar_Simple g=grammar.getForsythiaGrammar();
+    ForsythiaGrammar g=grammar.getForsythiaGrammar();
     if(g==null)return;
     writeExportFile(g,path);}
   

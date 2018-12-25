@@ -1,4 +1,4 @@
-package org.fleen.forsythia.core.grammar.forsythiaGrammar_Simple;
+package org.fleen.forsythia.core.grammar;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,7 +7,6 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.fleen.forsythia.core.Forsythia;
-import org.fleen.forsythia.core.grammar.Jig;
 
 /*
  * a list of Jigs
@@ -18,7 +17,7 @@ import org.fleen.forsythia.core.grammar.Jig;
  * 
  * with handy access methods
  */
-public class JigList extends ArrayList<Jig> implements Forsythia{
+public class ForsythiaGrammarJigList extends ArrayList<Jig> implements Forsythia{
 
   private static final long serialVersionUID=866462351907868545L;
   
@@ -28,7 +27,7 @@ public class JigList extends ArrayList<Jig> implements Forsythia{
    * ################################
    */
   
-  public JigList(Collection<Jig> jigs){
+  public ForsythiaGrammarJigList(Collection<Jig> jigs){
     super(jigs.size());
     init(jigs);}
   
@@ -77,7 +76,7 @@ public class JigList extends ArrayList<Jig> implements Forsythia{
    * If all of the jigs in the jist have a detail size beneath the floor then 
    *   we return an empty list 
    */
-  private List<Jig> getJigsAboveDetailSizeFloor(double floor){
+  public List<Jig> getJigsAboveDetailSizeFloor(double floor){
     List<Jig> jigs=new ArrayList<Jig>();
     Jig jig;
     SEEK:for(int i=size()-1;i>-1;i--){

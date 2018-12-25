@@ -11,8 +11,8 @@ import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.core.grammar.FMetagon;
+import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 import org.fleen.forsythia.core.grammar.Jig;
-import org.fleen.forsythia.core.grammar.forsythiaGrammar_Simple.ForsythiaGrammar_Simple;
 import org.fleen.util.tree.TreeNodeIterator;
 
 public class Composer implements Serializable{
@@ -25,7 +25,7 @@ public class Composer implements Serializable{
    * ################################
    */
   
-  public ForsythiaComposition compose(ForsythiaGrammar_Simple grammar,double detailfloor){
+  public ForsythiaComposition compose(ForsythiaGrammar grammar,double detailfloor){
     this.detailfloor=detailfloor;
     ForsythiaComposition composition=initComposition(grammar);
     build(composition);
@@ -75,7 +75,7 @@ public class Composer implements Serializable{
     boolean creatednodes=false;
     TreeNodeIterator i=composition.getLeafPolygonIterator();
     FPolygon leaf;
-    ForsythiaGrammar_Simple grammar=(ForsythiaGrammar_Simple)composition.getGrammar();
+    ForsythiaGrammar grammar=(ForsythiaGrammar)composition.getGrammar();
     while(i.hasNext()){
       leaf=(FPolygon)i.next();
       if(isCapped(leaf))continue;
@@ -97,7 +97,7 @@ public class Composer implements Serializable{
   Map<FPolygonSignature,Jig> jigbypolygonsig=new Hashtable<FPolygonSignature,Jig>();
 //  Random rnd=new Random();
   
-  private Jig selectJig(ForsythiaGrammar_Simple fg,FPolygon polygon){
+  private Jig selectJig(ForsythiaGrammar fg,FPolygon polygon){
     //get a jig by signature
     //polygons with the same sig get the same jig
     Jig j=jigbypolygonsig.get(polygon.getSignature());
@@ -121,7 +121,7 @@ public class Composer implements Serializable{
    * ################################
    */
   
-  private ForsythiaComposition initComposition(ForsythiaGrammar_Simple fg){
+  private ForsythiaComposition initComposition(ForsythiaGrammar fg){
     ForsythiaComposition composition=new ForsythiaComposition();
     composition.setGrammar(fg);
     FPolygon rootpolygon=createRootPolygon(fg);
@@ -133,7 +133,7 @@ public class Composer implements Serializable{
    * if we can't find one then pick any metagon
    * if there are no metagons then exception
    */
-  private FPolygon createRootPolygon(ForsythiaGrammar_Simple fg){
+  private FPolygon createRootPolygon(ForsythiaGrammar fg){
     //try root tag
     FMetagon m=fg.getRandomMetagon(new String[]{"root"});
     //if nope then try no tag

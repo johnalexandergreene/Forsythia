@@ -17,9 +17,9 @@ import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJig;
 import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJigSection;
 import org.fleen.forsythia.app.grammarEditor.project.metagon.ProjectMetagon;
 import org.fleen.forsythia.core.grammar.FMetagon;
+import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 import org.fleen.forsythia.core.grammar.Jig;
 import org.fleen.forsythia.core.grammar.JigSection;
-import org.fleen.forsythia.core.grammar.forsythiaGrammar_Simple.ForsythiaGrammar_Simple;
 import org.fleen.geom_Kisrhombille.KAnchor;
 import org.fleen.geom_Kisrhombille.KMetagon;
 
@@ -47,7 +47,7 @@ public class ProjectGrammar implements Serializable{
   
   //for import
   //convert forsythia grammar to project grammar
-  public ProjectGrammar(ForsythiaGrammar_Simple fg,String name){
+  public ProjectGrammar(ForsythiaGrammar fg,String name){
     this.name=name;
     init(this,fg);}
   
@@ -197,7 +197,7 @@ public class ProjectGrammar implements Serializable{
    * given an empty projectgrammar and a (assumedly nonempty) forsythiagrammar
    * convert forsythia grammar elements to project grammar elements and fill project grammar.
    */
-  private static final void init(ProjectGrammar projectgrammar,ForsythiaGrammar_Simple forsythiagrammar){
+  private static final void init(ProjectGrammar projectgrammar,ForsythiaGrammar forsythiagrammar){
     GE.ge.focusgrammar=projectgrammar;
     if(forsythiagrammar==null)return;
     //convert all of the metagons in the forsythia grammar into 
@@ -225,7 +225,7 @@ public class ProjectGrammar implements Serializable{
    * ################################
    */
   
-  public ForsythiaGrammar_Simple getForsythiaGrammar(){
+  public ForsythiaGrammar getForsythiaGrammar(){
     //create fmetagons.
     Map<KMetagon,FMetagon> fmetagonbykmetagon=new Hashtable<KMetagon,FMetagon>();
     FMetagon fm;
@@ -240,7 +240,7 @@ public class ProjectGrammar implements Serializable{
       fm=fmetagonbykmetagon.get(pm.kmetagon);
       metagonjigs.put(fm,jigs);}
     //
-    ForsythiaGrammar_Simple fg=new ForsythiaGrammar_Simple(metagonjigs);
+    ForsythiaGrammar fg=new ForsythiaGrammar(metagonjigs);
     //DEBUG
 //    System.out.println("########################");
 //    System.out.println("### CREATED FGRAMMAR ###");
