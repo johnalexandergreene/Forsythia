@@ -1,0 +1,38 @@
+we are going to enhance the forsythia spinner
+
+OPTIONS
+
+circles, split, concentric. As final details on hex leaves
+
+noise. HSB maybe. An animated static. Could be more near strokes
+
+Runes. Like those runes on that sword in gods and monsters
+
+Runes. Like 6 square
+
+sound. Anything. Hisses, grinds, flabbers, thumps, etc
+
+a window fulla writhing conway
+
+blinkers, strobes, flickers
+
+a texture
+
+a blanketflower
+
+better strokes. Use the noice renderer. The ZCell one
+merge and darken or something
+
+make the spinner infinite
+
+make spinner configured by a text file
+
+kill the full-stripe bilateral symmetry situations. 
+Probably via the grammar. 
+Or maybe kill symmetry at level 1 and 2 programmatically 
+
+#############################
+
+2) abstract out renderer. clean up code
+
+3) create zcell based renderer. we can do it faster than the default
