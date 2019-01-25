@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.spinner;
+package org.fleen.forsythia.app.spinner.core;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -15,9 +15,7 @@ import org.fleen.forsythia.app.compositionGenerator.Palette;
 import org.fleen.forsythia.app.compositionGenerator.RasterExporter;
 import org.fleen.forsythia.app.compositionGenerator.composer.Composer002_SplitBoil_DoubleRootEntropy;
 import org.fleen.forsythia.app.compositionGenerator.composer.ForsythiaCompositionGen;
-import org.fleen.forsythia.app.spinner.stripeChain.Stripe;
-import org.fleen.forsythia.app.spinner.stripeChain.StripeChain;
-import org.fleen.forsythia.app.spinner.ui.UI;
+import org.fleen.forsythia.app.spinner.spinnerVideoGenerators.UI;
 import org.fleen.forsythia.core.grammar.FMetagon;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
 
@@ -47,7 +45,7 @@ import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
  * keep moving until we arrive back at out start position.
  * then we're done.
  */
-public class FSLAFGenerator{
+public class SpinnerOLD{
   
   public static final boolean TEST=true;
   
@@ -57,7 +55,7 @@ public class FSLAFGenerator{
    * ################################
    */
   
-  public FSLAFGenerator(
+  public SpinnerOLD(
     int viewportwidth,int viewportheight,//dimensions of the viewport and videoframe
     int looplength,//the desired length of the video loop. The actual length will be a bit higher
     int flowdir,//the direction that the graphics flow. NESW
@@ -575,7 +573,7 @@ public class FSLAFGenerator{
     /*
      * a nice 720p loop
      */
-    FSLAFGenerator g=new FSLAFGenerator(
+    SpinnerOLD g=new SpinnerOLD(
       720,1280,54000,FLOWDIR_NORTH,32,GRAMMARPATH,
       EXPORTPATH,
       0.008,Palette.P_GRACIE001,

@@ -16,7 +16,6 @@ import java.util.List;
 import org.fleen.bread.app.forsythiaSpinnerLoopingAnimationFramesGenerator.stripeChain.Stripe;
 import org.fleen.bread.app.forsythiaSpinnerLoopingAnimationFramesGenerator.stripeChain.Stripe_ForsythiaComposition;
 import org.fleen.bread.app.forsythiaSpinnerLoopingAnimationFramesGenerator.stripeChain.Stripe_Insert;
-import org.fleen.forsythia.app.spinner.FSLAFGenerator;
 import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.util.tree.TreeNode;
 
@@ -32,10 +31,10 @@ public class StripeChain extends LinkedList<Stripe>{
    * ################################
    */
   
-  public StripeChain(FSLAFGenerator generator){
+  public StripeChain(SpinnerOLD generator){
     this.generator=generator;}
   
-  public StripeChain(FSLAFGenerator generator,List<Stripe> stripes){
+  public StripeChain(SpinnerOLD generator,List<Stripe> stripes){
     this(generator);
     addAll(stripes);}
   
@@ -47,7 +46,7 @@ public class StripeChain extends LinkedList<Stripe>{
    * ################################
    */
   
-  public FSLAFGenerator generator;
+  public SpinnerOLD generator;
   
   /*
    * ################################
