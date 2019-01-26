@@ -11,7 +11,7 @@ import javax.imageio.ImageIO;
  */
 public class Stripe_Header implements Stripe{
   
-  public Stripe_Header(StripeChain chain,String path){
+  public Stripe_Header(StripeChainWithMovingViewport chain,String path){
     this.chain=chain;
     initImage(path);}
 
@@ -21,7 +21,7 @@ public class Stripe_Header implements Stripe{
    * ################################
    */
   
-  StripeChain chain;
+  StripeChainWithMovingViewport chain;
   
   /*
    * ################################

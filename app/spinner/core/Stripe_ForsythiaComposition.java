@@ -26,7 +26,7 @@ public class Stripe_ForsythiaComposition implements Stripe{
    * ################################
    */
   
-  public Stripe_ForsythiaComposition(StripeChain chain){
+  public Stripe_ForsythiaComposition(StripeChainWithMovingViewport chain){
     this.chain=chain;
     initComposition();
     initColorMap();}
@@ -38,7 +38,7 @@ public class Stripe_ForsythiaComposition implements Stripe{
    * ################################
    */
   
-  StripeChain chain;
+  StripeChainWithMovingViewport chain;
   
   /*
    * ################################

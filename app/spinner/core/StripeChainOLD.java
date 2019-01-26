@@ -23,7 +23,7 @@ import org.fleen.util.tree.TreeNode;
  * A chain of stripe nodes
  */
 @SuppressWarnings("serial")
-public class StripeChain extends LinkedList<Stripe>{
+public class StripeChainOLD extends LinkedList<Stripe>{
   
   /*
    * ################################
@@ -31,10 +31,10 @@ public class StripeChain extends LinkedList<Stripe>{
    * ################################
    */
   
-  public StripeChain(SpinnerOLD generator){
+  public StripeChainOLD(SpinnerOLD generator){
     this.generator=generator;}
   
-  public StripeChain(SpinnerOLD generator,List<Stripe> stripes){
+  public StripeChainOLD(SpinnerOLD generator,List<Stripe> stripes){
     this(generator);
     addAll(stripes);}
   

@@ -88,7 +88,7 @@ public class SpinnerOLD{
    * ################################
    */
   
-  public StripeChain chain;
+  public StripeChainWithMovingViewport chain;
   
   /*
    * terminus is a strip of stripes comprising the start and end of our loop
@@ -99,7 +99,7 @@ public class SpinnerOLD{
   
   private void initChain(){
     //create the chain
-    chain=new StripeChain(this);
+    chain=new StripeChainWithMovingViewport(this);
     chain.addRandomForsythiaCompositionStripeToEnd();//add a composition stripe
     chain.addInsertStripe(insertpath);//add an insert stripe
     while(chain.getImageWidth()<=viewportwidth+edgerange+edgerange)

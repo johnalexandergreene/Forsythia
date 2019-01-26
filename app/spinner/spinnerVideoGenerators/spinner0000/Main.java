@@ -34,7 +34,8 @@ public class Main{
       FLOWDIR,
       ROUGHLENGTH,
       getHeaderStripe(),
-      new ForsythiaCompositionStripeGenerator(),
+      new SG_ColoredBoxes(),
+      new Renderer0(),
       new File(WORKINGDIR),
       observer);
     ui=new UI();

@@ -34,8 +34,9 @@ public class Spinner{
     int viewportwidth,int viewportheight,
     int flowdir,
     int roughlength,//we stop on a stripe border so this is only approximate
-    BufferedImage headerstripe,//it's up to the user to orient this properly. it may be null
-    ForsythiaCompositionStripeGenerator stripegenerator,
+    Stripe headerstripe,//for credits or whatever
+    StripeGenerator stripegenerator,
+    Renderer renderer,
     File workingdir,
     SpinnerObserver observer){
     this.viewportwidth=viewportwidth;
@@ -44,6 +45,7 @@ public class Spinner{
     this.flowdir=flowdir;
     this.headerstripe=headerstripe;
     this.stripegenerator=stripegenerator;
+    this.renderer=renderer;
     this.workingdir=workingdir;
     this.observer=observer;}
   
@@ -53,6 +55,11 @@ public class Spinner{
    * ################################
    */
   
+  /*
+   * Our default geometry is a viewport that moves in the y+ direction down the ribbon
+   *   That is to say, the stripes scroll upward
+   * The other 3 geometries are achieved via a transform.
+   */
   public static final int 
     FLOWDIR_NORTH=0,
     FLOWDIR_EAST=1,
@@ -70,7 +77,7 @@ public class Spinner{
    * ################################
    */
   
-  BufferedImage headerstripe;
+  Stripe headerstripe;
   
   /*
    * ################################
@@ -78,7 +85,7 @@ public class Spinner{
    * ################################
    */
   
-  ForsythiaCompositionStripeGenerator stripegenerator;
+  StripeGenerator stripegenerator;
   
   /*
    * ################################
@@ -99,36 +106,35 @@ public class Spinner{
   /*
    * ################################
    * MAIN PROCESS
+   * The composition scrolls upward,
+   * or rather, the viewport moves southward
+   * 1 pixel per frame
    * ################################
    */
   
-  StripeChain chain=new StripeChain();
-  int length=0;//total length of the image ribbon so far
-  
+  public StripeChainWithMovingViewport chain=new StripeChainWithMovingViewport(stripegenerator,viewportwidth,viewportheight);
+  int frameindex=-1;//total length of the image ribbon so far
   
   public void run(){
-    while(length<roughlength){
-      if(length==0){
-        initializeChain();
+    while(frameindex<roughlength){
+      frameindex++;
+      if(frameindex==0){
+        chain.initialize(headerstripe);
       }else{
         renderFrame();
-        moveViewport();
-        if(viewportIsAboutToRunOffTheEndOfTheChain())
-          chain.addLastStripe();
-        if(FirstStripeIsBeyondVisibility())
-          chain.removeFirstStripe();}}}
+        chain.incrementViewport();}}}
+    
+  /*
+   * ################################
+   * FRAME IMAGE
+   * ################################
+   */
+    
+  Renderer renderer;
+  public BufferedImage frame=null;
   
+  void renderFrame(){
+    frame=renderer.getFrame(chain);
+    observer.createdFrame(frame);}
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
 }
