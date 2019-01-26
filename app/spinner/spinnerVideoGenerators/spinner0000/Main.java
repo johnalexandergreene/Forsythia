@@ -5,7 +5,7 @@ import java.io.File;
 
 import org.fleen.forsythia.app.spinner.core.Spinner;
 import org.fleen.forsythia.app.spinner.core.SpinnerObserver;
-import org.fleen.forsythia.app.spinner.core.StripeGenerator;
+import org.fleen.forsythia.app.spinner.core.ForsythiaCompositionStripeGenerator;
 import org.fleen.forsythia.app.spinner.spinnerVideoGenerators.UI;
 
 public class Main{
@@ -34,7 +34,7 @@ public class Main{
       FLOWDIR,
       ROUGHLENGTH,
       getHeaderStripe(),
-      new StripeGenerator(),
+      new ForsythiaCompositionStripeGenerator(),
       new File(WORKINGDIR),
       observer);
     ui=new UI();

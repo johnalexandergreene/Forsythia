@@ -64,7 +64,7 @@ public class StripeChain extends LinkedList<Stripe>{
   public void addInsertStripe(String path){
     if(path==null)return;
     invalidateImage();
-    Stripe s=new Stripe_Insert(this,path);
+    Stripe s=new Stripe_Header(this,path);
     generator.stripewidthsum+=s.getImageWidth();
     add(s);}
   
@@ -298,10 +298,10 @@ public class StripeChain extends LinkedList<Stripe>{
   
   private void renderInsert(Graphics2D g){
     for(Stripe stripe:this)
-      if(stripe instanceof Stripe_Insert)
-        renderInsert(g,(Stripe_Insert)stripe);}
+      if(stripe instanceof Stripe_Header)
+        renderInsert(g,(Stripe_Header)stripe);}
   
-  private void renderInsert(Graphics2D g,Stripe_Insert stripe){
+  private void renderInsert(Graphics2D g,Stripe_Header stripe){
     AffineTransform t=AffineTransform.getTranslateInstance(stripe.getImageX(),0);
     g.drawImage(stripe.image,t,null);}
   

@@ -9,9 +9,9 @@ import javax.imageio.ImageIO;
 /*
  * load an appropriately sized and oriented image from a PNG file and use it for a stripe
  */
-public class Stripe_Insert implements Stripe{
+public class Stripe_Header implements Stripe{
   
-  public Stripe_Insert(StripeChain chain,String path){
+  public Stripe_Header(StripeChain chain,String path){
     this.chain=chain;
     initImage(path);}
 

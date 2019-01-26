@@ -35,7 +35,7 @@ public class Spinner{
     int flowdir,
     int roughlength,//we stop on a stripe border so this is only approximate
     BufferedImage headerstripe,//it's up to the user to orient this properly. it may be null
-    StripeGenerator stripegenerator,
+    ForsythiaCompositionStripeGenerator stripegenerator,
     File workingdir,
     SpinnerObserver observer){
     this.viewportwidth=viewportwidth;
@@ -62,8 +62,7 @@ public class Spinner{
   public int 
     viewportwidth,viewportheight,
     flowdir,
-    roughlength,
-    length=0;
+    roughlength;
   
   /*
    * ################################
@@ -79,7 +78,7 @@ public class Spinner{
    * ################################
    */
   
-  StripeGenerator stripegenerator;
+  ForsythiaCompositionStripeGenerator stripegenerator;
   
   /*
    * ################################
@@ -103,11 +102,21 @@ public class Spinner{
    * ################################
    */
   
+  StripeChain chain=new StripeChain();
+  int length=0;//total length of the image ribbon so far
+  
+  
   public void run(){
     while(length<roughlength){
-      
-    }
-  }
+      if(length==0){
+        initializeChain();
+      }else{
+        renderFrame();
+        moveViewport();
+        if(viewportIsAboutToRunOffTheEndOfTheChain())
+          chain.addLastStripe();
+        if(FirstStripeIsBeyondVisibility())
+          chain.removeFirstStripe();}}}
   
   
   

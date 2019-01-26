@@ -1,5 +1,5 @@
 package org.fleen.forsythia.app.spinner.core;
 
-public class StripeGenerator{
+public class ForsythiaCompositionStripeGenerator{
 
 }
