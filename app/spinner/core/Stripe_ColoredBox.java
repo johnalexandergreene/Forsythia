@@ -22,7 +22,7 @@ public class Stripe_ColoredBox implements Stripe{
    * ################################
    */
   
-  StripeChainWithMovingViewport chain;
+  public StripeChainWithMovingViewport chain;
   
   /*
    * ################################
@@ -30,20 +30,13 @@ public class Stripe_ColoredBox implements Stripe{
    * ################################
    */
   
-  int 
-    birthday,
-    height;
+  int height;
   
-  public int getY(){
-    int h=0;
-    ADDHEIGHTS:for(Stripe s:chain.stripes){
-      if(s==this)break ADDHEIGHTS;
-      h+=s.getHeight();
-    }
-    return inity+(chain.chainoffset-birthday);}
-
   public int getHeight(){
     return height;}
+  
+  public int getTop(){
+    return chain.getStripeTop(this);}
   
   /*
    * ################################

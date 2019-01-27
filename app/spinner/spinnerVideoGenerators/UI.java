@@ -9,7 +9,7 @@ public class UI extends JFrame {
 
 	public UI(){
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(50,50,1500,800);
+		setBounds(50,50,1200,800);
 		viewer=new Viewer();
 		setContentPane(viewer);
 		setVisible(true);}

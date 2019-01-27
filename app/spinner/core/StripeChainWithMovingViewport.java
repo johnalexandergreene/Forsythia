@@ -22,18 +22,16 @@ public class StripeChainWithMovingViewport{
    * ################################
    */
   
-  public StripeChainWithMovingViewport(StripeGenerator stripegenerator,int viewportwidth,int viewportheight){
-    this.stripegenerator=stripegenerator;
-    this.viewportwidth=viewportwidth;
-    this.viewportheight=viewportheight;}
+  public StripeChainWithMovingViewport(Spinner spinner){
+    this.spinner=spinner;}
   
   /*
    * ################################
-   * STRIPE GENERATOR
+   * SPINNER
    * ################################
    */
   
-  StripeGenerator stripegenerator;
+  Spinner spinner;
   
   /*
    * ################################
@@ -44,10 +42,13 @@ public class StripeChainWithMovingViewport{
   public LinkedList<Stripe> stripes=new LinkedList<Stripe>();
   
   public void createLastStripe(){
-    stripes.addLast(stripegenerator.getStripe());}
+    stripes.addLast(spinner.stripegenerator.getStripe());
+    System.out.println("++++++CREATE STRIPE");}
   
   public void deleteFirstStripe(){
-    stripes.removeFirst();}
+    Stripe s=stripes.removeFirst();
+    chainoffset+=s.getHeight();
+    System.out.println(")))))DELETE STRIPE");}
   
   /*
    * ################################
@@ -55,9 +56,7 @@ public class StripeChainWithMovingViewport{
    * ################################
    */
   
-  int 
-    viewportwidth,
-    viewportheight,
+  public int 
     chainoffset=0,//we move the chain in the y- direction, northward
     visibilitymargin=10;//the distance above the top of the viewport beyond which the stripe is considered to be invisible
       //we can specify it or we can use a convervative value or a smart value ???
@@ -77,13 +76,21 @@ public class StripeChainWithMovingViewport{
 
   public boolean viewportIsAboutToRunOffTheEndOfTheChain(){
     Stripe a=stripes.getLast();
-    int southedge=a.getY()+a.getHeight();
-    boolean isabout=southedge-viewportheight<visibilitymargin;
+    int southedgeofribbon=getStripeTop(a)+a.getHeight();
+    boolean isabout=southedgeofribbon-spinner.viewportheight<visibilitymargin;
     return isabout;}
   
   public boolean firstStripeIsBeyondVisibility(){
     Stripe a=stripes.getFirst();
-    return a.getY()+chainoffset+visibilitymargin<0;}
+    return getStripeTop(a)+a.getHeight()+visibilitymargin<0;}
+  
+  public int getStripeTop(Stripe stripe){
+    int a=0;
+    SEEK:for(Stripe s:stripes){
+      if(s==stripe)break SEEK;
+      a+=s.getHeight();}
+    a+=chainoffset;
+    return a;}
   
   /*
    * ################################
@@ -94,7 +101,7 @@ public class StripeChainWithMovingViewport{
   public void initialize(Stripe header){
     if(header!=null)
       stripes.add(header);
-    while(getChainHeight()<viewportheight+visibilitymargin)
+    while(getChainHeight()<spinner.viewportheight+visibilitymargin)
       createLastStripe();}
     
 }

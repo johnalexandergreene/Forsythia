@@ -4,6 +4,6 @@ import java.awt.image.BufferedImage;
 
 public interface Renderer{
   
-  BufferedImage getFrame(StripeChainWithMovingViewport chain);
+  BufferedImage getFrame(Spinner spinner);
 
 }

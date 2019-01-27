@@ -5,7 +5,7 @@ import java.io.File;
 
 import org.fleen.forsythia.app.spinner.core.Spinner;
 import org.fleen.forsythia.app.spinner.core.SpinnerObserver;
-import org.fleen.forsythia.app.spinner.core.ForsythiaCompositionStripeGenerator;
+import org.fleen.forsythia.app.spinner.core.Stripe;
 import org.fleen.forsythia.app.spinner.spinnerVideoGenerators.UI;
 
 public class Main{
@@ -14,7 +14,7 @@ public class Main{
     VIEWPORTWIDTH=1080,
     VIEWPORTHEIGHT=720,
     FLOWDIR=Spinner.FLOWDIR_NORTH,
-    ROUGHLENGTH=1000;//72000 is 20min
+    ROUGHLENGTH=3000;//72000 is 20min
   
   private static UI ui;
   
@@ -25,7 +25,7 @@ public class Main{
       ui.viewer.image=image;
       ui.repaint();}};
     
-  private static BufferedImage getHeaderStripe(){
+  private static Stripe getHeaderStripe(){
     return null;}
   
   public static final void main(String[] a){

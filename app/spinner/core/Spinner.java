@@ -45,6 +45,7 @@ public class Spinner{
     this.flowdir=flowdir;
     this.headerstripe=headerstripe;
     this.stripegenerator=stripegenerator;
+    stripegenerator.setSpinner(this);
     this.renderer=renderer;
     this.workingdir=workingdir;
     this.observer=observer;}
@@ -89,14 +90,6 @@ public class Spinner{
   
   /*
    * ################################
-   * WORKING DIR
-   * ################################
-   */
-  
-  File workingdir;
-  
-  /*
-   * ################################
    * OBSERVER
    * ################################
    */
@@ -112,11 +105,16 @@ public class Spinner{
    * ################################
    */
   
-  public StripeChainWithMovingViewport chain=new StripeChainWithMovingViewport(stripegenerator,viewportwidth,viewportheight);
+  public StripeChainWithMovingViewport chain=new StripeChainWithMovingViewport(this);
   int frameindex=-1;//total length of the image ribbon so far
   
   public void run(){
     while(frameindex<roughlength){
+      //
+      try{
+        Thread.sleep(10);
+      }catch(Exception x){}
+      //
       frameindex++;
       if(frameindex==0){
         chain.initialize(headerstripe);
@@ -126,7 +124,7 @@ public class Spinner{
     
   /*
    * ################################
-   * FRAME IMAGE
+   * FRAME
    * ################################
    */
     
@@ -134,7 +132,21 @@ public class Spinner{
   public BufferedImage frame=null;
   
   void renderFrame(){
-    frame=renderer.getFrame(chain);
+    frame=renderer.getFrame(this);
+    export();
     observer.createdFrame(frame);}
+  
+  /*
+   * ################################
+   * EXPORT
+   * ################################
+   */
+  
+  VideoExporter0 videoexporter=new VideoExporter0();
+  File workingdir;
+  
+  private void export(){
+    videoexporter.export(frame,frameindex,workingdir);}
+  
   
 }
