@@ -146,7 +146,8 @@ public class Spinner{
   File workingdir;
   
   private void export(){
-    videoexporter.export(frame,frameindex,workingdir);}
+    if(workingdir!=null)
+      videoexporter.export(frame,frameindex,workingdir);}
   
   
 }

@@ -9,7 +9,7 @@ import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
-import org.fleen.forsythia.core.grammar.Jig;
+import org.fleen.forsythia.core.grammar.FJig;
 import org.fleen.util.tree.TreeNodeIterator;
 
 public class FSC_Basic extends ForsythiaSimpleComposer_Abstract{
@@ -61,7 +61,7 @@ public class FSC_Basic extends ForsythiaSimpleComposer_Abstract{
    */
   
   protected boolean createNodes(ForsythiaComposition composition){
-    Jig jig;
+    FJig jig;
     boolean creatednodes=false;
     TreeNodeIterator i=composition.getLeafPolygonIterator();
     FPolygon leaf;
@@ -84,13 +84,13 @@ public class FSC_Basic extends ForsythiaSimpleComposer_Abstract{
    * ################################
    */
   
-  Map<FPolygonSignature,Jig> jigbypolygonsig=new Hashtable<FPolygonSignature,Jig>();
+  Map<FPolygonSignature,FJig> jigbypolygonsig=new Hashtable<FPolygonSignature,FJig>();
   Random rnd=new Random();
   
-  private Jig selectJig(ForsythiaGrammar forsythiagrammar,FPolygon polygon){
+  private FJig selectJig(ForsythiaGrammar forsythiagrammar,FPolygon polygon){
     //get a jig by signature
     //polygons with the same sig get the same jig
-    Jig j=jigbypolygonsig.get(polygon.getSignature());
+    FJig j=jigbypolygonsig.get(polygon.getSignature());
     //-------------------------------
     //induce asymmetry
     if(rnd.nextDouble()>symmetry)j=null;
@@ -105,10 +105,10 @@ public class FSC_Basic extends ForsythiaSimpleComposer_Abstract{
       jigbypolygonsig.put(polygon.getSignature(),j);
       return j;}}
   
-  private Jig getRandomJig(ForsythiaGrammar fg,FPolygon target){
-    List<Jig> jigs=fg.getJigsAboveDetailSizeFloor(target,detailsizefloor);
+  private FJig getRandomJig(ForsythiaGrammar fg,FPolygon target){
+    List<FJig> jigs=fg.getJigsAboveDetailSizeFloor(target,detailsizefloor);
     if(jigs.isEmpty())return null;
-    Jig jig=jigs.get(new Random().nextInt(jigs.size()));
+    FJig jig=jigs.get(new Random().nextInt(jigs.size()));
     return jig;}
   
   /*

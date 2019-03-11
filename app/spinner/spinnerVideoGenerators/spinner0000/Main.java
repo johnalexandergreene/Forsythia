@@ -14,7 +14,7 @@ public class Main{
     VIEWPORTWIDTH=1080,
     VIEWPORTHEIGHT=720,
     FLOWDIR=Spinner.FLOWDIR_NORTH,
-    ROUGHLENGTH=3000;//72000 is 20min
+    ROUGHLENGTH=30000;//72000 is 20min
   
   private static UI ui;
   
@@ -36,7 +36,7 @@ public class Main{
       getHeaderStripe(),
       new SG_ColoredBoxes(),
       new Renderer0(),
-      new File(WORKINGDIR),
+      null,//new File(WORKINGDIR),
       observer);
     ui=new UI();
     s.run();}

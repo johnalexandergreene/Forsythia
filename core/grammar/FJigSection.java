@@ -14,7 +14,7 @@ import org.fleen.util.tag.TagManager;
  * within the node-creating system of a Jig
  * See JigSection interface for details
  */
-public class JigSection implements Serializable,Forsythia{
+public class FJigSection implements Serializable,Forsythia{
   
   private static final long serialVersionUID=-7594787438281531096L;
   
@@ -24,7 +24,7 @@ public class JigSection implements Serializable,Forsythia{
    * ################################
    */
   
-  public JigSection(FMetagon productmetagon,KAnchor productanchor,int productchorusindex,String[] producttags){
+  public FJigSection(FMetagon productmetagon,KAnchor productanchor,int productchorusindex,String[] producttags){
     this.productmetagon=productmetagon;
 //    this.productanchor=new KAnchor(productanchor);//isolate it
     this.productanchor=productanchor;

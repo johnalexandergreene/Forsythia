@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.project.metagon.ProjectMetagon;
-import org.fleen.forsythia.core.grammar.JigSection;
+import org.fleen.forsythia.core.grammar.FJigSection;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;
 import org.fleen.geom_Kisrhombille.GK;
@@ -35,7 +35,7 @@ public class ProjectJigSection implements Serializable{
       this.chorusindex=chorusindex;}
   
   //import
-  public ProjectJigSection(ProjectJig owner,JigSection jigsection){
+  public ProjectJigSection(ProjectJig owner,FJigSection jigsection){
     this.owner=owner;
     initForImport(jigsection);}
   
@@ -126,7 +126,7 @@ public class ProjectJigSection implements Serializable{
    * seek a match for the imported metagon
    * if none found then exception
    */
-  private void initForImport(JigSection jigsection){
+  private void initForImport(FJigSection jigsection){
     metagon=GE.ge.focusgrammar.getMetagon(jigsection.productmetagon);
     if(metagon==null)throw new IllegalArgumentException("metagon in jigsection not found in focus grammar");
     //

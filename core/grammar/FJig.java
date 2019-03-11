@@ -19,7 +19,7 @@ import org.fleen.util.tag.Tagged;
  * like cutting a board into puzzle pieces
  * each metagon has a lits of these associated with it
  */
-public class Jig implements Serializable,Tagged,Forsythia{
+public class FJig implements Serializable,Tagged,Forsythia{
   
   private static final long serialVersionUID=-5737903972508676140L;
   
@@ -29,7 +29,7 @@ public class Jig implements Serializable,Tagged,Forsythia{
    * ################################
    */
 
-  public Jig(int griddensity,List<JigSection> sections,String[] tags){
+  public FJig(int griddensity,List<FJigSection> sections,String[] tags){
     this.griddensity=griddensity;
     this.sections=sections;
     tagmanager.setTags(tags);}
@@ -68,7 +68,7 @@ public class Jig implements Serializable,Tagged,Forsythia{
    * ################################
    */
   
-  public List<JigSection> sections;
+  public List<FJigSection> sections;
   
   /*
    * ################################
@@ -102,7 +102,7 @@ public class Jig implements Serializable,Tagged,Forsythia{
     newgrid.setParent(target);
     //create nodes. hook them up.
     ForsythiaTreeNode newnode;
-    for(JigSection section:sections){
+    for(FJigSection section:sections){
       newnode=section.createNode();
       newnode.setParent(newgrid);
       newnodes.add(newnode);}
@@ -172,7 +172,7 @@ public class Jig implements Serializable,Tagged,Forsythia{
   private List<KPolygon> getDSPTestPolygons(){
     List<KPolygon> polygons=new ArrayList<KPolygon>(sections.size());
     KPolygon p;
-    for(JigSection section:sections){
+    for(FJigSection section:sections){
       p=section.productmetagon.getPolygon(section.productanchor.v0,section.productanchor.v1);
       polygons.add(p);}
     return polygons;}
@@ -180,7 +180,7 @@ public class Jig implements Serializable,Tagged,Forsythia{
   //TODO it's a good idea for test and tool but how does it fit into our design
   public List<DPolygon> getTestPolygons(){
     List<DPolygon> polygons=new ArrayList<DPolygon>();
-    for(JigSection s:sections)
+    for(FJigSection s:sections)
       polygons.add(s.getTestPolygon());
     return polygons;}
   
@@ -247,7 +247,7 @@ public class Jig implements Serializable,Tagged,Forsythia{
     a.append("["+getClass().getSimpleName()+" ");
     a.append("griddensity="+griddensity+" ");
     a.append("tags="+tagmanager.toString()+"\n");
-    for(JigSection s:sections)
+    for(FJigSection s:sections)
       a.append(s.toString()+"\n");
     return a.toString();}
   

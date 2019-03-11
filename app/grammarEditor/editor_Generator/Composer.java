@@ -12,7 +12,7 @@ import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.core.grammar.FMetagon;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
-import org.fleen.forsythia.core.grammar.Jig;
+import org.fleen.forsythia.core.grammar.FJig;
 import org.fleen.util.tree.TreeNodeIterator;
 
 public class Composer implements Serializable{
@@ -71,7 +71,7 @@ public class Composer implements Serializable{
    * if nodes were not created then return false
    */
   private boolean createNodes(ForsythiaComposition composition){
-    Jig jig;
+    FJig jig;
     boolean creatednodes=false;
     TreeNodeIterator i=composition.getLeafPolygonIterator();
     FPolygon leaf;
@@ -94,13 +94,13 @@ public class Composer implements Serializable{
    * ################################
    */
   
-  Map<FPolygonSignature,Jig> jigbypolygonsig=new Hashtable<FPolygonSignature,Jig>();
+  Map<FPolygonSignature,FJig> jigbypolygonsig=new Hashtable<FPolygonSignature,FJig>();
 //  Random rnd=new Random();
   
-  private Jig selectJig(ForsythiaGrammar fg,FPolygon polygon){
+  private FJig selectJig(ForsythiaGrammar fg,FPolygon polygon){
     //get a jig by signature
     //polygons with the same sig get the same jig
-    Jig j=jigbypolygonsig.get(polygon.getSignature());
+    FJig j=jigbypolygonsig.get(polygon.getSignature());
     if(j!=null){
       return j;
     //no jig found keyed by that signature

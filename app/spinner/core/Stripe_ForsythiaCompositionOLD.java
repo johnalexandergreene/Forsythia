@@ -18,7 +18,7 @@ import org.fleen.geom_Kisrhombille.KPolygon;
  * refers to a ForsythiaComposition with a rectangular root.
  * 
  */
-public class Stripe_ForsythiaComposition implements Stripe{
+public class Stripe_ForsythiaCompositionOLD implements Stripe{
   
   /*
    * ################################
@@ -26,18 +26,19 @@ public class Stripe_ForsythiaComposition implements Stripe{
    * ################################
    */
   
-  public Stripe_ForsythiaComposition(Spinner spinner,ForsythiaComposition fc){
-    this.spinner=spinner;
+  public Stripe_ForsythiaCompositionOLD(StripeChainWithMovingViewport chain){
+    this.chain=chain;
     initComposition();
     initColorMap();}
   
   /*
    * ################################
-   * SPINNER
+   * CHAIN
+   * The stripe chain that this stripe is a part of
    * ################################
    */
   
-  Spinner spinner;
+  StripeChainWithMovingViewport chain;
   
   /*
    * ################################

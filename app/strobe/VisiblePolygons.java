@@ -9,7 +9,7 @@ import java.util.Random;
 import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
-import org.fleen.forsythia.core.grammar.Jig;
+import org.fleen.forsythia.core.grammar.FJig;
 import org.fleen.geom_2D.DPolygon;
 
 /*
@@ -77,17 +77,17 @@ public class VisiblePolygons extends ArrayList<FPolygon>{
    * ################################
    */
   
-  Map<FPolygonSignature,Jig> jigbypolygonsig=new HashMap<FPolygonSignature,Jig>();
+  Map<FPolygonSignature,FJig> jigbypolygonsig=new HashMap<FPolygonSignature,FJig>();
   Random rnd=new Random();
   
   private void cultivateOnce(FPolygon polygon,ForsythiaGrammar grammar){
-    Jig jig=selectJig(polygon,grammar);
+    FJig jig=selectJig(polygon,grammar);
     jig.createNodes(polygon);}
   
-  private Jig selectJig(FPolygon polygon,ForsythiaGrammar grammar){
+  private FJig selectJig(FPolygon polygon,ForsythiaGrammar grammar){
     //get a jig by signature
     //polygons with the same sig get the same jig
-    Jig j=jigbypolygonsig.get(polygon.getSignature());
+    FJig j=jigbypolygonsig.get(polygon.getSignature());
     if(j!=null){
       return j;
     //no jig found keyed by that signature
@@ -98,10 +98,10 @@ public class VisiblePolygons extends ArrayList<FPolygon>{
       jigbypolygonsig.put(polygon.getSignature(),j);
       return j;}}
   
-  private Jig getRandomJig(ForsythiaGrammar fg,FPolygon target){
-    List<Jig> jigs=fg.getJigs(target);
+  private FJig getRandomJig(ForsythiaGrammar fg,FPolygon target){
+    List<FJig> jigs=fg.getJigs(target);
     if(jigs.isEmpty())return null;
-    Jig jig=jigs.get(rnd.nextInt(jigs.size()));
+    FJig jig=jigs.get(rnd.nextInt(jigs.size()));
     return jig;}
 
 }

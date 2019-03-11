@@ -10,8 +10,8 @@ import java.util.Map;
 import org.fleen.forsythia.app.grammarEditor.GE;
 import org.fleen.forsythia.app.grammarEditor.project.metagon.ProjectMetagon;
 import org.fleen.forsythia.app.grammarEditor.util.ElementMenuItem;
-import org.fleen.forsythia.core.grammar.Jig;
-import org.fleen.forsythia.core.grammar.JigSection;
+import org.fleen.forsythia.core.grammar.FJig;
+import org.fleen.forsythia.core.grammar.FJigSection;
 import org.fleen.geom_Kisrhombille.KAnchor;
 import org.fleen.geom_Kisrhombille.KMetagon;
 import org.fleen.geom_Kisrhombille.KPolygon;
@@ -41,7 +41,7 @@ public class ProjectJig implements ElementMenuItem,Serializable{
     initGraph();}
   
   //import
-  public ProjectJig(ProjectMetagon jiggedmetagon,Jig jig){
+  public ProjectJig(ProjectMetagon jiggedmetagon,FJig jig){
     this.jiggedmetagon=jiggedmetagon;
     initForImport(jig);}
   
@@ -56,14 +56,14 @@ public class ProjectJig implements ElementMenuItem,Serializable{
    * Any metagon found in a jig (target or product) should be found in that list
    * if it isn't then we have an exception 
    */
-  public void initForImport(Jig jig){
+  public void initForImport(FJig jig){
     this.griddensity=jig.griddensity;
     setTags(jig.getTags());
     //
     ProjectJigSection pjspolygon;
-    for(JigSection js:jig.sections){
-      if(js instanceof JigSection){
-         pjspolygon=new ProjectJigSection(this,(JigSection)js);
+    for(FJigSection js:jig.sections){
+      if(js instanceof FJigSection){
+         pjspolygon=new ProjectJigSection(this,(FJigSection)js);
          sections.add(pjspolygon);}}
     ((ArrayList<ProjectJigSection>)sections).trimToSize();}
   

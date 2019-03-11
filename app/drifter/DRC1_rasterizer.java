@@ -13,7 +13,7 @@ import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
-import org.fleen.forsythia.core.grammar.Jig;
+import org.fleen.forsythia.core.grammar.FJig;
 import org.fleen.geom_2D.DPoint;
 import org.fleen.geom_2D.DPolygon;
 import org.fleen.geom_2D.GD;
@@ -242,17 +242,17 @@ public class DRC1_rasterizer implements DrifterRendererComposer{
    * ################################
    */
   
-  Map<FPolygonSignature,Jig> jigbypolygonsig=new Hashtable<FPolygonSignature,Jig>();
+  Map<FPolygonSignature,FJig> jigbypolygonsig=new Hashtable<FPolygonSignature,FJig>();
   Random rnd=new Random();
   
   private void cultivateOnce(FPolygon polygon){
-    Jig jig=selectJig(polygon);
+    FJig jig=selectJig(polygon);
     jig.createNodes(polygon);}
   
-  private Jig selectJig(FPolygon polygon){
+  private FJig selectJig(FPolygon polygon){
     //get a jig by signature
     //polygons with the same sig get the same jig
-    Jig j=jigbypolygonsig.get(polygon.getSignature());
+    FJig j=jigbypolygonsig.get(polygon.getSignature());
     if(j!=null){
       return j;
     //no jig found keyed by that signature
@@ -263,10 +263,10 @@ public class DRC1_rasterizer implements DrifterRendererComposer{
       jigbypolygonsig.put(polygon.getSignature(),j);
       return j;}}
   
-  private Jig getRandomJig(ForsythiaGrammar fg,FPolygon target){
-    List<Jig> jigs=fg.getJigs(target);
+  private FJig getRandomJig(ForsythiaGrammar fg,FPolygon target){
+    List<FJig> jigs=fg.getJigs(target);
     if(jigs.isEmpty())return null;
-    Jig jig=jigs.get(rnd.nextInt(jigs.size()));
+    FJig jig=jigs.get(rnd.nextInt(jigs.size()));
     return jig;}
   
   /*

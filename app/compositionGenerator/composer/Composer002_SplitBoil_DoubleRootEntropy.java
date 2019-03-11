@@ -10,8 +10,8 @@ import org.fleen.forsythia.core.composition.FPolygon;
 import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
-import org.fleen.forsythia.core.grammar.Jig;
-import org.fleen.forsythia.core.grammar.JigSection;
+import org.fleen.forsythia.core.grammar.FJig;
+import org.fleen.forsythia.core.grammar.FJigSection;
 import org.fleen.util.tree.TreeNodeIterator;
 
 public class Composer002_SplitBoil_DoubleRootEntropy extends Composer_Abstract{
@@ -52,7 +52,7 @@ public class Composer002_SplitBoil_DoubleRootEntropy extends Composer_Abstract{
    */
   
   protected boolean createNodes(ForsythiaComposition composition,double detaillimit){
-    Jig jig;
+    FJig jig;
     boolean creatednodes=false;
     TreeNodeIterator i=composition.getLeafPolygonIterator();
     //
@@ -76,12 +76,12 @@ public class Composer002_SplitBoil_DoubleRootEntropy extends Composer_Abstract{
    * ################################
    */
   
-  Map<FPolygonSignature,Jig> jigbypolygonsig=new Hashtable<FPolygonSignature,Jig>();
+  Map<FPolygonSignature,FJig> jigbypolygonsig=new Hashtable<FPolygonSignature,FJig>();
   
-  private Jig selectJig(ForsythiaGrammar forsythiagrammar,FPolygon polygon,double detaillimit){
+  private FJig selectJig(ForsythiaGrammar forsythiagrammar,FPolygon polygon,double detaillimit){
     //get a jig by signature
     //polygons with the same sig get the same jig
-    Jig j=jigbypolygonsig.get(polygon.getSignature());
+    FJig j=jigbypolygonsig.get(polygon.getSignature());
     if(j!=null){
       return j;
     //no jig found keyed by that signature
@@ -104,16 +104,16 @@ public class Composer002_SplitBoil_DoubleRootEntropy extends Composer_Abstract{
    * ++++++++++++++++++++++++++++++++
    */
   
-  private List<Jig> 
-    boilers=new ArrayList<Jig>(),
-    splitters=new ArrayList<Jig>();
+  private List<FJig> 
+    boilers=new ArrayList<FJig>(),
+    splitters=new ArrayList<FJig>();
   
-  private Jig getRandomJigUsingSplitBoilLogic(ForsythiaGrammar fg,FPolygon target,double detaillimit){
-    List<Jig> jigs=fg.getJigsAboveDetailSizeFloor(target,detaillimit);
+  private FJig getRandomJigUsingSplitBoilLogic(ForsythiaGrammar fg,FPolygon target,double detaillimit){
+    List<FJig> jigs=fg.getJigsAboveDetailSizeFloor(target,detaillimit);
     if(jigs.isEmpty())return null;
     //
     createBoilersAndSplittersLists(jigs);
-    Jig jig;
+    FJig jig;
 //    if(target.isRootPolygon()||(rnd.nextDouble()>0.5&&target.hasTags("egg"))){
     if(target.isRootPolygon()||target.hasTags("egg")){
       jig=getRandomSplitter();
@@ -124,20 +124,20 @@ public class Composer002_SplitBoil_DoubleRootEntropy extends Composer_Abstract{
     return jig;}
   
   
-  private Jig getRandomBoiler(){
+  private FJig getRandomBoiler(){
     if(boilers.isEmpty())return null;
-    Jig jig=boilers.get(rnd.nextInt(boilers.size()));
+    FJig jig=boilers.get(rnd.nextInt(boilers.size()));
     return jig;}
   
-  private Jig getRandomSplitter(){
+  private FJig getRandomSplitter(){
     if(splitters.isEmpty())return null;
-    Jig jig=splitters.get(rnd.nextInt(splitters.size()));
+    FJig jig=splitters.get(rnd.nextInt(splitters.size()));
     return jig;}
   
-  private void createBoilersAndSplittersLists(List<Jig> jigs){
+  private void createBoilersAndSplittersLists(List<FJig> jigs){
     boilers.clear();
     splitters.clear();
-    for(Jig jig:jigs){
+    for(FJig jig:jigs){
       if(isBoiler(jig))
         boilers.add(jig);
       else
@@ -147,8 +147,8 @@ public class Composer002_SplitBoil_DoubleRootEntropy extends Composer_Abstract{
    * If a jig has a section tagged "egg" then that jig is a boiler
    * and if it isn't a boiler then it's a splitter
    */
-  private boolean isBoiler(Jig jig){
-    for(JigSection s:jig.sections)
+  private boolean isBoiler(FJig jig){
+    for(FJigSection s:jig.sections)
       if(s.tags.hasTag("egg"))
         return true;
     return false;}

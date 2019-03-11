@@ -17,7 +17,7 @@ import org.fleen.forsythia.core.Forsythia;
  * 
  * with handy access methods
  */
-public class ForsythiaGrammarJigList extends ArrayList<Jig> implements Forsythia{
+public class FJigList extends ArrayList<FJig> implements Forsythia{
 
   private static final long serialVersionUID=866462351907868545L;
   
@@ -27,7 +27,7 @@ public class ForsythiaGrammarJigList extends ArrayList<Jig> implements Forsythia
    * ################################
    */
   
-  public ForsythiaGrammarJigList(Collection<Jig> jigs){
+  public FJigList(Collection<FJig> jigs){
     super(jigs.size());
     init(jigs);}
   
@@ -37,12 +37,12 @@ public class ForsythiaGrammarJigList extends ArrayList<Jig> implements Forsythia
    * ################################
    */
   
-  private void init(Collection<Jig> jigs){
+  private void init(Collection<FJig> jigs){
     addAll(jigs);
     Collections.sort(this,new DetailSizeComparator());}
   
-  private class DetailSizeComparator implements Comparator<Jig>{
-    public int compare(Jig j0,Jig j1){
+  private class DetailSizeComparator implements Comparator<FJig>{
+    public int compare(FJig j0,FJig j1){
       double 
         bds0=j0.getDetailSize(),
         bds1=j1.getDetailSize();
@@ -59,11 +59,11 @@ public class ForsythiaGrammarJigList extends ArrayList<Jig> implements Forsythia
    * ################################
    */
   
-  List<Jig> getJigsAboveFloorWithTags(String[] tags,double floor){
-    List<Jig> 
+  List<FJig> getJigsAboveFloorWithTags(String[] tags,double floor){
+    List<FJig> 
       a=getJigsAboveDetailSizeFloor(floor),
-      b=new ArrayList<Jig>();
-    for(Jig j:a)
+      b=new ArrayList<FJig>();
+    for(FJig j:a)
       if(j.hasTags(tags))
         b.add(j);
     return b;}
@@ -76,9 +76,9 @@ public class ForsythiaGrammarJigList extends ArrayList<Jig> implements Forsythia
    * If all of the jigs in the jist have a detail size beneath the floor then 
    *   we return an empty list 
    */
-  public List<Jig> getJigsAboveDetailSizeFloor(double floor){
-    List<Jig> jigs=new ArrayList<Jig>();
-    Jig jig;
+  public List<FJig> getJigsAboveDetailSizeFloor(double floor){
+    List<FJig> jigs=new ArrayList<FJig>();
+    FJig jig;
     SEEK:for(int i=size()-1;i>-1;i--){
       jig=get(i);
       if(jig.getDetailSize()<floor)

@@ -16,7 +16,7 @@ import org.fleen.forsythia.core.composition.FPolygonSignature;
 import org.fleen.forsythia.core.composition.ForsythiaComposition;
 import org.fleen.forsythia.core.grammar.FMetagon;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
-import org.fleen.forsythia.core.grammar.Jig;
+import org.fleen.forsythia.core.grammar.FJig;
 import org.fleen.util.tree.TreeNodeIterator;
 
 public class FCGen003_SplitBoil_TotalSymmetry implements ForsythiaCompositionGen{
@@ -86,7 +86,7 @@ public class FCGen003_SplitBoil_TotalSymmetry implements ForsythiaCompositionGen
    */
   
   protected boolean createNodes(ForsythiaComposition composition,double detaillimit){
-    Jig jig;
+    FJig jig;
     boolean creatednodes=false;
     TreeNodeIterator i=composition.getLeafPolygonIterator();
     //
@@ -110,12 +110,12 @@ public class FCGen003_SplitBoil_TotalSymmetry implements ForsythiaCompositionGen
    * ################################
    */
   
-  Map<FPolygonSignature,Jig> jigbypolygonsig=new Hashtable<FPolygonSignature,Jig>();
+  Map<FPolygonSignature,FJig> jigbypolygonsig=new Hashtable<FPolygonSignature,FJig>();
   
-  private Jig selectJig(ForsythiaGrammar forsythiagrammar,FPolygon polygon,double detaillimit){
+  private FJig selectJig(ForsythiaGrammar forsythiagrammar,FPolygon polygon,double detaillimit){
     //get a jig by signature
     //polygons with the same sig get the same jig
-    Jig j=jigbypolygonsig.get(polygon.getSignature());
+    FJig j=jigbypolygonsig.get(polygon.getSignature());
     if(j!=null){
       return j;
     //no jig found keyed by that signature
@@ -138,8 +138,8 @@ public class FCGen003_SplitBoil_TotalSymmetry implements ForsythiaCompositionGen
    * ++++++++++++++++++++++++++++++++
    */
   
-  private Jig getRandomJigUsingSplitBoilLogic(ForsythiaGrammar fg,FPolygon target,double detaillimit){
-    List<Jig> jigs=fg.getJigsAboveDetailSizeFloor(target,detaillimit);
+  private FJig getRandomJigUsingSplitBoilLogic(ForsythiaGrammar fg,FPolygon target,double detaillimit){
+    List<FJig> jigs=fg.getJigsAboveDetailSizeFloor(target,detaillimit);
     if(jigs.isEmpty())return null;
     return jigs.get(rnd.nextInt(jigs.size()));}
   

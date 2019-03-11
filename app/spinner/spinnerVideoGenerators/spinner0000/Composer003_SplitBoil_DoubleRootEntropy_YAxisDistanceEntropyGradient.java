@@ -1,4 +1,4 @@
-package org.fleen.forsythia.app.compositionGenerator.generators.fc0010_poster_18x30_VariableStrokeThicknessTest;
+package org.fleen.forsythia.app.spinner.spinnerVideoGenerators.spinner0000;
 
 import java.awt.geom.Rectangle2D;
 import java.io.InputStream;
@@ -40,7 +40,7 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
    * ################################
    */
   
-  private static final String GRAMMARNAME="b.grammar";
+  private static final String GRAMMARNAME="a002.grammar";
   ForsythiaGrammar grammar;
   
   private void initGrammar(){
@@ -60,7 +60,8 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
    * ################################
    */
   
-  private static final double DETAILLIMIT=0.037;
+//  private static final double DETAILLIMIT=0.047;
+  private static final double DETAILLIMIT=0.09;
   
   /*
    * ################################
@@ -120,7 +121,7 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
       leaf=(FPolygon)i.next();
       doArbitraryEntropy(leaf);
       if(isCapped(leaf))continue;
-      jig=selectJig(grammar,leaf,detaillimit);
+      jig=selectJig(grammar,leaf,detaillimit/leaf.getGrid().getLocalKGrid().getFish());
       if(jig==null){
         cap(leaf);
       }else{
@@ -192,19 +193,8 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
     splitters=new ArrayList<FJig>();
   
   private FJig getRandomJigUsingSplitBoilLogic(ForsythiaGrammar fg,FPolygon target,double detaillimit){
-    List<FJig> jigs=fg.getJigsAboveDetailSizeFloor(target,detaillimit);
-    if(jigs.isEmpty())return null;
-    //
-    createBoilersAndSplittersLists(jigs);
-    FJig jig;
-//    if(target.isRootPolygon()||(rnd.nextDouble()>0.5&&target.hasTags("egg"))){
-    if(target.isRootPolygon()||target.hasTags("egg")){
-      jig=getRandomSplitter();
-      if(jig==null)jig=getRandomBoiler();
-    }else{
-      jig=getRandomBoiler();
-      if(jig==null)jig=getRandomSplitter();}
-    return jig;}
+    FJig j=fg.getRandomJig(target.metagon,null,detaillimit);
+    return j;}
   
   
   private FJig getRandomBoiler(){
@@ -254,18 +244,7 @@ public class Composer003_SplitBoil_DoubleRootEntropy_YAxisDistanceEntropyGradien
    * if we can't find one then pick any metagon
    */
   private FPolygon createRootPolygon(ForsythiaGrammar grammar){
-    List<FMetagon> metagons=grammar.getMetagons();
-    if(metagons.isEmpty())
-      throw new IllegalArgumentException("this grammar has no metagons");
-    List<FMetagon> rootmetagons=new ArrayList<FMetagon>();
-    for(FMetagon m:metagons)
-      if(m.hasTags("root"))
-        rootmetagons.add(m);
-    FMetagon m;
-    if(!rootmetagons.isEmpty())
-      m=rootmetagons.get(new Random().nextInt(rootmetagons.size()));
-    else
-      m=metagons.get(new Random().nextInt(metagons.size()));
+    FMetagon m=grammar.getRandomMetagon(new String[]{"rootrect"});
     FPolygon p=new FPolygon(m);
     return p;}
   

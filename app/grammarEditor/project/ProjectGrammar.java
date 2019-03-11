@@ -18,8 +18,8 @@ import org.fleen.forsythia.app.grammarEditor.project.jig.ProjectJigSection;
 import org.fleen.forsythia.app.grammarEditor.project.metagon.ProjectMetagon;
 import org.fleen.forsythia.core.grammar.FMetagon;
 import org.fleen.forsythia.core.grammar.ForsythiaGrammar;
-import org.fleen.forsythia.core.grammar.Jig;
-import org.fleen.forsythia.core.grammar.JigSection;
+import org.fleen.forsythia.core.grammar.FJig;
+import org.fleen.forsythia.core.grammar.FJigSection;
 import org.fleen.geom_Kisrhombille.KAnchor;
 import org.fleen.geom_Kisrhombille.KMetagon;
 
@@ -211,10 +211,10 @@ public class ProjectGrammar implements Serializable{
     //for every projectmetagon in the project grammar, 
     //get each of its associated jigs from the forsythia grammar and convert it
     ProjectJig projectjig;
-    List<Jig> jigs;
+    List<FJig> jigs;
     for(ProjectMetagon projectmetagon:projectgrammar.metagons){
       jigs=forsythiagrammar.getJigs(projectmetagon.kmetagon);
-      for(Jig jig:jigs){
+      for(FJig jig:jigs){
         projectjig=new ProjectJig(projectmetagon,jig);
         projectmetagon.addJig(projectjig);}}}
   
@@ -233,8 +233,8 @@ public class ProjectGrammar implements Serializable{
       fm=new FMetagon(pm.kmetagon,pm.getTagsForExport());
       fmetagonbykmetagon.put(pm.kmetagon,fm);}
     //create jigs
-    Map<FMetagon,List<Jig>> metagonjigs=new Hashtable<FMetagon,List<Jig>>();
-    List<Jig> jigs;
+    Map<FMetagon,List<FJig>> metagonjigs=new Hashtable<FMetagon,List<FJig>>();
+    List<FJig> jigs;
     for(ProjectMetagon pm:metagons){
       jigs=getJigs(pm,fmetagonbykmetagon);
       fm=fmetagonbykmetagon.get(pm.kmetagon);
@@ -251,28 +251,28 @@ public class ProjectGrammar implements Serializable{
   
   //convert all projectjigs to jigs for specified projectmetagon
   //return the jigs in a list
-  private List<Jig> getJigs(ProjectMetagon pm,Map<KMetagon,FMetagon> fmetagonbykmetagon){
-    List<Jig> jigs=new ArrayList<Jig>();
-    Jig jig;
+  private List<FJig> getJigs(ProjectMetagon pm,Map<KMetagon,FMetagon> fmetagonbykmetagon){
+    List<FJig> jigs=new ArrayList<FJig>();
+    FJig jig;
     int jiggriddensity;
-    List<JigSection> jigsections;
+    List<FJigSection> jigsections;
     String[] jigtags;
     for(ProjectJig projectjig:pm.jigs){
       jiggriddensity=projectjig.griddensity;
       jigsections=getJigSections(projectjig,fmetagonbykmetagon);
       jigtags=projectjig.getTagsForExport();
-      jig=new Jig(jiggriddensity,jigsections,jigtags);
+      jig=new FJig(jiggriddensity,jigsections,jigtags);
       jigs.add(jig);}
     return jigs;}
   
-  private List<JigSection> getJigSections(ProjectJig projectjig,Map<KMetagon,FMetagon> fmetagonbykmetagon){
-    List<JigSection> jigsections=new ArrayList<JigSection>();
+  private List<FJigSection> getJigSections(ProjectJig projectjig,Map<KMetagon,FMetagon> fmetagonbykmetagon){
+    List<FJigSection> jigsections=new ArrayList<FJigSection>();
     jigsections.addAll(getPolygonJigSections(projectjig,fmetagonbykmetagon));
     return jigsections;}
   
-  private List<JigSection> getPolygonJigSections(ProjectJig projectjig,Map<KMetagon,FMetagon> fmetagonbykmetagon){
-    List<JigSection> jigsections=new ArrayList<JigSection>();
-    JigSection js;
+  private List<FJigSection> getPolygonJigSections(ProjectJig projectjig,Map<KMetagon,FMetagon> fmetagonbykmetagon){
+    List<FJigSection> jigsections=new ArrayList<FJigSection>();
+    FJigSection js;
     FMetagon jsproductmetagon;
     int jsproductchorusindex;
     KAnchor jsproductanchor;
@@ -282,7 +282,7 @@ public class ProjectGrammar implements Serializable{
       jsproductmetagon=fmetagonbykmetagon.get(projectjigsection.metagon.kmetagon);
       jsproductanchor=projectjigsection.getAnchor();
       jstags=projectjigsection.getTagsForExport();
-      js=new JigSection(
+      js=new FJigSection(
         jsproductmetagon,jsproductanchor,
         jsproductchorusindex,jstags);
       jigsections.add(js);}
