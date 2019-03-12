@@ -36,11 +36,23 @@ public class ForsythiaGrammar implements Serializable{
   /*
    * ################################
    * METAGONS AND JIGS
-   * Implementation of ForsythiaGrammar interface
    * ################################
    */
 
   private Map<FMetagon,FJigList> metagonjigs=new Hashtable<FMetagon,FJigList>();
+  
+  /*
+   * returns the map upon which this grammar is based
+   * used for wrapping and extending, like with coneflower
+   */
+  public Map<FMetagon,FJigList> getMetagonJigsMap(){
+    return metagonjigs;}
+  
+  /*
+   * ################################
+   * METAGONS
+   * ################################
+   */
   
   public FMetagon getRandomMetagon(String[] tags){
     List<FMetagon> a=new ArrayList<FMetagon>();
@@ -54,31 +66,7 @@ public class ForsythiaGrammar implements Serializable{
     Random random=new Random();
     FMetagon b=a.get(random.nextInt(a.size()));
     return b;}
-  
-  public FJig getRandomJig(FMetagon m,String[] tags,double detailfloor){
-    Random random=new Random();//randomm was spitting out zeros. Bug?
-    //so we're instantiating it in method instead of class
-    FJigList a=metagonjigs.get(m);
-    List<FJig> b=a.getJigsAboveFloorWithTags(tags,detailfloor);
-    if(b.isEmpty())return null;
-    FJig j=b.get(random.nextInt(b.size()));
-    return j;}
-  
-  /*
-   * ################################
-   * MORE ACCESS METHODS
-   * not part of ForsythiaGrammar interface
-   * used in the grammar editor
-   * ################################
-   */
-  
-  /*
-   * returns the map upon which this grammar is based
-   * used for wrapping and extending, like with coneflower
-   */
-  public Map<FMetagon,FJigList> getMetagonJigsMap(){
-    return metagonjigs;}
-  
+
   public int getMetagonCount(){
     return metagonjigs.keySet().size();}
   
@@ -88,6 +76,21 @@ public class ForsythiaGrammar implements Serializable{
   public List<FMetagon> getMetagons(){
     List<FMetagon> m=new ArrayList<FMetagon>(metagonjigs.keySet());
     return m;}
+  
+  /*
+   * ################################
+   * JIGS
+   * ################################
+   */
+  
+  public FJig getRandomJig(FMetagon m,String[] tags,double detailfloor){
+    Random random=new Random();//randomm was spitting out zeros. Bug?
+    //so we're instantiating it in method instead of class
+    FJigList a=metagonjigs.get(m);
+    List<FJig> b=a.getJigsAboveFloorWithTags(tags,detailfloor);
+    if(b.isEmpty())return null;
+    FJig j=b.get(random.nextInt(b.size()));
+    return j;}
   
   public List<FJig> getJigs(FMetagon metagon){
     List<FJig> a=new ArrayList<FJig>(metagonjigs.get(metagon));

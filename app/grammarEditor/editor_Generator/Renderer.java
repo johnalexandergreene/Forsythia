@@ -190,7 +190,7 @@ public class Renderer implements Serializable{
    * ################################
    */
   
-  private static final float STROKEWIDTH=0.01f;
+  private static final float STROKEWIDTH=0.006f;
   
   Stroke stroke;
   
