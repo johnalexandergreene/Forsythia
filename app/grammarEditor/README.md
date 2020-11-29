@@ -152,6 +152,8 @@ For your own purposes you can use whatever tags you like
 
 ![](/app/grammarEditor/doc/pix/s03.png?raw=true)
 
+![](/app/grammarEditor/doc/pix/i12.png?raw=true)
+
 
 
 
